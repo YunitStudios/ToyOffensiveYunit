@@ -11,13 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a1aaded003aadb42a84bfb74b5e87cf, type: 3}
   m_Name: sniper_rifle
-  m_EditorClassIdentifier: Assembly-CSharp::WeaponSO
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
   ClassName: sniper_rifle
   DisplayName: Sniper Rifle
-  FireRateRPM: 10
-  Damage: 60
-  FireModes:
-  - Semi
+  FireRateRPM: 50
+  Damage: 100
+  SupportedFireModes: 01000000
+  CurrentFireMode: 0
   MagSize: 5
   SpecialAmmo: 0
   ReloadTime: 5
@@ -27,7 +27,9 @@ MonoBehaviour:
   ShotQuantity: 1
   ShotSpread: 0
   IsPhysicsBased: 0
+  InitialVelocityMS: 0
+  MassKG: 0
+  Attachments:
+  - 
   WeaponPrefab: {fileID: 0}
-  CurrentAmmoInMag: 0
-  CurrentFireMode: 
-  FirePoint: {fileID: 0}
+  AimCameraType: 2

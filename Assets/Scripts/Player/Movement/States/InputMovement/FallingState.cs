@@ -43,7 +43,7 @@ public class FallingState : InputMoveState
         // Tween current multiple from previous to target
         Tween.Custom(previousSpeedMultiplier, taretSpeedMultiplier, Settings.SpeedTransitionTime, value => currentSpeedMultiplier = value, Settings.SpeedTransitionEase);
 
-        stateMachine.PlayerAnimator.CrossFade("Falling", 0.05f);
+        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Falling", 0.2f);
         stateMachine.PlayerAnimator.SetBool(IsFalling, true);
     }
 

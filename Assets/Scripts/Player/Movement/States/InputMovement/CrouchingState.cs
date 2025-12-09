@@ -8,9 +8,9 @@ public class CrouchingSettings : StateSettings
     [Tooltip("Speed multiplier when crouching")]
     [SerializeField] private float crouchingSpeedMultiplier = 0.5f;
     public float CrouchingSpeedMultiplier => crouchingSpeedMultiplier;
-    [Tooltip("Collider height when crouching")]
-    [SerializeField] private float crouchingHeight = 1f;
-    public float CrouchingHeight => crouchingHeight;
+    [Tooltip("Multiplier for collider height when crouching")]
+    [SerializeField] private float crouchingHeightMultiplier = 0.5f;
+    public float CrouchingHeightMultiplier => crouchingHeightMultiplier;
 }
 
 public class CrouchingState : InputMoveState
@@ -22,12 +22,15 @@ public class CrouchingState : InputMoveState
     public CrouchingState(StateMachine stateMachine) : base(stateMachine)
     {
     }
+    
+    public float GetCrouchHeight => stateMachine.PlayerHeight * Settings.CrouchingHeightMultiplier;
+    
 
     public override void OnEnter()
     {
         base.OnEnter();
 
-        stateMachine.ChangeHeight(Settings.CrouchingHeight);
+        stateMachine.ChangeHeight(GetCrouchHeight);
         stateMachine.PlayerAnimator.SetBool(IsCrouching, true);
     }
 
@@ -48,7 +51,7 @@ public class CrouchingState : InputMoveState
     {
         base.CheckTransitions();
         
-        if(!stateMachine.InputController.IsCrouching && CanStandUp())
+        if(!stateMachine.InputController.CrouchHeld && CanStandUp())
             SwitchState(stateMachine.WalkingState);
     }
     
@@ -56,8 +59,8 @@ public class CrouchingState : InputMoveState
     public bool CanStandUp()
     {
         float defaultHeight = stateMachine.PlayerHeight;
-        Vector3 start = stateMachine.PlayerTransform.position + Vector3.up * Settings.CrouchingHeight;
-        Vector3 end = stateMachine.PlayerTransform.position + Vector3.up * defaultHeight;
+        Vector3 start = stateMachine.Position + Vector3.up * GetCrouchHeight;
+        Vector3 end = stateMachine.Position + Vector3.up * defaultHeight;
         float radius = stateMachine.PlayerRadius * 0.9f;
 
         // Check for collisions using a capsule cast

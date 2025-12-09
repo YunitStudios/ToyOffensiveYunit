@@ -12,13 +12,12 @@ public abstract class MovementState : State, IMovementState
 
 
     public virtual bool UseGravity => true;
-    public virtual bool UseRigidbody => false;
     public virtual bool UseRootMotion => false;
+    public virtual bool UseMouseRotatePlayer => true;
+    public virtual bool ControlRotation => false;
 
     public override void OnEnter()
     {
-        stateMachine.ToggleRigidbody(UseRigidbody);
-        
         stateMachine.PlayerAnimator.applyRootMotion = UseRootMotion;
     }
 
@@ -31,6 +30,7 @@ public abstract class MovementState : State, IMovementState
 public interface IMovementState
 {
     public bool UseGravity { get; }
-    public bool UseRigidbody { get; }
     public bool UseRootMotion { get; }
+    public bool UseMouseRotatePlayer { get; }
+    public bool ControlRotation { get; }
 }

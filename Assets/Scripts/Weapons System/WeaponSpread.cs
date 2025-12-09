@@ -26,13 +26,13 @@ public class WeaponSpread
         spreadCurve = new AnimationCurve();
 
         // key 0: BaseSpread at start
-        spreadCurve.AddKey(baseSpread, baseSpread);
+        spreadCurve.AddKey(0f, baseSpread);
 
         // key 1: HalfSpread at middle
-        spreadCurve.AddKey(halfSpread, halfSpread);
+        spreadCurve.AddKey(0.5f, halfSpread);
 
         // key 2: MaxSpread at end
-        spreadCurve.AddKey(maxSpread, maxSpread);
+        spreadCurve.AddKey(1f, maxSpread);
     }
 
     public void OnShotFired(float magSize)

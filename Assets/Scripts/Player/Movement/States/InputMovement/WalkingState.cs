@@ -44,7 +44,7 @@ public class WalkingState : InputMoveState
         if(stateMachine.InputController.IsSprinting)
             SwitchState(stateMachine.SprintingState);
         
-        if(stateMachine.InputController.IsCrouching)
+        if(stateMachine.InputController.CrouchHeld)
             SwitchState(stateMachine.CrouchingState);
     }
     

@@ -14,6 +14,7 @@ public class PatrolState : AIState
         this.currentWaypoint = currentWaypoint;
         commanderController = controller.GetComponent<CommanderController>();
         controller.currentWaypoint = currentWaypoint;
+        agent.isStopped = false;
     }
 
     // Sets commander AI to move toward each waypoint and then loop back to start once finished

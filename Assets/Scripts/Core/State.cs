@@ -50,6 +50,7 @@ public abstract class State
     public bool HasChangedState = false;
     protected bool SwitchState(State newState)
     {
+        //Debug.Log($"Switching to state: {newState.GetType().Name}");
         return stateMachine.SwitchState(newState, this);
     }
     
