@@ -27,6 +27,7 @@ public class PlayerMovement : StateMachine
     public Vector3 Position => transform.position;
     public Quaternion Rotation => rotationRoot.rotation;
     public Vector3 RotationEuler => rotationRoot.eulerAngles;
+    public Vector3 LocalRotationEuler => rotationRoot.localEulerAngles;
     public Vector3 Forward => rotationRoot.forward;
     public Vector3 Right => rotationRoot.right;
     public Vector3 Up => rotationRoot.up;
@@ -258,10 +259,10 @@ public class PlayerMovement : StateMachine
         
         // If X or Z axis is not zero, slerp back to 0
         if (currentState is IMovementState { ControlRotation: false } 
-            && (RotationEuler.x != 0f || RotationEuler.z != 0f))
+            && (LocalRotationEuler.x != 0f || LocalRotationEuler.z != 0f))
         {
             Quaternion startRotation = rotationRoot.localRotation;
-            Quaternion targetRotation = Quaternion.Euler(0f, RotationEuler.y, 0f);
+            Quaternion targetRotation = Quaternion.Euler(0f, LocalRotationEuler.y, 0f);
             rotationRoot.localRotation = Quaternion.Slerp(startRotation, targetRotation, 0.2f);
         }
         

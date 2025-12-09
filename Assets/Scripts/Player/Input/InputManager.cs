@@ -13,13 +13,14 @@ public class InputManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
+        DontDestroyOnLoad(this.gameObject);
 
         LoadInputActions();
     }
@@ -54,6 +55,9 @@ public class InputManager : MonoBehaviour
     public Action OnShootAction;
     public bool IsReloading { get; private set; }
     public Action OnReloadAction;
+    
+    public bool IsThrowing { get; private set; }
+    public Action OnThrowAction;
 
     private void PlayerInputsEndFrame()
     {
@@ -63,8 +67,6 @@ public class InputManager : MonoBehaviour
         JumpDown = false;
         CrouchDown = false;
     }
-
-
     private void OnMove(InputValue inputValue)
     {
         FrameMove = inputValue.Get<Vector2>();
@@ -120,6 +122,14 @@ public class InputManager : MonoBehaviour
         
         if(IsReloading && OnReloadAction != null)
             OnReloadAction.Invoke();
+    }
+    
+    private void OnThrow(InputValue inputValue)
+    {
+        IsThrowing = inputValue.isPressed;
+        
+        if(IsThrowing && OnThrowAction != null)
+            OnThrowAction.Invoke();
     }
     #endregion
 

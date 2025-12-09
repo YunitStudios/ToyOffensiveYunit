@@ -1,3 +1,4 @@
+using System;
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 using System.Collections;
@@ -28,13 +29,14 @@ public class TransitionManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
         else
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
         }
+        DontDestroyOnLoad(this.gameObject);
         Init();
     }
 
@@ -44,11 +46,11 @@ public class TransitionManager : MonoBehaviour
     }
 
 
-    public static void TransitionScene(SceneTypes sceneType)
+    public static void TransitionScene(SceneTypes sceneType, Action callback = null)
     {
         SceneReference scene = GetSceneReference(sceneType);
 
-        Instance.StartTransition(scene);
+        Instance.StartTransition(scene, callback);
 
     }
     public static SceneReference GetSceneReference(SceneTypes type)
@@ -56,33 +58,42 @@ public class TransitionManager : MonoBehaviour
         return Instance.scenes.GetValueOrDefault(type);
     }
 
-    public void StartTransition(SceneReference scene)
+    private void StartTransition(SceneReference scene, Action callback)
     {
-        StartCoroutine(TransitioningCoroutine(scene));
+        StartCoroutine(TransitioningCoroutine(scene, callback));
+    }
+    
+    private void EndTransition(Action callback)
+    {
+        callback?.Invoke();
     }
 
-    private IEnumerator TransitioningCoroutine(SceneReference scene)
+    private IEnumerator TransitioningCoroutine(SceneReference scene, Action callback)
     {
         fadeInTween = Tween.Alpha(canvasGroup, 1.0f, fadeInTime);
 
         yield return new WaitForSeconds(fadeInTime);
 
         var sceneLoading = SceneManager.LoadSceneAsync(scene.ScenePath);
+        
+        if(sceneLoading == null)
+        {
+            Debug.LogError($"Scene {scene} could not be loaded. Check that it is added to the build settings.");
+            yield break;
+        }
+        
         while (!sceneLoading.isDone)
             yield return null;
 
         yield return new WaitForSeconds(waitTime);
 
         fadeOutTween = Tween.Alpha(canvasGroup, 0.0f, fadeOutTime);
+        
+        yield return new WaitForSeconds(fadeOutTime);
 
+        EndTransition(callback);
     }
-
-
-    [Button]
-    public void DebugLoadGameScene()
-    {
-        TransitionScene(SceneTypes.Ingame);
-    }
+    
 
 
 

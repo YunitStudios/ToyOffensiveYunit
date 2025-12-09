@@ -11,6 +11,8 @@ public class PhysicsBulletMovement : MonoBehaviour
     [HideInInspector] public float MassKG;
     [HideInInspector] public LayerMask Shootable;
     
+    private Crosshair crosshair;
+    
     // constants
     private const float gravity = 9.81f; // m/s²
     
@@ -18,6 +20,7 @@ public class PhysicsBulletMovement : MonoBehaviour
     private Vector3 velocity;
     void Start()
     {
+        crosshair = FindFirstObjectByType<Crosshair>();
         velocity = InitialDirection.normalized * InitialVelocity;
     }
 
@@ -36,7 +39,10 @@ public class PhysicsBulletMovement : MonoBehaviour
             {
                 // apply damage if we hit an enemy
                 if (hit.collider.CompareTag("Enemy"))
+                {
                     hit.collider.GetComponent<AIController>().TakeDamage(Damage);
+                    crosshair.Hitmarker();
+                }
                 
                 // destroy self after hit
                 Destroy(gameObject);

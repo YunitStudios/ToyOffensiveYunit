@@ -10,6 +10,8 @@ public class WeaponsSystem : MonoBehaviour
     [Header("References")]
     [Tooltip("Player camera used for the obstruction check")]
     [SerializeField] private Camera playerCamera;   // player camera used for the obstruction check
+
+    [SerializeField] private PlayerCamera playerCameraSystem;
     [FormerlySerializedAs("playerLayer")]
     [Tooltip("Layer mask to stop the gun from shooting the player torso")]
     [SerializeField] private LayerMask canShoot;
@@ -19,6 +21,7 @@ public class WeaponsSystem : MonoBehaviour
     // internal references
     private PlayerInventory playerInventory => PlayerInventory.Instance;
     [HideInInspector] public Weapon currentWeapon;
+    private PlayerCamera.CameraType weaponCameraType;
     private Crosshair crosshair;
     
     // tracer
@@ -32,13 +35,15 @@ public class WeaponsSystem : MonoBehaviour
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
     private float accumulatedShootingTime = 0f;     // total time spent shooting, used for recovery speed
     private float lastReloadTime = -999f;
+
+    private bool aiming = false;
     
     // weapon instances
 
     private void OnEnable()
     {
 //        playerInputController.OnShootAction += Fire;
-        InputManager.Instance.OnReloadAction += Reload;
+        // InputManager.Instance.OnReloadAction += Reload;
     }
 
     private void OnDisable()
@@ -49,6 +54,7 @@ public class WeaponsSystem : MonoBehaviour
 
     private void Start()
     {
+        InputManager.Instance.OnReloadAction += Reload;
         // Find crosshair in scene
         crosshair = FindFirstObjectByType<Crosshair>();
         currentWeapon = playerInventory.GetPrimaryWeapon();
@@ -60,6 +66,17 @@ public class WeaponsSystem : MonoBehaviour
         if (InputManager.Instance.IsShooting)
         {
             Fire();
+        }
+
+        if (InputManager.Instance.IsAiming && !aiming)
+        {
+            Aim();
+        }
+
+        if (!InputManager.Instance.IsAiming && aiming)
+        {
+            playerCameraSystem.ResetCamera(); 
+            aiming = false;
         }
         
         currentWeapon.WeaponSpread.UpdateSpreadOverTime();
@@ -76,14 +93,14 @@ public class WeaponsSystem : MonoBehaviour
         if(Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime)
         {
             // am still reloading
-            Debug.Log("Still reloading!");
+            // Debug.Log("Still reloading!");
             return;
         }
 
         if(currentWeapon.CurrentAmmoInMag <= 0)
         {
             // play empty mag sound here
-            Debug.Log("No ammo in mag!");
+            // Debug.Log("No ammo in mag!");
             return;
         }
 
@@ -91,11 +108,11 @@ public class WeaponsSystem : MonoBehaviour
         float timeBetweenShots = 60f / currentWeapon.WeaponData.FireRateRPM;
         if(Time.time - lastShotTime < timeBetweenShots)
         {
-            Debug.Log("Shooting too fast!");
+            // Debug.Log("Shooting too fast!");
             return;
         }
 
-        Debug.Log("Firing weapon: " + currentWeapon.WeaponData.DisplayName);
+        // Debug.Log("Firing weapon: " + currentWeapon.WeaponData.DisplayName);
         
         // shoot it
         if (currentWeapon.WeaponData.ShotQuantity > 1)
@@ -118,6 +135,15 @@ public class WeaponsSystem : MonoBehaviour
         lastShotTime = Time.time;
         
         currentWeapon.Fire();
+    }
+
+    private void Aim()
+    {
+        if (playerCameraSystem.CurrentCameraType != currentWeapon.WeaponData.AimCameraType)
+        {
+            playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
+            aiming = true;
+        }
     }
 
     private void Reload()
@@ -179,7 +205,10 @@ public class WeaponsSystem : MonoBehaviour
         {
             // apply damage if we hit an enemy
             if (hit.collider.CompareTag("Enemy"))
-                hit.collider.GetComponent<AIController>().TakeDamage(999f);
+            {
+                hit.collider.GetComponent<AIController>().TakeDamage(currentWeapon.WeaponData.Damage);
+                crosshair.Hitmarker();
+            }
         }
 
         // spawn tracer
@@ -193,14 +222,20 @@ public class WeaponsSystem : MonoBehaviour
         Vector3 shootDir;
 
         // multi shot support
-        if (isMultiShot)
+        if (!isMultiShot)
         {
-            Debug.Log("Multi shot rotation");
-            shootDir = GetShotgunRotation(camForward, multiRotation);
+            Quaternion spreadRot = Quaternion.Euler(
+                GetSpreadRotation(),
+                GetSpreadRotation(),
+                GetSpreadRotation()
+            );
+
+            shootDir = spreadRot * camForward;
         }
         else
         {
-            shootDir = camForward;
+            Debug.Log("Multi shot rotation");
+            shootDir = GetShotgunRotation(camForward, multiRotation);
         }
         
         // instantiate and setup the physics projectile

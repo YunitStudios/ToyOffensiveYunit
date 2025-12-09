@@ -6,6 +6,7 @@ using PrimeTween;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Popup : MonoBehaviour
@@ -40,18 +41,18 @@ public class Popup : MonoBehaviour
     [SerializeField] private float fadeOutTime = 0.25f;
     [SerializeField] private Ease fadeOutEase = Ease.Default;
     [Header("Move")]
-    [SerializeField, ShowField(nameof(movePanel))] private bool movePanel;
+    [SerializeField] private bool movePanel;
     [SerializeField, ShowField(nameof(movePanel))] private float moveInDistance = 300;
     [SerializeField, ShowField(nameof(movePanel))] private float moveInTime = 0.5f;
     [SerializeField, ShowField(nameof(movePanel))] private Ease moveInEase = Ease.Default;
     [SerializeField, ShowField(nameof(movePanel))] private float moveOutDistance = 100;
     [SerializeField, ShowField(nameof(movePanel))] private float moveOutTime = 0.25f;
     [SerializeField, ShowField(nameof(movePanel))] private Ease moveOutEase = Ease.Default;
-    [Header("Dim")]
-    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private float dimFadeInTime = 0.2f;
-    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private Ease dimFadeInEase = Ease.Default;
-    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private float dimFadeOutTime = 0.2f;
-    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private Ease dimFadeOutEase = Ease.Default;
+    [Header("Background")]
+    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private float backgroundFadeInTime = 0.2f;
+    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private Ease backgroundFadeInEase = Ease.Default;
+    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private float backgroundFadeOutTime = 0.2f;
+    [SerializeField, ShowField(nameof(HasBackgroundPanel))] private Ease backgroundFadeOutEase = Ease.Default;
     [Header("Toggles")]
     [SerializeField] private bool disableGameObjectWhenClosed = true;
     [SerializeField, ShowField(nameof(movePanel)), Tooltip("Toggle to swap move animation to sideways instead")] private bool moveSide = false;
@@ -158,7 +159,7 @@ public class Popup : MonoBehaviour
         if (backgroundPanel)
         {
             backgroundPanel.blocksRaycasts = true;
-            dimTween = Tween.Alpha(backgroundPanel, 0.0f, 1.0f, dimFadeInTime, dimFadeInEase, 1, CycleMode.Restart, 0f, 0f, true);
+            dimTween = Tween.Alpha(backgroundPanel, 0.0f, 1.0f, backgroundFadeInTime, backgroundFadeInEase, 1, CycleMode.Restart, 0f, 0f, true);
         }
         fadeTween = Tween.Alpha(canvasGroup, 0.0f, 1.0f, fadeInTime, fadeInEase, 1, CycleMode.Restart, 0f, 0f, true).OnComplete(
             () =>
@@ -193,7 +194,7 @@ public class Popup : MonoBehaviour
             moveTween.Stop();
 
         if (backgroundPanel)
-            dimTween = Tween.Alpha(backgroundPanel, 0.0f, dimFadeOutTime, dimFadeOutEase, 1, CycleMode.Restart, 0f, 0f, true).OnComplete(() => backgroundPanel.blocksRaycasts = false);
+            dimTween = Tween.Alpha(backgroundPanel, 0.0f, backgroundFadeOutTime, backgroundFadeOutEase, 1, CycleMode.Restart, 0f, 0f, true).OnComplete(() => backgroundPanel.blocksRaycasts = false);
         fadeTween = Tween.Alpha(canvasGroup, 0.0f, fadeOutTime, fadeOutEase, 1, CycleMode.Restart, 0f, 0f, true).OnComplete(() =>
         {
             canvas.enabled = false;

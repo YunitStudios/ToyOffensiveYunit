@@ -135,6 +135,20 @@ BlendTree:
   m_UseAutomaticThresholds: 0
   m_NormalizedBlendValues: 0
   m_BlendType: 0
+--- !u!114 &-6187071581060195089
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6fb7ea444ddbe548a3eb5d83e4fe798, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimationEventStateBehaviour
+  triggerTime: 0
+  eventName: 
 --- !u!1102 &-5932668968410889926
 AnimatorState:
   serializedVersion: 6
@@ -429,6 +443,20 @@ AnimatorStateTransition:
   m_InterruptionSource: 0
   m_OrderedInterruption: 1
   m_CanTransitionToSelf: 1
+--- !u!114 &-171191122377949067
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8d250b0a0b68c4f90b2dd24f32f3ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundAnimationEvent
+  triggerTime: 0.339
+  soundData: {fileID: 11400000, guid: b0f831c5daa702047affa102abff83c5, type: 2}
 --- !u!91 &9100000
 AnimatorController:
   m_ObjectHideFlags: 0
@@ -749,6 +777,21 @@ AnimatorStateMachine:
   m_ExitPosition: {x: 1080, y: 60, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
   m_DefaultState: {fileID: -1538338897300434813}
+--- !u!114 &4467668291147660791
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 65b90c8e21c05e4439193fbdc0af9a94, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KAnimationEvent
+  eventName: 
+  triggerTime: 0
+  hasTriggered: 0
 --- !u!1102 &5472908425798539446
 AnimatorState:
   serializedVersion: 6
@@ -916,7 +959,8 @@ AnimatorState:
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 7733814391196328600}
-  m_StateMachineBehaviours: []
+  m_StateMachineBehaviours:
+  - {fileID: -171191122377949067}
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
   m_WriteDefaultValues: 1

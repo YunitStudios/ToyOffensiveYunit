@@ -19,7 +19,8 @@ public class WeaponDataSO : ScriptableObject
 
     [Header("Fire modes")]
     [Tooltip("The weapons fire modes in order of how they will be cycled through. The first one is the default mode")]
-    public string[] FireModes;  // example: ["Full", "Semi"]
+    public FireModes[] SupportedFireModes;
+    public FireModes CurrentFireMode;
 
     [Header("Reloading")]
     public int MagSize;
@@ -55,6 +56,17 @@ public class WeaponDataSO : ScriptableObject
     [Header("Weapon prefab")]
     [Tooltip("A reference to the weapon prefab with its fire point child")]
     public GameObject WeaponPrefab;
+    
+    [Header("Aim type")]
+    [Tooltip("Type of aiming used (scope or aim or whatever)")]
+    public PlayerCamera.CameraType AimCameraType;
+
+    public enum FireModes
+    {
+        Full,
+        Semi,
+        Single
+    }
 
     public void CopyFrom(WeaponDataSO other)
     {
@@ -62,7 +74,8 @@ public class WeaponDataSO : ScriptableObject
         DisplayName = other.DisplayName;
         FireRateRPM = other.FireRateRPM;
         Damage = other.Damage;
-        FireModes = other.FireModes;
+        SupportedFireModes = other.SupportedFireModes;
+        CurrentFireMode = other.CurrentFireMode;
         MagSize = other.MagSize;
         SpecialAmmo = other.SpecialAmmo;
         ReloadTime = other.ReloadTime;
@@ -76,5 +89,6 @@ public class WeaponDataSO : ScriptableObject
         InitialVelocityMS = other.InitialVelocityMS;
         MassKG = other.MassKG;
         Attachments = other.Attachments;
+        AimCameraType = other.AimCameraType;
     }
 }

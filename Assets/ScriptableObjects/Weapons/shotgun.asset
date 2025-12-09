@@ -16,8 +16,8 @@ MonoBehaviour:
   DisplayName: Shotgun
   FireRateRPM: 50
   Damage: 20
-  FireModes:
-  - Semi
+  SupportedFireModes: 01000000
+  CurrentFireMode: 0
   MagSize: 6
   SpecialAmmo: 0
   ReloadTime: 4
@@ -32,3 +32,4 @@ MonoBehaviour:
   Attachments:
   - 
   WeaponPrefab: {fileID: 0}
+  AimCameraType: 1

@@ -10,9 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1510906211435019109}
   - component: {fileID: 386950647050592367}
+  - component: {fileID: 8609337210801193703}
   - component: {fileID: 2115216171671767547}
   - component: {fileID: 5173216120211466665}
   - component: {fileID: 2987020068191397963}
+  - component: {fileID: 4040392277983441542}
+  - component: {fileID: 5576340229021815528}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -28,8 +31,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 479309541129405295}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0.38268343, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 10, y: 10.22, z: 5.88}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -39,7 +42,7 @@ Transform:
   - {fileID: 1026038049874292585}
   - {fileID: 4188729019150136986}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -45, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &386950647050592367
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52,7 +55,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db66286ac96ace43bc9fc3451176862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputController: {fileID: 0}
   playerAnimator: {fileID: 5173216120211466665}
   thirdPersonTracker: {fileID: 5636812732384450702}
   playerCamera: {fileID: 7862692414108309895}
@@ -112,7 +114,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
     climbRange: 1
-    climbingAngleLimits: {x: -40, y: 40}
+    climbingVerticalAngleLimits: {x: -40, y: 40}
+    climbingHorizontalAngleLimits: {x: -40, y: 40}
     climbVerticalSpeed: 0
     climbHorizontalSpeed: 1
     climbCameraRecentering:
@@ -176,8 +179,10 @@ MonoBehaviour:
     unhangDelay: 0.4
     rehangDelay: 0.2
     autoTriggerHangDistance: 1.66
+    sideWidthOffset: 0.5
     climbSprintLeapCooldown: 2
     climbSprintLeapStaminaPercentage: 0.2
+    climbSprintLeapStaminaPadding: 0.1
     climbStaminaUI: {fileID: 5515616672219483051}
     climbStaminaBar: {fileID: 10641581326834246}
     maxClimbStamina: 7
@@ -243,6 +248,19 @@ MonoBehaviour:
     minimumDeployDistanceFromWall: 3
     fovMultiplierAtMaxSpeed: 1.5
   lookSensitivity: 1
+--- !u!114 &8609337210801193703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ada1c1f1db51ff4eba719d712c18ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowables
+  spawner: {fileID: 983668213398953145}
 --- !u!143 &2115216171671767547
 CharacterController:
   m_ObjectHideFlags: 0
@@ -313,6 +331,86 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4040392277983441542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b1fb4ae87e1845a91f263eec0b3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AK.Wwise.Unity.MonoBehaviour::AkGameObj
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
+--- !u!114 &5576340229021815528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!1 &3109495862477369271
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4237852279184953653}
+  - component: {fileID: 983668213398953145}
+  m_Layer: 0
+  m_Name: Throwables
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4237852279184953653
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109495862477369271}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.2489996, z: 0.27000013}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3353412084572693359}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &983668213398953145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3109495862477369271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee95c704bf781745ae36a553e09d2dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThrowableSpawner
 --- !u!1 &5207910790990521309
 GameObject:
   m_ObjectHideFlags: 0
@@ -357,8 +455,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd5eac21d4edfb048a08db4e1ef2017f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponsSystem
-  playerInputController: {fileID: 0}
   playerCamera: {fileID: 4552367001221092465}
+  playerCameraSystem: {fileID: 7862692414108309895}
   canShoot:
     serializedVersion: 2
     m_Bits: 119
@@ -429,6 +527,7 @@ Transform:
   m_Children:
   - {fileID: 5347825268981630668}
   - {fileID: 2496528507952065907}
+  - {fileID: 4237852279184953653}
   m_Father: {fileID: 1510906211435019109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7669584702012679197
@@ -734,10 +833,54 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCameras
       objectReference: {fileID: 0}
+    - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.0000000011920065
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.8642378
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.151636
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9369574
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.3494436
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.000000011306405
+      objectReference: {fileID: 0}
+    - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000004216789
+      objectReference: {fileID: 0}
     - target: {fileID: 6128150691619200766, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: Target.TrackingTarget
       value: 
       objectReference: {fileID: 3353412084572693359}
+    - target: {fileID: 7200999639531337506, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9369574
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200999639531337506, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.34944358
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200999639531337506, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -2.5953723e-10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7200999639531337506, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 9.679589e-11
+      objectReference: {fileID: 0}
     - target: {fileID: 7237495087080277502, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: Target.TrackingTarget
       value: 

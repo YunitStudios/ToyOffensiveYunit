@@ -7,7 +7,7 @@ public class Weapon
     [Header("Runtime Values")]
     public int CurrentAmmoInMag;
     public WeaponSpread WeaponSpread;
-    public string CurrentFireMode;
+    public WeaponDataSO.FireModes CurrentFireMode;
     public Transform FirePoint;
     
     // Constructor
@@ -20,7 +20,7 @@ public class Weapon
     {
         WeaponData = weaponData;
         CurrentAmmoInMag = weaponData.MagSize;
-        CurrentFireMode = weaponData.FireModes[0];
+        CurrentFireMode = weaponData.SupportedFireModes[0];
         FirePoint = LocateFirePoint(weaponData.WeaponPrefab);
         
         WeaponSpread = new WeaponSpread(
@@ -100,6 +100,40 @@ public class Weapon
             }
 
             Debug.Log("Reloaded partial mag");
+        }
+    }
+    
+    public void EnemyReload(AIInventory aiInventory)
+    {
+        // reset spread on reload
+        WeaponSpread.ResetSpread();
+
+        // determine which ammo to use
+        int availableAmmo;
+
+        if (WeaponData.SpecialAmmo)
+        {
+            availableAmmo = aiInventory.GetSpecialAmmoCount();
+        }
+        else
+        {
+            availableAmmo = aiInventory.GetNormalAmmoCount();
+        }
+
+        if (availableAmmo <= 0)
+        {
+            // no ammo left at all! play a sound or something
+            return;
+        }
+
+        // actually give/take the ammo
+        if (availableAmmo >= WeaponData.MagSize)
+        {
+            CurrentAmmoInMag = WeaponData.MagSize;
+        }
+        else
+        {
+            CurrentAmmoInMag = availableAmmo;
         }
     }
     

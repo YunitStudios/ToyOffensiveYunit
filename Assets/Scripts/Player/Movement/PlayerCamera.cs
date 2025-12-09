@@ -20,6 +20,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private float fovSetDuration = 0.5f;
 
     private CinemachineCamera currentCamera;
+    [HideInInspector] public CameraType CurrentCameraType;
     
     public Transform CameraTransform => mainCamera.transform;
 
@@ -38,7 +39,12 @@ public class PlayerCamera : MonoBehaviour
             cam.Priority = 0;
         
         print("start");
-        
+
+        ResetCamera();
+    }
+
+    public void ResetCamera()
+    {
         ChangeCamera(defaultCamera);
     }
 
@@ -69,6 +75,7 @@ public class PlayerCamera : MonoBehaviour
         
         currentCamera = newCamera;
         currentBaseFov = currentCamera.Lens.FieldOfView;
+        CurrentCameraType = cameraType;
     }
 
     private void ResetFov(CinemachineCamera cam, float targetFov, float duration)
@@ -97,6 +104,7 @@ public class PlayerCamera : MonoBehaviour
     {
         Main,
         Aim,
+        AimScope,
         Climbing,
         Parachute
     }

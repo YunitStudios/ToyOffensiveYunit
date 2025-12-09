@@ -16,8 +16,8 @@ MonoBehaviour:
   DisplayName: Bow
   FireRateRPM: 50
   Damage: 30
-  FireModes:
-  - Semi
+  SupportedFireModes: 01000000
+  CurrentFireMode: 0
   MagSize: 30
   SpecialAmmo: 0
   ReloadTime: 5
@@ -32,3 +32,4 @@ MonoBehaviour:
   Attachments:
   - 
   WeaponPrefab: {fileID: 0}
+  AimCameraType: 1

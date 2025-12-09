@@ -236,7 +236,8 @@ GameObject:
   - component: {fileID: 6783283151642379967}
   - component: {fileID: 2880950687994783525}
   - component: {fileID: 4881238132655369806}
-  - component: {fileID: 4543568133460072047}
+  - component: {fileID: 5447387886559168543}
+  - component: {fileID: 3112858827656182254}
   m_Layer: 5
   m_Name: tab
   m_TagString: Untagged
@@ -320,20 +321,20 @@ MonoBehaviour:
     disableCanvas: 0
   firstSelected: {fileID: 0}
   findFirstSelectedInChildren: 0
-  tabImage: {fileID: 786004701628323878}
+  tabImage: {fileID: 2880950687994783525}
   tabText: {fileID: 0}
   unselectedTextAlpha: 0.5
   OnSelectTab:
     m_PersistentCalls:
       m_Calls: []
-  selectType: 0
+  selectType: 2
   unselectedImage: {fileID: 0}
   selectedImage: {fileID: 0}
-  unselectedColor: {r: 0, g: 0, b: 0, a: 1}
-  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  unselectedColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.5345911, g: 0.5345911, b: 0.5345911, a: 1}
   unselectedAlpha: 0
   selectedAlpha: 1
---- !u!114 &4543568133460072047
+--- !u!114 &5447387886559168543
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -352,11 +353,11 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_PressedColor: {r: 1, g: 1, b: 1, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -377,6 +378,38 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3112858827656182254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283795885174063500}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0f5780e6fa5bd48bfe6f3ced6dfd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimateSelectable
+  selectableTransform: {fileID: 5405607280149812026}
+  selectableImage: {fileID: 2880950687994783525}
+  selectable: {fileID: 5447387886559168543}
+  animateScale: 1
+  hoverScale: 1.1
+  scaleInLength: 0.1
+  scaleOutLength: 0.2
+  animateColor: 0
+  hoverButtonColor: {r: 0, g: 0, b: 0, a: 0}
+  colorInLength: 0.1
+  colorOutLength: 0.4
+  animatePosition: 1
+  hoverOffset: {x: 0, y: 10, z: 0}
+  hoverInLength: 0.1
+  hoverOutLength: 0.2
+  animateTextColor: 0
+  buttonText: {fileID: 0}
+  hoverTextColor: {r: 0, g: 0, b: 0, a: 0}
+  textColorInLength: 0.1
+  textColorOutLength: 0.2
 --- !u!1 &4492997105881328661
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +626,8 @@ GameObject:
   - component: {fileID: 7215274435478465859}
   - component: {fileID: 1560052112278128194}
   - component: {fileID: 381391226554843155}
-  - component: {fileID: 7320887316268438366}
+  - component: {fileID: 2677875766423839408}
+  - component: {fileID: 3827115481360247090}
   m_Layer: 5
   m_Name: tab (1)
   m_TagString: Untagged
@@ -677,20 +711,20 @@ MonoBehaviour:
     disableCanvas: 0
   firstSelected: {fileID: 0}
   findFirstSelectedInChildren: 0
-  tabImage: {fileID: 6091856435663442154}
+  tabImage: {fileID: 1560052112278128194}
   tabText: {fileID: 0}
   unselectedTextAlpha: 0.5
   OnSelectTab:
     m_PersistentCalls:
       m_Calls: []
-  selectType: 0
+  selectType: 2
   unselectedImage: {fileID: 0}
   selectedImage: {fileID: 0}
-  unselectedColor: {r: 0, g: 0, b: 0, a: 1}
-  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  unselectedColor: {r: 1, g: 1, b: 1, a: 1}
+  selectedColor: {r: 0.53333336, g: 0.53333336, b: 0.53333336, a: 1}
   unselectedAlpha: 0
   selectedAlpha: 1
---- !u!114 &7320887316268438366
+--- !u!114 &2677875766423839408
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -709,7 +743,7 @@ MonoBehaviour:
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
+  m_Transition: 0
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
@@ -734,6 +768,38 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3827115481360247090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5881403996328121445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0f5780e6fa5bd48bfe6f3ced6dfd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimateSelectable
+  selectableTransform: {fileID: 6707968883520111755}
+  selectableImage: {fileID: 1560052112278128194}
+  selectable: {fileID: 2677875766423839408}
+  animateScale: 1
+  hoverScale: 1.1
+  scaleInLength: 0.1
+  scaleOutLength: 0.2
+  animateColor: 0
+  hoverButtonColor: {r: 0, g: 0, b: 0, a: 0}
+  colorInLength: 0.1
+  colorOutLength: 0.4
+  animatePosition: 1
+  hoverOffset: {x: 0, y: 10, z: 0}
+  hoverInLength: 0.1
+  hoverOutLength: 0.2
+  animateTextColor: 0
+  buttonText: {fileID: 0}
+  hoverTextColor: {r: 0, g: 0, b: 0, a: 0}
+  textColorInLength: 0.1
+  textColorOutLength: 0.2
 --- !u!1 &7497483591159442817
 GameObject:
   m_ObjectHideFlags: 0
@@ -821,7 +887,7 @@ MonoBehaviour:
   backgroundPanel: {fileID: 4760008849835991159}
   firstSelectedRoot: {fileID: 0}
   findFirstSelectedInChildren: 0
-  tabManager: {fileID: 0}
+  tabManager: {fileID: 8125941894963478170}
   fadeInTime: 0.25
   fadeInEase: 0
   fadeOutTime: 0.25
@@ -833,10 +899,10 @@ MonoBehaviour:
   moveOutDistance: 100
   moveOutTime: 0.25
   moveOutEase: 0
-  dimFadeInTime: 0.2
-  dimFadeInEase: 0
-  dimFadeOutTime: 0.2
-  dimFadeOutEase: 0
+  backgroundFadeInTime: 0.2
+  backgroundFadeInEase: 0
+  backgroundFadeOutTime: 0.2
+  backgroundFadeOutEase: 0
   disableGameObjectWhenClosed: 0
   moveSide: 1
   freezeTimeScale: 0
