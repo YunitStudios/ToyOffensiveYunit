@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1510906211435019109}
   - component: {fileID: 386950647050592367}
   - component: {fileID: 8609337210801193703}
+  - component: {fileID: 8649961648655457142}
   - component: {fileID: 2115216171671767547}
   - component: {fileID: 5173216120211466665}
   - component: {fileID: 2987020068191397963}
@@ -229,6 +230,8 @@ MonoBehaviour:
     fallingVelocityThreshold: -3
     speedTransitionTime: 0.5
     speedTransitionEase: 6
+    fallDamageScale: {x: 0.1, y: 1}
+    fallVelocityScale: {x: 10, y: 25}
   parachutingSettings:
     parachutingMaxSpeed: 3
     parachutingAcceleration: 15
@@ -248,6 +251,7 @@ MonoBehaviour:
     minimumDeployDistanceFromWall: 3
     fovMultiplierAtMaxSpeed: 1.5
   lookSensitivity: 1
+  onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
 --- !u!114 &8609337210801193703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +265,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowables
   spawner: {fileID: 983668213398953145}
+--- !u!114 &8649961648655457142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 814b12307e009034c90716a6997440b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health
+  maxHealth: 100
+  shouldRegen: 1
+  regenRate: 5
+  regenMaxWait: 8
+  onTakeDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
+  onDamageTaken: {fileID: 11400000, guid: e70044af65091c545b2d38e97e6a0230, type: 2}
+  onHealthChanged: {fileID: 11400000, guid: 012165d8166761545af3b264d54d7cb5, type: 2}
+  onDie: {fileID: 11400000, guid: 714073130b523f14ebdefe36c6f15884, type: 2}
+  debugDamage: 5
 --- !u!143 &2115216171671767547
 CharacterController:
   m_ObjectHideFlags: 0
@@ -835,15 +860,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000000011920065
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.8642378
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.151636
+      value: 11.535898
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.w
