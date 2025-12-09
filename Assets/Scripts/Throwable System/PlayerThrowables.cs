@@ -4,10 +4,9 @@ using UnityEngine.Serialization;
 
 public class PlayerThrowables : MonoBehaviour
 {
-    [FormerlySerializedAs("playerInputController")] [SerializeField] private InputManager playerInputManager;
     [SerializeField] private ThrowableSpawner spawner;
     private ThrowableDataSO currentThrowable;
-    
+    private InputManager playerInputManager => InputManager.Instance;
     private PlayerInventory playerInventory => PlayerInventory.Instance;
 
 
