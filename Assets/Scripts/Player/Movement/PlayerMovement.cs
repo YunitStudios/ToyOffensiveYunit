@@ -100,6 +100,10 @@ public class PlayerMovement : StateMachine
     [Header("Looking")]
     [Tooltip("Multiplier to adjust look sensitivity")]
     [SerializeField] private float lookSensitivity = 0.1f;
+
+    [Header("Events")] 
+    [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
+    public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool MouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
 
@@ -332,10 +336,24 @@ public class PlayerMovement : StateMachine
     // Spherecast to check if on ground
     private bool CheckOnGround()
     {
-        if(GetGroundDistance() < minGroundDistance)
+        if (GetGroundDistance() < minGroundDistance)
+        {
+            CheckFallDamage();
             return true;
+        }
 
         return false;
     }
-    
+
+    private void CheckFallDamage()
+    {
+        if (!(currentVelocity.y < -FallingSettings.FallVelocityScale.x) || currentState is not global::FallingState) 
+            return;
+        
+        float fallSpeed = Mathf.Abs(currentVelocity.y);
+        float t = Mathf.InverseLerp(FallingSettings.FallVelocityScale.x, FallingSettings.FallVelocityScale.y, fallSpeed);
+        float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
+        float damage = 100 * damageScale;
+        OnDealPlayerDamage(damage);
+    }
 }
