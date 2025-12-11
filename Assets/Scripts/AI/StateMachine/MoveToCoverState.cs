@@ -10,7 +10,7 @@ public class MoveToCoverState : AIState
 
     public MoveToCoverState(AIStateMachine controller, NavMeshAgent agent, CoverPoint point, Transform player) : base(controller, agent)
     {
-        this.coverPoint = point;
+        coverPoint = point;
         this.player = player;
         agent.isStopped = false;
     }

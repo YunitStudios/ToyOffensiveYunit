@@ -69,7 +69,13 @@ public class CoverPointManager : MonoBehaviour
         // raycast from cover point to player, ignoring enemy 
         if (Physics.Raycast(from, direction, out RaycastHit hit, distance,  ~ignoreLayers))
         {
-            return hit.transform != player;
+            if (hit.transform != player)
+            {
+                if (hit.distance < 2f)
+                {
+                    return true;
+                }
+            }
         }
         return false;
     }

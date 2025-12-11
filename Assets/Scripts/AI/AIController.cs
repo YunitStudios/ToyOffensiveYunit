@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -27,7 +28,7 @@ public class AIController : MonoBehaviour
     private float crouchHeight = 1f;
     private float targetHeight;
     private Transform playerTransform;
-
+    
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();

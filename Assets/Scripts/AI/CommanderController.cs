@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class CommanderController : MonoBehaviour
 {
+    [Header("Commander Settings")]
+    [Tooltip("Is this enemy a Commander?")]
+    [SerializeField] private bool isCommander = false;
+    public bool IsCommander => isCommander;
+    [Tooltip("If enemy is a commander set list of followers here")]
     [SerializeField] private List<AIStateMachine> followers = new List<AIStateMachine>();
-    [HideInInspector] public List<AIStateMachine> Followers => followers;
+    public List<AIStateMachine> Followers => followers;
+    [Tooltip("if enemy is a commander set how close the squad has to be before starting to move")]
     [SerializeField] private float formationTolerance = 5f;
     [HideInInspector] public bool hasGroupedUp = false;
 

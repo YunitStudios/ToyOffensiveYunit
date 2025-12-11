@@ -26,7 +26,6 @@ public class AIStateMachine : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<AIVision>();
-        Debug.Log(vision);
         aiController = GetComponent<AIController>();
         ReturnToStartingState();
     }
@@ -56,11 +55,21 @@ public class AIStateMachine : MonoBehaviour
         if (newState is PatrolState)
         {
             CommanderController commander = GetComponent<CommanderController>();
-            commander.hasGroupedUp = false;
+            if (commander != null && commander.IsCommander)
+            {
+                commander.hasGroupedUp = false;
+            }
+            vision.ResetVision();
         }
 
-        if (currentState is MoveToCoverState || currentState is BehindCoverState || currentState is PeekShootState && !(newState is MoveToCoverState || newState is BehindCoverState || newState is PeekShootState))
+        if (newState is AttackState)
         {
+            vision.IncreaseVision();
+        }
+
+        if ((currentState is MoveToCoverState || currentState is BehindCoverState || currentState is PeekShootState) && !(newState is MoveToCoverState || newState is BehindCoverState || newState is PeekShootState))
+        {
+            vision.ResetVision();
             CoverPoint[] points = FindObjectsOfType<CoverPoint>();
             foreach (CoverPoint point in points)
             {
@@ -78,7 +87,7 @@ public class AIStateMachine : MonoBehaviour
     {
         ChangeState(new DeathState(this, agent));
         CommanderController commanderController = GetComponent<CommanderController>();
-        if (commanderController != null)
+        if (commanderController != null && commanderController.IsCommander)
         {
             foreach (AIStateMachine follower in commanderController.Followers)
             {
@@ -93,7 +102,7 @@ public class AIStateMachine : MonoBehaviour
         if (commander != null)
         {
             CommanderController followerCommander = commander.GetComponent<CommanderController>();
-            if (followerCommander != null)
+            if (followerCommander != null && followerCommander.IsCommander)
             {
                 followerCommander.Followers.Remove(this);
             }
@@ -126,16 +135,26 @@ public class AIStateMachine : MonoBehaviour
     // Alerts enemy squad, setting all of their states to attack, if not already
     public void AlertSquad(Transform player)
     {
+        if (!(CurrentState is AttackState) && !(CurrentState is MoveToCoverState) &&
+            !(CurrentState is BehindCoverState) && !(CurrentState is PeekShootState))
+        {
+            ChangeState(new AttackState(this, agent, player));
+            vision.canSeePlayer = true;
+            vision.lastSeenTime = Time.time;
+        }
+        
         if (commander != null)
         {
             CommanderController commanderController = commander.GetComponent<CommanderController>();
-            if (commanderController != null)
+            if (commanderController != null && commanderController.IsCommander)
             {
                 // Alerts commander if follower
                 AIStateMachine commanderAI = commanderController.GetComponent<AIStateMachine>();
                 if (commanderAI != null && !(commanderAI.CurrentState is AttackState) && !(commanderAI.CurrentState is MoveToCoverState) && !(commanderAI.CurrentState is BehindCoverState) && !(commanderAI.CurrentState is PeekShootState))
                 {
                     commanderAI.ChangeState(new AttackState(commanderAI, commanderAI.agent, player));
+                    commanderAI.vision.canSeePlayer = true;
+                    commanderAI.vision.lastSeenTime = Time.time;
                 }
                 // Alerts all followers if follower
                 foreach (AIStateMachine follower in commanderController.Followers)
@@ -143,13 +162,15 @@ public class AIStateMachine : MonoBehaviour
                     if (follower != null && !(follower.CurrentState is AttackState) && !(follower.CurrentState is MoveToCoverState) && !(follower.CurrentState is BehindCoverState) && !(follower.CurrentState is PeekShootState))
                     {
                         follower.ChangeState(new AttackState(follower, follower.agent, player));
+                        follower.vision.canSeePlayer = true;
+                        follower.vision.lastSeenTime = Time.time;
                     }
                 }
             }
         }
         
         CommanderController selfCommander = GetComponent<CommanderController>();
-        if (selfCommander != null)
+        if (selfCommander != null && selfCommander.IsCommander)
         {
             // Alerts all followers if commander
             foreach (AIStateMachine follower in selfCommander.Followers)
@@ -157,6 +178,8 @@ public class AIStateMachine : MonoBehaviour
                 if (follower != null && !(follower.CurrentState is AttackState) && !(follower.CurrentState is MoveToCoverState) && !(follower.CurrentState is BehindCoverState) && !(follower.CurrentState is PeekShootState))
                 {
                     follower.ChangeState(new AttackState(follower, follower.agent, player));
+                    follower.vision.canSeePlayer = true;
+                    follower.vision.lastSeenTime = Time.time;
                 }
             }
         }
