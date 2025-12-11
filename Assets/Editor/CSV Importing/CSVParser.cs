@@ -151,4 +151,9 @@ public class CSVParser
         }
         return list;
     }
+
+    public static void LoadFromGoogle()
+    {
+        
+    }
 }
