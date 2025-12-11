@@ -19,7 +19,7 @@ public class WeaponsSystem : MonoBehaviour
     [SerializeField] private Transform firePoint;
     
     // internal references
-    private PlayerInventory playerInventory => PlayerInventory.Instance;
+    private PlayerDataSO PlayerData => GameManager.PlayerData;
     [HideInInspector] public Weapon currentWeapon;
     private PlayerCamera.CameraType weaponCameraType;
     private Crosshair crosshair;
@@ -57,7 +57,7 @@ public class WeaponsSystem : MonoBehaviour
         InputManager.Instance.OnReloadAction += Reload;
         // Find crosshair in scene
         crosshair = FindFirstObjectByType<Crosshair>();
-        currentWeapon = playerInventory.GetPrimaryWeapon();
+        currentWeapon = PlayerData.PrimaryWeapon;
     }
 
     private void Update()
@@ -151,7 +151,7 @@ public class WeaponsSystem : MonoBehaviour
         accumulatedShootingTime = 0f;
         lastReloadTime = Time.time;
 
-        currentWeapon.Reload(playerInventory);
+        currentWeapon.Reload(PlayerData);
     }
 
     private void DoMultiShoot(bool isPhysicsBased = false)

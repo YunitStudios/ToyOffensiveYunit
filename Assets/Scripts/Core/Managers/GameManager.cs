@@ -2,10 +2,10 @@ using System;
 using EditorAttributes;
 using PrimeTween;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameManager : MonoBehaviour
 {
-    public bool Ingame { get; private set; }
     
     #region Singleton
     public static GameManager Instance { get; private set; }
@@ -28,13 +28,20 @@ public class GameManager : MonoBehaviour
     
     [Header("References")]
     [SerializeField] private IngameStats ingameStats;
+    [SerializeField] private ScoreTrackerSO scoreTracker;
+    [SerializeField] private PlayerDataSO playerDataSO;
 
-    [Header("Event Binding")] 
+    [Header("Input Events")] 
     [SerializeField] private VoidEventChannelSO onLoadGame;
     
-    [Header("Event Triggering")]
+    [Header("Output Events")]
     [SerializeField] private FloatEventChannelSO onTimePassed;
 
+    public bool Ingame { get; private set; }
+    public static PlayerDataSO PlayerData => Instance.playerDataSO;
+    public static ScoreTrackerSO ScoreTracker => Instance.scoreTracker;
+    
+    
     private void OnEnable()
     {
         onLoadGame.OnEventRaised += LoadGame;
@@ -49,6 +56,12 @@ public class GameManager : MonoBehaviour
         PrimeTweenConfig.warnEndValueEqualsCurrent = false;
         PrimeTweenConfig.warnTweenOnDisabledTarget = false;
         PrimeTweenConfig.warnZeroDuration = false;
+    }
+
+    private void Start()
+    {
+        ingameStats.Start();
+        PlayerData.Init();
     }
 
 
@@ -74,6 +87,7 @@ public class GameManager : MonoBehaviour
         Ingame = true;
         
         ingameStats.Start();
+        PlayerData.Init();
         
         print("Game Started");
     }

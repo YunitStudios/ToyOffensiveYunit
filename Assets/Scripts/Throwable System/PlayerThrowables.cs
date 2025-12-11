@@ -7,7 +7,7 @@ public class PlayerThrowables : MonoBehaviour
     [SerializeField] private ThrowableSpawner spawner;
     private ThrowableDataSO currentThrowable;
     private InputManager playerInputManager => InputManager.Instance;
-    private PlayerInventory playerInventory => PlayerInventory.Instance;
+    private PlayerDataSO PlayerData => GameManager.PlayerData;
 
 
     void OnEnable()
@@ -22,15 +22,15 @@ public class PlayerThrowables : MonoBehaviour
 
     private void Start()
     {
-        currentThrowable = playerInventory.GetStartingThrowable();
+        currentThrowable = PlayerData.StartingThrowable;
     }
 
     void ThrowThing()
     {
-        if (playerInventory.GetThrowableCount() > 0)
+        if (PlayerData.ThrowableCount > 0)
         {
             spawner.ThrowObject(currentThrowable);
-            playerInventory.AdjustThrowableCount(-1);
+            PlayerData.AdjustThrowableCount(-1);
         }
     }
 }
