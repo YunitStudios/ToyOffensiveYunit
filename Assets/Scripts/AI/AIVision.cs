@@ -3,7 +3,10 @@ using UnityEngine;
 public class AIVision : MonoBehaviour
 {
     [Tooltip("Distance the enemy can See")]
-    [SerializeField] private float Range;
+    [SerializeField] private float range;
+
+    [Tooltip("Distance the player can See when engaged with player")]
+    [SerializeField] private float engagedRange;
     
     [Tooltip("Enemies field of view")]
     [SerializeField] private float FOV;
@@ -34,10 +37,13 @@ public class AIVision : MonoBehaviour
     private bool hasAlertedSquad = false;
     private AIStateMachine aiStateMachine;
 
+    private float defaultRange;
+
     void Start()
     {
         visionCollider = GetComponent<SphereCollider>();
-        visionCollider.radius = Range;
+        visionCollider.radius = range;
+        defaultRange = range;
         // Finds the player object using Tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -87,7 +93,7 @@ public class AIVision : MonoBehaviour
             return;
         }
         // Does raycast to check if anything is blocking vision between enemy and player
-        if (Physics.Raycast(transform.position + Vector3.up * 1.5f, direction, out RaycastHit hit,  Range,  visionMask))
+        if (Physics.Raycast(transform.position + Vector3.up * 1.8f, direction, out RaycastHit hit,  range,  visionMask))
         {
             if (hit.collider.CompareTag("Player"))
             {
@@ -114,5 +120,21 @@ public class AIVision : MonoBehaviour
             playerInsideVision = false;
             canSeePlayer = false;
         }
+    }
+
+    public void IncreaseVision()
+    {
+        range = engagedRange;
+        visionCollider.radius = engagedRange;
+        visionCollider.enabled = false;
+        visionCollider.enabled = true;
+    }
+
+    public void ResetVision()
+    {
+        range = defaultRange;
+        visionCollider.radius = defaultRange;
+        visionCollider.enabled = false;
+        visionCollider.enabled = true;
     }
 }
