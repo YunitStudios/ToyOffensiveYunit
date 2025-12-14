@@ -10,11 +10,6 @@ public class PlayerThrowables : MonoBehaviour
     private PlayerDataSO PlayerData => GameManager.PlayerData;
 
 
-    void OnEnable()
-    {
-        playerInputManager.OnThrowAction += ThrowThing;
-    }
-    
     void OnDisable()
     {
         playerInputManager.OnThrowAction -= ThrowThing;
@@ -23,6 +18,7 @@ public class PlayerThrowables : MonoBehaviour
     private void Start()
     {
         currentThrowable = PlayerData.StartingThrowable;
+        playerInputManager.OnThrowAction += ThrowThing;
     }
 
     void ThrowThing()

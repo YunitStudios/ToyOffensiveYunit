@@ -56,10 +56,6 @@ public class GameManager : MonoBehaviour
         PrimeTweenConfig.warnEndValueEqualsCurrent = false;
         PrimeTweenConfig.warnTweenOnDisabledTarget = false;
         PrimeTweenConfig.warnZeroDuration = false;
-    }
-
-    private void Start()
-    {
         ingameStats.Start();
         PlayerData.Init();
     }

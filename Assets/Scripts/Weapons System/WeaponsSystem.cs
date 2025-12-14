@@ -201,12 +201,13 @@ public class WeaponsSystem : MonoBehaviour
 
         // raycast from gun along the spread direction
         RaycastHit hit;
+        Bullet bullet = new();
         if (Physics.Raycast(firePoint.position, shootDir, out hit, Mathf.Infinity, canShoot))
         {
             // apply damage if we hit an enemy
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.transform.TryGetComponent<IDamageable>(out var target))
             {
-                hit.collider.GetComponent<AIController>().TakeDamage(currentWeapon.WeaponData.Damage);
+                target.TakeDamage(bullet, currentWeapon.WeaponData.Damage);
                 crosshair.Hitmarker();
             }
         }
@@ -287,5 +288,10 @@ public class WeaponsSystem : MonoBehaviour
         }
 
         Destroy(tracer);
+    }
+
+    public class Bullet : IDamageSource
+    {
+        
     }
 }

@@ -43,6 +43,7 @@ public class PlayerDataSO : ScriptableObject
     {
         PrimaryWeapon = new Weapon(startingPrimaryWeapon);
         SecondaryWeapon = new Weapon(startingSecondaryWeapon);
+        StartingThrowable = startingThrowable;
         NormalAmmoCount = maxNormalAmmo;
         SpecialAmmoCount = maxSpecialAmmo;
         ThrowableCount = maxThrowableAmount;

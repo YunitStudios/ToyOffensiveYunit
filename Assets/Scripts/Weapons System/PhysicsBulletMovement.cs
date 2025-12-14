@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class PhysicsBulletMovement : MonoBehaviour
+public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
 {
     // value set by weapons system
     [HideInInspector] public Vector3 InitialDirection; // Forward direction
@@ -37,10 +37,9 @@ public class PhysicsBulletMovement : MonoBehaviour
             // if hit something
             if (IsInLayerMask(collider.gameObject, Shootable))
             {
-                // apply damage if we hit an enemy
-                if (hit.collider.CompareTag("Enemy"))
+                if (hit.transform.TryGetComponent<IDamageable>(out var target))
                 {
-                    hit.collider.GetComponent<AIController>().TakeDamage(Damage);
+                    target.TakeDamage(this, Damage);
                     crosshair.Hitmarker();
                 }
                 

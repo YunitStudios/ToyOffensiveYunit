@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: ScoreTracker
   m_EditorClassIdentifier: Assembly-CSharp::ScoreTrackerSO
   stats: {fileID: 11400000, guid: a0115a35e61a1b741b5f2959e665968a, type: 2}
+  multiKillTimeThreshold: 1
   scoreValues:
     _serializedList:
     - Key: 0
@@ -31,9 +32,8 @@ MonoBehaviour:
       Value: 100
     - Key: 5
       Value: 250
-  multikillBonus: 50
-  multiKillTimeThreshold: 1
-  multiKillMaxKills: 5
+    - Key: 8
+      Value: 50
   timerStartBonus: 6000
   timerMinusPerSecond: 20
   healthBonusPerPoints: 20
