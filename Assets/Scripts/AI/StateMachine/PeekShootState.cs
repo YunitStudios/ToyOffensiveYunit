@@ -12,7 +12,7 @@ public class PeekShootState : AIState
     private Vector3 coverPosition;
     // direction to move to peek around cover
     private Vector3 moveDirection;
-    private float stepSize = 1f;
+    private float stepSize = 0.1f;
     private float sampleRadius = 10f;
     private AIController aiController;
 
@@ -52,7 +52,6 @@ public class PeekShootState : AIState
                 weaponSystem.target = player;
                 weaponSystem.Fire();
             }
-
             return;
         }
 
@@ -94,13 +93,13 @@ public class PeekShootState : AIState
     
     private bool HasLineOfSight()
     {
-        Vector3 from = controller.transform.position + Vector3.up;
-        Vector3 to = player.position + Vector3.up;
+        Vector3 from = controller.transform.position + Vector3.up * 0.5f;
+        Vector3 to = player.position + Vector3.up * 1.5f;
         Vector3 dir = to - from;
-        float dist = dir.magnitude;
+        float dist = dir.magnitude * 2f;
 
         // Raycast to check it can see player
-        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy", "Vision")))
         {
             return hit.transform == player;
         }
