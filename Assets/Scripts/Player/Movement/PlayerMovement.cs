@@ -38,7 +38,7 @@ public class PlayerMovement : StateMachine
     [Tooltip("Height of the player character, used in things like climbing checks")]
     [SerializeField] private float playerHeight = 2f;
     public float PlayerHeight => playerHeight;
-    [SerializeField] private float playerRadius = 0.5f;
+    [SerializeField] private float playerRadius = 0.25f;
     public float PlayerRadius => playerRadius;
     [Tooltip("Normalized height of the player's head relative to total height (0 = feet, 1 = top of head)")]
     [Range(0,1)] [SerializeField] private float playerHeadNormalizedHeight = 0.9f;
@@ -95,6 +95,7 @@ public class PlayerMovement : StateMachine
     
     public Vector3 CurrentVelocity => currentVelocity;
     private Vector3 currentVelocity;
+    public float CurrentRadius => cc.radius;
     
     
     [Header("Looking")]
@@ -248,6 +249,14 @@ public class PlayerMovement : StateMachine
     public void ChangeHeightDefault()
     {
         ChangeHeight(defaultColliderHeight);
+    }
+    public void ChangeRadius(float newRadius)
+    {
+        cc.radius = newRadius;
+    }
+    public void ChangeRadiusDefault()
+    {
+        ChangeRadius(playerRadius);
     }
 
     private void FrameLook()
