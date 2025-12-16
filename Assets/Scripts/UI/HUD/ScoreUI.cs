@@ -48,7 +48,7 @@ public class ScoreUI : MonoBehaviour
 
         Tween.PunchScale(valueText.transform, new ShakeSettings(Vector3.one * 2, 0.2f, 1));
 
-        valueText.text = "+" + currentScore;
+        valueText.text = "+" + NumberUtility.FormatNumber(currentScore);
 
         string typesString = "";
         foreach (var typeData in currentTypes)

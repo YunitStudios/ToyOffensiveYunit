@@ -90,10 +90,6 @@ public class CanvasFader : MonoBehaviour
 
     private Tween ScaleIn()
     {
-        // Reset scale if restarting
-        if (!(fadeSequence.progress > 0))
-            ScalingTransform.localScale = Vector3.one * startingScale;
-
         return Tween.Scale(ScalingTransform, targetScale, scaleInTime);
     }
     private Tween ScaleOut()
