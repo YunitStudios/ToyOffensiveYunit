@@ -231,7 +231,7 @@ public class ClimbingState : MovementState
                 stateMachine.PlayerAnimator.applyRootMotion = true;
             }
             
-            float currentClimbSpeed = Mathf.Abs(upInput) > Mathf.Abs(sideInput) ? upInput : sideInput;
+            float currentClimbSpeed = Mathf.Abs(upInput) >= Mathf.Abs(sideInput) ? upInput : sideInput;
             
             // Drain stamina if moving in either direction
             if (Mathf.Abs(upInput) > 0f || Mathf.Abs(sideInput) > 0f)
@@ -265,7 +265,7 @@ public class ClimbingState : MovementState
                 StartHanging();
             
             // Regain stamina while hanging
-            currentStamina += Settings.ClimbStaminaRegenRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina + Settings.ClimbStaminaRegenRate * Time.deltaTime, 0, Settings.MaxClimbStamina);
             
             // Can jump to vault over ledge
             if (stateMachine.InputController.JumpDown && !unhangDelayTween.isAlive)
