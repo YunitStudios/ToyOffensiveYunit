@@ -58,12 +58,12 @@ public class CommanderController : MonoBehaviour
         foreach (AIStateMachine follower in followers)
         {
             follower.commander = newCommander.transform;
-            follower.ChangeState(new FollowCommanderState(follower, follower.agent, newCommander.transform, follower.formationOffset));
         }
         
-        CommanderController newController = newCommander.gameObject.AddComponent<CommanderController>();
+        CommanderController newController = newCommander.gameObject.GetComponent<CommanderController>();
         newController.followers = new List<AIStateMachine>(followers);
         newController.formationTolerance = formationTolerance;
+        newController.isCommander = true;
         
         newCommander.ChangeState(new PatrolState(newCommander, newCommander.agent, newCommander.Waypoints, currentWaypoint));
         
