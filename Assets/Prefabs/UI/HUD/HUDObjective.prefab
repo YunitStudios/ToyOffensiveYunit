@@ -147,6 +147,7 @@ GameObject:
   - component: {fileID: 1885345506162367030}
   - component: {fileID: 7346753603155103557}
   - component: {fileID: 1906310246410015500}
+  - component: {fileID: 3333234536645383002}
   m_Layer: 5
   m_Name: HUDObjective
   m_TagString: Untagged
@@ -214,3 +215,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
   m_HorizontalFit: 0
   m_VerticalFit: 2
+--- !u!114 &3333234536645383002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4742463075422149538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2157ce5c7107f94ea986a41a52b06fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveUI
+  objective: {fileID: 0}
+  text: {fileID: 3732908961982748813}
