@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using PrimeTween;
 
 public class ScoreUI : MonoBehaviour
 {
@@ -9,26 +10,57 @@ public class ScoreUI : MonoBehaviour
     [SerializeField] private CanvasFader fader;
     [SerializeField] private TMP_Text valueText;
     [SerializeField] private TMP_Text typesText;
-    
+
+    private bool active;
+    private float currentScore;
+    private Dictionary<ScoreTrackerSO.ScoreTypes, int> currentTypes;
+
     private void OnEnable()
     {
         ScoreTrackerSO.OnScoreAdded += NewScore;
+        fader.OnFadeOutEnd += DisplayEnd;
     }
 
     private void OnDisable()
     {
         ScoreTrackerSO.OnScoreAdded -= NewScore;
+        fader.OnFadeOutEnd -= DisplayEnd;
     }
 
     private void NewScore(List<ScoreTrackerSO.ScoreTypes> types, float value)
     {
+        if (!active)
+        {
+            currentScore = 0;
+            currentTypes = new();
+        }
+
+        currentScore += value;
+        foreach(var type in types)
+        {
+            if (currentTypes.ContainsKey(type))
+                currentTypes[type]++;
+            else
+                currentTypes.Add(type, 1);
+        }
+
         fader.PlayFull();
-        valueText.text = "+" + value;
+
+        Tween.PunchScale(valueText.transform, new ShakeSettings(Vector3.one * 2, 0.2f, 1));
+
+        valueText.text = "+" + currentScore;
 
         string typesString = "";
-        foreach (ScoreTrackerSO.ScoreTypes type in types)
-            typesString += ScoreTrackerSO.TypeToString(type) + "\n";
+        foreach (var typeData in currentTypes)
+            typesString += ScoreTrackerSO.TypeToString(typeData.Key) + " x" + typeData.Value + "\n";
         typesText.text = typesString;
+
+        active = true;
+    }
+
+    private void DisplayEnd()
+    {
+        active = false;
     }
 
 
