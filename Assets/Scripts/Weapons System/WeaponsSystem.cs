@@ -19,7 +19,7 @@ public class WeaponsSystem : MonoBehaviour
     [SerializeField] private Transform firePoint;
     
     // internal references
-    private PlayerInventory playerInventory => PlayerInventory.Instance;
+    private PlayerDataSO PlayerData => GameManager.PlayerData;
     [HideInInspector] public Weapon currentWeapon;
     private PlayerCamera.CameraType weaponCameraType;
     private Crosshair crosshair;
@@ -30,6 +30,10 @@ public class WeaponsSystem : MonoBehaviour
     
     // physics projectile
     [SerializeField] private GameObject physicsProjectilePrefab;
+
+    [Header("Output Events")]
+    [SerializeField] private VoidEventChannelSO onShowHitmarker;
+    [SerializeField] private FloatEventChannelSO onUpdateSpread;
 
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
@@ -57,7 +61,7 @@ public class WeaponsSystem : MonoBehaviour
         InputManager.Instance.OnReloadAction += Reload;
         // Find crosshair in scene
         crosshair = FindFirstObjectByType<Crosshair>();
-        currentWeapon = playerInventory.GetPrimaryWeapon();
+        currentWeapon = PlayerData.PrimaryWeapon;
     }
 
     private void Update()
@@ -82,7 +86,7 @@ public class WeaponsSystem : MonoBehaviour
         currentWeapon.WeaponSpread.UpdateSpreadOverTime();
         
         //UI Crosshair update
-        crosshair.UpdateSpread(currentWeapon.WeaponSpread.CurrentSpreadAmount);
+        onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
     }
 
@@ -151,7 +155,7 @@ public class WeaponsSystem : MonoBehaviour
         accumulatedShootingTime = 0f;
         lastReloadTime = Time.time;
 
-        currentWeapon.Reload(playerInventory);
+        currentWeapon.Reload(PlayerData);
     }
 
     private void DoMultiShoot(bool isPhysicsBased = false)
@@ -201,13 +205,14 @@ public class WeaponsSystem : MonoBehaviour
 
         // raycast from gun along the spread direction
         RaycastHit hit;
+        Bullet bullet = new();
         if (Physics.Raycast(firePoint.position, shootDir, out hit, Mathf.Infinity, canShoot))
         {
             // apply damage if we hit an enemy
-            if (hit.collider.CompareTag("Enemy"))
+            if (hit.transform.TryGetComponent<IDamageable>(out var target))
             {
-                hit.collider.GetComponent<AIController>().TakeDamage(currentWeapon.WeaponData.Damage);
-                crosshair.Hitmarker();
+                target.TakeDamage(bullet, currentWeapon.WeaponData.Damage);
+                onShowHitmarker?.Invoke();
             }
         }
 
@@ -287,5 +292,10 @@ public class WeaponsSystem : MonoBehaviour
         }
 
         Destroy(tracer);
+    }
+
+    public class Bullet : IDamageSource
+    {
+        
     }
 }
