@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class PhysicsBulletMovement : MonoBehaviour
+public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
 {
     // value set by weapons system
     [HideInInspector] public Vector3 InitialDirection; // Forward direction
@@ -10,8 +10,9 @@ public class PhysicsBulletMovement : MonoBehaviour
     [HideInInspector] public float Damage = 1f;
     [HideInInspector] public float MassKG;
     [HideInInspector] public LayerMask Shootable;
-    
-    private Crosshair crosshair;
+
+    [Header("Output Events")]
+    [SerializeField] private VoidEventChannelSO onShowHitmarker;
     
     // constants
     private const float gravity = 9.81f; // m/s²
@@ -20,7 +21,6 @@ public class PhysicsBulletMovement : MonoBehaviour
     private Vector3 velocity;
     void Start()
     {
-        crosshair = FindFirstObjectByType<Crosshair>();
         velocity = InitialDirection.normalized * InitialVelocity;
     }
 
@@ -37,11 +37,10 @@ public class PhysicsBulletMovement : MonoBehaviour
             // if hit something
             if (IsInLayerMask(collider.gameObject, Shootable))
             {
-                // apply damage if we hit an enemy
-                if (hit.collider.CompareTag("Enemy"))
+                if (hit.transform.TryGetComponent<IDamageable>(out var target))
                 {
-                    hit.collider.GetComponent<AIController>().TakeDamage(Damage);
-                    crosshair.Hitmarker();
+                    target.TakeDamage(this, Damage);
+                    onShowHitmarker.Invoke();
                 }
                 
                 // destroy self after hit

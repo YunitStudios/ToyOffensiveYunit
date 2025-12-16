@@ -320,6 +320,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02e494d3cc43af449a8bc97c8a13dd48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CommanderController
+  isCommander: 0
   followers:
   - {fileID: 1241916334}
   - {fileID: 1237376527}
@@ -554,6 +555,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CeramicBottle
       objectReference: {fileID: 0}
+    - target: {fileID: 5307781980092863835, guid: 256315f2b81a3c5419ad8fca188b6ff2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -658,6 +663,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RedApple_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 4663271054857642102, guid: 2ea3fdce57db143449499de8f3f78237, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8505798066883518983, guid: 2ea3fdce57db143449499de8f3f78237, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -714,6 +723,10 @@ PrefabInstance:
     - target: {fileID: 7458746801676254747, guid: ccc72fc34edd3b142a4b89ad86ad1fed, type: 3}
       propertyPath: m_Name
       value: Knife1_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7458746801676254747, guid: ccc72fc34edd3b142a4b89ad86ad1fed, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7693494595568883821, guid: ccc72fc34edd3b142a4b89ad86ad1fed, type: 3}
       propertyPath: m_LocalPosition.x
@@ -985,6 +998,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2743007024634787036, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2743007024634787036, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4109879847255583179, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1004,6 +1025,22 @@ PrefabInstance:
     - target: {fileID: 4109879847255583179, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485007870399694733, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4485007870399694733, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4874248034704736924, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4892239184944790268, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4919281680558401028, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1083,7 +1120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6695959128603691573, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 467.5
+      value: 518.5322
       objectReference: {fileID: 0}
     - target: {fileID: 6695959128603691573, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1091,7 +1128,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6695959128603691573, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 233.75
+      value: 259.2661
       objectReference: {fileID: 0}
     - target: {fileID: 6695959128603691573, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1107,7 +1144,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6738917477580324007, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 467.5
+      value: 518.5322
       objectReference: {fileID: 0}
     - target: {fileID: 6738917477580324007, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1115,7 +1152,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6738917477580324007, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 233.75
+      value: 259.2661
       objectReference: {fileID: 0}
     - target: {fileID: 6738917477580324007, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1211,7 +1248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6980161437102716052, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 467.5
+      value: 518.5322
       objectReference: {fileID: 0}
     - target: {fileID: 6980161437102716052, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1219,7 +1256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6980161437102716052, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 233.75
+      value: 259.2661
       objectReference: {fileID: 0}
     - target: {fileID: 6980161437102716052, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1247,7 +1284,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9207063325313080714, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 467.5
+      value: 518.5322
       objectReference: {fileID: 0}
     - target: {fileID: 9207063325313080714, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_SizeDelta.y
@@ -1255,7 +1292,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9207063325313080714, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 233.75
+      value: 259.2661
       objectReference: {fileID: 0}
     - target: {fileID: 9207063325313080714, guid: 4b506367d8b386143a4bad5ad3609a59, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1277,6 +1314,10 @@ PrefabInstance:
     - target: {fileID: 491834746192196573, guid: 82de0e58da065b74ba2b15d6d2ef29f7, type: 3}
       propertyPath: m_Name
       value: Knife3_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 491834746192196573, guid: 82de0e58da065b74ba2b15d6d2ef29f7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3241735317299410689, guid: 82de0e58da065b74ba2b15d6d2ef29f7, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1334,6 +1375,10 @@ PrefabInstance:
     - target: {fileID: 2576879630544053085, guid: a152c7df39858e6478a3f328a7acd47e, type: 3}
       propertyPath: m_Name
       value: Toaster_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 2576879630544053085, guid: a152c7df39858e6478a3f328a7acd47e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6232975426001146746, guid: a152c7df39858e6478a3f328a7acd47e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1452,6 +1497,10 @@ PrefabInstance:
     - target: {fileID: 554300026418761997, guid: 733a34dd3ed0696478a0d2230b0b90c9, type: 3}
       propertyPath: m_Name
       value: Toaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 554300026418761997, guid: 733a34dd3ed0696478a0d2230b0b90c9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2819105215422054401, guid: 733a34dd3ed0696478a0d2230b0b90c9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1756,6 +1805,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CeramicBottle2
       objectReference: {fileID: 0}
+    - target: {fileID: 7137626699385172715, guid: 485ed5f3ff101d4459a657f442c024e8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1885,6 +1938,10 @@ PrefabInstance:
     - target: {fileID: 6008859414318146332, guid: 46ec4eeaeea69c243b649d2012fd577b, type: 3}
       propertyPath: m_Name
       value: Knife2_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 6008859414318146332, guid: 46ec4eeaeea69c243b649d2012fd577b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2026,6 +2083,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GreenApple_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 1549333170609226032, guid: 9141ddeb4b3439544a2f98a2ec0df852, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2042,6 +2103,10 @@ PrefabInstance:
     - target: {fileID: 1942701015972687952, guid: 033871dbf70817a4bac7811c9749cf2d, type: 3}
       propertyPath: m_Name
       value: SilverSpoon_prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1942701015972687952, guid: 033871dbf70817a4bac7811c9749cf2d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2272926405607301282, guid: 033871dbf70817a4bac7811c9749cf2d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2202,6 +2267,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lemon_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 5366880408246603951, guid: 6080195d88e63c240843b12676d1dfe7, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2284,6 +2353,10 @@ PrefabInstance:
     - target: {fileID: 1051907457000609815, guid: 07d34c79d38f646e691327a946a29001, type: 3}
       propertyPath: m_Name
       value: CoatRack_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 1051907457000609815, guid: 07d34c79d38f646e691327a946a29001, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1125963969744398082, guid: 07d34c79d38f646e691327a946a29001, type: 3}
       propertyPath: m_LocalPosition.x
