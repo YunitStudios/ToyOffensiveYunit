@@ -3,6 +3,7 @@ using System.Linq;
 using AYellowpaper.SerializedCollections;
 using EditorAttributes;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Objectives/TargetObjectives", fileName = "TargetObjectives")]
@@ -10,14 +11,15 @@ public class TargetObjectivesSO : CoreObjectiveSO
 {
     [Header("Target")] 
     [SerializeField, Tooltip("If the objective requires all targets for completion")] private bool allTargets = true;
-    [SerializeField, HideField(nameof(allTargets)), Tooltip("Number of targets to be completed before completing the objective")] private int targetCount;
+    [SerializeField, HideField(nameof(allTargets)), Tooltip("Number of targets to be completed before completing the objective")] private int goalCount;
     
     [SerializeField, DisableInEditMode, DisableInPlayMode] private SerializedDictionary<ObjectiveTarget, bool> targetStates = new();
     
     public int CompletedCount => targetStates.Values.Count(state => state);
+    public int TargetCount => allTargets ? MaxTargetCount : goalCount;
     public int MaxTargetCount => targetStates.Count;
 
-    public override string ProgressText => "{0}/{1}";
+    public override string ProgressText => $" {CompletedCount}/{TargetCount}";
     
     public void RegisterTarget(ObjectiveTarget target)
     {
@@ -51,7 +53,7 @@ public class TargetObjectivesSO : CoreObjectiveSO
             CompleteObjective();
 
         if (!allTargets &&
-            (completedCount > targetCount ||
+            (completedCount >= goalCount ||
              // Failsafe in case the target count is more than the number of targets
              completedCount >= MaxTargetCount))
             CompleteObjective();

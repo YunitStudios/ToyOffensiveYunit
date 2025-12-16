@@ -1,12 +1,19 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectiveUI : MonoBehaviour
 {
     [SerializeField] private CoreObjectiveSO objective;
     [SerializeField] private TMP_Text text;
+    private RectTransform rectTransform;
 
+
+    private void Awake()
+    {
+        rectTransform = GetComponent<RectTransform>();
+    }
 
     private void OnEnable()
     {
@@ -34,5 +41,6 @@ public class ObjectiveUI : MonoBehaviour
     {
         text.text = objective.GetObjectiveText();
         text.color = !objective.Completed ? Color.white : Color.green;
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
     }
 }

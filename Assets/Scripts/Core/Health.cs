@@ -22,6 +22,7 @@ public class Health : MonoBehaviour
     [Tooltip("Invoked if the damage dealing is successful and passes new health value")]
     [SerializeField] private FloatEventChannelSO onHealthChanged;
     [SerializeField] private VoidEventChannelSO onDie;
+    public UnityEvent OnDieUnity;
 
     [Header("Debug")] 
     [SerializeField] private float debugDamage;
@@ -40,6 +41,7 @@ public class Health : MonoBehaviour
     public bool IsInvulnerable { get; set; }
 
     private float regenWait;
+    
 
     private void OnEnable()
     {
@@ -97,6 +99,7 @@ public class Health : MonoBehaviour
     private void Die()
     {
         onDie?.Invoke();
+        OnDieUnity?.Invoke();
     }
 
     private void RegenerateHealth()
