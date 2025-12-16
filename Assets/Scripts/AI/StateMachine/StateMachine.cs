@@ -21,6 +21,9 @@ public class AIStateMachine : MonoBehaviour
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
     private AIController aiController;
 
+    [Tooltip("Time before enemy is destroyed after being killed")]
+    [SerializeField] private float DeathDelay = 0;
+
     // Sets starting states for AI 
     void Start()
     {
@@ -117,7 +120,7 @@ public class AIStateMachine : MonoBehaviour
             }
         }
 
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, DeathDelay);
     }
 
     public void ReturnToStartingState()

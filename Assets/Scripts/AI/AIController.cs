@@ -15,6 +15,7 @@ public class AIController : MonoBehaviour
     [SerializeField] private float maxHealthRegenerated = 50;
     private float regenTimerAfterDamage = 0f;
     private float regenTimer = 0f;
+    private bool isDead = false;
 
     private AIStateMachine stateMachine;
     [SerializeField] private Animator aiAnimator;
@@ -64,15 +65,19 @@ public class AIController : MonoBehaviour
     // Enemy take damage function, and resets timer for regen
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
-        regenTimerAfterDamage = 0;
-
-        // Alert squad when damaged 
-        stateMachine.AlertSquad(playerTransform);
-        
-        if (currentHealth <= 0f)
+        if (!isDead)
         {
-            stateMachine.Die();
+            currentHealth -= damage;
+            regenTimerAfterDamage = 0;
+
+            // Alert squad when damaged 
+            stateMachine.AlertSquad(playerTransform);
+
+            if (currentHealth <= 0f)
+            {
+                isDead = true;
+                stateMachine.Die();
+            }
         }
     }
 
