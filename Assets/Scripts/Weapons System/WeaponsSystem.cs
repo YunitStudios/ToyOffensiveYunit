@@ -31,6 +31,10 @@ public class WeaponsSystem : MonoBehaviour
     // physics projectile
     [SerializeField] private GameObject physicsProjectilePrefab;
 
+    [Header("Output Events")]
+    [SerializeField] private VoidEventChannelSO onShowHitmarker;
+    [SerializeField] private FloatEventChannelSO onUpdateSpread;
+
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
     private float accumulatedShootingTime = 0f;     // total time spent shooting, used for recovery speed
@@ -82,7 +86,7 @@ public class WeaponsSystem : MonoBehaviour
         currentWeapon.WeaponSpread.UpdateSpreadOverTime();
         
         //UI Crosshair update
-        crosshair.UpdateSpread(currentWeapon.WeaponSpread.CurrentSpreadAmount);
+        onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
     }
 
@@ -208,7 +212,7 @@ public class WeaponsSystem : MonoBehaviour
             if (hit.transform.TryGetComponent<IDamageable>(out var target))
             {
                 target.TakeDamage(bullet, currentWeapon.WeaponData.Damage);
-                crosshair.Hitmarker();
+                onShowHitmarker?.Invoke();
             }
         }
 

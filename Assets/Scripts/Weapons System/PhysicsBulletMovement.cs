@@ -10,8 +10,9 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     [HideInInspector] public float Damage = 1f;
     [HideInInspector] public float MassKG;
     [HideInInspector] public LayerMask Shootable;
-    
-    private Crosshair crosshair;
+
+    [Header("Output Events")]
+    [SerializeField] private VoidEventChannelSO onShowHitmarker;
     
     // constants
     private const float gravity = 9.81f; // m/s²
@@ -20,7 +21,6 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     private Vector3 velocity;
     void Start()
     {
-        crosshair = FindFirstObjectByType<Crosshair>();
         velocity = InitialDirection.normalized * InitialVelocity;
     }
 
@@ -40,7 +40,7 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                 if (hit.transform.TryGetComponent<IDamageable>(out var target))
                 {
                     target.TakeDamage(this, Damage);
-                    crosshair.Hitmarker();
+                    onShowHitmarker.Invoke();
                 }
                 
                 // destroy self after hit
