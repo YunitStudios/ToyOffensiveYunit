@@ -33,6 +33,7 @@ public class Health : MonoBehaviour
         private set
         {
             currentHeath = value;
+            HealthChanged();
             onHealthChanged?.Invoke(CurrentHealth);
         }
     }
@@ -67,6 +68,10 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void DealDamage(float damage)
+    {
+        DealDamage(damage, out bool _);
+    }
     public void DealDamage(float damage, out bool didDie)
     {
         TakeDamage(damage);
@@ -98,6 +103,11 @@ public class Health : MonoBehaviour
     {
         float regen = Time.deltaTime * regenRate;
         CurrentHealth += regen;
+    }
+
+    protected virtual void HealthChanged()
+    {
+        
     }
 
 

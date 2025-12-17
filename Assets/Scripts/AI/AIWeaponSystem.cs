@@ -127,7 +127,7 @@ public class AIWeaponSystem : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                hit.collider.GetComponent<PlayerHealth>().TakeDamage(currentWeapon.WeaponData.Damage * damageMult);
+                hit.collider.GetComponent<PlayerHealth>().DealDamage(currentWeapon.WeaponData.Damage * damageMult);
             }
         }
 
