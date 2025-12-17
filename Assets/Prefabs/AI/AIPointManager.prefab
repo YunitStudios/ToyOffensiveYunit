@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8868631676453756414}
   - component: {fileID: 7100503336552007789}
+  - component: {fileID: -6369649304974423107}
   m_Layer: 0
-  m_Name: CoverManager
+  m_Name: AIPointManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,3 +45,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b74b2b4b231464c459c730074eb9c439, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CoverPointManager
+  ignoreLayers:
+    serializedVersion: 2
+    m_Bits: 256
+--- !u!114 &-6369649304974423107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6369930063678787409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af409dc56a305a54f82c0c36d3f6a73c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SafePointManager

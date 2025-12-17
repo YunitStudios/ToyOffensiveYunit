@@ -21,6 +21,12 @@ public class AIStateMachine : MonoBehaviour
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
     private AIController aiController;
 
+    [Tooltip("Time before enemy is destroyed after being killed")]
+    [SerializeField] private float DeathDelay = 0;
+    
+    [Tooltip("Is this enemy a target?")]
+    [SerializeField] private bool IsTarget = false;
+
     // Sets starting states for AI 
     void Start()
     {
@@ -33,8 +39,12 @@ public class AIStateMachine : MonoBehaviour
     void Update()
     {
         currentState?.Execute();
-        // if player enters vision collider, switch to attack state
-        if (vision.canSeePlayer && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState))
+        // if player enters vision collider, switch to their alert state
+        if (vision.canSeePlayer && IsTarget && !(currentState is FleeState))
+        {
+            ChangeState(new FleeState(this, agent, vision.player));
+        }
+        if (vision.canSeePlayer && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && !IsTarget)
         { 
             ChangeState(new AttackState(this, agent, vision.player));
         }
@@ -117,7 +127,7 @@ public class AIStateMachine : MonoBehaviour
             }
         }
 
-        Destroy(gameObject, 2f);
+        Destroy(gameObject, DeathDelay);
     }
 
     public void ReturnToStartingState()
@@ -132,16 +142,10 @@ public class AIStateMachine : MonoBehaviour
         }
     }
     
-    // Alerts enemy squad, setting all of their states to attack, if not already
+    // Alerts enemy squad, setting all of their states to their specific alert state, if not already
     public void AlertSquad(Transform player)
     {
-        if (!(CurrentState is AttackState) && !(CurrentState is MoveToCoverState) &&
-            !(CurrentState is BehindCoverState) && !(CurrentState is PeekShootState))
-        {
-            ChangeState(new AttackState(this, agent, player));
-            vision.canSeePlayer = true;
-            vision.lastSeenTime = Time.time;
-        }
+       ReactToAlert(player);
         
         if (commander != null)
         {
@@ -150,20 +154,16 @@ public class AIStateMachine : MonoBehaviour
             {
                 // Alerts commander if follower
                 AIStateMachine commanderAI = commanderController.GetComponent<AIStateMachine>();
-                if (commanderAI != null && !(commanderAI.CurrentState is AttackState) && !(commanderAI.CurrentState is MoveToCoverState) && !(commanderAI.CurrentState is BehindCoverState) && !(commanderAI.CurrentState is PeekShootState))
+                if (commanderAI != null)
                 {
-                    commanderAI.ChangeState(new AttackState(commanderAI, commanderAI.agent, player));
-                    commanderAI.vision.canSeePlayer = true;
-                    commanderAI.vision.lastSeenTime = Time.time;
+                    commanderAI.ReactToAlert(player);
                 }
                 // Alerts all followers if follower
                 foreach (AIStateMachine follower in commanderController.Followers)
                 {
-                    if (follower != null && !(follower.CurrentState is AttackState) && !(follower.CurrentState is MoveToCoverState) && !(follower.CurrentState is BehindCoverState) && !(follower.CurrentState is PeekShootState))
+                    if (follower != null)
                     {
-                        follower.ChangeState(new AttackState(follower, follower.agent, player));
-                        follower.vision.canSeePlayer = true;
-                        follower.vision.lastSeenTime = Time.time;
+                        follower.ReactToAlert(player);
                     }
                 }
             }
@@ -175,12 +175,32 @@ public class AIStateMachine : MonoBehaviour
             // Alerts all followers if commander
             foreach (AIStateMachine follower in selfCommander.Followers)
             {
-                if (follower != null && !(follower.CurrentState is AttackState) && !(follower.CurrentState is MoveToCoverState) && !(follower.CurrentState is BehindCoverState) && !(follower.CurrentState is PeekShootState))
+                if (follower != null)
                 {
-                    follower.ChangeState(new AttackState(follower, follower.agent, player));
-                    follower.vision.canSeePlayer = true;
-                    follower.vision.lastSeenTime = Time.time;
+                    follower.ReactToAlert(player);
                 }
+            }
+        }
+    }
+
+    // When enemy is alerted, new states are set here based on enemy desired behaviour.
+    private void ReactToAlert(Transform player)
+    {
+        vision.canSeePlayer = true;
+        vision.lastSeenTime = Time.time;
+        
+        // if Enemy is a target it will enter the flee state
+        if (IsTarget && !(currentState is FleeState))
+        {
+            ChangeState(new FleeState(this, agent, player));
+        }
+        // if Enemy is not a target it will enter the attack state
+        else
+        {
+            if (!(currentState is AttackState) && !(currentState is MoveToCoverState) &&
+                !(currentState is BehindCoverState) && !(currentState is PeekShootState))
+            {
+                ChangeState(new AttackState(this, agent, player));
             }
         }
     }
