@@ -12,16 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3323a3fdb3f1702489e140664c72733a, type: 3}
   m_Name: TestEnemyKillObjective
   m_EditorClassIdentifier: Assembly-CSharp::TargetObjectivesSO
+  <Active>k__BackingField: 0
+  <Completed>k__BackingField: 0
+  <Failed>k__BackingField: 0
   objectiveName: Test
   objectiveDesc: Kill all targets
   isMainObjective: 1
-  <Active>k__BackingField: 0
-  <Completed>k__BackingField: 1
-  allTargets: 0
+  allTargets: 1
   goalCount: 1
   targetStates:
-    _serializedList:
-    - Key: {fileID: 0}
-      Value: 0
-    - Key: {fileID: 0}
-      Value: 1
+    _serializedList: []
+  onFirstTargetComplete: {fileID: 11400000, guid: 1dbd6a66c14cc4541b3f5db6538e5086, type: 2}
+  onTargetComplete: {fileID: 11400000, guid: 4160f82360db0344b9dfaac425f27279, type: 2}

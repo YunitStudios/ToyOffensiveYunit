@@ -24,6 +24,12 @@ public class GameManager : MonoBehaviour
         
         Init();
     }
+
+    private void OnDestroy()
+    {
+        Stop();
+    }
+
     #endregion
     
     [Header("References")]
@@ -58,6 +64,12 @@ public class GameManager : MonoBehaviour
         PrimeTweenConfig.warnZeroDuration = false;
         ingameStats.Start();
         PlayerData.Init();
+        MissionManager.Instance.StartMission();
+    }
+
+    private void Stop()
+    {
+        MissionManager.Instance.StopMission();
     }
 
 
@@ -84,7 +96,8 @@ public class GameManager : MonoBehaviour
         
         ingameStats.Start();
         PlayerData.Init();
-        
+        MissionManager.Instance.StartMission();
+
         print("Game Started");
     }
     [Button]

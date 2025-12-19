@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class ObjectiveUI : MonoBehaviour
 {
-    [SerializeField] private CoreObjectiveSO objective;
     [SerializeField] private TMP_Text text;
+    private CoreObjectiveSO objective;
     private RectTransform rectTransform;
 
 
@@ -15,10 +15,11 @@ public class ObjectiveUI : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
-    private void OnEnable()
+    public void Setup(CoreObjectiveSO newObjective)
     {
-        if (objective == null)
+        if (newObjective == null)
             return;
+        objective = newObjective;
         
         objective.OnObjectiveUpdated += UpdateText;
         objective.OnObjectiveCompleted += UpdateText;
@@ -40,7 +41,14 @@ public class ObjectiveUI : MonoBehaviour
     private void UpdateText()
     {
         text.text = objective.GetObjectiveText();
-        text.color = !objective.Completed ? Color.white : Color.green;
+        text.color = GetColor();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+    }
+
+    private Color GetColor()
+    {
+        if (objective.Failed) return Color.red;
+        if (objective.Completed) return Color.green;
+        return Color.white;
     }
 }

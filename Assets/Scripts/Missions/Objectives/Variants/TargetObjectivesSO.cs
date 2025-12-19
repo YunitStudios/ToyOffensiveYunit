@@ -13,21 +13,35 @@ public class TargetObjectivesSO : CoreObjectiveSO
     [SerializeField, Tooltip("If the objective requires all targets for completion")] private bool allTargets = true;
     [SerializeField, HideField(nameof(allTargets)), Tooltip("Number of targets to be completed before completing the objective")] private int goalCount;
     
-    [SerializeField, DisableInEditMode, DisableInPlayMode] private SerializedDictionary<ObjectiveTarget, bool> targetStates = new();
+    [SerializeField, HideInEditMode, DisableInPlayMode] private SerializedDictionary<ObjectiveTarget, bool> targetStates = new();
+    
+    [Header("Output Events")] 
+    [SerializeField] private VoidEventChannelSO onFirstTargetComplete;
+    [SerializeField] private VoidEventChannelSO onTargetComplete;
     
     public int CompletedCount => targetStates.Values.Count(state => state);
     public int TargetCount => allTargets ? MaxTargetCount : goalCount;
     public int MaxTargetCount => targetStates.Count;
 
-    public override string ProgressText => $" {CompletedCount}/{TargetCount}";
+    public override string ObjectiveText => objectiveDesc;
+    public override string ProgressText => $"{CompletedCount}/{TargetCount}";
+
+    private bool completedFirstTarget;
     
     public void RegisterTarget(ObjectiveTarget target)
     {
         targetStates.Add(target, false);
     }
-    [Button]
-    public void ClearTargets()
+
+    public override void SetupObjective()
     {
+        base.SetupObjective();
+        completedFirstTarget = false;
+    }
+
+    public override void ResetObjective()
+    {
+        base.ResetObjective();
         targetStates.Clear();
     }
     
@@ -36,8 +50,16 @@ public class TargetObjectivesSO : CoreObjectiveSO
         if (targetStates.ContainsKey(target))
             targetStates[target] = true;
         
-        OnObjectiveUpdated?.Invoke();
+        onTargetComplete?.Invoke();
+        if (!completedFirstTarget)
+        {
+            onFirstTargetComplete?.Invoke();
+            completedFirstTarget = true;
+        }
+        
         CheckCompleted();
+
+        OnObjectiveUpdated?.Invoke();
     }
 
     private void CheckCompleted()

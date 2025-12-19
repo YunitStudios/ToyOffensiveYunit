@@ -3,7 +3,7 @@ using EditorAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, IObjectiveTarget
 {
     [Header("Attributes")]
     [SerializeField] private float maxHealth;
@@ -39,6 +39,7 @@ public class Health : MonoBehaviour
         }
     }
     public bool IsInvulnerable { get; set; }
+    public event Action OnTargetComplete;
 
     private float regenWait;
     
@@ -100,6 +101,8 @@ public class Health : MonoBehaviour
     {
         onDie?.Invoke();
         OnDieUnity?.Invoke();
+        
+        OnTargetComplete?.Invoke();
     }
 
     private void RegenerateHealth()
