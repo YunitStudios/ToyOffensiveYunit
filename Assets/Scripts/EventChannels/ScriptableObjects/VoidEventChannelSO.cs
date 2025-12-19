@@ -4,7 +4,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "Events/Void Event Channel", fileName = "VoidEventChannel")]
 public class VoidEventChannelSO : ScriptableObject
 {
-    [SerializeField] private string description;
+    [SerializeField, TextArea(2,4) ] private string description;
     
     [Tooltip("The action to perform")]
     public UnityAction OnEventRaised;
