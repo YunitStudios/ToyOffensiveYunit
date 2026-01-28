@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 746b68b4b63fc4e3ea16ae97afb92576
+guid: 306985a8647a145cc8afaca3c384f105
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
@@ -7,33 +7,13 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Fridge_Drawer_Mtl
-    second: {fileID: 2100000, guid: f8511a387304745f788d7c1ac9992e9a, type: 2}
+      name: Hanger_Mtl
+    second: {fileID: 2100000, guid: 83e860a414be84d7c97a75ecfe33f6d9, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: Fridge_Exterior_Mtl
-    second: {fileID: 2100000, guid: 29cc47bc1d008415281e72ff734e1211, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fridge_Handle_Mtl
-    second: {fileID: 2100000, guid: 567a7d7fae2164644b88041ead955ba7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fridge_Interior_Mtl
-    second: {fileID: 2100000, guid: 85d58f9d06aa04b099f5ab7f53557b66, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fridge_Shelf_Glass_Mtl
-    second: {fileID: 2100000, guid: 4084d446344744c5191b9cb9ea432706, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Fridge_Shelf_Metal
-    second: {fileID: 2100000, guid: 4ad11f34684f14aee9ca8574254e0864, type: 2}
+      name: Wooden_Parts_Mtl
+    second: {fileID: 2100000, guid: aca77d2ee0e32454b9a03529a555f572, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -63,7 +43,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 12.5
+    globalScale: 15
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -121,7 +101,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 12.5
+    globalScale: 15
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
