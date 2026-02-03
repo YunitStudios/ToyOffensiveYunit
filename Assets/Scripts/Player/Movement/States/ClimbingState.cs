@@ -14,7 +14,7 @@ public class ClimbingSettings : StateSettings
     [Header("Climbing")]
     [SerializeField] private LayerMask climbableLayer;
     public LayerMask ClimbableLayer => climbableLayer;
-    [SerializeField] private float climbRange = 1f;
+    [SerializeField, Tooltip("Distance to wall before starting climb. Multiplier by players radius")] private float climbRange = 1f;
     public float ClimbRange => climbRange;
     [FormerlySerializedAs("climbingAngleLimits")] [SerializeField] private Vector2 climbingVerticalAngleLimits = new Vector2(-40f, 40f);
     public Vector2 ClimbingVerticalAngleLimits => climbingVerticalAngleLimits;
@@ -119,7 +119,9 @@ public class ClimbingState : MovementState
     private bool isHanging;
     private float currentStamina;
     private bool isStartingClimb => climbTimer < Settings.ClimbingStartLockIntoPlace;
-    private float ClimbingWidth => stateMachine.PlayerRadius + Settings.SideWidthOffset;
+    private float ClimbingWidth => stateMachine.CurrentRadius + Settings.SideWidthOffset;
+    private float CurrentClimbRange => Settings.ClimbRange * stateMachine.CurrentRadius;
+
 
     public override void Initialize()
     {
@@ -231,7 +233,7 @@ public class ClimbingState : MovementState
                 stateMachine.PlayerAnimator.applyRootMotion = true;
             }
             
-            float currentClimbSpeed = Mathf.Abs(upInput) > Mathf.Abs(sideInput) ? upInput : sideInput;
+            float currentClimbSpeed = Mathf.Abs(upInput) >= Mathf.Abs(sideInput) ? upInput : sideInput;
             
             // Drain stamina if moving in either direction
             if (Mathf.Abs(upInput) > 0f || Mathf.Abs(sideInput) > 0f)
@@ -265,7 +267,7 @@ public class ClimbingState : MovementState
                 StartHanging();
             
             // Regain stamina while hanging
-            currentStamina += Settings.ClimbStaminaRegenRate * Time.deltaTime;
+            currentStamina = Mathf.Clamp(currentStamina + Settings.ClimbStaminaRegenRate * Time.deltaTime, 0, Settings.MaxClimbStamina);
             
             // Can jump to vault over ledge
             if (stateMachine.InputController.JumpDown && !unhangDelayTween.isAlive)
@@ -469,7 +471,7 @@ public class ClimbingState : MovementState
         float maxDistance = 100;
         
         Vector3 headOrigin = stateMachine.Position + stateMachine.Up * stateMachine.PlayerHeadHeight;
-        Vector3 wallPosition = headOrigin + (stateMachine.Forward * (Settings.ClimbRange+0.1f));
+        Vector3 wallPosition = headOrigin + (stateMachine.Forward * (CurrentClimbRange + 0.1f));
 
         Ray distanceRay = new Ray(wallPosition + Vector3.up * maxDistance, -climbStartData.UpDirection);
         if (Physics.Raycast(distanceRay, out var hitInfo, maxDistance, Settings.ClimbableLayer))
@@ -520,9 +522,9 @@ public class ClimbingState : MovementState
         {
             // If hit position is too far, ignore
             // Do additional check at feet in case of walls slanted forward
-            if (Vector3.Distance(hitInfo.point, headOrigin) > Settings.ClimbRange)
+            if (Vector3.Distance(hitInfo.point, headOrigin) > CurrentClimbRange)
             {
-                if(!Physics.Raycast(downRay, out var downHit, Settings.ClimbRange, Settings.ClimbableLayer))
+                if(!Physics.Raycast(downRay, out var downHit, CurrentClimbRange, Settings.ClimbableLayer))
                     return climbDirections;
                 
                 // Make sure head and down ray hit the same object
@@ -556,22 +558,22 @@ public class ClimbingState : MovementState
             climbDirections = ClimbDirections.Up | ClimbDirections.Down | ClimbDirections.Left | ClimbDirections.Right;
             
             // If some ray don't hit, remove from result
-            if (!Physics.Raycast(upRay, out var upInfo, Settings.ClimbRange, Settings.ClimbableLayer)
+            if (!Physics.Raycast(upRay, out var upInfo, CurrentClimbRange, Settings.ClimbableLayer)
                 || !CheckNormalAngles(upInfo.normal))
             {
                 climbDirections &= ~ClimbDirections.Up;
             }
-            if (!Physics.Raycast(leftRay, out var leftInfo, Settings.ClimbRange, Settings.ClimbableLayer)
+            if (!Physics.Raycast(leftRay, out var leftInfo, CurrentClimbRange, Settings.ClimbableLayer)
                 || !CheckNormalAngles(leftInfo.normal))
             {
                 climbDirections &= ~ClimbDirections.Left;
             }
-            if (!Physics.Raycast(rightRay, out var rightInfo, Settings.ClimbRange, Settings.ClimbableLayer)
+            if (!Physics.Raycast(rightRay, out var rightInfo, CurrentClimbRange, Settings.ClimbableLayer)
                 || !CheckNormalAngles(rightInfo.normal))
             {
                 climbDirections &= ~ClimbDirections.Right;
             }
-            if (!Physics.Raycast(downRay, out var downInfo, Settings.ClimbRange, Settings.ClimbableLayer)
+            if (!Physics.Raycast(downRay, out var downInfo, CurrentClimbRange, Settings.ClimbableLayer)
                 || !CheckNormalAngles(downInfo.normal))
             {
                 climbDirections &= ~ClimbDirections.Down;

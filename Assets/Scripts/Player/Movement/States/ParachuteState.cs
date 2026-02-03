@@ -45,6 +45,8 @@ public class ParachutingSettings : StateSettings
     [Tooltip("Multiplier to increase the camera FOV when travelling at max speed")]
     [SerializeField] private float fovMultiplierAtMaxSpeed = 1.2f;
     public float FovMultiplierAtMaxSpeed => fovMultiplierAtMaxSpeed;
+    [SerializeField] private float parachutingPlayerRadius;
+    public float ParachutingPlayerRadius => parachutingPlayerRadius;
 }
 
 public class ParachuteState : MovementState
@@ -82,6 +84,8 @@ public class ParachuteState : MovementState
         
         currentDiveValue = 0.0f;
 
+        stateMachine.ChangeRadius(Settings.ParachutingPlayerRadius);
+
     }
 
     public override void CheckTransitions()
@@ -110,6 +114,7 @@ public class ParachuteState : MovementState
         // Reset visual rotation
         stateMachine.SetVisualRotation(Quaternion.identity);
 
+        stateMachine.ChangeRadiusDefault();
     }
 
     public override void Tick()
