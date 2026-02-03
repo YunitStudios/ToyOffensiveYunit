@@ -47,7 +47,7 @@ public class Weapon
         CurrentAmmoInMag--;
     }
     
-    public void Reload(PlayerInventory playerInventory)
+    public void Reload(PlayerDataSO playerData)
     {
         // reset spread on reload
         WeaponSpread.ResetSpread();
@@ -57,11 +57,11 @@ public class Weapon
 
         if (WeaponData.SpecialAmmo)
         {
-            availableAmmo = playerInventory.GetSpecialAmmoCount();
+            availableAmmo = playerData.SpecialAmmoCount;
         }
         else
         {
-            availableAmmo = playerInventory.GetNormalAmmoCount();
+            availableAmmo = playerData.NormalAmmoCount;
         }
 
         if (availableAmmo <= 0)
@@ -78,11 +78,11 @@ public class Weapon
 
             if (WeaponData.SpecialAmmo)
             {
-                playerInventory.AdjustSpecialAmmoCount(-WeaponData.MagSize);;
+                playerData.AdjustSpecialAmmoCount(-WeaponData.MagSize);;
             }
             else
             {
-                playerInventory.AdjustNormalAmmoCount(-WeaponData.MagSize);
+                playerData.AdjustNormalAmmoCount(-WeaponData.MagSize);
             }
             Debug.Log("Reloaded full mag");
         }
@@ -92,11 +92,11 @@ public class Weapon
 
             if (WeaponData.SpecialAmmo)
             {
-                playerInventory.SetSpecialAmmoCount(0);
+                playerData.SetSpecialAmmoCount(0);
             }
             else
             {
-                playerInventory.SetNormalAmmoCount(0);
+                playerData.SetNormalAmmoCount(0);
             }
 
             Debug.Log("Reloaded partial mag");

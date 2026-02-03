@@ -4,13 +4,13 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableObjects/IngameStats", fileName = "IngameStats")]
 public class IngameStats : ScriptableObject
 {
-    [field: SerializeField, DisableInPlayMode, Title("Stats")] public float ElapsedTime { get; private set; }
-    
-    
+    [Title("Stats")]
+    [field: SerializeField, DisableInPlayMode] public float ElapsedTime { get; private set; }
     [Space,Space,Space]
-    
     [Title("Event Binding")]
     [SerializeField] private FloatEventChannelSO onTimePassed;
+
+    public float Accuracy;
     
     private void RevertToDefaultValues()
     {

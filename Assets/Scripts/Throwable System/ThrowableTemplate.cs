@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ThrowableTemplate : MonoBehaviour
+public class ThrowableTemplate : MonoBehaviour, IDamageSource
 {
     public float FuseTime;
     public bool IsImpactFuse;
@@ -44,11 +44,10 @@ public class ThrowableTemplate : MonoBehaviour
         
         foreach (Collider hit in hits)
         {
-            // if tag is enemy or player do damage
-            if (hit.CompareTag("Enemy"))
-                hit.GetComponent<AIController>().TakeDamage(Damage);
-            // if(hit.collider.CompareTag("Player"))
-            //     hit.collider.GetComponent<PlayerHealth>().TakeDamage(Damage);
+            if (hit.transform.TryGetComponent<IDamageable>(out var target))
+            {
+                target.TakeDamage(this, Damage);
+            }
         }
     }
     

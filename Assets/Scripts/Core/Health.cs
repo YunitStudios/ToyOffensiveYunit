@@ -3,7 +3,7 @@ using EditorAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour
+public class Health : MonoBehaviour, IObjectiveTarget
 {
     [Header("Attributes")]
     [SerializeField] private float maxHealth;
@@ -22,6 +22,7 @@ public class Health : MonoBehaviour
     [Tooltip("Invoked if the damage dealing is successful and passes new health value")]
     [SerializeField] private FloatEventChannelSO onHealthChanged;
     [SerializeField] private VoidEventChannelSO onDie;
+    public UnityEvent OnDieUnity;
 
     [Header("Debug")] 
     [SerializeField] private float debugDamage;
@@ -33,12 +34,15 @@ public class Health : MonoBehaviour
         private set
         {
             currentHeath = value;
+            HealthChanged();
             onHealthChanged?.Invoke(CurrentHealth);
         }
     }
     public bool IsInvulnerable { get; set; }
+    public event Action OnTargetComplete;
 
     private float regenWait;
+    
 
     private void OnEnable()
     {
@@ -67,6 +71,10 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void DealDamage(float damage)
+    {
+        DealDamage(damage, out bool _);
+    }
     public void DealDamage(float damage, out bool didDie)
     {
         TakeDamage(damage);
@@ -92,12 +100,20 @@ public class Health : MonoBehaviour
     private void Die()
     {
         onDie?.Invoke();
+        OnDieUnity?.Invoke();
+        
+        OnTargetComplete?.Invoke();
     }
 
     private void RegenerateHealth()
     {
         float regen = Time.deltaTime * regenRate;
         CurrentHealth += regen;
+    }
+
+    protected virtual void HealthChanged()
+    {
+        
     }
 
 
