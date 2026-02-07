@@ -25,6 +25,7 @@ public class SpreadsheetImporterWindow : EditorWindow
         public string SpreadsheetId;
         public string Gid;
         public string Name;
+        public CSVType Type = CSVType.Weapons; // default type
     }
 
     [System.Serializable]
@@ -130,9 +131,17 @@ public class SpreadsheetImporterWindow : EditorWindow
             GUILayout.BeginHorizontal();
             GUILayout.Label(sheet.Name ?? sheet.Gid, GUILayout.Width(200));
 
+            // enum dropdown to select CSV type
+            CSVType newType = (CSVType)EditorGUILayout.EnumPopup(sheet.Type, GUILayout.Width(120));
+            if (newType != sheet.Type)
+            {
+                sheet.Type = newType;
+                SaveConfig(); // save immediately so the change persists
+            }
+
             if (GUILayout.Button("Download and import", GUILayout.Width(140)))
             {
-                DownloadAndImportSheet(sheet.SpreadsheetId, sheet.Gid, sheet.Name + ".csv");
+                DownloadAndImportSheet(sheet.SpreadsheetId, sheet.Gid, sheet.Name + ".csv", sheet.Type);
             }
             if (GUILayout.Button("Delete", GUILayout.Width(60)))
             {
@@ -195,26 +204,14 @@ public class SpreadsheetImporterWindow : EditorWindow
         savedSheets.Add(newSheet);
         SaveConfig();
 
-        // Auto-download
-        try
-        {
-            SheetsService service = GoogleSheetsDownloader.CreateSheetsService(authJson);
-            Spreadsheet spreadsheet = service.Spreadsheets.Get(spreadsheetId).Execute();
-            newSheet.Name = GoogleSheetsDownloader.ResolveSheetNameFromGid(spreadsheet, gid);
-            DownloadAndImportSheet(spreadsheetId, gid, newSheet.Name + ".csv");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError("Failed to download sheet: " + e.Message);
-        }
-
         sheetUrl = "";
         GUI.FocusControl(null);
         Repaint();
 
-        Debug.Log("Added and downloaded sheet (gid: " + gid + ")");
+        Debug.Log("Added sheet (gid: " + gid + ")");
     }
 
+    
     private void LoadConfig()
     {
         if (File.Exists(configPath))
@@ -245,11 +242,14 @@ public class SpreadsheetImporterWindow : EditorWindow
         AssetDatabase.Refresh();
     }
 
-    private void DownloadAndImportSheet(string spreadsheetId, string gid, string fileName)
+    private void DownloadAndImportSheet(string spreadsheetId, string gid, string fileName, CSVType type)
     {
         string path = Path.Combine(Application.dataPath, "CSVFiles", fileName);
         GoogleSheetsDownloader.DownloadSheetToCsv(authJson, spreadsheetId, gid, path);
         AssetDatabase.Refresh();
+
+        // import using selected type
+        CSVImporter.ImportCSV(type);
     }
 
     private void UpdateAllSheets()
@@ -274,8 +274,9 @@ public class SpreadsheetImporterWindow : EditorWindow
                     sheet.Name = sheet.Gid; // fallback
                 }
             }
-            
-            DownloadAndImportSheet(sheet.SpreadsheetId, sheet.Gid, sheet.Name + ".csv");
+        
+            // pass the CSVType from the sheet
+            DownloadAndImportSheet(sheet.SpreadsheetId, sheet.Gid, sheet.Name + ".csv", sheet.Type);
         }
     }
 }

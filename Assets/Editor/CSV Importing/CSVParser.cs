@@ -18,6 +18,8 @@ public class CSVParser
             Debug.LogError($"{fileName}.csv could not be loaded.");
             return new List<string[]>();
         }
+        
+        Debug.Log(csvText);
 
         return ParseCsv(csvText);
     }
@@ -110,7 +112,13 @@ public class CSVParser
                     currentColumn = "";
 
                     if (currentRow.Count > 0)
-                        rows.Add(currentRow.ToArray());
+                    {
+                        // ONLY add the row if it's not a single empty column (trailing newline)
+                        if (currentRow.Count > 1 || !string.IsNullOrEmpty(currentRow[0]))
+                        {
+                            rows.Add(currentRow.ToArray());
+                        }
+                    }
                     
                     currentRow.Clear();
                 }
@@ -122,11 +130,18 @@ public class CSVParser
         }
 
         // add last row
-        currentRow.Add(currentColumn);
-
-        if (currentRow.Count > 0)
+        if (!string.IsNullOrEmpty(currentColumn) || currentRow.Count > 0)
         {
-            rows.Add(currentRow.ToArray());
+            currentRow.Add(currentColumn);
+
+            if (currentRow.Count > 0)
+            {
+                // Final check to ensure the last row isn't just an empty artifact
+                if (currentRow.Count > 1 || !string.IsNullOrEmpty(currentRow[0]))
+                {
+                    rows.Add(currentRow.ToArray());
+                }
+            }
         }
 
         return rows;
@@ -150,10 +165,5 @@ public class CSVParser
             }
         }
         return list;
-    }
-
-    public static void LoadFromGoogle()
-    {
-        
     }
 }

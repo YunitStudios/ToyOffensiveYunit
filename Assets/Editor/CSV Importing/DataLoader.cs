@@ -10,7 +10,7 @@ public class DataLoader
     public static List<WeaponDataSO> LoadWeaponsCSV()
     {
         List<WeaponDataSO> weapons = new List<WeaponDataSO>();
-        List<string[]> rows = CSVParser.LoadFromCSV("weapons");
+        List<string[]> rows = CSVParser.LoadFromCSV("GunsCSV");
 
         if(rows != null && rows.Count <= 1)
         {
@@ -18,18 +18,24 @@ public class DataLoader
             return weapons;
         }
 
-        // the csv parser will split into rows and columns, we iterate those rows and assign the data for each column for each row
-
-        // skip header row if needed
         for (int i = 1; i < rows.Count; i++)
         {
             var columns = rows[i];
+            string className = columns[0];
+            string assetPath = $"Assets/ScriptableObjects/Weapons/{className}.asset";
 
-            // create a new ScriptableObject instance
-            WeaponDataSO weaponData = ScriptableObject.CreateInstance<WeaponDataSO>();
+            // try to load existing asset first to prevent unassigning in editor
+            WeaponDataSO weaponData = AssetDatabase.LoadAssetAtPath<WeaponDataSO>(assetPath);
+            bool isNew = false;
+
+            if (weaponData == null)
+            {
+                weaponData = ScriptableObject.CreateInstance<WeaponDataSO>();
+                isNew = true;
+            }
 
             // assign values from CSV
-            weaponData.ClassName = columns[0];
+            weaponData.ClassName = className;
             weaponData.DisplayName = columns[1];
             weaponData.FireRateRPM = int.Parse(columns[2]);
             weaponData.Damage = int.Parse(columns[3]);
@@ -51,25 +57,31 @@ public class DataLoader
             weaponData.IsPhysicsBased = bool.Parse(columns[13]);
             weaponData.InitialVelocityMS = float.Parse(columns[14]);
             weaponData.MassKG = float.Parse(columns[15]);
-            weaponData.Attachments = columns[16].Split(',');    // same as fire modes
+            weaponData.Attachments = columns[16].Split(',');
             
             weaponData.AimCameraType = GetCameraType(columns[17]);
 
-            // save as an asset in the project so it can be referenced
-            string assetPath = $"Assets/ScriptableObjects/Weapons/{weaponData.ClassName}.asset";
-            AssetDatabase.CreateAsset(weaponData, assetPath);
-            AssetDatabase.SaveAssets();
+            // only create new asset if it didn't exist, otherwise just mark dirty
+            if (isNew)
+            {
+                AssetDatabase.CreateAsset(weaponData, assetPath);
+            }
+            else
+            {
+                EditorUtility.SetDirty(weaponData);
+            }
 
             weapons.Add(weaponData);
         }
 
+        AssetDatabase.SaveAssets();
         return weapons;
     }
     
     public static List<ThrowableDataSO> LoadThrowablesCSV()
     {
         List<ThrowableDataSO> throwables = new List<ThrowableDataSO>();
-        List<string[]> rows = CSVParser.LoadFromCSV("throwables");
+        List<string[]> rows = CSVParser.LoadFromCSV("ThrowablesCSV");
 
         if(rows != null && rows.Count <= 1)
         {
@@ -77,69 +89,70 @@ public class DataLoader
             return throwables;
         }
 
-        // the csv parser will split into rows and columns, we iterate those rows and assign the data for each column for each row
-
-        // skip header row if needed
         for (int i = 1; i < rows.Count; i++)
         {
             var columns = rows[i];
+            string className = columns[0];
+            string assetPath = $"Assets/ScriptableObjects/Throwables/{className}.asset";
 
-            // create a new ScriptableObject instance
-            ThrowableDataSO throwableData = ScriptableObject.CreateInstance<ThrowableDataSO>();
+            // check if we already have this asset
+            ThrowableDataSO throwableData = AssetDatabase.LoadAssetAtPath<ThrowableDataSO>(assetPath);
+            bool isNew = false;
+
+            if (throwableData == null)
+            {
+                throwableData = ScriptableObject.CreateInstance<ThrowableDataSO>();
+                isNew = true;
+            }
 
             // assign values from CSV
-            throwableData.ClassName = columns[0];
+            throwableData.ClassName = className;
             throwableData.DisplayName = columns[1];
-            
             throwableData.FuseTime = float.Parse(columns[2]);
             throwableData.IsImpactFuse = bool.Parse(columns[3]);
-            
             throwableData.Damage = float.Parse(columns[4]);
             throwableData.Radius = float.Parse(columns[5]);
-            
-            throwableData.EffectType =
-                Enum.Parse<ThrowableDataSO.EffectTypes>(columns[6], true);
+            throwableData.EffectType = Enum.Parse<ThrowableDataSO.EffectTypes>(columns[6], true);
 
             SetupPrefab(throwableData);
 
-            // save as an asset in the project so it can be referenced
-            string assetPath = $"Assets/ScriptableObjects/Throwables/{throwableData.ClassName}.asset";
-            AssetDatabase.CreateAsset(throwableData, assetPath);
-            AssetDatabase.SaveAssets();
+            if (isNew)
+            {
+                AssetDatabase.CreateAsset(throwableData, assetPath);
+            }
+            else
+            {
+                EditorUtility.SetDirty(throwableData);
+            }
 
             throwables.Add(throwableData);
         }
 
+        AssetDatabase.SaveAssets();
         return throwables;
     }
 
+    // SetupPrefab remains mostly the same as it handles prefab instances correctly
     private static void SetupPrefab(ThrowableDataSO throwableData)
     {
         string prefabPath = $"Assets/Prefabs/Throwables/{throwableData.ClassName}/{throwableData.ClassName}.prefab";
         GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
 
-        // fallback to generic if prefab not found
         if (prefab == null)
         {
             Debug.Log("No prefab found, making a new one as a clone of generic");
-            // load generic prefab
             string genericPath = "Assets/Prefabs/Throwables/generic/generic.prefab";
             GameObject genericPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(genericPath);
 
             if (genericPrefab != null)
             {
-                Debug.Log("Found the generic one");
-                // ensure folder exists
                 string folderPath = $"Assets/Prefabs/Throwables/{throwableData.ClassName}";
                 if (!AssetDatabase.IsValidFolder(folderPath))
                 {
-                    Debug.Log("Creating a new folder");
                     AssetDatabase.CreateFolder("Assets/Prefabs/Throwables", throwableData.ClassName);
                 }
 
-                // create a copy of generic prefab at the correct path
                 prefab = PrefabUtility.SaveAsPrefabAsset(genericPrefab, prefabPath);
-                Debug.Log("Created a new prefab");
             }
             else
             {
@@ -152,20 +165,16 @@ public class DataLoader
         if (prefab != null)
         {
             GameObject tempInstance = PrefabUtility.InstantiatePrefab(prefab) as GameObject;
-
-            // modify or add the component
             ThrowableTemplate existingTemplate = tempInstance.GetComponent<ThrowableTemplate>();
 
             if (existingTemplate != null)
             {
                 if (throwableData.EffectType != ThrowableDataSO.EffectTypes.Custom)
                 {
-                    // remove the existing one if its non-custom
                     GameObject.DestroyImmediate(existingTemplate);
                 }
             }
             
-            // add the correct components if non custom
             switch (throwableData.EffectType)
             {
                 case ThrowableDataSO.EffectTypes.Explosion:
@@ -179,18 +188,15 @@ public class DataLoader
                     break;
             }
             
-            // if after all this if it has a component set its values
             ThrowableTemplate throwableClass = tempInstance.GetComponent<ThrowableTemplate>();
             if (throwableClass != null)
             {
                 throwableClass.FuseTime = throwableData.FuseTime;
                 throwableClass.IsImpactFuse = throwableData.IsImpactFuse;
-                
                 throwableClass.Damage = throwableData.Damage;
                 throwableClass.Radius = throwableData.Radius;
             }
 
-            // apply changes back to the prefab
             PrefabUtility.SaveAsPrefabAsset(tempInstance, prefabPath);
             GameObject.DestroyImmediate(tempInstance);
         }
@@ -201,13 +207,13 @@ public class DataLoader
         if (Enum.TryParse<PlayerCamera.CameraType>(cameraType, out var result))
             return result;
 
-        return PlayerCamera.CameraType.Aim;  // fallback
+        return PlayerCamera.CameraType.Aim;
     }
 
     public static List<SoundDataSO> LoadSoundsCSV()
     {
         List<SoundDataSO> sounds = new List<SoundDataSO>();
-        List<string[]> rows = CSVParser.LoadFromCSV("sounds");
+        List<string[]> rows = CSVParser.LoadFromCSV("SoundsCSV");
 
         if (rows == null || rows.Count <= 1)
         {
@@ -215,35 +221,45 @@ public class DataLoader
             return sounds;
         }
 
-        // skip header row
         for (int i = 1; i < rows.Count; i++)
         {
             string[] columns = rows[i];
+            string wwiseName = columns[0];
+            string assetPath = $"Assets/ScriptableObjects/Sounds/{wwiseName}.asset";
 
-            // create a new ScriptableObject instance
-            SoundDataSO soundData = ScriptableObject.CreateInstance<SoundDataSO>();
+            // load existing or create new
+            SoundDataSO soundData = AssetDatabase.LoadAssetAtPath<SoundDataSO>(assetPath);
+            bool isNew = false;
 
-            // assign values from CSV
-            soundData.WwiseName = columns[0];
+            if (soundData == null)
+            {
+                soundData = ScriptableObject.CreateInstance<SoundDataSO>();
+                isNew = true;
+            }
+
+            soundData.WwiseName = wwiseName;
             soundData.Description = columns[2];
 
-            // parse enum safely
-            SoundType parsedType;
-            if (Enum.TryParse<SoundType>(columns[1], true, out parsedType))
+            if (Enum.TryParse<SoundType>(columns[1], true, out SoundType parsedType))
                 soundData.Type = parsedType;
             else
-                soundData.Type = SoundType.WwiseEvent; // fallback default
+                soundData.Type = SoundType.WwiseEvent;
 
-            soundData.Is2D = false; // default
+            soundData.Is2D = false;
 
-            // save as an asset
-            string assetPath = $"Assets/ScriptableObjects/Sounds/{soundData.WwiseName}.asset";
-            AssetDatabase.CreateAsset(soundData, assetPath);
-            AssetDatabase.SaveAssets();
+            if (isNew)
+            {
+                AssetDatabase.CreateAsset(soundData, assetPath);
+            }
+            else
+            {
+                EditorUtility.SetDirty(soundData);
+            }
 
             sounds.Add(soundData);
         }
 
+        AssetDatabase.SaveAssets();
         return sounds;
     }
 }
