@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class AIInventory : MonoBehaviour
 {
+    // Katie: I remove secondary weapon as it seems entirely pointless for the ai currently
+    // it was also erroring because it wasnt set on this inventory
+    
     [Header("Config Data (will likely need different system for later)")]
     [SerializeField] private WeaponDataSO startingPrimaryWeapon;
-    [SerializeField] private WeaponDataSO startingSecondaryWeapon;
+    // [SerializeField] private WeaponDataSO startingSecondaryWeapon;
     [SerializeField] private int maxNormalAmmo = 300;
     [SerializeField] private int maxSpecialAmmo = 100;
     
@@ -12,7 +15,7 @@ public class AIInventory : MonoBehaviour
     private Weapon primaryWeapon;
     public Weapon GetPrimaryWeapon() => primaryWeapon;
     private Weapon secondaryWeapon;
-    public Weapon GetSecondaryWeapon() => secondaryWeapon;
+    // public Weapon GetSecondaryWeapon() => secondaryWeapon;
     private int normalAmmoCount;
     public int GetNormalAmmoCount() => normalAmmoCount;
     private int specialAmmoCount;
@@ -27,7 +30,7 @@ public class AIInventory : MonoBehaviour
     public void Init()
     {
         primaryWeapon = new Weapon(startingPrimaryWeapon);
-        secondaryWeapon = new Weapon(startingSecondaryWeapon);
+        // secondaryWeapon = new Weapon(startingSecondaryWeapon);
         normalAmmoCount = maxNormalAmmo;
         specialAmmoCount = maxSpecialAmmo;
     }
