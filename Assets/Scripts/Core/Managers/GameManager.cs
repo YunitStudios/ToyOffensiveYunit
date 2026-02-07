@@ -64,12 +64,18 @@ public class GameManager : MonoBehaviour
         PrimeTweenConfig.warnZeroDuration = false;
         ingameStats.Start();
         PlayerData.Init();
-        MissionManager.Instance.StartMission();
+    }
+
+    private void Start()
+    {
+        if(MissionManager.Instance)
+            MissionManager.Instance.StartMission();
     }
 
     private void Stop()
     {
-        MissionManager.Instance.StopMission();
+        if(MissionManager.Instance)
+            MissionManager.Instance.StopMission();
     }
 
 

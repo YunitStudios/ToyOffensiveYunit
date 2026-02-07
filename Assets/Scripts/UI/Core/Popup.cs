@@ -28,7 +28,7 @@ public class Popup : MonoBehaviour
     [SerializeField, Tooltip("If ticked this will automatically find the first UI object from the firstSelected root")]
 
     private bool findFirstSelectedInChildren;
-    [SerializeField] private TabManager tabManager;
+    [FormerlySerializedAs("uiGroup")] [FormerlySerializedAs("tabManager")] [SerializeField] private MenuGroup menuGroup;
     // [SerializeField] private AudioEventSO openSound;
     private GameObject lastSelected;
     private CanvasGroup canvasGroup;
@@ -89,8 +89,8 @@ public class Popup : MonoBehaviour
         }
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
-        if (tabManager)
-            tabManager.enabled = false;
+        if (menuGroup)
+            menuGroup.enabled = false;
         if (findFirstSelectedInChildren)
             firstSelectedRoot = firstSelectedRoot.GetComponentInChildren<Selectable>().gameObject;
     }
@@ -150,10 +150,10 @@ public class Popup : MonoBehaviour
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 0.001f;
 
-        if (tabManager)
+        if (menuGroup)
         {
-            tabManager.enabled = true;
-            tabManager.SetStartingTab();
+            menuGroup.enabled = true;
+            menuGroup.ToggleStartingContainer();
         }
 
         if (backgroundPanel)
@@ -210,9 +210,9 @@ public class Popup : MonoBehaviour
             if (!ignoreSelected && lastSelected)
                 EventSystem.current.SetSelectedGameObject(lastSelected);
 
-            if (tabManager)
+            if (menuGroup)
             {
-                tabManager.enabled = false;
+                menuGroup.enabled = false;
             }
 
             if (disableGameObjectWhenClosed)
