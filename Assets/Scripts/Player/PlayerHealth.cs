@@ -1,27 +1,9 @@
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+public class PlayerHealth : Health
 {
-    [SerializeField] private float maxHealth = 100f;
-    [HideInInspector] public float currentHealth;
-
-    void Start()
+    protected override void HealthChanged()
     {
-        currentHealth = maxHealth;
-    }
-    
-    public void TakeDamage(float damage)
-    {
-        print("Player has taken damage");
-        currentHealth -= damage;
-        if (currentHealth <= 0f)
-        {
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        print("Player is dead");
+        GameManager.PlayerData.SetCurrentHealth(CurrentHealth);
     }
 }

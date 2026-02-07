@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
-public class PhysicsBulletMovement : MonoBehaviour
+public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
 {
     // value set by weapons system
     [HideInInspector] public Vector3 InitialDirection; // Forward direction
@@ -10,8 +10,9 @@ public class PhysicsBulletMovement : MonoBehaviour
     [HideInInspector] public float Damage = 1f;
     [HideInInspector] public float MassKG;
     [HideInInspector] public LayerMask Shootable;
-    
-    private Crosshair crosshair;
+
+    [Header("Output Events")]
+    [SerializeField] private VoidEventChannelSO onShowHitmarker;
     
     // constants
     private const float gravity = 9.81f; // m/s²
@@ -20,7 +21,6 @@ public class PhysicsBulletMovement : MonoBehaviour
     private Vector3 velocity;
     void Start()
     {
-        crosshair = FindFirstObjectByType<Crosshair>();
         velocity = InitialDirection.normalized * InitialVelocity;
     }
 
@@ -29,36 +29,55 @@ public class PhysicsBulletMovement : MonoBehaviour
     {
         // check for all objects hit along the projectile path
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, velocity.normalized, out hit,Mathf.Min(velocity.magnitude * Time.fixedDeltaTime, 20f), Shootable))
+        float distance = Mathf.Min(velocity.magnitude * Time.deltaTime, 5f);
+
+        if (Physics.Raycast(transform.position, velocity.normalized, out hit, distance, Shootable))
         {
             transform.position = hit.point;
             Collider collider = hit.collider;
 
+            Debug.Log(hit.collider.name);
+
             // if hit something
             if (IsInLayerMask(collider.gameObject, Shootable))
             {
-                // apply damage if we hit an enemy
-                if (hit.collider.CompareTag("Enemy"))
+                // TODO: This is a bit of a bodge? Really if the AI needed its own damage system it should be using events from the generic health system, not intercepting it and dealing its own damage
+                if (collider.gameObject.CompareTag("Player"))
                 {
-                    hit.collider.GetComponent<AIController>().TakeDamage(Damage);
-                    crosshair.Hitmarker();
+                    if (hit.transform.TryGetComponent<Health>(out Health playerHealth))
+                    {
+                        playerHealth.DealDamage(Damage);
+                        onShowHitmarker.Invoke();
+                    }
                 }
-                
+                else
+                {
+                    if (hit.transform.TryGetComponent<IDamageable>(out var target))
+                    {
+                        target.TakeDamage(this, Damage);
+                        onShowHitmarker.Invoke();
+                    }
+                }
+
                 // destroy self after hit
                 Destroy(gameObject);
                 return;
             }
+
+            // destroy self after hit
+            Destroy(gameObject);
+            return;
         }
-        
+
         // calculate simple mass-based drag
         float damping = 0.01f; // adjust as needed
         Vector3 dragAcceleration = -velocity * (damping / MassKG);
 
         // update velocity (gravity + drag)
-        velocity += (dragAcceleration + Vector3.down * gravity) * Time.fixedDeltaTime;
+        velocity += (dragAcceleration + Vector3.down * gravity) * Time.deltaTime;
 
         // update position
-        transform.position += velocity * Time.fixedDeltaTime;
+        transform.position += velocity * Time.deltaTime;
     }
     
     bool IsInLayerMask(GameObject obj, LayerMask mask) 

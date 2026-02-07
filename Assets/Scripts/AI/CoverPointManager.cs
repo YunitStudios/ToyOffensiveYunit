@@ -59,6 +59,41 @@ public class CoverPointManager : MonoBehaviour
         return best;
     }
 
+    public CoverPoint GetFurthestCoverPoint(Vector3 fromPosition, Transform player)
+    {
+        CoverPoint best = null;
+        float bestDistance = 0f;
+        NavMeshPath path = new NavMeshPath();
+
+        foreach (CoverPoint coverPoint in coverPoints)
+        {
+            // skips already taken cover points
+            if (coverPoint.isTaken)
+            {
+                continue;
+            }
+
+            // skips cover points that don't block line of sight from player
+            if (!HasCoverFrom(player, coverPoint.transform.position))
+            {
+                continue;
+            }
+            
+            float distance = Vector3.Distance(player.position, coverPoint.transform.position);
+            if (distance > bestDistance)
+            {
+                // checks the cover point is reachable
+                if (NavMesh.CalculatePath(fromPosition, coverPoint.transform.position, NavMesh.AllAreas, path) &&
+                    path.status == NavMeshPathStatus.PathComplete)
+                {
+                    bestDistance = distance;
+                    best = coverPoint;
+                }
+            }
+        }
+        return best;
+    }
+
     // checks if the cover point provides cover from the player
     public bool HasCoverFrom(Transform player, Vector3 fromPoint)
     {
@@ -69,7 +104,13 @@ public class CoverPointManager : MonoBehaviour
         // raycast from cover point to player, ignoring enemy 
         if (Physics.Raycast(from, direction, out RaycastHit hit, distance,  ~ignoreLayers))
         {
-            return hit.transform != player;
+            if (hit.transform != player)
+            {
+                if (hit.distance < 2f)
+                {
+                    return true;
+                }
+            }
         }
         return false;
     }
