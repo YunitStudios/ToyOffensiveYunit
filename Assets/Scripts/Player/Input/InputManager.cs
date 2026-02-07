@@ -38,6 +38,38 @@ public class InputManager : MonoBehaviour
     {
         PlayerInputsEndFrame();
     }
+    
+    private bool cursorDisabled;
+    private bool cursorState = true;
+    public void ForceDisableCursor(bool value)
+    {
+        cursorDisabled = value;
+        if(value)
+            ForceSetCursor(false);
+        else
+            SetCursor();
+            
+    }
+
+    public void ToggleCursor(bool value)
+    {
+        cursorState = value;
+        
+        if(!cursorDisabled)
+            SetCursor();
+    }
+
+    private void SetCursor()
+    {
+        Cursor.visible = cursorState;
+        Cursor.lockState = cursorState ? CursorLockMode.None : CursorLockMode.Confined;
+    }
+    
+    private void ForceSetCursor(bool value)
+    {
+        Cursor.visible = value;
+        Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Confined;
+    }
 
     #region PlayerInput
     public Vector2 FrameMove { get; private set; }

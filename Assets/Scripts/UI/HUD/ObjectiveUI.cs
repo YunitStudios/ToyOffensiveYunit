@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,7 @@ public class ObjectiveUI : MonoBehaviour
         
         objective.OnObjectiveUpdated += UpdateText;
         objective.OnObjectiveCompleted += UpdateText;
+        UpdateText();
     }
     private void OnDisable()
     {
@@ -31,11 +33,6 @@ public class ObjectiveUI : MonoBehaviour
         
         objective.OnObjectiveUpdated -= UpdateText;
         objective.OnObjectiveCompleted -= UpdateText;
-    }
-
-    private void Start()
-    {
-        UpdateText();
     }
 
     private void UpdateText()

@@ -1,3 +1,5 @@
+using System;
+using EditorAttributes;
 using UnityEngine;
 
 public class MissionManager : MonoBehaviour
@@ -27,14 +29,17 @@ public class MissionManager : MonoBehaviour
         ManagerDestroy();
     }
 
-
+    private void OnApplicationQuit()
+    {
+        currentMission.Clear();
+    }
 
     #endregion
 
     [SerializeField] private MissionSO currentMission;
     public static MissionSO CurrentMission => Instance.currentMission;
 
-    [Header("Output Events")] 
+    [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)]
     [SerializeField] private VoidEventChannelSO onMissionStart;
     [SerializeField] private VoidEventChannelSO onMissionComplete;
     [SerializeField] private VoidEventChannelSO onMissionEnd;

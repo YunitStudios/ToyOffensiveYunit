@@ -38,8 +38,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerDataSO playerDataSO;
 
     [Header("Input Events")] 
-    [SerializeField] private VoidEventChannelSO onLoadGame;
-    
+    [SerializeField] private VoidEventChannelSO onStartMission;
+    [SerializeField] private VoidEventChannelSO onQuitMission;
+    [SerializeField] private VoidEventChannelSO onQuitToDesktop;
+
     [Header("Output Events")]
     [SerializeField] private FloatEventChannelSO onTimePassed;
 
@@ -50,11 +52,15 @@ public class GameManager : MonoBehaviour
     
     private void OnEnable()
     {
-        onLoadGame.OnEventRaised += LoadGame;
+        onStartMission.OnEventRaised += LoadGame;
+        onQuitMission.OnEventRaised += EndGame;
+        onQuitToDesktop.OnEventRaised += QuitToDesktop;
     }
     private void OnDisable()
     {
-        onLoadGame.OnEventRaised -= LoadGame;
+        onStartMission.OnEventRaised -= LoadGame;
+        onQuitMission.OnEventRaised -= EndGame;
+        onQuitToDesktop.OnEventRaised -= QuitToDesktop;
     }
 
     private void Init()
@@ -74,8 +80,6 @@ public class GameManager : MonoBehaviour
 
     private void Stop()
     {
-        if(MissionManager.Instance)
-            MissionManager.Instance.StopMission();
     }
 
 
@@ -115,8 +119,16 @@ public class GameManager : MonoBehaviour
         
         print("Game Ended");
         
+        if(MissionManager.Instance)
+            MissionManager.Instance.StopMission();
+        
         TransitionManager.TransitionScene(TransitionManager.SceneTypes.MainMenu);
 
+    }
+
+    public void QuitToDesktop()
+    {
+        Application.Quit();
     }
     
 }

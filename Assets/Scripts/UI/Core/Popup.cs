@@ -3,12 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using EditorAttributes;
 using PrimeTween;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(CanvasGroup),typeof(Canvas))]
 public class Popup : MonoBehaviour
 {
     private bool HasBackgroundPanel => backgroundPanel;
@@ -18,29 +20,23 @@ public class Popup : MonoBehaviour
     public static Action OnPopupOpened;
     public static Action OnPopupClosed;
 
-    [Title("Components")]
+    [Title("\n<b><color=#ff8080>References", 15, 5, false)]
     [SerializeField, Tooltip("Transform for where the UI starts, excluding any background UI")] 
     private RectTransform contentPanel;
     [SerializeField, Tooltip("Canvas group at the root for any background UI (e.g. black tint)")] 
     private CanvasGroup backgroundPanel;
     [SerializeField, Tooltip("First object to be selected by the input system")] 
     private GameObject firstSelectedRoot;
-    [SerializeField, Tooltip("If ticked this will automatically find the first UI object from the firstSelected root")]
-
+    [SerializeField, ShowField(nameof(HasFirstSelected)), Tooltip("If ticked this will automatically find the first UI object from the firstSelected root")]
     private bool findFirstSelectedInChildren;
-    [FormerlySerializedAs("uiGroup")] [FormerlySerializedAs("tabManager")] [SerializeField] private MenuGroup menuGroup;
-    // [SerializeField] private AudioEventSO openSound;
-    private GameObject lastSelected;
-    private CanvasGroup canvasGroup;
-    private Canvas canvas;
 
-    [Title("Attributes")]
-    [Header("Fade")]
+    private bool HasFirstSelected => firstSelectedRoot;
+
+     [Title("\n<b><color=#ffd180>Attributes", 15, 5, false)]
     [SerializeField] private float fadeInTime = 0.25f;
     [SerializeField] private Ease fadeInEase = Ease.Default;
     [SerializeField] private float fadeOutTime = 0.25f;
     [SerializeField] private Ease fadeOutEase = Ease.Default;
-    [Header("Move")]
     [SerializeField] private bool movePanel;
     [SerializeField, ShowField(nameof(movePanel))] private float moveInDistance = 300;
     [SerializeField, ShowField(nameof(movePanel))] private float moveInTime = 0.5f;
@@ -48,24 +44,26 @@ public class Popup : MonoBehaviour
     [SerializeField, ShowField(nameof(movePanel))] private float moveOutDistance = 100;
     [SerializeField, ShowField(nameof(movePanel))] private float moveOutTime = 0.25f;
     [SerializeField, ShowField(nameof(movePanel))] private Ease moveOutEase = Ease.Default;
-    [Header("Background")]
+    [SerializeField, ShowField(nameof(movePanel)), Tooltip("Toggle to swap move animation to sideways instead")] private bool moveSide = false;
     [SerializeField, ShowField(nameof(HasBackgroundPanel))] private float backgroundFadeInTime = 0.2f;
     [SerializeField, ShowField(nameof(HasBackgroundPanel))] private Ease backgroundFadeInEase = Ease.Default;
     [SerializeField, ShowField(nameof(HasBackgroundPanel))] private float backgroundFadeOutTime = 0.2f;
     [SerializeField, ShowField(nameof(HasBackgroundPanel))] private Ease backgroundFadeOutEase = Ease.Default;
-    [Header("Toggles")]
     [SerializeField] private bool disableGameObjectWhenClosed = true;
-    [SerializeField, ShowField(nameof(movePanel)), Tooltip("Toggle to swap move animation to sideways instead")] private bool moveSide = false;
     [SerializeField, Tooltip("Pause game while popup is displaying")] private bool freezeTimeScale = false;
     [SerializeField, Tooltip("If display is called again, then it closes rather than reopen")] private bool closeOnRetoggle;
     [SerializeField] private bool disableInputsWhenOpen;
-    [SerializeField] private bool disableCloseInputWhenOpen;
-    [SerializeField, Tooltip("Ignore input system UI selecting logic")] private bool ignoreSelected;
+    [SerializeField] private bool toggleCursor;
 
+    [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)]
     public UnityEvent OnOpenPopup;
     public UnityEvent OnOpenedPopup;
     public UnityEvent OnClosePopup;
+    public UnityEvent OnClosedPopup;
 
+    private GameObject lastSelected;
+    private CanvasGroup canvasGroup;
+    private Canvas canvas;
     private Vector3 startingPos;
 
     private Tween dimTween;
@@ -78,9 +76,9 @@ public class Popup : MonoBehaviour
 
     private void Awake()
     {
-        canvas = GetComponentInChildren<Canvas>();
+        canvas = GetComponent<Canvas>();
         canvas.enabled = false;
-        canvasGroup = GetComponentInChildren<CanvasGroup>();
+        canvasGroup = GetComponent<CanvasGroup>();
         canvasGroup.alpha = 0.0f;
         if (backgroundPanel)
         {
@@ -89,8 +87,6 @@ public class Popup : MonoBehaviour
         }
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
-        if (menuGroup)
-            menuGroup.enabled = false;
         if (findFirstSelectedInChildren)
             firstSelectedRoot = firstSelectedRoot.GetComponentInChildren<Selectable>().gameObject;
     }
@@ -133,12 +129,10 @@ public class Popup : MonoBehaviour
         if (freezeTimeScale)
             Time.timeScale = 0.0f;
 
-        if (disableInputsWhenOpen)
+        //if (disableInputsWhenOpen)
             //InputManager.Instance.ToggleInputs(false);
-        if (disableCloseInputWhenOpen)
-            //InputManager.Instance.ToggleCloseInputs(false);
 
-        if (!ignoreSelected && EventSystem.current.currentSelectedGameObject)
+        if (EventSystem.current.currentSelectedGameObject)
             lastSelected = EventSystem.current.currentSelectedGameObject;
         if (firstSelectedRoot)
             EventSystem.current.SetSelectedGameObject(firstSelectedRoot);
@@ -149,12 +143,9 @@ public class Popup : MonoBehaviour
 
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 0.001f;
-
-        if (menuGroup)
-        {
-            menuGroup.enabled = true;
-            menuGroup.ToggleStartingContainer();
-        }
+        
+        if(toggleCursor)
+            InputManager.Instance.ToggleCursor(true);
 
         if (backgroundPanel)
         {
@@ -168,10 +159,15 @@ public class Popup : MonoBehaviour
                 OnOpenedPopup?.Invoke();
             });
 
-        if (!moveSide)
-            moveTween = Tween.LocalPositionY(contentPanel, startingPos.y - moveInDistance, startingPos.y, moveInTime, moveInEase, 1, CycleMode.Restart, 0f, 0f, true);
-        else
-            moveTween = Tween.LocalPositionX(contentPanel, startingPos.x + moveInDistance, startingPos.x, moveInTime, moveInEase, 1, CycleMode.Restart, 0f, 0f, true);
+        if(movePanel)
+        {
+            if (!moveSide)
+                moveTween = Tween.LocalPositionY(contentPanel, startingPos.y - moveInDistance, startingPos.y,
+                    moveInTime, moveInEase, 1, CycleMode.Restart, 0f, 0f, true);
+            else
+                moveTween = Tween.LocalPositionX(contentPanel, startingPos.x + moveInDistance, startingPos.x,
+                    moveInTime, moveInEase, 1, CycleMode.Restart, 0f, 0f, true);
+        }
 
         OnOpenPopup?.Invoke();
         OnPopupOpened?.Invoke();
@@ -202,27 +198,28 @@ public class Popup : MonoBehaviour
             canvasGroup.blocksRaycasts = false;
             if (freezeTimeScale)
                 Time.timeScale = 1.0f;
-            if (disableInputsWhenOpen)
+            //if (disableInputsWhenOpen)
                 //InputManager.Instance.ToggleInputs(true);
-            if (disableCloseInputWhenOpen)
-                //InputManager.Instance.ToggleCloseInputs(true);
 
-            if (!ignoreSelected && lastSelected)
+            if (lastSelected)
                 EventSystem.current.SetSelectedGameObject(lastSelected);
-
-            if (menuGroup)
-            {
-                menuGroup.enabled = false;
-            }
+            
+            if (toggleCursor)
+                InputManager.Instance.ToggleCursor(false);
 
             if (disableGameObjectWhenClosed)
                 gameObject.SetActive(false);
         });
 
-        if (!moveSide)
-            moveTween = Tween.LocalPositionY(contentPanel, startingPos.y - moveOutDistance, moveOutTime, moveOutEase, 1, CycleMode.Restart, 0f, 0f, true);
-        else
-            moveTween = Tween.LocalPositionX(contentPanel, startingPos.x + moveOutDistance, moveOutTime, moveOutEase, 1, CycleMode.Restart, 0f, 0f, true);
+        if(movePanel)
+        {
+            if (!moveSide)
+                moveTween = Tween.LocalPositionY(contentPanel, startingPos.y - moveOutDistance, moveOutTime,
+                    moveOutEase, 1, CycleMode.Restart, 0f, 0f, true);
+            else
+                moveTween = Tween.LocalPositionX(contentPanel, startingPos.x + moveOutDistance, moveOutTime,
+                    moveOutEase, 1, CycleMode.Restart, 0f, 0f, true);
+        }
 
         OnClosePopup?.Invoke();
         OnPopupClosed?.Invoke();
