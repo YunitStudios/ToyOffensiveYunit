@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{B11FE8BF-8DEF-4128-B498-F993B48887BA}" SchemaVersion="123">
+	<AudioObjects>
+		<WorkUnit Name="Default Work Unit" ID="{B11FE8BF-8DEF-4128-B498-F993B48887BA}" PersistMode="Standalone">
+			<ChildrenList>
+				<Sound Name="TestSound" ID="{D777F68A-12F7-41AF-B2AE-FB3375160579}" ShortID="486132029">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<AudioFileSource Name="gun-glock-dry-fire" ID="{137EA6F7-6442-48FE-9666-15C595871CFE}">
+							<Language>SFX</Language>
+							<AudioFile>gun-glock-dry-fire.wav</AudioFile>
+							<MediaIDList>
+								<MediaID ID="367565313"/>
+							</MediaIDList>
+						</AudioFileSource>
+					</ChildrenList>
+					<ActiveSourceList>
+						<ActiveSource Name="gun-glock-dry-fire" ID="{137EA6F7-6442-48FE-9666-15C595871CFE}" Platform="Linked"/>
+					</ActiveSourceList>
+				</Sound>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>

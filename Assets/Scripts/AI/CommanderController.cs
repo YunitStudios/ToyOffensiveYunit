@@ -3,8 +3,14 @@ using UnityEngine;
 
 public class CommanderController : MonoBehaviour
 {
+    [Header("Commander Settings")]
+    [Tooltip("Is this enemy a Commander?")]
+    [SerializeField] private bool isCommander = false;
+    public bool IsCommander => isCommander;
+    [Tooltip("If enemy is a commander set list of followers here")]
     [SerializeField] private List<AIStateMachine> followers = new List<AIStateMachine>();
-    [HideInInspector] public List<AIStateMachine> Followers => followers;
+    public List<AIStateMachine> Followers => followers;
+    [Tooltip("if enemy is a commander set how close the squad has to be before starting to move")]
     [SerializeField] private float formationTolerance = 5f;
     [HideInInspector] public bool hasGroupedUp = false;
 
@@ -52,12 +58,12 @@ public class CommanderController : MonoBehaviour
         foreach (AIStateMachine follower in followers)
         {
             follower.commander = newCommander.transform;
-            follower.ChangeState(new FollowCommanderState(follower, follower.agent, newCommander.transform, follower.formationOffset));
         }
         
-        CommanderController newController = newCommander.gameObject.AddComponent<CommanderController>();
+        CommanderController newController = newCommander.gameObject.GetComponent<CommanderController>();
         newController.followers = new List<AIStateMachine>(followers);
         newController.formationTolerance = formationTolerance;
+        newController.isCommander = true;
         
         newCommander.ChangeState(new PatrolState(newCommander, newCommander.agent, newCommander.Waypoints, currentWaypoint));
         

@@ -7,6 +7,7 @@ public class PatrolState : AIState
     private List<Transform> waypoints;
     private int currentWaypoint;
     private CommanderController commanderController;
+    private float regularSpeed = 2f;
 
     public PatrolState(AIStateMachine controller, NavMeshAgent agent, List<Transform> waypoints, int currentWaypoint) : base(controller, agent)
     {
@@ -14,6 +15,7 @@ public class PatrolState : AIState
         this.currentWaypoint = currentWaypoint;
         commanderController = controller.GetComponent<CommanderController>();
         controller.currentWaypoint = currentWaypoint;
+        agent.isStopped = false;
     }
 
     // Sets commander AI to move toward each waypoint and then loop back to start once finished
@@ -30,6 +32,7 @@ public class PatrolState : AIState
             else
             {
                 commanderController.hasGroupedUp = true;
+                agent.speed = regularSpeed;
                 agent.isStopped = false;
             }
         }

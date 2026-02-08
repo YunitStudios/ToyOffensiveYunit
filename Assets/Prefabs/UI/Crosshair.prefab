@@ -130,7 +130,8 @@ MonoBehaviour:
   expandSpeed: 10
   hitmarker: {fileID: 0}
   hitmarkerTime: 0.2
-  spreadMultiplier: 1000
+  onUpdateSpread: {fileID: 11400000, guid: 6e2e77c3c63300b4c9ec1e86f4fb61ca, type: 2}
+  onShowHitmarker: {fileID: 11400000, guid: 2bfcc4b2ae03dae43854f2d52d70e182, type: 2}
 --- !u!1 &2987014594734235286
 GameObject:
   m_ObjectHideFlags: 0

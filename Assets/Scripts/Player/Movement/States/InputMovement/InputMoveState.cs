@@ -17,11 +17,16 @@ public class MovementSettings : StateSettings
     [Tooltip("Speed at which the player turns to face movement direction")]
     [SerializeField] private float turnSpeed = 1f;
     public float TurnSpeed => turnSpeed;
+    [Tooltip("Minimum forward input required to be considered moving forward (used in sprinting check for example)")]
+    [SerializeField] private float forwardInputThreshold = 0.6f;
+    public float ForwardInputThreshold => forwardInputThreshold;
 }
 
 public abstract class InputMoveState : MovementState
 {
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
+    private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
+    private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
     
     public MovementSettings Settings =>stateMachine.MovementSettings; 
     
@@ -38,11 +43,11 @@ public abstract class InputMoveState : MovementState
         Vector3 input = stateMachine.InputController.FrameMove;
         
         // Calculate movement direction relative to camera
-        Vector3 cameraForward = stateMachine.PlayerCamera.transform.forward;
+        Vector3 cameraForward = stateMachine.PlayerCamera.CameraTransform.forward;
         cameraForward.y = 0;
         cameraForward.Normalize();
         
-        Vector3 cameraRight = stateMachine.PlayerCamera.transform.right;
+        Vector3 cameraRight = stateMachine.PlayerCamera.CameraTransform.transform.right;
         cameraRight.y = 0;
         cameraRight.Normalize();
         
@@ -94,7 +99,9 @@ public abstract class InputMoveState : MovementState
             horizontalSpeed *= 2f;
         }
         
-        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed, 0.2f, Time.deltaTime);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed, 0.1f, Time.deltaTime);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveX, input.x, 0.1f, Time.deltaTime);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveY, input.y, 0.1f, Time.deltaTime);
         
         stateMachine.SetVelocity(new Vector3(horizontalVelocity.x, verticalVelocity, horizontalVelocity.z));
     }
@@ -110,7 +117,7 @@ public abstract class InputMoveState : MovementState
 
     public override void CheckTransitions()
     {
-        if (stateMachine.ClimbingState.CanClimb() && stateMachine.ClimbingState.CanEnter())
+        if (stateMachine.ClimbingState.CanInitiateClimb() && stateMachine.ClimbingState.CanEnter() && stateMachine.InputController.FrameMove.y > 0f)
         {
             SwitchState(stateMachine.ClimbingState);
         }

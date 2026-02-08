@@ -1,21 +1,31 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class AIController : MonoBehaviour
+public class AIController : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float maxHealth = 100f;
-    [HideInInspector] public float currentHealth;
+    [SerializeField] private Health enemyHealth;
     private AIStateMachine stateMachine;
     [SerializeField] private Animator aiAnimator;
     public Animator AIAnimator => aiAnimator;
     private NavMeshAgent navMeshAgent;
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
+    private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
 
+    private CapsuleCollider capCollider;
+    private float standHeight = 2f;
+    private float crouchHeight = 1f;
+    private float targetHeight;
+    private Transform playerTransform;
+    
+    public IDamageSource RecentDamageSource { get; set; }
+    
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         stateMachine = GetComponent<AIStateMachine>();
-        currentHealth = maxHealth;
+        capCollider = GetComponent<CapsuleCollider>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
@@ -34,12 +44,42 @@ public class AIController : MonoBehaviour
         aiAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed , 0.2f, Time.deltaTime);
     }
     
-    public void TakeDamage(float damage)
+    public void TakeDamage(IDamageSource source, float damage)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0f)
+        if(source != null)
+            RecentDamageSource = source;
+        
+        // Alert squad when damaged 
+        stateMachine.AlertSquad(playerTransform);
+        
+        enemyHealth.DealDamage(damage, out bool didDie);
+        if (didDie)
         {
             stateMachine.Die();
+            GameManager.ScoreTracker.RegisterKill(ScoreTrackerSO.KillTypes.Generic, RecentDamageSource);
         }
+    }
+
+    // Sets crouching/ standing animation and stats
+    public void SetCrouching(bool isCrouching)
+    {
+        if (isCrouching)
+        {
+            aiAnimator.SetBool(IsCrouching, true);
+            targetHeight = crouchHeight;
+            Vector3 center = capCollider.center;
+            center.y = targetHeight / 2f;
+            capCollider.center = -center;
+        }
+        else
+        {
+            aiAnimator.SetBool(IsCrouching, false);
+            targetHeight =  standHeight;
+            Vector3 center = capCollider.center;
+            center.y = 0;
+            capCollider.center = center;
+        }
+        capCollider.height = targetHeight;
+        navMeshAgent.height = targetHeight;
     }
 }

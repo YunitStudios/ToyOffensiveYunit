@@ -12,8 +12,6 @@ public class SlidingSettings : StateSettings
     public float SlideForwardSpeed => slideForwardSpeed;
     [SerializeField] private float slideDuration = 1f;
     public float SlideDuration => slideDuration;
-    [SerializeField] private float slideHeight = 0.75f;
-    public float SlideHeight => slideHeight;
     [SerializeField] private AnimationCurve slideSpeedCurve;
     public AnimationCurve SlideSpeedCurve => slideSpeedCurve;
     [SerializeField] private float slideCooldown = 1f;
@@ -39,7 +37,7 @@ public class SlidingState : MovementState
     {
         base.OnEnter();
 
-        stateMachine.ChangeHeight(Settings.SlideHeight);
+        stateMachine.ChangeHeight(stateMachine.CrouchingState.GetCrouchHeight);
         stateMachine.PlayerAnimator.SetBool(IsSliding, true);
         
         durationTween = Tween.Delay(Settings.SlideDuration);
@@ -60,7 +58,7 @@ public class SlidingState : MovementState
 
     public override void Tick()
     {
-        Vector3 direction = stateMachine.transform.forward;
+        Vector3 direction = stateMachine.Forward;
         float progress = slideTime / Settings.SlideDuration;
         float speedMultiplier = Settings.SlideSpeedCurve.Evaluate(1-progress);
         
@@ -80,7 +78,7 @@ public class SlidingState : MovementState
         }
         
         // Cancel slide
-        if(!stateMachine.InputController.IsCrouching)
+        if(!stateMachine.InputController.CrouchHeld)
         {
             // If they cant stand up, go to crouch
             if(!stateMachine.CrouchingState.CanStandUp())
@@ -89,6 +87,18 @@ public class SlidingState : MovementState
                 SwitchState(stateMachine.SprintingState);
             else
                 SwitchState(stateMachine.WalkingState);
+        }
+        
+        // If they slide into a wall
+        if (stateMachine.IsFacingWall() && stateMachine.ClimbingState.CanClimb())
+        {
+            SwitchState(stateMachine.ClimbingState);
+        }
+        
+        // If they slide off a ledge
+        if (!stateMachine.IsGrounded)
+        {
+            SwitchState(stateMachine.FallingState);
         }
     }
 

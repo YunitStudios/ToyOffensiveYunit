@@ -18,6 +18,12 @@ public class SprintingState : InputMoveState
     }
     
     private new SprintingSettings Settings => stateMachine.SprintingSettings;
+    
+    protected override void SetEnterConditions()
+    {
+        base.SetEnterConditions();
+        AddCanEnterCondition(CanSprint);
+    }
 
     public override void OnEnter()
     {
@@ -40,8 +46,18 @@ public class SprintingState : InputMoveState
         if(!stateMachine.InputController.IsSprinting)
             SwitchState(stateMachine.WalkingState);
         
-        if(stateMachine.InputController.IsCrouching)
+        // Only slide if not running into a wall
+        if(stateMachine.InputController.CrouchHeld && !stateMachine.IsFacingWall())
             SwitchState(stateMachine.SlidingState);
+        
+        // Stop sprinting if input is below threshold
+        if(!CanSprint())
+            SwitchState(stateMachine.WalkingState);
+    }
+    
+    private bool CanSprint()
+    {
+        return stateMachine.InputController.FrameMove.y > base.Settings.ForwardInputThreshold;
     }
 
     public override float GetSpeedMultiplier => Settings.SprintSpeedMultiplier;

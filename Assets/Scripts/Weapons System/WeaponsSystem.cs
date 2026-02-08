@@ -3,71 +3,90 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class WeaponsSystem : MonoBehaviour
 {
     [Header("References")]
-    [Tooltip("Reference to input logic")]
-    [SerializeField] private PlayerInputController playerInputController;
     [Tooltip("Player camera used for the obstruction check")]
     [SerializeField] private Camera playerCamera;   // player camera used for the obstruction check
+
+    [SerializeField] private PlayerCamera playerCameraSystem;
     [FormerlySerializedAs("playerLayer")]
     [Tooltip("Layer mask to stop the gun from shooting the player torso")]
     [SerializeField] private LayerMask canShoot;
     [Tooltip("The point that the gun actually shoots from, will be obtained dynamically in the future")]
     [SerializeField] private Transform firePoint;
     
-    
-    [Tooltip("Test cube to visualise spread")]
-    public Transform cube;                          // test cube to visualise spread
-    private Crosshair crosshair;                    // Crosshair 
-
-
+    // internal references
+    private PlayerDataSO PlayerData => GameManager.PlayerData;
     [HideInInspector] public Weapon currentWeapon;
-    private PlayerInventory playerInventory => PlayerInventory.Instance;
+    private PlayerCamera.CameraType weaponCameraType;
+    private Crosshair crosshair;
     
     // tracer
-    public GameObject tracerPrefab;   // assign in Inspector
-    public float tracerSpeed = 200f;  // only for moving tracers (optional)
+    [SerializeField] private GameObject tracerPrefab;   // assign in Inspector
+    [SerializeField] private float tracerSpeed = 200f;  // only for moving tracers (optional)
+    
+    // physics projectile
+    [SerializeField] private GameObject physicsProjectilePrefab;
+
+    [Header("Output Events")]
+    [SerializeField] private VoidEventChannelSO onShowHitmarker;
+    [SerializeField] private FloatEventChannelSO onUpdateSpread;
 
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
     private float accumulatedShootingTime = 0f;     // total time spent shooting, used for recovery speed
     private float lastReloadTime = -999f;
+
+    private bool aiming = false;
     
     // weapon instances
 
     private void OnEnable()
     {
 //        playerInputController.OnShootAction += Fire;
-        playerInputController.OnReloadAction += Reload;
+        // InputManager.Instance.OnReloadAction += Reload;
     }
 
     private void OnDisable()
     {
-//        playerInputController.OnShootAction -= Fire;
-        playerInputController.OnReloadAction -= Reload;
+        //        playerInputController.OnShootAction -= Fire;
+        InputManager.Instance.OnReloadAction -= Reload;
     }
 
     private void Start()
     {
+        InputManager.Instance.OnReloadAction += Reload;
         // Find crosshair in scene
         crosshair = FindFirstObjectByType<Crosshair>();
-        currentWeapon = playerInventory.GetPrimaryWeapon();
+        currentWeapon = PlayerData.PrimaryWeapon;
     }
 
     private void Update()
     {
         // TODO: use events this is temp due to it not working for unknown reason
-        if (playerInputController.IsShooting)
+        if (InputManager.Instance.IsShooting)
         {
             Fire();
+        }
+
+        if (InputManager.Instance.IsAiming && !aiming)
+        {
+            Aim();
+        }
+
+        if (!InputManager.Instance.IsAiming && aiming)
+        {
+            playerCameraSystem.ResetCamera(); 
+            aiming = false;
         }
         
         currentWeapon.WeaponSpread.UpdateSpreadOverTime();
         
         //UI Crosshair update
-        crosshair.UpdateSpread(currentWeapon.WeaponSpread.CurrentSpreadAmount);
+        onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
     }
 
@@ -78,14 +97,14 @@ public class WeaponsSystem : MonoBehaviour
         if(Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime)
         {
             // am still reloading
-            Debug.Log("Still reloading!");
+            // Debug.Log("Still reloading!");
             return;
         }
 
         if(currentWeapon.CurrentAmmoInMag <= 0)
         {
             // play empty mag sound here
-            Debug.Log("No ammo in mag!");
+            // Debug.Log("No ammo in mag!");
             return;
         }
 
@@ -93,65 +112,165 @@ public class WeaponsSystem : MonoBehaviour
         float timeBetweenShots = 60f / currentWeapon.WeaponData.FireRateRPM;
         if(Time.time - lastShotTime < timeBetweenShots)
         {
-            Debug.Log("Shooting too fast!");
+            // Debug.Log("Shooting too fast!");
             return;
         }
 
-        Debug.Log("Firing weapon: " + currentWeapon.WeaponData.DisplayName);
+        // Debug.Log("Firing weapon: " + currentWeapon.WeaponData.DisplayName);
         
-        // do the actual shooting here
-        if(currentWeapon.WeaponData.IsPhysicsBased)
+        // shoot it
+        if (currentWeapon.WeaponData.ShotQuantity > 1)
         {
-            DoPhysicsShoot();
+            DoMultiShoot(currentWeapon.WeaponData.IsPhysicsBased);
         }
         else
         {
-            Vector3 endPos = DoRaycastShoot();
-            SpawnTracer(firePoint.position, endPos);
+            if(currentWeapon.WeaponData.IsPhysicsBased)
+            {
+                DoPhysicsShoot();
+            }
+            else
+            {
+                DoRaycastShoot();
+            }
         }
-
+        
         // do the spread calculations
         lastShotTime = Time.time;
-
         
         currentWeapon.Fire();
     }
 
-    public void Reload()
+    private void Aim()
+    {
+        if (playerCameraSystem.CurrentCameraType != currentWeapon.WeaponData.AimCameraType)
+        {
+            playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
+            aiming = true;
+        }
+    }
+
+    private void Reload()
     {
         accumulatedShootingTime = 0f;
         lastReloadTime = Time.time;
 
-        currentWeapon.Reload(playerInventory);
+        currentWeapon.Reload(PlayerData);
     }
 
-    private Vector3 DoRaycastShoot()
+    private void DoMultiShoot(bool isPhysicsBased = false)
     {
-        Ray cameraRay = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-
-        // debug lines
-        Debug.DrawRay(firePoint.position, cameraRay.direction * 100f, Color.red, 10f);
-
-        // raycast from gun along shoot direction
-        RaycastHit hit;
-        if (Physics.Raycast(firePoint.position, cameraRay.direction, out hit, Mathf.Infinity, canShoot))
+        for (int i = 0; i < currentWeapon.WeaponData.ShotQuantity; i++)
         {
-            if (hit.collider.CompareTag("Enemy"))
-                hit.collider.GetComponent<AIController>().TakeDamage(999f);
+            // calculate shot offset rotation
+            float max = currentWeapon.WeaponData.ShotSpread;
+            
+            if (isPhysicsBased)
+            {
+                DoPhysicsShoot(true, Random.Range(-max, max));
+            }
+            else
+            {
+                DoRaycastShoot(true, Random.Range(-max, max));
+            }
+        }
+    }
+
+    private void DoRaycastShoot(bool isMultiShot = false, float multiRotation = 0f)
+    {
+        // get camera forward aim direction
+        Vector3 camForward = playerCamera.transform.forward;
+        
+        Vector3 shootDir;
+
+        // apply random spread to the shot direction
+        if (!isMultiShot)
+        {
+            Quaternion spreadRot = Quaternion.Euler(
+                GetSpreadRotation(),
+                GetSpreadRotation(),
+                GetSpreadRotation()
+            );
+
+            shootDir = spreadRot * camForward;
+        }
+        else
+        {
+            Debug.Log("Multi shot rotation");
+            shootDir = GetShotgunRotation(camForward, multiRotation);
         }
 
-        return firePoint.position + cameraRay.direction * 100f; // 100 units forward
+        // visualize the shot direction from the fire point
+        Debug.DrawRay(firePoint.position, shootDir * 100f, Color.red, 10f);
+
+        // raycast from gun along the spread direction
+        RaycastHit hit;
+        Bullet bullet = new();
+        if (Physics.Raycast(firePoint.position, shootDir, out hit, Mathf.Infinity, canShoot))
+        {
+            // apply damage if we hit an enemy
+            if (hit.transform.TryGetComponent<IDamageable>(out var target))
+            {
+                target.TakeDamage(bullet, currentWeapon.WeaponData.Damage);
+                onShowHitmarker?.Invoke();
+            }
+        }
+
+        // spawn tracer
+        SpawnTracer(firePoint.position, firePoint.position + shootDir * 100f);
     }
 
-
-
-    private void DoPhysicsShoot()
+    private void DoPhysicsShoot(bool isMultiShot = false, float multiRotation = 0f)
     {
-        // do the actual physics based shoot for rockets etc
+        // do the actual physics based shoot for rockets, arrows etc
+        Vector3 camForward = playerCamera.transform.forward;
+        Vector3 shootDir;
 
-        // shoot ray from camera. Set initial direction of projectile to point at that
+        // multi shot support
+        if (!isMultiShot)
+        {
+            Quaternion spreadRot = Quaternion.Euler(
+                GetSpreadRotation(),
+                GetSpreadRotation(),
+                GetSpreadRotation()
+            );
+
+            shootDir = spreadRot * camForward;
+        }
+        else
+        {
+            Debug.Log("Multi shot rotation");
+            shootDir = GetShotgunRotation(camForward, multiRotation);
+        }
         
-        // after that use the projectile physics i did for my ballistic system where visually it looks like its effected by gravity etc but its just all raycasts
+        // instantiate and setup the physics projectile
+        GameObject physicsProjectile = Instantiate(physicsProjectilePrefab, firePoint.position, firePoint.rotation);
+        PhysicsBulletMovement movementScript = physicsProjectile.GetComponent<PhysicsBulletMovement>();
+        
+        movementScript.InitialDirection = shootDir;
+        movementScript.InitialVelocity = currentWeapon.WeaponData.InitialVelocityMS;
+        movementScript.Damage = currentWeapon.WeaponData.Damage;
+        movementScript.MassKG = currentWeapon.WeaponData.MassKG;
+        movementScript.Shootable = canShoot;
+    }
+
+    private float GetSpreadRotation()
+    {
+        float max = currentWeapon.WeaponSpread.CurrentSpreadAmount;
+        return Random.Range(-max, max);
+    }
+    
+    private Vector3 GetShotgunRotation(Vector3 forward, float angle)
+    {
+        // this makes a uniform cone based on the angle we give and then randomises a location in that as the offset
+        float angleRad = angle * Mathf.Deg2Rad;
+
+        Vector3 random = Random.onUnitSphere;
+        Vector3 axis = Vector3.Cross(forward, random).normalized;
+
+        float theta = Random.Range(0f, angleRad);
+
+        return Quaternion.AngleAxis(theta * Mathf.Rad2Deg, axis) * forward;
     }
     
     private void SpawnTracer(Vector3 start, Vector3 end)
@@ -173,5 +292,10 @@ public class WeaponsSystem : MonoBehaviour
         }
 
         Destroy(tracer);
+    }
+
+    public class Bullet : IDamageSource
+    {
+        
     }
 }

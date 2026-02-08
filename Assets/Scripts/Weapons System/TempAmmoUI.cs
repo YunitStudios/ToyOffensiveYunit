@@ -9,8 +9,14 @@ public class TempAmmoUI : MonoBehaviour
     
     private void Update()
     {
-        ammoText.text =
-            $"{weaponsSystem.currentWeapon.CurrentAmmoInMag} / {weaponsSystem.currentWeapon.WeaponData.MagSize}";
+        if (ammoText != null && weaponsSystem != null && weaponsSystem.currentWeapon != null && weaponsSystem.currentWeapon.WeaponData != null)
+        {
+            ammoText.text = $"{weaponsSystem.currentWeapon.CurrentAmmoInMag} / {weaponsSystem.currentWeapon.WeaponData.MagSize}";
+        }
+        else
+        {
+            ammoText.text = "-- / --"; // fallback if anything is null
+        }
     }
 }
 
