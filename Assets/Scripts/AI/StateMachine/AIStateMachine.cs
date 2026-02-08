@@ -56,9 +56,9 @@ public class AIStateMachine : MonoBehaviour
         vision = GetComponentInChildren<AIVision>();
         aiController = GetComponent<AIController>();
 
+        // Sets station point to enemies start location
         if (enemyType == EnemyType.Stationary)
         {
-            //stationaryPosition = agent.destination;
             stationPosition = transform.position;
         }
         ReturnToStartingState();
