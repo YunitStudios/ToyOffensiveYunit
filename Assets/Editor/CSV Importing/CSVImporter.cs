@@ -9,6 +9,7 @@ public enum CSVType
     Sounds
 }
 
+#if UNITY_EDITOR
 public class CSVImporter : MonoBehaviour
 {
     public static void ImportCSV(CSVType type)
@@ -70,3 +71,4 @@ public class CSVImporter : MonoBehaviour
         Debug.Log($"{type} updated successfully.");
     }
 }
+#endif
