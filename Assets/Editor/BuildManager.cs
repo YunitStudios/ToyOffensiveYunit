@@ -23,7 +23,7 @@ namespace RIGPR.Editor {
         /// The list of all the scenes to include within the build
         /// </summary>
         private static readonly List<string> _scenes = new() {
-            "Assets/Scenes/MainMenu.unity",
+            "Assets/Scenes/Production/MainLevel.unity",
         };
 
         /// <summary>
