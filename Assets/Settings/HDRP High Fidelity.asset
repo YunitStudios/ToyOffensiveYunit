@@ -146,7 +146,7 @@ MonoBehaviour:
         m_Values: 00020000000400000008000000100000
         m_SchemaId:
           m_Id: With4Levels
-      maxDirectionalShadowMapResolution: 4096
+      maxDirectionalShadowMapResolution: 2048
       maxPunctualShadowMapResolution: 4096
       maxAreaShadowMapResolution: 4096
       supportScreenSpaceShadows: 0
@@ -229,7 +229,7 @@ MonoBehaviour:
       ChromaticAberrationMaxSamples: 03000000060000000c000000
     lightSettings:
       useContactShadow:
-        m_Values: 000101
+        m_Values: 000000
         m_SchemaId:
           m_Id: 
     maximumLODLevel:
@@ -307,9 +307,9 @@ MonoBehaviour:
       - 1
       Fog_ControlMode: 000000000000000000000000
       Fog_Budget:
-      - 0.25
-      - 0.5
-      - 0.75
+      - 0.1
+      - 0.2
+      - 0.3
       Fog_DepthRatio:
       - 0.5
       - 0.5
