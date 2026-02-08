@@ -20,6 +20,8 @@ public class FleeState : AIState
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
         agent.speed  = fleeSpeed;
         agent.isStopped = false;
+        controller.GetComponent<AIController>().SetCrouching(false);
+        controller.inCover = false;
         ChooseFleeDestination();
     }
 

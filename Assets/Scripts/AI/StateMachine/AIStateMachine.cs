@@ -1,9 +1,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 
 public class AIStateMachine : MonoBehaviour
 {
+
+    private enum EnemyType
+    {
+        Patrol,
+        Target,
+        Guard,
+        Stationary
+    }
+    [Tooltip("Assign the enemy type here")]
+    [SerializeField] private EnemyType enemyType;
+    
     [HideInInspector] public NavMeshAgent agent;
     private AIState currentState;
     public AIState CurrentState => currentState;
@@ -24,8 +36,18 @@ public class AIStateMachine : MonoBehaviour
     [Tooltip("Time before enemy is destroyed after being killed")]
     [SerializeField] private float DeathDelay = 0;
     
-    [Tooltip("Is this enemy a target?")]
-    [SerializeField] private bool IsTarget = false;
+    [HideInInspector] public Vector3 stationPosition;
+
+    [Header("Guard Settings")]
+    [Tooltip("The Target to guard")]
+    [SerializeField] private AIStateMachine protectedTarget;
+    [Tooltip("The distance the guard can move from target")]
+    [SerializeField] private float protectRadius = 10f;
+    [Tooltip("Once this health percentage is reached, guard will go and try to heal the target")]
+    [SerializeField] private float assistAtHealthPercent = 0.5f;
+
+    [HideInInspector] public bool isBeingAssisted;
+    [HideInInspector] public bool inCover = false;
 
     // Sets starting states for AI 
     void Start()
@@ -33,18 +55,30 @@ public class AIStateMachine : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<AIVision>();
         aiController = GetComponent<AIController>();
+
+        // Sets station point to enemies start location
+        if (enemyType == EnemyType.Stationary)
+        {
+            stationPosition = transform.position;
+        }
         ReturnToStartingState();
     }
 
     void Update()
     {
         currentState?.Execute();
+        
+        // if enemy is a guard start protecting functionality
+        if (enemyType == EnemyType.Guard)
+        {
+            Protecting();
+        }
         // if player enters vision collider, switch to their alert state
-        if (vision.canSeePlayer && IsTarget && !(currentState is FleeState))
+        if (vision.canSeePlayer && enemyType == EnemyType.Target && !(currentState is FleeState) && !(CurrentState is MoveToAssistCoverState))
         {
             ChangeState(new FleeState(this, agent, vision.player));
         }
-        if (vision.canSeePlayer && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && !IsTarget)
+        if (vision.canSeePlayer && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && enemyType != EnemyType.Target)
         { 
             ChangeState(new AttackState(this, agent, vision.player));
         }
@@ -54,7 +88,14 @@ public class AIStateMachine : MonoBehaviour
             if (Time.time - vision.lastSeenTime > vision.SearchTimeout)
             {
                 aiController.AIAnimator.SetBool(IsCrouching, false);
-                ChangeState(new SearchState(this, agent, vision.lastSeenPosition));
+                if (enemyType == EnemyType.Stationary)
+                {
+                    ChangeState(new ReturnToStationState(this, agent, stationPosition));
+                }
+                else
+                {
+                    ChangeState(new SearchState(this, agent, vision.lastSeenPosition));
+                }
             }
         }
     }
@@ -95,6 +136,8 @@ public class AIStateMachine : MonoBehaviour
     // When AI dies, it changes state and if it was a commander a new one is set, or if just a follower then it is removed from commanders list
     public void Die()
     {
+        isBeingAssisted = false;
+        
         ChangeState(new DeathState(this, agent));
         CommanderController commanderController = GetComponent<CommanderController>();
         if (commanderController != null && commanderController.IsCommander)
@@ -190,7 +233,7 @@ public class AIStateMachine : MonoBehaviour
         vision.lastSeenTime = Time.time;
         
         // if Enemy is a target it will enter the flee state
-        if (IsTarget && !(currentState is FleeState))
+        if (enemyType == EnemyType.Target && !(currentState is FleeState))
         {
             ChangeState(new FleeState(this, agent, player));
         }
@@ -210,5 +253,34 @@ public class AIStateMachine : MonoBehaviour
         get { return waypoints; }
         set { waypoints = value; }
     }
-    
+
+    private void Protecting()
+    {
+        // if target is no longer alive then patrol
+        if (protectedTarget == null)
+        {
+            enemyType = EnemyType.Patrol;
+            ReturnToStartingState();
+            return;
+        }
+        
+        // if too far from target then return
+        float distanceToTarget = Vector3.Distance(transform.position, protectedTarget.transform.position);
+        if (distanceToTarget > protectRadius)
+        {
+            if (!(CurrentState is FollowCommanderState))
+            {
+                ChangeState(new FollowCommanderState(this, agent, protectedTarget.transform, formationOffset));
+            }
+
+            return;
+        }
+        
+        // assists target if health is low
+        Health targetHealth = protectedTarget.GetComponent<Health>();
+        if (targetHealth != null && targetHealth.CurrentHealth / targetHealth.MaxHealth <= assistAtHealthPercent && !protectedTarget.isBeingAssisted)
+        {
+            ChangeState(new AssistState(this, agent, protectedTarget));
+        }
+    }
 }
