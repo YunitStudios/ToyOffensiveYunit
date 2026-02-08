@@ -7,6 +7,7 @@ public class PatrolState : AIState
     private List<Transform> waypoints;
     private int currentWaypoint;
     private CommanderController commanderController;
+    private float regularSpeed = 2f;
 
     public PatrolState(AIStateMachine controller, NavMeshAgent agent, List<Transform> waypoints, int currentWaypoint) : base(controller, agent)
     {
@@ -31,6 +32,7 @@ public class PatrolState : AIState
             else
             {
                 commanderController.hasGroupedUp = true;
+                agent.speed = regularSpeed;
                 agent.isStopped = false;
             }
         }

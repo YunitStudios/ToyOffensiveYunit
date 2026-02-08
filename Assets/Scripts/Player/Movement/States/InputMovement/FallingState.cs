@@ -17,6 +17,13 @@ public class FallingSettings : StateSettings
     public float SpeedTransitionTime => speedTransitionTime;
     [SerializeField] private Ease speedTransitionEase = Ease.OutQuad;
     public Ease SpeedTransitionEase => speedTransitionEase;
+    [Tooltip("Percentage of damage to deal based on velocity scale")]
+    [SerializeField] private Vector2 fallDamageScale = new(0.1f, 1f);
+    public Vector2 FallDamageScale => fallDamageScale;
+
+    [Tooltip("Minimum and maximum velocity to calculate damage amount. X triggers the minimum damage, Y deals max damage")]
+    [SerializeField] private Vector2 fallVelocityScale = new(3f, 10f);
+    public Vector2 FallVelocityScale => fallVelocityScale;
 }
 
 public class FallingState : InputMoveState

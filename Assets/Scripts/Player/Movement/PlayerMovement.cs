@@ -38,7 +38,7 @@ public class PlayerMovement : StateMachine
     [Tooltip("Height of the player character, used in things like climbing checks")]
     [SerializeField] private float playerHeight = 2f;
     public float PlayerHeight => playerHeight;
-    [SerializeField] private float playerRadius = 0.5f;
+    [SerializeField] private float playerRadius = 0.25f;
     public float PlayerRadius => playerRadius;
     [Tooltip("Normalized height of the player's head relative to total height (0 = feet, 1 = top of head)")]
     [Range(0,1)] [SerializeField] private float playerHeadNormalizedHeight = 0.9f;
@@ -95,11 +95,16 @@ public class PlayerMovement : StateMachine
     
     public Vector3 CurrentVelocity => currentVelocity;
     private Vector3 currentVelocity;
+    public float CurrentRadius => cc.radius;
     
     
     [Header("Looking")]
     [Tooltip("Multiplier to adjust look sensitivity")]
     [SerializeField] private float lookSensitivity = 0.1f;
+
+    [Header("Events")] 
+    [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
+    public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool MouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
 
@@ -245,6 +250,14 @@ public class PlayerMovement : StateMachine
     {
         ChangeHeight(defaultColliderHeight);
     }
+    public void ChangeRadius(float newRadius)
+    {
+        cc.radius = newRadius;
+    }
+    public void ChangeRadiusDefault()
+    {
+        ChangeRadius(playerRadius);
+    }
 
     private void FrameLook()
     {
@@ -332,10 +345,24 @@ public class PlayerMovement : StateMachine
     // Spherecast to check if on ground
     private bool CheckOnGround()
     {
-        if(GetGroundDistance() < minGroundDistance)
+        if (GetGroundDistance() < minGroundDistance)
+        {
+            CheckFallDamage();
             return true;
+        }
 
         return false;
     }
-    
+
+    private void CheckFallDamage()
+    {
+        if (!(currentVelocity.y < -FallingSettings.FallVelocityScale.x) || currentState is not global::FallingState) 
+            return;
+        
+        float fallSpeed = Mathf.Abs(currentVelocity.y);
+        float t = Mathf.InverseLerp(FallingSettings.FallVelocityScale.x, FallingSettings.FallVelocityScale.y, fallSpeed);
+        float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
+        float damage = 100 * damageScale;
+        OnDealPlayerDamage(damage);
+    }
 }

@@ -4,15 +4,21 @@ using System.Collections;
 
 public class Crosshair : MonoBehaviour
 {
-    private RectTransform[] crosshair;
-    private Vector2[] originalCrosshairPositions;
-    private float currentSpread;
+    [Header("Settings")]
     [SerializeField] private float expandSpeed;
     [SerializeField] private Image hitmarker;
     [SerializeField] private float hitmarkerTime;
+
+    [Header("Input Events")]
+    [SerializeField] private FloatEventChannelSO onUpdateSpread;
+    [SerializeField] private VoidEventChannelSO onShowHitmarker;
+
+    private RectTransform[] crosshair;
+    private Vector2[] originalCrosshairPositions;
+    private float currentSpread;
     private float spreadMultiplier = 25f;
 
-    void Start()
+    private void Start()
     {
         // Gets the crosshairs parts and saves the original position
         crosshair = GetComponentsInChildren<RectTransform>();
@@ -25,7 +31,7 @@ public class Crosshair : MonoBehaviour
         hitmarker.color = new Color(hitmarker.color.r, hitmarker.color.g, hitmarker.color.b, 0f);
     }
 
-    void Update()
+    private void Update()
     {
         // Move each crosshair piece outwards due to spread
         for (int i = 0; i < crosshair.Length; i++)
@@ -35,14 +41,25 @@ public class Crosshair : MonoBehaviour
         }
     }
 
-    public void UpdateSpread(float newSpread)
+    private void OnEnable()
+    {
+        onUpdateSpread.OnEventRaised += UpdateSpread;
+        onShowHitmarker.OnEventRaised += ShowHitmarker;
+    }
+    private void OnDisable()
+    {
+        onUpdateSpread.OnEventRaised -= UpdateSpread;
+        onShowHitmarker.OnEventRaised -= ShowHitmarker;
+    }
+
+    private void UpdateSpread(float newSpread)
     {
         // Smoothly moves current spread to new spread
         currentSpread = Mathf.Lerp(currentSpread, newSpread * spreadMultiplier, Time.deltaTime * expandSpeed);
     }
     
     // Call when player hits something
-    public void Hitmarker()
+    private void ShowHitmarker()
     {
         StartCoroutine(ShowHitMarker());
     }

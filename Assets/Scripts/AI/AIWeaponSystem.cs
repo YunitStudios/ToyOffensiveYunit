@@ -127,15 +127,15 @@ public class AIWeaponSystem : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                hit.collider.GetComponent<PlayerHealth>().TakeDamage(currentWeapon.WeaponData.Damage * damageMult);
+                hit.collider.GetComponent<Health>().DealDamage(currentWeapon.WeaponData.Damage * damageMult);
             }
+            
+            return hit.point;
         }
-
         return firePoint.position + direction * 100f; // 100 units forward
     }
 
-
-
+    
     private void DoPhysicsShoot(bool isMultiShot = false, float multiRotation = 0f)
     {
         // do the actual physics based shoot for rockets, arrows etc
@@ -143,14 +143,20 @@ public class AIWeaponSystem : MonoBehaviour
         Vector3 shootDir;
 
         // multi shot support
-        if (isMultiShot)
+        if (!isMultiShot)
         {
-            Debug.Log("Multi shot rotation");
-            shootDir = GetShotgunRotation(direction, multiRotation);
+            Quaternion spreadRot = Quaternion.Euler(
+                GetSpreadRotation(),
+                GetSpreadRotation(),
+                GetSpreadRotation()
+            );
+
+            shootDir = spreadRot * direction;
         }
         else
         {
-            shootDir = direction;
+            Debug.Log("Multi shot rotation");
+            shootDir = GetShotgunRotation(direction, multiRotation);
         }
         
         // instantiate and set up the physics projectile
@@ -190,17 +196,26 @@ public class AIWeaponSystem : MonoBehaviour
         Vector3 direction = (end - start).normalized;
 
         // move the tracer with a coroutine
-        StartCoroutine(MoveTracer(tracer, direction, end));
+        StartCoroutine(MoveTracer(tracer, end));
     }
     
-    private IEnumerator MoveTracer(GameObject tracer, Vector3 dir, Vector3 end)
+    private IEnumerator MoveTracer(GameObject tracer, Vector3 end)
     {
-        while (tracer && Vector3.Distance(tracer.transform.position, end) > 0.1f)
+        while (tracer)
         {
-            tracer.transform.position += dir * (tracerSpeed * Time.deltaTime);
+            tracer.transform.position = Vector3.MoveTowards(
+                tracer.transform.position,
+                end,
+                tracerSpeed * Time.deltaTime
+            );
+
+            if (Vector3.SqrMagnitude(tracer.transform.position - end) <= 0.01f)
+                break;
+
             yield return null;
         }
 
-        Destroy(tracer);
+        if (tracer)
+            Destroy(tracer);
     }
 }
