@@ -9,6 +9,7 @@ public class AssistState : AIState
     private float healDuration = 3.0f;
     private float healTimer;
     private float healDistance = 2.0f;
+    private AIWeaponSystem weaponSystem;
     
     public AssistState(AIStateMachine controller, NavMeshAgent agent, AIStateMachine target) : base(controller, agent)
     {
@@ -17,6 +18,9 @@ public class AssistState : AIState
         target.isBeingAssisted = true;
         CoverPoint assistCover = CoverPointManager.instance.GetNearestCoverPoint(target.transform.position, controller.vision.player);
         target.ChangeState(new MoveToAssistCoverState(target, target.agent, assistCover));
+        
+        weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
+        weaponSystem.ResetFireTimers();
     }
 
     public override void Execute()
