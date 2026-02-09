@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon
@@ -9,27 +10,120 @@ public class Weapon
     public WeaponSpread WeaponSpread;
     public WeaponDataSO.FireModes CurrentFireMode;
     public Transform FirePoint;
+
+    public List<AttachmentDataSO> AttachmentSOs;
     
     // Constructor
-    public Weapon(WeaponDataSO weaponData)
+    public Weapon(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
     {
-        Initialize(weaponData);
+        Initialize(weaponData, attachments);
     }
     
-    public void Initialize(WeaponDataSO weaponData)
+    public void Initialize(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
     {
-        WeaponData = weaponData;
-        CurrentAmmoInMag = weaponData.MagSize;
-        CurrentFireMode = weaponData.SupportedFireModes[0];
-        FirePoint = LocateFirePoint(weaponData.WeaponPrefab);
+        WeaponDataSO weaponDataSoCopy = ScriptableObject.CreateInstance<WeaponDataSO>();
+        weaponDataSoCopy.CopyFrom(weaponData);
+        
+        // load attachments
+        LoadAttachments(weaponDataSoCopy, attachments);
+        
+        WeaponData = weaponDataSoCopy;
+        CurrentAmmoInMag = weaponDataSoCopy.MagSize;
+        CurrentFireMode = weaponDataSoCopy.SupportedFireModes[0];
+        FirePoint = LocateFirePoint(weaponDataSoCopy.WeaponPrefab);
         
         WeaponSpread = new WeaponSpread(
-            weaponData.BaseSpread,
-            weaponData.HalfSpread,
-            weaponData.MaxSpread,
-            weaponData.MagSize,
-            weaponData.FireRateRPM
+            weaponDataSoCopy.BaseSpread,
+            weaponDataSoCopy.HalfSpread,
+            weaponDataSoCopy.MaxSpread,
+            weaponDataSoCopy.MagSize,
+            weaponDataSoCopy.FireRateRPM
         );
+    }
+
+    private void LoadAttachments(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    {
+        if (weaponData == null || attachments == null) return;
+
+        foreach (AttachmentDataSO attachment in attachments)
+        {
+            if (attachment == null) continue;
+
+            foreach (StatModifier mod in attachment.Modifiers)
+            {
+                // skip if modifier is for a different weapon
+                if (!string.IsNullOrEmpty(mod.WeaponClassName) &&
+                    mod.WeaponClassName != weaponData.ClassName)
+                    continue;
+
+                ApplyModifier(weaponData, mod);
+            }
+
+            if (!weaponData.AttachmentSOs.Contains(attachment))
+                weaponData.AttachmentSOs.Add(attachment);
+        }
+        
+        AttachmentSOs = new List<AttachmentDataSO>(attachments);
+    }
+
+    private void ApplyModifier(WeaponDataSO weaponData, StatModifier mod)
+    {
+        switch (mod.Stat)
+        {
+            case WeaponStat.FireRateRPM:
+                weaponData.FireRateRPM = ApplyInt(weaponData.FireRateRPM, mod);
+                break;
+            case WeaponStat.Damage:
+                weaponData.Damage = ApplyInt(weaponData.Damage, mod);
+                break;
+            case WeaponStat.MagSize:
+                weaponData.MagSize = ApplyInt(weaponData.MagSize, mod);
+                break;
+            case WeaponStat.ReloadTime:
+                weaponData.ReloadTime = ApplyFloat(weaponData.ReloadTime, mod);
+                break;
+            case WeaponStat.BaseSpread:
+                weaponData.BaseSpread = ApplyFloat(weaponData.BaseSpread, mod);
+                break;
+            case WeaponStat.HalfSpread:
+                weaponData.HalfSpread = ApplyFloat(weaponData.HalfSpread, mod);
+                break;
+            case WeaponStat.MaxSpread:
+                weaponData.MaxSpread = ApplyFloat(weaponData.MaxSpread, mod);
+                break;
+            case WeaponStat.ShotQuantity:
+                weaponData.ShotQuantity = ApplyInt(weaponData.ShotQuantity, mod);
+                break;
+            case WeaponStat.ShotSpread:
+                weaponData.ShotSpread = ApplyFloat(weaponData.ShotSpread, mod);
+                break;
+            case WeaponStat.InitialVelocityMS:
+                weaponData.InitialVelocityMS = ApplyFloat(weaponData.InitialVelocityMS, mod);
+                break;
+            case WeaponStat.MassKG:
+                weaponData.MassKG = ApplyFloat(weaponData.MassKG, mod);
+                break;
+        }
+    }
+
+    private int ApplyInt(int baseValue, StatModifier mod)
+    {
+        return mod.Operation switch
+        {
+            StatOperation.Add => baseValue + Mathf.RoundToInt(mod.Value),
+            StatOperation.Multiply => Mathf.RoundToInt(baseValue * mod.Value),
+            _ => baseValue
+        };
+    }
+
+    private float ApplyFloat(float baseValue, StatModifier mod)
+    {
+        return mod.Operation switch
+        {
+            StatOperation.Add => baseValue + mod.Value,
+            StatOperation.Multiply => baseValue * mod.Value,
+            _ => baseValue
+        };
     }
     
     
