@@ -25,11 +25,6 @@ public class GameManager : MonoBehaviour
         Init();
     }
 
-    private void OnDestroy()
-    {
-        Stop();
-    }
-
     #endregion
     
     [Header("References")]
@@ -40,6 +35,7 @@ public class GameManager : MonoBehaviour
     [Header("Input Events")] 
     [SerializeField] private VoidEventChannelSO onStartMission;
     [SerializeField] private VoidEventChannelSO onQuitMission;
+    [SerializeField] private VoidEventChannelSO onRestartMission;
     [SerializeField] private VoidEventChannelSO onQuitToDesktop;
 
     [Header("Output Events")]
@@ -54,12 +50,14 @@ public class GameManager : MonoBehaviour
     {
         onStartMission.OnEventRaised += LoadGame;
         onQuitMission.OnEventRaised += EndGame;
+        onRestartMission.OnEventRaised += RestartGame;
         onQuitToDesktop.OnEventRaised += QuitToDesktop;
     }
     private void OnDisable()
     {
         onStartMission.OnEventRaised -= LoadGame;
         onQuitMission.OnEventRaised -= EndGame;
+        onRestartMission.OnEventRaised -= RestartGame;
         onQuitToDesktop.OnEventRaised -= QuitToDesktop;
     }
 
@@ -68,18 +66,16 @@ public class GameManager : MonoBehaviour
         PrimeTweenConfig.warnEndValueEqualsCurrent = false;
         PrimeTweenConfig.warnTweenOnDisabledTarget = false;
         PrimeTweenConfig.warnZeroDuration = false;
-        ingameStats.Start();
+        
+        
+        ingameStats.Init();
         PlayerData.Init();
     }
 
-    private void Start()
+    private void OnApplicationQuit()
     {
-        if(MissionManager.Instance)
-            MissionManager.Instance.StartMission();
-    }
-
-    private void Stop()
-    {
+        ingameStats.Reset();
+        PlayerData.Reset();
     }
 
 
@@ -97,7 +93,7 @@ public class GameManager : MonoBehaviour
     [Button]
     public void LoadGame()
     {
-        TransitionManager.TransitionScene(TransitionManager.SceneTypes.Ingame, StartGame);
+        TransitionManager.TransitionScene(TransitionManager.SceneTypes.Ingame);
     }
 
     public void StartGame()
@@ -113,18 +109,36 @@ public class GameManager : MonoBehaviour
     [Button]
     public void EndGame()
     { 
-        Ingame = false;
-        
-        ingameStats.Stop();
         
         print("Game Ended");
-        
-        if(MissionManager.Instance)
-            MissionManager.Instance.StopMission();
+
+        StopGame();
         
         TransitionManager.TransitionScene(TransitionManager.SceneTypes.MainMenu);
 
     }
+
+    // Logic from stopping all game logic
+    private void StopGame()
+    {
+        Ingame = false;
+        
+        ingameStats.Stop();
+        
+        if(MissionManager.Instance)
+            MissionManager.Instance.StopMission();
+    }
+
+    public void RestartGame()
+    {
+        print("Game Restarted");
+        
+        StopGame();
+        
+        LoadGame();
+    }
+    
+    
 
     public void QuitToDesktop()
     {

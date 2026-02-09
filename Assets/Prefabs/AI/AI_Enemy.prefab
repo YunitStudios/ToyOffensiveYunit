@@ -284,6 +284,8 @@ MonoBehaviour:
   formationOffset: {x: -2, y: -2}
   currentWaypoint: 0
   vision: {fileID: 0}
+  DeathDelay: 0
+  IsTarget: 0
 --- !u!114 &7957067169057820186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -303,7 +305,10 @@ MonoBehaviour:
   onTakeDamage: {fileID: 0}
   onDamageTaken: {fileID: 0}
   onHealthChanged: {fileID: 0}
-  onDie: {fileID: 0}
+  onDie: {fileID: 11400000, guid: ca71c88db333ccb48b1182c30837a49a, type: 2}
+  OnDieUnity:
+    m_PersistentCalls:
+      m_Calls: []
   debugDamage: 0
 --- !u!114 &4685365860919227001
 MonoBehaviour:

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b068c65b3b476a46b16e1141dcc3ee2, type: 3}
   m_Name: IngameStats
   m_EditorClassIdentifier: Assembly-CSharp::IngameStats
-  <ElapsedTime>k__BackingField: 8.341284
+  <ElapsedTime>k__BackingField: 0
+  <EnemyKills>k__BackingField: 11
   onTimePassed: {fileID: 11400000, guid: d461c0f0483eb7c4bbc0808d914a3b3b, type: 2}
+  onEnemyKilled: {fileID: 11400000, guid: ca71c88db333ccb48b1182c30837a49a, type: 2}
+  Accuracy: 0
