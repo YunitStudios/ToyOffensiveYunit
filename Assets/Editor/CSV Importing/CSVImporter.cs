@@ -6,7 +6,8 @@ public enum CSVType
 {
     Weapons,
     Throwables,
-    Sounds
+    Sounds,
+    Attachments
 }
 
 #if UNITY_EDITOR
@@ -26,6 +27,9 @@ public class CSVImporter : MonoBehaviour
                 break;
             case CSVType.Sounds:
                 assetTypeName = "SoundTypesSO";
+                break;
+            case CSVType.Attachments:
+                assetTypeName = "AttachmentTypesSO";
                 break;
             default:
                 Debug.LogError("Unknown CSV type: " + type);
@@ -61,6 +65,11 @@ public class CSVImporter : MonoBehaviour
                 SoundTypesSO soundSO = AssetDatabase.LoadAssetAtPath<SoundTypesSO>(path);
                 soundSO.SoundTypes = DataLoader.LoadSoundsCSV().ToArray();
                 EditorUtility.SetDirty(soundSO);
+                break;
+            case CSVType.Attachments:
+                AttachmentTypesSO attachmentSO = AssetDatabase.LoadAssetAtPath<AttachmentTypesSO>(path);
+                attachmentSO.AttachmentTypes = DataLoader.LoadAttachmentsCSV().ToArray();
+                EditorUtility.SetDirty(attachmentSO);
                 break;
         }
 
