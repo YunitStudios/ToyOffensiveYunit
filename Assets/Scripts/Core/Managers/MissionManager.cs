@@ -45,7 +45,7 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onMissionEnd;
 
     [Title("\n<b><color=#8880ff>Input Callbacks", 15, 5, false)] 
-    [SerializeField] private VoidEventChannelSO onMissionFail;
+    [SerializeField] private VoidEventChannelSO onLevelFail;
     
     
     // Notes:

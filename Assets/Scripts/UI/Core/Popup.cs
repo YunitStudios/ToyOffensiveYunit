@@ -74,7 +74,7 @@ public class Popup : MonoBehaviour
 
     private bool init;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         canvas = GetComponent<Canvas>();
         canvas.enabled = false;
@@ -89,6 +89,15 @@ public class Popup : MonoBehaviour
         canvasGroup.interactable = false;
         if (findFirstSelectedInChildren)
             firstSelectedRoot = firstSelectedRoot.GetComponentInChildren<Selectable>().gameObject;
+    }
+
+    protected virtual void OnEnable()
+    {
+        
+    }
+
+    protected virtual void OnDisable()
+    {
     }
 
     private void Start()
