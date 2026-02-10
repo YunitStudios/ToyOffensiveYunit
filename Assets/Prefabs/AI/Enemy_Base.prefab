@@ -85,6 +85,10 @@ MonoBehaviour:
   physicsProjectilePrefab: {fileID: 1779594140215910652, guid: 99236bb3e982031448498db290581e9f, type: 3}
   target: {fileID: 0}
   damageMult: 0.5
+  shootCooldownRange: {x: 1, y: 3}
+  shootPeriodRange: {x: 1, y: 3}
+  currentShootCooldown: 0
+  currentShootPeriod: 0
 --- !u!114 &8153258955286544360
 MonoBehaviour:
   m_ObjectHideFlags: 0

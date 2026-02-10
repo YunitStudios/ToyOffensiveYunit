@@ -177,6 +177,7 @@ public class AIStateMachine : MonoBehaviour
     {
         if (waypoints != null && waypoints.Count > 0)
         {
+            Debug.Log("Hello");
             ChangeState(new PatrolState(this, agent, waypoints, currentWaypoint));
         }
         else if (commander != null)
