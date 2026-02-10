@@ -20,7 +20,7 @@ public class WeaponsSystem : MonoBehaviour
     
     // internal references
     private PlayerDataSO PlayerData => GameManager.PlayerData;
-    [HideInInspector] public Weapon currentWeapon;
+    public Weapon currentWeapon;
     private PlayerCamera.CameraType weaponCameraType;
     private Crosshair crosshair;
     
