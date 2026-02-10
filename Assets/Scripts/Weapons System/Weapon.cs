@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using EditorAttributes;
 using UnityEngine;
 
 [System.Serializable]
@@ -8,7 +9,7 @@ public class Weapon
     public WeaponDataSO WeaponData;
 
     [Header("Runtime Values")] 
-    private int currentAmmoInMag;
+    [SerializeField] private int currentAmmoInMag; 
     public int CurrentAmmoInMag
     {
         get => currentAmmoInMag;

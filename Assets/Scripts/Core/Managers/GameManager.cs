@@ -42,8 +42,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] private FloatEventChannelSO onTimePassed;
 
     public bool Ingame { get; private set; }
-    public static PlayerDataSO PlayerData => Instance.playerDataSO;
-    public static ScoreTrackerSO ScoreTracker => Instance.scoreTracker;
+    public static PlayerDataSO PlayerData => Instance ? Instance.playerDataSO : null;
+    public static ScoreTrackerSO ScoreTracker => Instance ? Instance.scoreTracker : null;
     
     
     private void OnEnable()

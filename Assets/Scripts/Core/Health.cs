@@ -32,7 +32,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
     public float CurrentHealth
     {
         get => currentHealth;
-        private set
+        protected set
         {
             currentHealth = value;
             HealthChanged();
@@ -57,9 +57,14 @@ public class Health : MonoBehaviour, IObjectiveTarget
             onTakeDamage.OnEventRaised -= TakeDamage;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         CurrentHealth = maxHealth;
+    }
+
+    protected virtual void Start()
+    {
+        
     }
 
     private void Update()

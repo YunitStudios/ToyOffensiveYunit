@@ -5,7 +5,6 @@ using TMPro;
 public class AmmoDisplay : MonoBehaviour
 {
     [Title("\n<b><color=#ff8080>References", 15, 5, false)]
-    [SerializeField] private PlayerDataSO playerData;
     [SerializeField] private TMP_Text currentAmmoObj;
     [SerializeField] private TMP_Text maxAmmoObj;
 
@@ -27,8 +26,8 @@ public class AmmoDisplay : MonoBehaviour
 
     private void UpdateDisplay()
     {
-        currentAmmoObj.text = ""+playerData.PrimaryWeapon.CurrentAmmoInMag;
-        maxAmmoObj.text = "" + playerData.NormalAmmoCount;
+        currentAmmoObj.text = ""+GameManager.PlayerData.PrimaryWeapon.CurrentAmmoInMag;
+        maxAmmoObj.text = "" + GameManager.PlayerData.NormalAmmoCount;
     }
 
 
