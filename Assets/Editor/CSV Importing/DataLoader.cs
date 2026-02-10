@@ -85,7 +85,7 @@ public class DataLoader
 
         if(rows != null && rows.Count <= 1)
         {
-            Debug.LogError("No weapon data found in CSV");
+            Debug.LogError("No throwable data found in CSV");
             return throwables;
         }
 
@@ -130,6 +130,119 @@ public class DataLoader
 
         AssetDatabase.SaveAssets();
         return throwables;
+    }
+
+    public static List<AttachmentDataSO> LoadAttachmentsCSV()
+    {
+        List<AttachmentDataSO> attachments = new List<AttachmentDataSO>();
+        List<string[]> rows = CSVParser.LoadFromCSV("AttachmentsCSV");
+
+        if(rows != null && rows.Count <= 1)
+        {
+            Debug.LogError("No attachment data found in CSV");
+            return attachments;
+        }
+
+        AttachmentDataSO currentAttachmentData = null;
+
+        // starts on row 1 so skips the global header row
+        for (int i = 1; i < rows.Count; i++)
+        {
+            var columns = rows[i];
+            
+            // check if the row is empty or just spacers to avoid index out of bounds
+            if (columns == null || columns.Length < 3) 
+            {
+                continue;
+            }
+
+            // see if its a new attachment by seeing what the display name is
+            if (!string.IsNullOrEmpty(columns[0]) && columns[0] != "Attachment display name" && columns[0] != "Special weapon")
+            {
+                string displayName = columns[0];
+                string className = columns[1];
+                var currentAssetPath = $"Assets/ScriptableObjects/Attachments/{className}.asset";
+
+                // check if we already have this asset
+                currentAttachmentData = AssetDatabase.LoadAssetAtPath<AttachmentDataSO>(currentAssetPath);
+                bool isNew = false;
+
+                if (currentAttachmentData == null)
+                {
+                    currentAttachmentData = ScriptableObject.CreateInstance<AttachmentDataSO>();
+                    isNew = true;
+                }
+
+                currentAttachmentData.DisplayName = displayName;
+                currentAttachmentData.ClassName = className;
+                
+                currentAttachmentData.Modifiers = new List<StatModifier>();
+
+                if (isNew)
+                {
+                    AssetDatabase.CreateAsset(currentAttachmentData, currentAssetPath);
+                }
+                
+                attachments.Add(currentAttachmentData);
+                continue; // move to next row which should be the first weapon (pistol)
+            }
+
+            // if we are inside an attachment block process the weapon row
+            if (currentAttachmentData != null && !string.IsNullOrEmpty(columns[1]))
+            {
+                string weaponClassName = columns[1];
+                int.TryParse(columns[2], out int resinCost);
+                
+                // confirm this weapon class actually exists, if it doesent skip it
+                string weaponPath = $"Assets/ScriptableObjects/Weapons/{weaponClassName}.asset";
+                WeaponDataSO weaponData = AssetDatabase.LoadAssetAtPath<WeaponDataSO>(weaponPath);
+                if (weaponData == null)
+                {
+                    Debug.Log($"The weapon: {weaponClassName} does not exist in the weapon scriptable objects folder"); 
+                    continue;
+                }
+                
+                // loop through the stat columns starting at index 3 because 2 is resin cost which doesent matter here
+                for (int ci = 3; ci < columns.Length; ci++)
+                {
+                    // check if there is actually a value here
+                    if (string.IsNullOrEmpty(columns[ci])) continue;
+
+                    if (float.TryParse(columns[ci], out float statValue))
+                    {
+                        // This is like all really fragile so make sure everything is in the correct order with correct values
+                        // if the enum and column headings dont match itll break
+                        
+                        StatModifier modifier = new StatModifier();
+                        modifier.WeaponClassName = weaponClassName;
+                        modifier.ResinCost = resinCost; // assign the cost from col 2
+                        
+                        // index 3 in CSV is FireRateRPM (index 0 in WeaponStat enum).
+                        modifier.Stat = (WeaponStat)(ci - 3);
+
+                        // logic for determining if we add or multiply
+                        // columns 3, 6, 7, 8, 9, 11, 14 are multipliers
+                        if (ci == 3 || ci == 6 || ci == 7 || ci == 8 || ci == 9 || ci == 11 || ci == 14)
+                        {
+                            modifier.Operation = StatOperation.Multiply;
+                        }
+                        else
+                        {
+                            modifier.Operation = StatOperation.Add;
+                        }
+
+                        modifier.Value = statValue;
+                        currentAttachmentData.Modifiers.Add(modifier);
+                    }
+                }
+
+                // apply the list back to the array
+                EditorUtility.SetDirty(currentAttachmentData);
+            }
+        }
+
+        AssetDatabase.SaveAssets();
+        return attachments;
     }
 
     // SetupPrefab remains mostly the same as it handles prefab instances correctly
