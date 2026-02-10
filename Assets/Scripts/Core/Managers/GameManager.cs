@@ -104,7 +104,7 @@ public class GameManager : MonoBehaviour
         Ingame = true;
         
         ingameStats.Start();
-        PlayerData.Init();
+        PlayerData.Start();
         MissionManager.Instance.StartMission();
 
         print("Game Started");

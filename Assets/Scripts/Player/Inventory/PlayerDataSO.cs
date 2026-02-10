@@ -17,12 +17,15 @@ public class PlayerDataSO : ScriptableObject
     [SerializeField] private int maxSpecialAmmo = 100;
     [SerializeField] private List<AttachmentDataSO> primaryAttachments;
     [SerializeField] private List<AttachmentDataSO> secondaryAttachments;
+    [SerializeField] private float weaponSwapTime = 0.5f;
 
     [Header("Throwables data")]
     [SerializeField] private ThrowableDataSO startingThrowable;
     [SerializeField] private int maxThrowableAmount;
 
     [Header("Runtime Data")]
+    [field: SerializeField, HideInEditMode, DisableInPlayMode]
+    public WeaponSlot CurrentWeaponSlot { get; private set; }
     // Weapons
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public Weapon PrimaryWeapon { get; private set; }
@@ -42,6 +45,14 @@ public class PlayerDataSO : ScriptableObject
     public int ThrowableCount { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public float CurrentHealth { get; private set; }
+    
+    public void SetWeaponSlot(WeaponSlot newSlot)
+    {
+        if (CurrentWeaponSlot == newSlot) return;
+        
+        CurrentWeaponSlot = newSlot;
+        OnCurrentWeaponChanged?.Invoke();
+    }
     public void SetPrimaryWeapon(Weapon weapon)
     {
         PrimaryWeapon = weapon;
@@ -93,6 +104,7 @@ public class PlayerDataSO : ScriptableObject
     public void SetCurrentHealth(float value) => CurrentHealth = value;
 
     [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)]
+    public VoidEventChannelSO OnCurrentWeaponChanged;
     public VoidEventChannelSO OnWeaponChanged;
     public VoidEventChannelSO OnAttachmentsChanged;
     public VoidEventChannelSO OnThrowableChanged;
@@ -100,10 +112,16 @@ public class PlayerDataSO : ScriptableObject
 
 
     public bool IsAlive => CurrentHealth > 0;
-
+    public Weapon CurrentWeapon => CurrentWeaponSlot == WeaponSlot.Primary ? PrimaryWeapon : SecondaryWeapon;
+    public float WeaponSwapTime => weaponSwapTime;
 
     public void Init()
     {
+    }
+
+    public void Start()
+    {
+        SetWeaponSlot(WeaponSlot.Primary);
         SetPrimaryWeapon(new Weapon(startingPrimaryWeapon, primaryAttachments));
         SetSecondaryWeapon(new Weapon(startingSecondaryWeapon, secondaryAttachments));
         SetPrimaryAttachments(primaryAttachments);
@@ -119,5 +137,11 @@ public class PlayerDataSO : ScriptableObject
     public void Reset()
     {
         
+    }
+
+    public enum WeaponSlot
+    {
+        Primary,
+        Secondary
     }
 }

@@ -9,7 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 866553914502028310}
-  - component: {fileID: 1278239845650327340}
   m_Layer: 5
   m_Name: HUDAmmo
   m_TagString: Untagged
@@ -39,22 +38,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1278239845650327340
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 225627176182847229}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d191bc32b9e82242a7a5351e2e9d95e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AmmoDisplay
-  playerData: {fileID: 11400000, guid: 32c01d06c06e50e4a9703f8738b15180, type: 2}
-  currentAmmoObj: {fileID: 4376644107309391613}
-  maxAmmoObj: {fileID: 5886068195756535534}
-  onAmmoChanged: {fileID: 11400000, guid: 49a650b06415907428653fadd9ac0c3a, type: 2}
 --- !u!1 &280872807771225004
 GameObject:
   m_ObjectHideFlags: 0
@@ -2335,6 +2318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2620401199145450253}
+  - component: {fileID: 2061446323180575348}
   m_Layer: 5
   m_Name: HUDWeapon
   m_TagString: Untagged
@@ -2363,6 +2347,23 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 250, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2061446323180575348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7151455943340678009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d191bc32b9e82242a7a5351e2e9d95e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AmmoDisplay
+  currentAmmoObj: {fileID: 4376644107309391613}
+  maxAmmoObj: {fileID: 5886068195756535534}
+  weaponName: {fileID: 62804652950996595}
+  onAmmoChanged: {fileID: 11400000, guid: 49a650b06415907428653fadd9ac0c3a, type: 2}
+  onCurrentWeaponChanged: {fileID: 11400000, guid: 5f5748b5433deab42807016fae083840, type: 2}
 --- !u!1 &7301697995799009464
 GameObject:
   m_ObjectHideFlags: 0
@@ -3157,7 +3158,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885345506162367030, guid: 9a745caf36b0e8b448720b6324d05411, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 450.68384
+      value: 467.5
       objectReference: {fileID: 0}
     - target: {fileID: 1885345506162367030, guid: 9a745caf36b0e8b448720b6324d05411, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3193,7 +3194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1885345506162367030, guid: 9a745caf36b0e8b448720b6324d05411, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 225.34192
+      value: 233.75
       objectReference: {fileID: 0}
     - target: {fileID: 1885345506162367030, guid: 9a745caf36b0e8b448720b6324d05411, type: 3}
       propertyPath: m_AnchoredPosition.y

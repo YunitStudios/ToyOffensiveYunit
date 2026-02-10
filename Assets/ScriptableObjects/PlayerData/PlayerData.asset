@@ -19,8 +19,10 @@ MonoBehaviour:
   maxSpecialAmmo: 100
   primaryAttachments: []
   secondaryAttachments: []
+  weaponSwapTime: 0.5
   startingThrowable: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
   maxThrowableAmount: 1
+  <CurrentWeaponSlot>k__BackingField: 0
   <PrimaryWeapon>k__BackingField:
     WeaponData: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
     currentAmmoInMag: 30
@@ -38,6 +40,7 @@ MonoBehaviour:
   <SpecialAmmoCount>k__BackingField: 100
   <ThrowableCount>k__BackingField: 1
   <CurrentHealth>k__BackingField: 100
+  OnCurrentWeaponChanged: {fileID: 11400000, guid: 5f5748b5433deab42807016fae083840, type: 2}
   OnWeaponChanged: {fileID: 11400000, guid: 3823571b0bca2b54a9a9261e91cf2d0c, type: 2}
   OnAttachmentsChanged: {fileID: 11400000, guid: 41f0f4fc7b1d413468ee9a8b755b2f67, type: 2}
   OnThrowableChanged: {fileID: 11400000, guid: feb55e2566820d6439aa5c3c9756f57e, type: 2}
