@@ -32,6 +32,7 @@ public class WeaponsSystem : MonoBehaviour
     [Header("Output Events")]
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     [SerializeField] private FloatEventChannelSO onUpdateSpread;
+    [SerializeField] private FloatEventChannelSO onUpdateReload;
 
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
@@ -40,6 +41,8 @@ public class WeaponsSystem : MonoBehaviour
 
     private bool aiming = false;
     private Tween weaponSwapTimer;
+
+    private float ReloadProgress => (Time.time - lastReloadTime) / currentWeapon.WeaponData.ReloadTime;
 
     private void Start()
     {
@@ -73,6 +76,10 @@ public class WeaponsSystem : MonoBehaviour
         
         //UI Crosshair update
         onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
+        
+        // Reload update
+        if(ReloadProgress > 0)
+            onUpdateReload?.Invoke(ReloadProgress);
         
     }
 
@@ -115,7 +122,7 @@ public class WeaponsSystem : MonoBehaviour
     private void Fire()
     {
         // check we arent still reloading
-        if(Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime)
+        if(ReloadProgress < 1)
         {
             // am still reloading
             // Debug.Log("Still reloading!");
