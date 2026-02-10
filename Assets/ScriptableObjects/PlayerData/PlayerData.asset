@@ -21,3 +21,26 @@ MonoBehaviour:
   secondaryAttachments: []
   startingThrowable: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
   maxThrowableAmount: 1
+  <PrimaryWeapon>k__BackingField:
+    WeaponData: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
+    CurrentAmmoInMag: 30
+    CurrentFireMode: 0
+    FirePoint: {fileID: 0}
+    AttachmentSOs: []
+  <SecondaryWeapon>k__BackingField:
+    WeaponData: {fileID: 11400000, guid: c8cb7fec281bd414aa048ef0ac78d249, type: 2}
+    CurrentAmmoInMag: 30
+    CurrentFireMode: 1
+    FirePoint: {fileID: 0}
+    AttachmentSOs: []
+  <StartingThrowable>k__BackingField: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
+  <PrimaryAttachments>k__BackingField: []
+  <SecondaryAttachments>k__BackingField: []
+  <NormalAmmoCount>k__BackingField: 300
+  <SpecialAmmoCount>k__BackingField: 100
+  <ThrowableCount>k__BackingField: 1
+  <CurrentHealth>k__BackingField: 100
+  OnWeaponChanged: {fileID: 11400000, guid: 3823571b0bca2b54a9a9261e91cf2d0c, type: 2}
+  OnAttachmentsChanged: {fileID: 11400000, guid: 41f0f4fc7b1d413468ee9a8b755b2f67, type: 2}
+  OnThrowableChanged: {fileID: 11400000, guid: feb55e2566820d6439aa5c3c9756f57e, type: 2}
+  OnAmmoCountChanged: {fileID: 11400000, guid: 49a650b06415907428653fadd9ac0c3a, type: 2}

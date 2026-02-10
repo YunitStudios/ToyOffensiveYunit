@@ -5,11 +5,10 @@ using UnityEngine;
 public class Weapon
 {
     public WeaponDataSO WeaponData;
-    
+
     [Header("Runtime Values")]
     public int CurrentAmmoInMag;
     public WeaponSpread WeaponSpread;
-    public WeaponDataSO.FireModes CurrentFireMode;
     public Transform FirePoint;
 
     public List<AttachmentDataSO> AttachmentSOs;
@@ -22,23 +21,20 @@ public class Weapon
     
     public void Initialize(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
     {
-        WeaponDataSO weaponDataSoCopy = ScriptableObject.CreateInstance<WeaponDataSO>();
-        weaponDataSoCopy.CopyFrom(weaponData);
         
         // load attachments
-        LoadAttachments(weaponDataSoCopy, attachments);
+        LoadAttachments(weaponData, attachments);
         
-        WeaponData = weaponDataSoCopy;
-        CurrentAmmoInMag = weaponDataSoCopy.MagSize;
-        CurrentFireMode = weaponDataSoCopy.SupportedFireModes[0];
-        FirePoint = LocateFirePoint(weaponDataSoCopy.WeaponPrefab);
+        WeaponData = weaponData;
+        FirePoint = LocateFirePoint(weaponData.WeaponPrefab);
+        CurrentAmmoInMag = weaponData.MagSize;
         
         WeaponSpread = new WeaponSpread(
-            weaponDataSoCopy.BaseSpread,
-            weaponDataSoCopy.HalfSpread,
-            weaponDataSoCopy.MaxSpread,
-            weaponDataSoCopy.MagSize,
-            weaponDataSoCopy.FireRateRPM
+            weaponData.BaseSpread,
+            weaponData.HalfSpread,
+            weaponData.MaxSpread,
+            weaponData.MagSize,
+            weaponData.FireRateRPM
         );
     }
 
@@ -138,8 +134,9 @@ public class Weapon
     {
         // update spread
         WeaponSpread.OnShotFired(WeaponData.MagSize);
-        
+
         CurrentAmmoInMag--;
+
     }
     
     public void Reload(PlayerDataSO playerData)

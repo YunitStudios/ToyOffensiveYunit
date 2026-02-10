@@ -18,11 +18,8 @@ public class WeaponsSystem : MonoBehaviour
     [Tooltip("The point that the gun actually shoots from, will be obtained dynamically in the future")]
     [SerializeField] private Transform firePoint;
     
-    // internal references
     private PlayerDataSO PlayerData => GameManager.PlayerData;
-    public Weapon currentWeapon;
-    private PlayerCamera.CameraType weaponCameraType;
-    private Crosshair crosshair;
+    private Weapon currentWeapon => PlayerData.PrimaryWeapon;
     
     // tracer
     [SerializeField] private GameObject tracerPrefab;   // assign in Inspector
@@ -59,9 +56,6 @@ public class WeaponsSystem : MonoBehaviour
     private void Start()
     {
         InputManager.Instance.OnReloadAction += Reload;
-        // Find crosshair in scene
-        crosshair = FindFirstObjectByType<Crosshair>();
-        currentWeapon = PlayerData.PrimaryWeapon;
     }
 
     private void Update()
