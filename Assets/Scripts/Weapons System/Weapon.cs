@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,12 +7,24 @@ public class Weapon
 {
     public WeaponDataSO WeaponData;
 
-    [Header("Runtime Values")]
-    public int CurrentAmmoInMag;
+    [Header("Runtime Values")] 
+    private int currentAmmoInMag;
+    public int CurrentAmmoInMag
+    {
+        get => currentAmmoInMag;
+        set
+        {
+            currentAmmoInMag = value;
+            OnAmmoChanged?.Invoke();
+        }
+    }
     public WeaponSpread WeaponSpread;
     public Transform FirePoint;
 
     public List<AttachmentDataSO> AttachmentSOs;
+
+
+    public Action OnAmmoChanged;
     
     // Constructor
     public Weapon(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)

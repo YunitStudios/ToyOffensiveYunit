@@ -28,7 +28,7 @@ public class AmmoDisplay : MonoBehaviour
     private void UpdateDisplay()
     {
         currentAmmoObj.text = ""+playerData.PrimaryWeapon.CurrentAmmoInMag;
-        maxAmmoObj.text = "" + playerData.PrimaryWeapon.WeaponData.MagSize;
+        maxAmmoObj.text = "" + playerData.NormalAmmoCount;
     }
 
 

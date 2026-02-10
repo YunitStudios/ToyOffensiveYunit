@@ -46,11 +46,13 @@ public class PlayerDataSO : ScriptableObject
     {
         PrimaryWeapon = weapon;
         OnWeaponChanged?.Invoke();
+        weapon.OnAmmoChanged += OnAmmoCountChanged.Invoke;
     }
     public void SetSecondaryWeapon(Weapon weapon)
     {
         SecondaryWeapon = weapon;
         OnWeaponChanged?.Invoke();
+        weapon.OnAmmoChanged += OnAmmoCountChanged.Invoke;
     }
     public void SetPrimaryAttachments(List<AttachmentDataSO> value)
     {
