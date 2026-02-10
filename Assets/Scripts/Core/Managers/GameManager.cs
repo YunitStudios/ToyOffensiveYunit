@@ -25,11 +25,6 @@ public class GameManager : MonoBehaviour
         Init();
     }
 
-    private void OnDestroy()
-    {
-        Stop();
-    }
-
     #endregion
     
     [Header("References")]
@@ -38,8 +33,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerDataSO playerDataSO;
 
     [Header("Input Events")] 
-    [SerializeField] private VoidEventChannelSO onLoadGame;
-    
+    [SerializeField] private VoidEventChannelSO onStartMission;
+    [SerializeField] private VoidEventChannelSO onQuitMission;
+    [SerializeField] private VoidEventChannelSO onRestartMission;
+    [SerializeField] private VoidEventChannelSO onQuitToDesktop;
+
     [Header("Output Events")]
     [SerializeField] private FloatEventChannelSO onTimePassed;
 
@@ -50,11 +48,17 @@ public class GameManager : MonoBehaviour
     
     private void OnEnable()
     {
-        onLoadGame.OnEventRaised += LoadGame;
+        onStartMission.OnEventRaised += LoadGame;
+        onQuitMission.OnEventRaised += EndGame;
+        onRestartMission.OnEventRaised += RestartGame;
+        onQuitToDesktop.OnEventRaised += QuitToDesktop;
     }
     private void OnDisable()
     {
-        onLoadGame.OnEventRaised -= LoadGame;
+        onStartMission.OnEventRaised -= LoadGame;
+        onQuitMission.OnEventRaised -= EndGame;
+        onRestartMission.OnEventRaised -= RestartGame;
+        onQuitToDesktop.OnEventRaised -= QuitToDesktop;
     }
 
     private void Init()
@@ -62,14 +66,16 @@ public class GameManager : MonoBehaviour
         PrimeTweenConfig.warnEndValueEqualsCurrent = false;
         PrimeTweenConfig.warnTweenOnDisabledTarget = false;
         PrimeTweenConfig.warnZeroDuration = false;
-        ingameStats.Start();
+        
+        
+        ingameStats.Init();
         PlayerData.Init();
-        MissionManager.Instance.StartMission();
     }
 
-    private void Stop()
+    private void OnApplicationQuit()
     {
-        MissionManager.Instance.StopMission();
+        ingameStats.Reset();
+        PlayerData.Reset();
     }
 
 
@@ -87,7 +93,7 @@ public class GameManager : MonoBehaviour
     [Button]
     public void LoadGame()
     {
-        TransitionManager.TransitionScene(TransitionManager.SceneTypes.Ingame, StartGame);
+        TransitionManager.TransitionScene(TransitionManager.SceneTypes.Ingame);
     }
 
     public void StartGame()
@@ -103,14 +109,40 @@ public class GameManager : MonoBehaviour
     [Button]
     public void EndGame()
     { 
+        
+        print("Game Ended");
+
+        StopGame();
+        
+        TransitionManager.TransitionScene(TransitionManager.SceneTypes.MainMenu);
+
+    }
+
+    // Logic from stopping all game logic
+    private void StopGame()
+    {
         Ingame = false;
         
         ingameStats.Stop();
         
-        print("Game Ended");
-        
-        TransitionManager.TransitionScene(TransitionManager.SceneTypes.MainMenu);
+        if(MissionManager.Instance)
+            MissionManager.Instance.StopMission();
+    }
 
+    public void RestartGame()
+    {
+        print("Game Restarted");
+        
+        StopGame();
+        
+        LoadGame();
+    }
+    
+    
+
+    public void QuitToDesktop()
+    {
+        Application.Quit();
     }
     
 }

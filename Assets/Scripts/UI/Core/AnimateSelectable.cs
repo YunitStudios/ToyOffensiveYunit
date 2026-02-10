@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -6,18 +8,19 @@ using TMPro;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
-public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler, ISubmitHandler
+public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, ISelectHandler, IDeselectHandler, ISubmitHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    
-    [Header("Components")]
-    [SerializeField] private RectTransform selectableTransform;
-    [SerializeField] private Image selectableImage;
-    [SerializeField] private Selectable selectable;
+
+    [Title("\n<b><color=#ff8080>References", 15, 5, false)]
+    [SerializeField, ShowField(nameof(NeedsTransform))] private RectTransform selectableTransform;
+    [SerializeField, ShowField(nameof(NeedsImage))] private Image selectableImage;
+    [SerializeField, ShowField(nameof(NeedsText))] private TextMeshProUGUI selectableText;
     //[SerializeField] private AudioEventSO confirmSound;
 
-    [Header("Options")] 
+    [Title("\n<b><color=#ffd180>Attributes", 15, 5, false)] 
+    [SerializeField] private SelectableAnimateType animateType;
     [SerializeField] private bool animateScale;
-    [SerializeField, ShowField(nameof(animateScale))] private float hoverScale = 1.1f;
+    [SerializeField, ShowField(nameof(animateScale))] private float scaleMax = 1.1f;
     [SerializeField, ShowField(nameof(animateScale))] private float scaleInLength = 0.1f;
     [SerializeField, ShowField(nameof(animateScale))] private float scaleOutLength = 0.2f;
     [SerializeField] private bool animateColor;
@@ -29,21 +32,50 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
     [SerializeField, ShowField(nameof(animatePosition))] private float hoverInLength = 0.1f;
     [SerializeField, ShowField(nameof(animatePosition))] private float hoverOutLength = 0.2f;
     [SerializeField] private bool animateTextColor;
-    [SerializeField, ShowField(nameof(animateTextColor))] private TextMeshProUGUI buttonText;
     [SerializeField, ShowField(nameof(animateTextColor))] private Color hoverTextColor;
     [SerializeField, ShowField(nameof(animateTextColor))] private float textColorInLength = 0.1f;
     [SerializeField, ShowField(nameof(animateTextColor))] private float textColorOutLength = 0.2f;
-    private Color defaultTextColor;
-
+    
+    private enum SelectableAnimateType
+    {
+        Click,
+        Hover
+    }
+    
+    private bool NeedsTransform => animateScale || animatePosition;
+    private bool NeedsImage => animateColor;
+    private bool NeedsText => animateTextColor;
+    
+    private float MaxInDuration => Mathf.Max(
+        colorInLength,
+        scaleInLength,
+        hoverInLength,
+        textColorInLength
+    );
+    
+    private Selectable selectable;
+    
     private Vector3 buttonScale;
     private Color buttonColor;
     private Vector3 buttonOffset;
     private Tween colorTween;
     private Tween scaleTween;
     private Tween offsetTween;
+    private Color defaultTextColor;
 
     private bool init;
-    
+
+    private void Awake()
+    {
+        selectable = GetComponentInChildren<Selectable>();
+        if (!selectable)
+        {
+            Debug.LogError("No selectable found, AnimateSelectable script disabled");
+            enabled = false;
+            return;
+        }
+    }
+
 
     public virtual void Start()
     {
@@ -53,8 +85,8 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
             buttonColor = selectableImage.color;
         buttonScale = selectableTransform.localScale;
         buttonOffset = selectableTransform.localPosition;
-        if (buttonText)
-            defaultTextColor = buttonText.color;
+        if (selectableText)
+            defaultTextColor = selectableText.color;
         
         if(selectable is Button btn)
             btn.onClick.AddListener(PlayConfirmSound);
@@ -67,39 +99,81 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
         offsetTween.Stop();
     }
 
+    private bool CanClick => animateType == SelectableAnimateType.Click && (!selectable || selectable.interactable);
+    private bool CanHover => animateType == SelectableAnimateType.Hover && (!selectable || selectable.interactable);
 
-
-    public void OnPointerDown(PointerEventData eventData)
+    private void TryClick(bool value)
     {
-        if ( selectable && !selectable.interactable)
+        if (!CanClick)
             return;
         
         //TryPlaySound(inSoundName);
         
-        TriggerDown();
+        if(value)
+            TriggerDown();
+        else
+            TriggerUp();
     }
-    public void OnSelect(BaseEventData eventData)
+    private void TryHover(bool value)
     {
-        TriggerDown();
+        if (!CanHover)
+            return;
+        
+        //TryPlaySound(hoverSoundName);
+        
+        if(value)
+            TriggerDown();
+        else
+            TriggerUp();
+    }
+    
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        TryClick(true);
     }
     
     public void OnPointerUp(PointerEventData eventData)
     {
-        if ( selectable && !selectable.interactable)
+        TryClick(false);
+    }
+    public void OnSubmit(BaseEventData eventData)
+    {
+        if (!CanClick)
             return;
-        
-        //TryPlaySound(outSoundName);
-        
-        TriggerUp();
+
+        StartCoroutine(nameof(TriggerSequence));
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        TryHover(true);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        TryHover(false);
+    }
+    
+    public void OnSelect(BaseEventData eventData)
+    {
+        TryHover(true);
     }
     public void OnDeselect(BaseEventData eventData)
     {
-        TriggerUp();
+        TryHover(false);
     }
     
     private void PlayConfirmSound()
     {
         //confirmSound?.PlayOneShot();
+    }
+
+    private IEnumerator TriggerSequence()
+    {
+        TriggerDown();
+        yield return new WaitForSeconds(MaxInDuration);
+        TriggerUp();
     }
     
 
@@ -118,7 +192,7 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
         if (animateScale)
         {
             scaleTween.Stop();
-            Tween.Scale(selectableTransform, buttonScale * hoverScale, scaleInLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
+            Tween.Scale(selectableTransform, buttonScale * scaleMax, scaleInLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
         }
         
         if (animatePosition)
@@ -127,17 +201,13 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
             Tween.LocalPosition(selectableTransform, buttonOffset + hoverOffset, hoverInLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
         }
         
-        if (animateTextColor && buttonText)
+        if (animateTextColor && selectableText)
         {
-            Tween.Color(buttonText, hoverTextColor, textColorInLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
+            Tween.Color(selectableText, hoverTextColor, textColorInLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
         }
     }
     
-    private void TryPlaySound(string soundName)
-    {
-        //if(playSound)
-        //    AudioManager.PlayOneShot(AudioManager.GetEvent(soundName));
-    }
+
 
     private void TriggerUp()
     {
@@ -162,15 +232,16 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
             Tween.LocalPosition(selectableTransform, buttonOffset, hoverOutLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
         }
         
-        if (animateTextColor && buttonText)
+        if (animateTextColor && selectableText)
         {
-            Tween.Color(buttonText, defaultTextColor, textColorOutLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
+            Tween.Color(selectableText, defaultTextColor, textColorOutLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
         }
     }
-
-
-    public void OnSubmit(BaseEventData eventData)
+    
+    private void TryPlaySound(string soundName)
     {
-        //TryPlaySound(outSoundName);
+        //if(playSound)
+        //    AudioManager.PlayOneShot(AudioManager.GetEvent(soundName));
     }
+    
 }

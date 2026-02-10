@@ -56,4 +56,9 @@ public class PlayerDataSO : ScriptableObject
         ThrowableCount = maxThrowableAmount;
         CameraType = PlayerCamera.CameraType.Main;
     }
+
+    public void Reset()
+    {
+        
+    }
 }
