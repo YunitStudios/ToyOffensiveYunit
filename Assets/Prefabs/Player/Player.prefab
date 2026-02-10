@@ -288,6 +288,10 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   debugDamage: 0
+  playerAnimator: {fileID: 5173216120211466665}
+  deathDelay: 2
+  onMissionFail: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
+  onStopLevel: {fileID: 11400000, guid: 1ff5ec727636ee444a2097ecf4bbe0e4, type: 2}
 --- !u!143 &2115216171671767547
 CharacterController:
   m_ObjectHideFlags: 0

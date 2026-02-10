@@ -33,9 +33,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerDataSO playerDataSO;
 
     [Header("Input Events")] 
-    [SerializeField] private VoidEventChannelSO onStartMission;
-    [SerializeField] private VoidEventChannelSO onQuitMission;
-    [SerializeField] private VoidEventChannelSO onRestartMission;
+    [SerializeField] private VoidEventChannelSO onStartLevel;
+    [SerializeField] private VoidEventChannelSO onQuitLevel;
+    [SerializeField] private VoidEventChannelSO onRestartLevel;
+    [SerializeField] private VoidEventChannelSO onStopLevel;
     [SerializeField] private VoidEventChannelSO onQuitToDesktop;
 
     [Header("Output Events")]
@@ -48,16 +49,18 @@ public class GameManager : MonoBehaviour
     
     private void OnEnable()
     {
-        onStartMission.OnEventRaised += LoadGame;
-        onQuitMission.OnEventRaised += EndGame;
-        onRestartMission.OnEventRaised += RestartGame;
+        onStartLevel.OnEventRaised += LoadLevel;
+        onQuitLevel.OnEventRaised += EndLevel;
+        onStartLevel.OnEventRaised += StopLevel;
+        onRestartLevel.OnEventRaised += RestartLevel;
         onQuitToDesktop.OnEventRaised += QuitToDesktop;
     }
     private void OnDisable()
     {
-        onStartMission.OnEventRaised -= LoadGame;
-        onQuitMission.OnEventRaised -= EndGame;
-        onRestartMission.OnEventRaised -= RestartGame;
+        onStartLevel.OnEventRaised -= LoadLevel;
+        onQuitLevel.OnEventRaised -= EndLevel;
+        onStartLevel.OnEventRaised -= StopLevel;
+        onRestartLevel.OnEventRaised -= RestartLevel;
         onQuitToDesktop.OnEventRaised -= QuitToDesktop;
     }
 
@@ -91,12 +94,12 @@ public class GameManager : MonoBehaviour
     }
 
     [Button]
-    public void LoadGame()
+    public void LoadLevel()
     {
         TransitionManager.TransitionScene(TransitionManager.SceneTypes.Ingame);
     }
 
-    public void StartGame()
+    public void StartLevel()
     {
         Ingame = true;
         
@@ -106,36 +109,38 @@ public class GameManager : MonoBehaviour
 
         print("Game Started");
     }
-    [Button]
-    public void EndGame()
+    private void EndLevel()
     { 
         
         print("Game Ended");
 
-        StopGame();
+        StopLevel();
         
         TransitionManager.TransitionScene(TransitionManager.SceneTypes.MainMenu);
 
     }
 
     // Logic from stopping all game logic
-    private void StopGame()
+    private void StopLevel()
     {
+        if (!Ingame)
+            return;
+        
         Ingame = false;
         
         ingameStats.Stop();
         
         if(MissionManager.Instance)
-            MissionManager.Instance.StopMission();
+            MissionManager.Instance.EndMission();
     }
 
-    public void RestartGame()
+    private void RestartLevel()
     {
         print("Game Restarted");
         
-        StopGame();
+        StopLevel();
         
-        LoadGame();
+        LoadLevel();
     }
     
     

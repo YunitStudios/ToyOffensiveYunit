@@ -39,10 +39,20 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private MissionSO currentMission;
     public static MissionSO CurrentMission => Instance.currentMission;
 
-    [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)]
+    [Title("\n<b><color=#8880ff>Output Callbacks", 15, 5, false)]
     [SerializeField] private VoidEventChannelSO onMissionStart;
     [SerializeField] private VoidEventChannelSO onMissionComplete;
     [SerializeField] private VoidEventChannelSO onMissionEnd;
+
+    [Title("\n<b><color=#8880ff>Input Callbacks", 15, 5, false)] 
+    [SerializeField] private VoidEventChannelSO onMissionFail;
+    
+    
+    // Notes:
+    // Mission Start = Scene Load
+    // Mission Complete = Mission Conditions Met
+    // Mission End = Scene Unload
+    // Mission Fail = Complete conditions no longer possible (player died, hostage died etc)
     
     private void ManagerAwake()
     {
@@ -61,11 +71,12 @@ public class MissionManager : MonoBehaviour
         onMissionStart?.Invoke();
     }
 
-    public void StopMission()
+    public void EndMission()
     {
         currentMission.Clear();
         
         // Run fail trigger on any uncompleted Trigger objectives without fail trigger
+        // E.G. Complete a mission without triggering an alarm
         foreach (var bonusObjective in currentMission.BonusObjectives)
         {
             if(bonusObjective is TriggerObjectivesSO { HasFailTrigger: false, Completed: false } triggerObjective)
@@ -85,5 +96,15 @@ public class MissionManager : MonoBehaviour
             if(bonusObjective is TriggerObjectivesSO { HasCompleteTrigger: false, Failed: false } triggerObjective)
                 triggerObjective.TriggeredComplete();
         }
+    }
+
+    private void FailMission()
+    {
+        // Fail all objectives
+        currentMission.MainObjective.FailObjective();
+        
+        foreach(var obj in currentMission.BonusObjectives)
+            obj.FailObjective();
+        
     }
 }

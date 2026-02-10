@@ -103,7 +103,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
             Die();
     }
 
-    private void Die()
+    protected virtual void Die()
     {
         onDie?.Invoke();
         OnDieUnity?.Invoke();

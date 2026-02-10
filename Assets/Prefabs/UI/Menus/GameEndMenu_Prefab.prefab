@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de08b678de63dbf44ab342c8bdf88c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoidEventChannelListener
-  eventChannel: {fileID: 11400000, guid: 714073130b523f14ebdefe36c6f15884, type: 2}
+  eventChannel: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
   onRaised:
     m_PersistentCalls:
       m_Calls:
@@ -599,7 +599,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6717193975148017721}
   m_HandleRect: {fileID: 8714686899543913799}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 0.71428573
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -772,7 +772,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 50}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &13512236837729725
@@ -1399,7 +1399,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.9019608}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.9490196}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -1795,17 +1795,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6817789475801592721, guid: 8f95af59d0a4cb44b89081f5c496b843, type: 3}
   m_PrefabInstance: {fileID: 830126277365499267}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8180531878128056215 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8791630198538924564, guid: 8f95af59d0a4cb44b89081f5c496b843, type: 3}
-  m_PrefabInstance: {fileID: 830126277365499267}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5660160ee1582194eb29fd3e09ff26c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuButton
 --- !u!1001 &1573151635254963697
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2022,17 +2011,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6817789475801592721, guid: 8f95af59d0a4cb44b89081f5c496b843, type: 3}
   m_PrefabInstance: {fileID: 1725790139897931281}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &7922141707804513285 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8791630198538924564, guid: 8f95af59d0a4cb44b89081f5c496b843, type: 3}
-  m_PrefabInstance: {fileID: 1725790139897931281}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5660160ee1582194eb29fd3e09ff26c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuButton
 --- !u!1001 &1962296075380900497
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2125,10 +2103,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Leaderboard
       objectReference: {fileID: 0}
-    - target: {fileID: 8081655341361427132, guid: 92317bf25c7c10d46a61c975f6667788, type: 3}
-      propertyPath: button
-      value: 
-      objectReference: {fileID: 940812093898101762}
     - target: {fileID: 8420228057024278569, guid: 92317bf25c7c10d46a61c975f6667788, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -2352,10 +2326,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stats
       objectReference: {fileID: 0}
-    - target: {fileID: 8081655341361427132, guid: 92317bf25c7c10d46a61c975f6667788, type: 3}
-      propertyPath: button
-      value: 
-      objectReference: {fileID: 8180531878128056215}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7573983933654163846, guid: 92317bf25c7c10d46a61c975f6667788, type: 3}
@@ -2473,10 +2443,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Summary
       objectReference: {fileID: 0}
-    - target: {fileID: 8081655341361427132, guid: 92317bf25c7c10d46a61c975f6667788, type: 3}
-      propertyPath: button
-      value: 
-      objectReference: {fileID: 7922141707804513285}
     - target: {fileID: 8420228057024278569, guid: 92317bf25c7c10d46a61c975f6667788, type: 3}
       propertyPath: m_Alpha
       value: 0
@@ -2815,17 +2781,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f95af59d0a4cb44b89081f5c496b843, type: 3}
---- !u!114 &940812093898101762 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8791630198538924564, guid: 8f95af59d0a4cb44b89081f5c496b843, type: 3}
-  m_PrefabInstance: {fileID: 8578313340453021206}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5660160ee1582194eb29fd3e09ff26c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuButton
 --- !u!224 &2995436839931647367 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6817789475801592721, guid: 8f95af59d0a4cb44b89081f5c496b843, type: 3}

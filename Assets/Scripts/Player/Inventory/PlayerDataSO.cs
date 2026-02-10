@@ -99,6 +99,9 @@ public class PlayerDataSO : ScriptableObject
     public VoidEventChannelSO OnAmmoCountChanged;
 
 
+    public bool IsAlive => CurrentHealth > 0;
+
+
     public void Init()
     {
         SetPrimaryWeapon(new Weapon(startingPrimaryWeapon, primaryAttachments));
