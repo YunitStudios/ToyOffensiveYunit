@@ -274,6 +274,11 @@ public class ClimbingState : MovementState
             {
                 VaultOverLedge();
             }
+
+            if (stateMachine.InputController.IsSprinting && !unhangDelayTween.isAlive)
+            {
+                VaultOverLedge();
+            }
         }
         else if(isHanging && !unhangDelayTween.isAlive)
         {
