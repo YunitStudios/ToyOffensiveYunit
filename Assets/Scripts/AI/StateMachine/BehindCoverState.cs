@@ -9,6 +9,7 @@ public class BehindCoverState : AIState
     // time the AI stays behind cover 
     private float peekDelay = 3f;
     private AIController aiController;
+    private AIWeaponSystem weaponSystem;
 
     public BehindCoverState(AIStateMachine controller, NavMeshAgent agent, CoverPoint coverPoint, Transform player) : base(controller, agent)
     {
@@ -16,6 +17,9 @@ public class BehindCoverState : AIState
         this.player = player;
         aiController = controller.GetComponent<AIController>();
         agent.SetDestination(coverPoint.transform.position);
+        
+        weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
+        weaponSystem.ResetFireTimers();
     }
 
     public override void Execute()
@@ -27,11 +31,11 @@ public class BehindCoverState : AIState
         Vector3 lookDirection = (player.position - controller.transform.position).normalized;
         lookDirection.y = 0;
         controller.transform.rotation = Quaternion.LookRotation(lookDirection);
-        peekTimer += Time.deltaTime;
 
         // after time has passed switch to peek state
-        if (peekTimer >= peekDelay)
+        if (weaponSystem.CanFire() && !weaponSystem.IsReloading())
         {
+            Debug.Log("hello");
             controller.ChangeState(new PeekShootState(controller, agent, coverPoint, player));
         }
     }

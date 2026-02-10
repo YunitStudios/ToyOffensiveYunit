@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
   ClassName: bow
   DisplayName: Bow
-  FireRateRPM: 50
+  FireRateRPM: 100
   Damage: 30
   SupportedFireModes: 01000000
   CurrentFireMode: 0
   MagSize: 30
   SpecialAmmo: 0
-  ReloadTime: 5
+  ReloadTime: 3
   BaseSpread: 0
   HalfSpread: 0
   MaxSpread: 0
   ShotQuantity: 1
   ShotSpread: 0
   IsPhysicsBased: 1
-  InitialVelocityMS: 55
-  MassKG: 0.02
+  InitialVelocityMS: 65
+  MassKG: 0.03
   Attachments:
   - 
   WeaponPrefab: {fileID: 0}

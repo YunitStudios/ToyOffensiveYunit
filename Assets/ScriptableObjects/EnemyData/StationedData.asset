@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d1d783a0c65c0f4db9941c7db4f9cc6, type: 3}
+  m_Name: StationedData
+  m_EditorClassIdentifier: Assembly-CSharp::AIDataSO
+  startingPrimaryWeapons:
+  - {fileID: 11400000, guid: 3b1a10df68d91a349a27277e150670ce, type: 2}
+  - {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
+  - {fileID: 11400000, guid: c8cb7fec281bd414aa048ef0ac78d249, type: 2}
+  maxNormalAmmo: 9999
+  maxSpecialAmmo: 9999
+  startingThrowable: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
+  maxThrowableAmount: 1

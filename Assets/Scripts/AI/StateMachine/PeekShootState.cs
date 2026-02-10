@@ -7,7 +7,7 @@ public class PeekShootState : AIState
     private AIWeaponSystem weaponSystem;
     private CoverPoint coverPoint;
     // time before returning to cover
-    private float peekDuration = 4f;
+    private float peekDuration;
     private float timer;
     private Vector3 coverPosition;
     // direction to move to peek around cover
@@ -35,12 +35,17 @@ public class PeekShootState : AIState
     public override void Execute()
     {
         agent.isStopped = false;
-        timer += Time.deltaTime;
-        if (timer >= peekDuration)
+        if (!weaponSystem.IsInShootPeriod() || weaponSystem.IsReloading())
         {
-            weaponSystem.Reload();
             controller.ChangeState(new BehindCoverState(controller, agent, coverPoint, player));
             return;
+        }
+        //timer += Time.deltaTime;
+        //if (timer >= peekDuration)
+        {
+            //weaponSystem.Reload();
+            //controller.ChangeState(new BehindCoverState(controller, agent, coverPoint, player));
+            //return;
         }
 
         if (!coverPoint.IsStandingCover)

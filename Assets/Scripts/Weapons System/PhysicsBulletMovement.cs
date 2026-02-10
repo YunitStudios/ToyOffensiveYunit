@@ -29,35 +29,55 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     {
         // check for all objects hit along the projectile path
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, velocity.normalized, out hit,Mathf.Min(velocity.magnitude * Time.fixedDeltaTime, 20f), Shootable))
+        float distance = Mathf.Min(velocity.magnitude * Time.deltaTime, 5f);
+
+        if (Physics.Raycast(transform.position, velocity.normalized, out hit, distance, Shootable))
         {
             transform.position = hit.point;
             Collider collider = hit.collider;
 
+            Debug.Log(hit.collider.name);
+
             // if hit something
             if (IsInLayerMask(collider.gameObject, Shootable))
             {
-                if (hit.transform.TryGetComponent<IDamageable>(out var target))
+                // TODO: This is a bit of a bodge? Really if the AI needed its own damage system it should be using events from the generic health system, not intercepting it and dealing its own damage
+                if (collider.gameObject.CompareTag("Player"))
                 {
-                    target.TakeDamage(this, Damage);
-                    onShowHitmarker.Invoke();
+                    if (hit.transform.TryGetComponent<Health>(out Health playerHealth))
+                    {
+                        playerHealth.DealDamage(Damage);
+                        onShowHitmarker.Invoke();
+                    }
                 }
-                
+                else
+                {
+                    if (hit.transform.TryGetComponent<IDamageable>(out var target))
+                    {
+                        target.TakeDamage(this, Damage);
+                        onShowHitmarker.Invoke();
+                    }
+                }
+
                 // destroy self after hit
                 Destroy(gameObject);
                 return;
             }
+
+            // destroy self after hit
+            Destroy(gameObject);
+            return;
         }
-        
+
         // calculate simple mass-based drag
         float damping = 0.01f; // adjust as needed
         Vector3 dragAcceleration = -velocity * (damping / MassKG);
 
         // update velocity (gravity + drag)
-        velocity += (dragAcceleration + Vector3.down * gravity) * Time.fixedDeltaTime;
+        velocity += (dragAcceleration + Vector3.down * gravity) * Time.deltaTime;
 
         // update position
-        transform.position += velocity * Time.fixedDeltaTime;
+        transform.position += velocity * Time.deltaTime;
     }
     
     bool IsInLayerMask(GameObject obj, LayerMask mask) 

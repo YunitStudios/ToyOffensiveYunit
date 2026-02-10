@@ -14,21 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
   ClassName: shotgun
   DisplayName: Shotgun
-  FireRateRPM: 50
+  FireRateRPM: 100
   Damage: 20
   SupportedFireModes: 01000000
   CurrentFireMode: 0
   MagSize: 6
   SpecialAmmo: 0
-  ReloadTime: 4
+  ReloadTime: 3
   BaseSpread: 0
   HalfSpread: 0
   MaxSpread: 0
   ShotQuantity: 8
   ShotSpread: 15
-  IsPhysicsBased: 0
-  InitialVelocityMS: 0
-  MassKG: 0
+  IsPhysicsBased: 1
+  InitialVelocityMS: 1200
+  MassKG: 0.003
   Attachments:
   - 
   WeaponPrefab: {fileID: 0}
