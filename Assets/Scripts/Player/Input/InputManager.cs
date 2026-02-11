@@ -88,6 +88,9 @@ public class InputManager : MonoBehaviour
     public bool IsReloading { get; private set; }
     public Action OnReloadAction;
     
+    public bool IsDebug { get; private set; }
+    public Action OnDebug;
+    
     public bool IsThrowing { get; private set; }
     public Action OnThrowAction;
 
@@ -162,6 +165,14 @@ public class InputManager : MonoBehaviour
         
         if(IsThrowing && OnThrowAction != null)
             OnThrowAction.Invoke();
+    }
+    
+    private void OnToggleDebug(InputValue inputValue)
+    {
+        IsDebug = inputValue.isPressed;
+        
+        if(IsDebug && OnDebug != null)
+            OnDebug.Invoke();
     }
     #endregion
 
