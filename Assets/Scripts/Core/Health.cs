@@ -1,5 +1,6 @@
 using System;
 using EditorAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -40,6 +41,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
         }
     }
     public bool IsInvulnerable { get; set; }
+    protected bool isDead = false;
     public event Action OnTargetComplete;
 
     private float regenWait;
@@ -105,12 +107,16 @@ public class Health : MonoBehaviour, IObjectiveTarget
 
     protected virtual void Die()
     {
-        onDie?.Invoke();
-        OnDieUnity?.Invoke();
-        
-        print("die");
-        
-        OnTargetComplete?.Invoke();
+        if (!isDead)
+        {
+            onDie?.Invoke();
+            OnDieUnity?.Invoke();
+            
+            print("die");
+            isDead = true;
+            
+            OnTargetComplete?.Invoke();
+        }
     }
 
     private void RegenerateHealth()

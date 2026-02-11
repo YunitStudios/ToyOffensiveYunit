@@ -36,11 +36,14 @@ public class PlayerHealth : Health, IDamageable
 
     protected override void Die()
     {
-        base.Die();
-        
-        playerAnimator.CrossFadeInFixedTime("Die", 0.2f);
-
-        deathTween = Tween.Delay(deathDelay, DieFinish);
+        if (!base.isDead)
+        {
+            base.Die();
+                    
+            playerAnimator.CrossFadeInFixedTime("Die", 0.2f);
+    
+            deathTween = Tween.Delay(deathDelay, DieFinish);
+        }
     }
 
     private void DieFinish()
