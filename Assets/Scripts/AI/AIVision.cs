@@ -39,7 +39,7 @@ public class AIVision : MonoBehaviour
 
     private float defaultRange;
 
-    void Start()
+    void Awake()
     {
         visionCollider = GetComponent<SphereCollider>();
         visionCollider.radius = range;

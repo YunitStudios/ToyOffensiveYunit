@@ -8,6 +8,7 @@ public class PatrolState : AIState
     private int currentWaypoint;
     private CommanderController commanderController;
     private float regularSpeed = 2f;
+    private AIWeaponSystem weaponSystem;
 
     public PatrolState(AIStateMachine controller, NavMeshAgent agent, List<Transform> waypoints, int currentWaypoint) : base(controller, agent)
     {
@@ -16,6 +17,9 @@ public class PatrolState : AIState
         commanderController = controller.GetComponent<CommanderController>();
         controller.currentWaypoint = currentWaypoint;
         agent.isStopped = false;
+        
+        weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
+        weaponSystem.ResetFireTimers();
     }
 
     // Sets commander AI to move toward each waypoint and then loop back to start once finished

@@ -177,6 +177,7 @@ public class AIStateMachine : MonoBehaviour
     {
         if (waypoints != null && waypoints.Count > 0)
         {
+            Debug.Log("Hello");
             ChangeState(new PatrolState(this, agent, waypoints, currentWaypoint));
         }
         else if (commander != null)
@@ -282,5 +283,30 @@ public class AIStateMachine : MonoBehaviour
         {
             ChangeState(new AssistState(this, agent, protectedTarget));
         }
+    }
+
+    public void SetTypeToPatrol()
+    {
+        enemyType = EnemyType.Patrol;
+    }
+    
+    public void SetTypeToTarget()
+    {
+        enemyType = EnemyType.Target;
+    }
+    
+    public void SetTypeToGuard()
+    {
+        enemyType = EnemyType.Guard;
+    }
+    
+    public void SetTypeToStationary()
+    {
+        enemyType = EnemyType.Stationary;
+    }
+
+    public void SetProtectedTarget(AIStateMachine target)
+    {
+        protectedTarget = target;
     }
 }

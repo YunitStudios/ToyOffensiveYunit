@@ -70,9 +70,9 @@ public class TransitionManager : MonoBehaviour
 
     private IEnumerator TransitioningCoroutine(SceneReference scene, Action callback)
     {
-        fadeInTween = Tween.Alpha(canvasGroup, 1.0f, fadeInTime);
+        fadeInTween = Tween.Alpha(canvasGroup, 1.0f, fadeInTime, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
 
-        yield return new WaitForSeconds(fadeInTime);
+        yield return new WaitForSecondsRealtime(fadeInTime);
 
         var sceneLoading = SceneManager.LoadSceneAsync(scene.ScenePath);
         
@@ -84,8 +84,11 @@ public class TransitionManager : MonoBehaviour
         
         while (!sceneLoading.isDone)
             yield return null;
+        
+        // Set timescale to 0 incase transitioning while time frozen
+        Time.timeScale = 1.0f;
 
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSecondsRealtime(waitTime);
 
         fadeOutTween = Tween.Alpha(canvasGroup, 0.0f, fadeOutTime);
         
