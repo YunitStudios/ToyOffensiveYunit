@@ -284,4 +284,29 @@ public class AIStateMachine : MonoBehaviour
             ChangeState(new AssistState(this, agent, protectedTarget));
         }
     }
+
+    public void SetTypeToPatrol()
+    {
+        enemyType = EnemyType.Patrol;
+    }
+    
+    public void SetTypeToTarget()
+    {
+        enemyType = EnemyType.Target;
+    }
+    
+    public void SetTypeToGuard()
+    {
+        enemyType = EnemyType.Guard;
+    }
+    
+    public void SetTypeToStationary()
+    {
+        enemyType = EnemyType.Stationary;
+    }
+
+    public void SetProtectedTarget(AIStateMachine target)
+    {
+        protectedTarget = target;
+    }
 }

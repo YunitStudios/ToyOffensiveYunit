@@ -4527,12 +4527,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyTypes: 0
-  EnemyAmount: 3
+  EnemyAmount: 5
   enemyPrefab: {fileID: 7081199409497347268, guid: d941f8c25071b75408f4976baeb63121, type: 3}
   waypoints:
   - {fileID: 932489812}
   - {fileID: 540395409}
   - {fileID: 1297555086}
+  FormationSpacing: 1
 --- !u!1 &936625887
 GameObject:
   m_ObjectHideFlags: 0
@@ -6553,7 +6554,7 @@ PrefabInstance:
       objectReference: {fileID: 970066014}
     - target: {fileID: 6840494681427744980, guid: d941f8c25071b75408f4976baeb63121, type: 3}
       propertyPath: isCommander
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6840494681427744980, guid: d941f8c25071b75408f4976baeb63121, type: 3}
       propertyPath: followers.Array.size

@@ -70,4 +70,9 @@ public class CommanderController : MonoBehaviour
         // Destroys the old commander controller
         Destroy(this);
     }
+
+    public void SetAsCommander()
+    {
+        isCommander = true;
+    }
 }
