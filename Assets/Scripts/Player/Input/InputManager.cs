@@ -185,6 +185,7 @@ public class InputManager : MonoBehaviour
     {
         SecondaryWeapon = inputValue.isPressed;
         OnSecondaryWeaponAction?.Invoke();
+    }
     private void OnToggleDebug(InputValue inputValue)
     {
         IsDebug = inputValue.isPressed;
