@@ -30,6 +30,7 @@ public class AttackState : AIState
             }
         }
         
+        // needs changing 
         agent.SetDestination(player.position);
         if (agent.remainingDistance <= stoppingDistance)
         {

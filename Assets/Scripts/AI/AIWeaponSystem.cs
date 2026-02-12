@@ -28,15 +28,48 @@ public class AIWeaponSystem : MonoBehaviour
     [Tooltip("Damage multiplier for enemy weapons")]
     [SerializeField] private float damageMult = 0.5f;
 
+    [SerializeField] private Vector2 shootCooldownRange = new Vector2(1.0f, 3.0f);
+    [SerializeField] private Vector2 shootPeriodRange = new Vector2 (1.0f, 3.0f);
+    [HideInInspector] public float currentShootCooldown;
+    [HideInInspector] public float currentShootPeriod;
+    private float shootCooldownTimer;
+    private float shootPeriodTimer;
+
     private void Start()
     {
         aiInventory = GetComponent<AIInventory>();
         currentWeapon = aiInventory.GetPrimaryWeapon();
+        RandomiseShootTimes();
+    }
+
+    public bool CanFire()
+    {
+        shootCooldownTimer += Time.deltaTime;
+        if (shootCooldownTimer < currentShootCooldown)
+        {
+            return false;
+        }
+        
+        shootPeriodTimer += Time.deltaTime;
+        if (shootPeriodTimer >= currentShootPeriod)
+        {
+            ResetFireTimers();
+            RandomiseShootTimes();
+            return false;
+        }
+        
+        return true;
     }
     
     
     public void Fire()
     {
+        // check if ready to shoot
+        if (!CanFire())
+        {
+            return;
+        }
+        
         // check we aren't still reloading
         if(Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime)
         {
@@ -81,6 +114,9 @@ public class AIWeaponSystem : MonoBehaviour
     {
         accumulatedShootingTime = 0f;
         lastReloadTime = Time.time;
+        
+        ResetFireTimers();
+        RandomiseShootTimes();
 
         currentWeapon.EnemyReload(aiInventory);
     }
@@ -217,5 +253,27 @@ public class AIWeaponSystem : MonoBehaviour
 
         if (tracer)
             Destroy(tracer);
+    }
+
+    private void RandomiseShootTimes()
+    {
+        currentShootCooldown = Random.Range(shootCooldownRange.x, shootCooldownRange.y);
+        currentShootPeriod = Random.Range(shootPeriodRange.x, shootPeriodRange.y);
+    }
+
+    public void ResetFireTimers()
+    {
+        shootCooldownTimer = 0f;
+        shootPeriodTimer = 0f;
+    }
+
+    public bool IsReloading()
+    {
+        return Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime;
+    }
+
+    public bool IsInShootPeriod()
+    {
+        return shootCooldownTimer >= currentShootCooldown && shootPeriodTimer < currentShootPeriod;
     }
 }

@@ -38,6 +38,38 @@ public class InputManager : MonoBehaviour
     {
         PlayerInputsEndFrame();
     }
+    
+    private bool cursorDisabled;
+    private bool cursorState = true;
+    public void ForceDisableCursor(bool value)
+    {
+        cursorDisabled = value;
+        if(value)
+            ForceSetCursor(false);
+        else
+            SetCursor();
+            
+    }
+
+    public void ToggleCursor(bool value)
+    {
+        cursorState = value;
+        
+        if(!cursorDisabled)
+            SetCursor();
+    }
+
+    private void SetCursor()
+    {
+        Cursor.visible = cursorState;
+        Cursor.lockState = cursorState ? CursorLockMode.None : CursorLockMode.Confined;
+    }
+    
+    private void ForceSetCursor(bool value)
+    {
+        Cursor.visible = value;
+        Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Confined;
+    }
 
     #region PlayerInput
     public Vector2 FrameMove { get; private set; }
@@ -55,6 +87,9 @@ public class InputManager : MonoBehaviour
     public Action OnShootAction;
     public bool IsReloading { get; private set; }
     public Action OnReloadAction;
+    
+    public bool IsDebug { get; private set; }
+    public Action OnDebug;
     
     public bool IsThrowing { get; private set; }
     public Action OnThrowAction;
@@ -130,6 +165,14 @@ public class InputManager : MonoBehaviour
         
         if(IsThrowing && OnThrowAction != null)
             OnThrowAction.Invoke();
+    }
+    
+    private void OnToggleDebug(InputValue inputValue)
+    {
+        IsDebug = inputValue.isPressed;
+        
+        if(IsDebug && OnDebug != null)
+            OnDebug.Invoke();
     }
     #endregion
 

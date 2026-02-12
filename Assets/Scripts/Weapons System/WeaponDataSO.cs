@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Net.Mail;
 using UnityEngine;
 
 
@@ -60,6 +62,8 @@ public class WeaponDataSO : ScriptableObject
     [Header("Aim type")]
     [Tooltip("Type of aiming used (scope or aim or whatever)")]
     public PlayerCamera.CameraType AimCameraType;
+    
+    public List<AttachmentDataSO> AttachmentSOs = new List<AttachmentDataSO>();
 
     public enum FireModes
     {
@@ -90,5 +94,6 @@ public class WeaponDataSO : ScriptableObject
         MassKG = other.MassKG;
         Attachments = other.Attachments;
         AimCameraType = other.AimCameraType;
+        AttachmentSOs = other.AttachmentSOs;
     }
 }

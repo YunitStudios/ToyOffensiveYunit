@@ -29,7 +29,7 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     {
         // check for all objects hit along the projectile path
         RaycastHit hit;
-        float distance = Mathf.Min(velocity.magnitude * Time.deltaTime, 5f);
+        float distance = (velocity.magnitude * Time.deltaTime);
 
         if (Physics.Raycast(transform.position, velocity.normalized, out hit, distance, Shootable))
         {
@@ -47,15 +47,21 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                     if (hit.transform.TryGetComponent<Health>(out Health playerHealth))
                     {
                         playerHealth.DealDamage(Damage);
-                        onShowHitmarker.Invoke();
+                        // onShowHitmarker.Invoke();
                     }
                 }
                 else
                 {
-                    if (hit.transform.TryGetComponent<IDamageable>(out var target))
+                    if (hit.transform.TryGetComponent<IDamageable>(out IDamageable target))
                     {
                         target.TakeDamage(this, Damage);
-                        onShowHitmarker.Invoke();
+                        // TODO: THIS CAUSES ISSUES MMAKING IT REGISTER THE PLAYERS HITMARKER WHEN THE ENEMIES SHOOT
+
+                        if (collider.gameObject.CompareTag("Enemy"))
+                        {
+                            onShowHitmarker.Invoke();
+                        }
+                        // onShowHitmarker.Invoke();
                     }
                 }
 

@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using Google.Apis.Sheets.v4;
 using Google.Apis.Sheets.v4.Data;
 
+#if UNITY_EDITOR
 public class SpreadsheetImporterWindow : EditorWindow
 {
     // url of the sheet to add
@@ -280,3 +281,4 @@ public class SpreadsheetImporterWindow : EditorWindow
         }
     }
 }
+#endif

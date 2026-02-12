@@ -7,6 +7,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
 {
     [Header("Attributes")]
     [SerializeField] private float maxHealth;
+    public float MaxHealth => maxHealth;
     [SerializeField] private bool shouldRegen;
     [Tooltip("Health regenerated per second")]
     [SerializeField, ShowField(nameof(shouldRegen))] private float regenRate;
@@ -27,13 +28,13 @@ public class Health : MonoBehaviour, IObjectiveTarget
     [Header("Debug")] 
     [SerializeField] private float debugDamage;
 
-    private float currentHeath;
+    private float currentHealth;
     public float CurrentHealth
     {
-        get => currentHeath;
+        get => currentHealth;
         private set
         {
-            currentHeath = value;
+            currentHealth = value;
             HealthChanged();
             onHealthChanged?.Invoke(CurrentHealth);
         }
@@ -102,6 +103,8 @@ public class Health : MonoBehaviour, IObjectiveTarget
         onDie?.Invoke();
         OnDieUnity?.Invoke();
         
+        print("die");
+        
         OnTargetComplete?.Invoke();
     }
 
@@ -121,6 +124,11 @@ public class Health : MonoBehaviour, IObjectiveTarget
     private void DebugDealDamage()
     {
         TakeDamage(debugDamage);
+    }
+
+    public void Heal(float amount)
+    {
+        CurrentHealth = Mathf.Clamp(CurrentHealth + amount, 0, maxHealth);
     }
 
 }

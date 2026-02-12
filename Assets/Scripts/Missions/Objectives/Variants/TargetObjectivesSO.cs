@@ -43,6 +43,7 @@ public class TargetObjectivesSO : CoreObjectiveSO
     {
         base.ResetObjective();
         targetStates.Clear();
+        Debug.Log("rewset");
     }
     
     public void CompleteTarget(ObjectiveTarget target)

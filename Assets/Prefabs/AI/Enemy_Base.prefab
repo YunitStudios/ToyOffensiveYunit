@@ -85,6 +85,10 @@ MonoBehaviour:
   physicsProjectilePrefab: {fileID: 1779594140215910652, guid: 99236bb3e982031448498db290581e9f, type: 3}
   target: {fileID: 0}
   damageMult: 0.5
+  shootCooldownRange: {x: 1, y: 3}
+  shootPeriodRange: {x: 1, y: 3}
+  currentShootCooldown: 0
+  currentShootPeriod: 0
 --- !u!114 &8153258955286544360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97,10 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeea367fe28a3d846a582e32188d9109, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIInventory
-  startingPrimaryWeapon: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
-  startingSecondaryWeapon: {fileID: 11400000, guid: 5f1ff124cdeaffa4e902aa0b95fd7d95, type: 2}
-  maxNormalAmmo: 12345
-  maxSpecialAmmo: 12345
+  aiData: {fileID: 11400000, guid: d2238e66f94b67f43a4278e553ab955d, type: 2}
 --- !u!1 &4646059732425446610
 GameObject:
   m_ObjectHideFlags: 0
@@ -197,7 +198,7 @@ GameObject:
   - component: {fileID: 3479961306864216117}
   - component: {fileID: 6840494681427744980}
   m_Layer: 8
-  m_Name: AI_Enemy
+  m_Name: Enemy_Base
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,12 +279,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae66b20a1ce52d74cad0b4dc370be5fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyType: 0
   agent: {fileID: 7845023440399694822}
   waypoints: []
   commander: {fileID: 0}
-  formationOffset: {x: -2, y: -2}
+  formationOffset: {x: 0, y: 0}
   currentWaypoint: 0
   vision: {fileID: 0}
+  DeathDelay: 0
+  stationPosition: {x: 0, y: 0, z: 0}
+  protectedTarget: {fileID: 0}
+  protectRadius: 10
+  assistAtHealthPercent: 0.5
+  isBeingAssisted: 0
+  inCover: 0
 --- !u!114 &7957067169057820186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,6 +313,9 @@ MonoBehaviour:
   onDamageTaken: {fileID: 0}
   onHealthChanged: {fileID: 0}
   onDie: {fileID: 0}
+  OnDieUnity:
+    m_PersistentCalls:
+      m_Calls: []
   debugDamage: 0
 --- !u!114 &4685365860919227001
 MonoBehaviour:

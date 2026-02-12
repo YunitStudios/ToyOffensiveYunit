@@ -19,7 +19,6 @@ public class InputTrigger : MonoBehaviour
 
     private void Trigger(InputAction.CallbackContext callback)
     {
-        print("trigger");
         onInputDown?.Invoke();
     }
 }
