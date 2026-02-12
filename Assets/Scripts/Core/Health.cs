@@ -1,5 +1,6 @@
 using System;
 using EditorAttributes;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,7 +33,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
     public float CurrentHealth
     {
         get => currentHealth;
-        private set
+        protected set
         {
             currentHealth = value;
             HealthChanged();
@@ -40,6 +41,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
         }
     }
     public bool IsInvulnerable { get; set; }
+    protected bool isDead = false;
     public event Action OnTargetComplete;
 
     private float regenWait;
@@ -57,9 +59,14 @@ public class Health : MonoBehaviour, IObjectiveTarget
             onTakeDamage.OnEventRaised -= TakeDamage;
     }
 
-    private void Awake()
+    protected virtual void Awake()
     {
         CurrentHealth = maxHealth;
+    }
+
+    protected virtual void Start()
+    {
+        
     }
 
     private void Update()
@@ -98,14 +105,18 @@ public class Health : MonoBehaviour, IObjectiveTarget
             Die();
     }
 
-    private void Die()
+    protected virtual void Die()
     {
-        onDie?.Invoke();
-        OnDieUnity?.Invoke();
-        
-        print("die");
-        
-        OnTargetComplete?.Invoke();
+        if (!isDead)
+        {
+            onDie?.Invoke();
+            OnDieUnity?.Invoke();
+            
+            print("die");
+            isDead = true;
+            
+            OnTargetComplete?.Invoke();
+        }
     }
 
     private void RegenerateHealth()

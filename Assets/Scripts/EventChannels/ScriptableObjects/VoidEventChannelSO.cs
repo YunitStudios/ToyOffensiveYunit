@@ -1,3 +1,4 @@
+using EditorAttributes;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -9,6 +10,7 @@ public class VoidEventChannelSO : ScriptableObject
     [Tooltip("The action to perform")]
     public UnityAction OnEventRaised;
 
+    [Button]
     public void Invoke()
     {
         if (OnEventRaised != null)

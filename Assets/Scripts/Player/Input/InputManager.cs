@@ -74,6 +74,7 @@ public class InputManager : MonoBehaviour
     #region PlayerInput
     public Vector2 FrameMove { get; private set; }
     public Vector2 FrameLook { get; private set; }
+
     public bool JumpDown { get; private set; }
     public bool JumpHeld { get; private set; }
     private bool previousJumpHeld;
@@ -93,6 +94,11 @@ public class InputManager : MonoBehaviour
     
     public bool IsThrowing { get; private set; }
     public Action OnThrowAction;
+    public float FrameScroll { get; private set; }
+    public bool PrimaryWeapon { get; private set; }
+    public Action OnPrimaryWeaponAction;
+    public bool SecondaryWeapon { get; private set; }
+    public Action OnSecondaryWeaponAction;
 
     private void PlayerInputsEndFrame()
     {
@@ -110,7 +116,6 @@ public class InputManager : MonoBehaviour
     public bool IsMovingDown => FrameMove.y < 0;
     public bool IsMovingLeft => FrameMove.x < 0;
     public bool IsMovingRight => FrameMove.x > 0;
-    
     
     private void OnJump(InputValue inputValue)
     {
@@ -167,6 +172,19 @@ public class InputManager : MonoBehaviour
             OnThrowAction.Invoke();
     }
     
+    private void OnMouseScrollY(InputValue inputValue)
+    {
+        FrameScroll = inputValue.Get<float>();
+    }
+    private void OnPrimaryWeapon(InputValue inputValue)
+    {
+        PrimaryWeapon = inputValue.isPressed;
+        OnPrimaryWeaponAction?.Invoke();
+    }
+    private void OnSecondaryWeapon(InputValue inputValue)
+    {
+        SecondaryWeapon = inputValue.isPressed;
+        OnSecondaryWeaponAction?.Invoke();
     private void OnToggleDebug(InputValue inputValue)
     {
         IsDebug = inputValue.isPressed;
