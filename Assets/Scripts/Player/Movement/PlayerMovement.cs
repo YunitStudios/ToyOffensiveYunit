@@ -106,7 +106,7 @@ public class PlayerMovement : StateMachine
     [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
-    public bool MouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
+    public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
 
 
 
@@ -265,10 +265,22 @@ public class PlayerMovement : StateMachine
         
         Vector2 finalInput = input * (lookSensitivity * Time.deltaTime);
         
-        
-        // Rotate player Y axis
-        if(MouseRotatePlayer)
-            rotationRoot.Rotate(Vector3.up, finalInput.x);
+        // If the player is alive rotate as normal
+        if(GameManager.PlayerData && GameManager.PlayerData.IsAlive)
+        {
+            // Rotate player Y axis
+            if (ShouldMouseRotatePlayer)
+                rotationRoot.Rotate(Vector3.up, finalInput.x);
+
+            // Rotate third person tracker vertically
+            thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(-finalInput.y, Vector3.right);
+        }
+        // If theyre dead, only rotate the third person tracker
+        else
+        {
+            thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(-finalInput.y, Vector3.right);
+            thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(finalInput.x, Vector3.up);
+        }
         
         // If X or Z axis is not zero, slerp back to 0
         if (currentState is IMovementState { ControlRotation: false } 
@@ -280,8 +292,7 @@ public class PlayerMovement : StateMachine
         }
         
 
-        // Rotate third person tracker vertically
-        thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(-finalInput.y, Vector3.right);
+
         
         // Clamp third person X axis
         Vector3 trackerEuler = thirdPersonTracker.localEulerAngles;

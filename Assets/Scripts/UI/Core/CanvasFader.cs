@@ -47,6 +47,12 @@ public class CanvasFader : MonoBehaviour
         canvasGroup.alpha = 0.0f;
     }
 
+    private void OnDisable()
+    {
+        if(fadeSequence.isAlive)
+            fadeSequence.Stop();
+    }
+
 
     public void PlayFull()
     {

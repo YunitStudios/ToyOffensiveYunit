@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.Networking;
 using System.Collections;
+using EditorAttributes;
 using Newtonsoft.Json;
 
 public class LeaderboardHandler : MonoBehaviour
@@ -18,14 +19,20 @@ public class LeaderboardHandler : MonoBehaviour
 
     [Header("Prefab")]
     [SerializeField] private GameObject scoreEntryPrefab;
+    
     private Score[] scores;
 
-    void Start()
+    private bool loaded;
+    
+    public void LoadScores()
     {
-        LoadScores();
+        if (loaded)
+            return;
+        
+        RefreshScores();
     }
 
-    public void LoadScores()
+    public void RefreshScores()
     {
         // get request from the db at https://katie.games/custom-html/soldiers/get_scores.php
         StartCoroutine(LoadScoresCoroutine());
@@ -53,9 +60,9 @@ public class LeaderboardHandler : MonoBehaviour
         {
             GameObject entry = Instantiate(scoreEntryPrefab, scrollableContent);
             TMP_Text[] texts = entry.GetComponentsInChildren<TMP_Text>();
-            texts[0].text = $"Name: {score.Name}";
-            texts[1].text = $"Score: {score.Points.ToString()}";
-            texts[2].text = $"Submitted on: {score.Date:dd/MM/yyyy}";
+            texts[0].text = ""+score.Name;
+            texts[1].text = ""+score.Points;
+            texts[2].text = $"{score.Date:yyyy-MM-dd}";
         }
     }
 
