@@ -89,6 +89,9 @@ public class InputManager : MonoBehaviour
     public bool IsReloading { get; private set; }
     public Action OnReloadAction;
     
+    public bool IsDebug { get; private set; }
+    public Action OnDebug;
+    
     public bool IsThrowing { get; private set; }
     public Action OnThrowAction;
     public float FrameScroll { get; private set; }
@@ -182,6 +185,12 @@ public class InputManager : MonoBehaviour
     {
         SecondaryWeapon = inputValue.isPressed;
         OnSecondaryWeaponAction?.Invoke();
+    private void OnToggleDebug(InputValue inputValue)
+    {
+        IsDebug = inputValue.isPressed;
+        
+        if(IsDebug && OnDebug != null)
+            OnDebug.Invoke();
     }
     #endregion
 

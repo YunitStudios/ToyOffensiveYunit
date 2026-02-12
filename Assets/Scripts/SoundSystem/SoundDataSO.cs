@@ -18,4 +18,7 @@ public class SoundDataSO : ScriptableObject
     public SoundType Type;
     [Tooltip("Is the sound 2D? Non 3D directional, can still be stereo will just play on the player")]
     public bool Is2D;
+
+    public float MaxHearingRadius;
+    public float BaseLoudness;
 }

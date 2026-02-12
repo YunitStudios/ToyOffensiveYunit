@@ -352,6 +352,26 @@ public class DataLoader
 
             soundData.WwiseName = wwiseName;
             soundData.Description = columns[2];
+            
+            // MaxHearingRadius
+            if (string.IsNullOrEmpty(columns[3]))
+            {
+                soundData.MaxHearingRadius = 0f; // or a default value
+            }
+            else if (!float.TryParse(columns[3], out soundData.MaxHearingRadius))
+            {
+                throw new FormatException($"Invalid float for MaxHearingRadius: '{columns[3]}'");
+            }
+
+            // BaseLoudness
+            if (string.IsNullOrEmpty(columns[4]))
+            {
+                soundData.BaseLoudness = 0f; // or a default value
+            }
+            else if (!float.TryParse(columns[4], out soundData.BaseLoudness))
+            {
+                throw new FormatException($"Invalid float for BaseLoudness: '{columns[4]}'");
+            }
 
             if (Enum.TryParse<SoundType>(columns[1], true, out SoundType parsedType))
                 soundData.Type = parsedType;
