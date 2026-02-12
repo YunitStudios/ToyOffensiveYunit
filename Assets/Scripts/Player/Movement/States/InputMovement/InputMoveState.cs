@@ -40,6 +40,14 @@ public abstract class InputMoveState : MovementState
 
     public void ApplyInputMovement()
     {
+        // Skip if player is dead
+        if (GameManager.PlayerData && !GameManager.PlayerData.IsAlive)
+        {
+            // Remove all input velocity
+            stateMachine.SetVelocity(new Vector3(0, stateMachine.CurrentVelocity.y, 0));
+            return;
+        }
+        
         Vector3 input = stateMachine.InputController.FrameMove;
         
         // Calculate movement direction relative to camera

@@ -3,6 +3,7 @@ using System.Reflection;
 using EditorAttributes;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StatPanel : MonoBehaviour
 {
@@ -10,9 +11,11 @@ public class StatPanel : MonoBehaviour
     [SerializeField] private IngameStats stats;
     [SerializeField] private TMP_Text statTitle;
     [SerializeField] private TMP_Text statValue;
+    [SerializeField] private Image divider;
     
     [Title("\n<b><color=#ffd180>Attributes", 15, 5, false)] 
     [SerializeField] private string statName;
+    [SerializeField] private Color dividerColor;
 
     private PropertyInfo property;
 
@@ -28,8 +31,8 @@ public class StatPanel : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        
 
+        divider.color = dividerColor;
     }
 
     private void Update()
@@ -39,7 +42,16 @@ public class StatPanel : MonoBehaviour
 
     private void UpdatePanel()
     {
-        statTitle.text = statName;
-        statValue.text = property.GetValue(stats)?.ToString() ?? "N/A";
+        // If value is float, round to 2 DP
+        if (property.PropertyType == typeof(float))
+        {
+            float value = (float)(property.GetValue(stats) ?? 0f);
+            statValue.text = value.ToString("F2");
+        }
+        else
+        {
+            statValue.text = property.GetValue(stats)?.ToString() ?? "N/A";
+        }
+        
     }
 }

@@ -36,7 +36,7 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
             transform.position = hit.point;
             Collider collider = hit.collider;
 
-            Debug.Log(hit.collider.name);
+            // Debug.Log(hit.collider.name);
 
             // if hit something
             if (IsInLayerMask(collider.gameObject, Shootable))

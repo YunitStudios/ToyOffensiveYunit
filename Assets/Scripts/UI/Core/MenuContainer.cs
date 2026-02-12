@@ -10,7 +10,7 @@ public abstract class MenuContainer : MonoBehaviour
 {
     [Title("\n<b><color=#ff8080>References", 15, 5, false)] 
     [SerializeField] private ContainerContent[] contents;
-    [SerializeField] private MenuButton button;
+    [SerializeField] protected MenuButton button;
     
     [Title("\n<b><color=#80f0ff>UI Input Navigation", 15, 5, false, 2f, TextAnchor.LowerLeft)]
     [SerializeField, Tooltip("UI Object to select when opening container")] 
@@ -51,7 +51,7 @@ public abstract class MenuContainer : MonoBehaviour
         parentGroup.ChangeContainer(this);
     }
 
-    public void ToggleContent(bool value)
+    public virtual void ToggleContent(bool value)
     {
 
         //ToggleContent(value);
