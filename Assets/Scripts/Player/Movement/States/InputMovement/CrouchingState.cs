@@ -47,6 +47,12 @@ public class CrouchingState : InputMoveState
     public override void FixedTick()
     {
     }
+
+    public override void LateTick()
+    {
+        
+    }
+
     public override void CheckTransitions()
     {
         base.CheckTransitions();

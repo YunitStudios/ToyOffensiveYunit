@@ -37,6 +37,11 @@ public class WalkingState : InputMoveState
         base.Tick();
     }
 
+    public override void LateTick()
+    {
+        
+    }
+
     public override void CheckTransitions()
     {
         base.CheckTransitions();

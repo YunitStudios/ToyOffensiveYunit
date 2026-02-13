@@ -88,6 +88,11 @@ public class ParachuteState : MovementState
 
     }
 
+    public override void LateTick()
+    {
+        
+    }
+
     public override void CheckTransitions()
     { 
         // Cancel state

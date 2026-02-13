@@ -67,6 +67,11 @@ public class FallingState : InputMoveState
     {
     }
 
+    public override void LateTick()
+    {
+        
+    }
+
     public override void CheckTransitions()
     {
         base.CheckTransitions();
