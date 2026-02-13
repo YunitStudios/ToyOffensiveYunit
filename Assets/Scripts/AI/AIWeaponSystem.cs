@@ -201,7 +201,7 @@ public class AIWeaponSystem : MonoBehaviour
         
         movementScript.InitialDirection = shootDir;
         movementScript.InitialVelocity = currentWeapon.WeaponData.InitialVelocityMS;
-        movementScript.Damage = currentWeapon.WeaponData.Damage;
+        movementScript.Damage = currentWeapon.WeaponData.Damage * damageMult;
         movementScript.MassKG = currentWeapon.WeaponData.MassKG;
         movementScript.Shootable = canShoot;
     }

@@ -46,6 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyTypes: 0
   EnemyAmount: 3
-  enemyPrefab: {fileID: 7081199409497347268, guid: d941f8c25071b75408f4976baeb63121, type: 3}
   waypoints: []
   FormationSpacing: 2
+  enemyPrefab: {fileID: 7081199409497347268, guid: d941f8c25071b75408f4976baeb63121, type: 3}
+  patrolData: {fileID: 11400000, guid: d2238e66f94b67f43a4278e553ab955d, type: 2}
+  targetData: {fileID: 11400000, guid: 9d46162152912a3459c7fb2fc82c409f, type: 2}
+  guardData: {fileID: 11400000, guid: 1ea0c213a9f5f464c92fb7613c57eded, type: 2}
+  stationaryData: {fileID: 11400000, guid: 0ac2efe733f51f846b03c9d6c8132d9b, type: 2}
