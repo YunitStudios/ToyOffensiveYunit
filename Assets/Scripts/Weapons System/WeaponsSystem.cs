@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using PrimeTween;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -18,11 +19,8 @@ public class WeaponsSystem : MonoBehaviour
     [Tooltip("The point that the gun actually shoots from, will be obtained dynamically in the future")]
     [SerializeField] private Transform firePoint;
     
-    // internal references
     private PlayerDataSO PlayerData => GameManager.PlayerData;
-    [HideInInspector] public Weapon currentWeapon;
-    private PlayerCamera.CameraType weaponCameraType;
-    private Crosshair crosshair;
+    private Weapon currentWeapon => PlayerData.CurrentWeapon;
     
     // tracer
     [SerializeField] private GameObject tracerPrefab;   // assign in Inspector
@@ -34,6 +32,7 @@ public class WeaponsSystem : MonoBehaviour
     [Header("Output Events")]
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     [SerializeField] private FloatEventChannelSO onUpdateSpread;
+    [SerializeField] private FloatEventChannelSO onUpdateReload;
 
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
@@ -41,41 +40,31 @@ public class WeaponsSystem : MonoBehaviour
     private float lastReloadTime = -999f;
 
     private bool aiming = false;
-    
-    // weapon instances
+    private Tween weaponSwapTimer;
 
-    private void OnEnable()
-    {
-//        playerInputController.OnShootAction += Fire;
-        // InputManager.Instance.OnReloadAction += Reload;
-    }
-
-    private void OnDisable()
-    {
-        //        playerInputController.OnShootAction -= Fire;
-        InputManager.Instance.OnReloadAction -= Reload;
-    }
+    private float ReloadProgress => (Time.time - lastReloadTime) / currentWeapon.WeaponData.ReloadTime;
 
     private void Start()
     {
         InputManager.Instance.OnReloadAction += Reload;
-        // Find crosshair in scene
-        crosshair = FindFirstObjectByType<Crosshair>();
-        currentWeapon = PlayerData.PrimaryWeapon;
+    }
+
+    private void OnDisable()
+    {
+        InputManager.Instance.OnReloadAction -= Reload;
     }
 
     private void Update()
     {
+        // Check for weapon switch
+        WeaponSwitching();
+        
         // TODO: use events this is temp due to it not working for unknown reason
         if (InputManager.Instance.IsShooting)
-        {
             Fire();
-        }
 
         if (InputManager.Instance.IsAiming && !aiming)
-        {
             Aim();
-        }
 
         if (!InputManager.Instance.IsAiming && aiming)
         {
@@ -88,13 +77,52 @@ public class WeaponsSystem : MonoBehaviour
         //UI Crosshair update
         onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
+        // Reload update
+        if(ReloadProgress > 0)
+            onUpdateReload?.Invoke(ReloadProgress);
+        
+    }
+
+    private void WeaponSwitching()
+    {
+        if (weaponSwapTimer.isAlive)
+            return;
+        
+        PlayerDataSO.WeaponSlot currentSlot = GameManager.PlayerData.CurrentWeaponSlot;
+        PlayerDataSO.WeaponSlot newSlot;
+        
+        float scrollValue = InputManager.Instance.FrameScroll;
+        if(scrollValue != 0)
+        {
+            // Go to next/previous value in enum
+            int scrollDelta = scrollValue > 0 ? 1 : -1;
+            // Add delta to enum value, then wrap around to enum size
+            int newValue = ((int)currentSlot + scrollDelta) % Enum.GetNames(typeof(PlayerDataSO.WeaponSlot)).Length;
+            newSlot = (PlayerDataSO.WeaponSlot)newValue;
+        }
+        else if (currentSlot != PlayerDataSO.WeaponSlot.Primary && InputManager.Instance.PrimaryWeapon)
+        {
+            newSlot = PlayerDataSO.WeaponSlot.Primary;
+        }
+        else if (currentSlot != PlayerDataSO.WeaponSlot.Secondary && InputManager.Instance.SecondaryWeapon)
+        {
+            newSlot = PlayerDataSO.WeaponSlot.Secondary;
+        }
+        else
+        {
+            return; // no change
+        }
+        
+        
+        GameManager.PlayerData.SetWeaponSlot(newSlot);
+        weaponSwapTimer = Tween.Delay(GameManager.PlayerData.WeaponSwapTime);
     }
 
     // called when for example the player clicks, or called every frame if holding down for full auto
     private void Fire()
     {
         // check we arent still reloading
-        if(Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime)
+        if(ReloadProgress < 1)
         {
             // am still reloading
             // Debug.Log("Still reloading!");

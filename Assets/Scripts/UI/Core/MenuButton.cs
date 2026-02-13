@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class MenuButton : MonoBehaviour, IPointerClickHandler, ISubmitHandler
 {
     [Title("\n<b><color=#ff8080>References", 15, 5, false)]
+    [SerializeField] private TMP_Text tabText;
     [SerializeField, ShowField(nameof(NeedsImage))] private Image tabImage;
-    [SerializeField, ShowField(nameof(NeedsText))] private TMP_Text tabText;
 
     [Title("\n<b><color=#ffd180>Attributes", 15, 5, false)]
     [SerializeField] private ButtonSelectType selectType;
@@ -33,8 +33,9 @@ public class MenuButton : MonoBehaviour, IPointerClickHandler, ISubmitHandler
 
     [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)] 
     [SerializeField] private UnityEvent OnButtonClicked;
-
+    
     private Action OnClickEvent;
+    public string GetText => tabText ? tabText.text : string.Empty;
     
     [Flags]
     public enum ButtonSelectType

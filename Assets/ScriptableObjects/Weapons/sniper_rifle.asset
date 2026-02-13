@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
   ClassName: sniper_rifle
   DisplayName: Sniper Rifle
-  FireRateRPM: 500
-  Damage: 100
+  FireRateRPM: 30
+  Damage: 80
   SupportedFireModes: 01000000
   CurrentFireMode: 0
   MagSize: 5
@@ -33,3 +33,4 @@ MonoBehaviour:
   - 
   WeaponPrefab: {fileID: 0}
   AimCameraType: 2
+  AttachmentSOs: []
