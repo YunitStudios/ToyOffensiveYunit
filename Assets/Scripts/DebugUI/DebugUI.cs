@@ -31,9 +31,6 @@ public class DebugUI : MonoBehaviour
 
         // set vsync
         QualitySettings.vSyncCount = vSyncOn ? 1 : 0;
-
-        // pause or unpause time
-        Time.timeScale = isPaused ? 0f : 1f;
     }
 
     void OnGUI()
@@ -67,6 +64,7 @@ public class DebugUI : MonoBehaviour
         if (GUI.Button(new Rect(x, y + 130, 100, 30), isPaused ? "Unpause" : "Pause"))
         {
             isPaused = !isPaused;
+            Time.timeScale = isPaused ? 0f : 1f;
         }
     }
 
