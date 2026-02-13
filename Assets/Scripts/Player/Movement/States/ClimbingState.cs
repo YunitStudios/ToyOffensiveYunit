@@ -91,13 +91,17 @@ public class ClimbingSettings : StateSettings
     public Gradient ClimbStaminaGradient => climbStaminaGradient;
     [SerializeField] private float climbStartMinStamina = 0.2f;
     public float ClimbStartMinStamina => climbStartMinStamina;
+
+    [Header("Debug")] 
+    [SerializeField] private bool showClimbingStateDebugLog;
+    public bool ShowClimbingStateDebugLog => showClimbingStateDebugLog;
 }
 
 public class ClimbingState : MovementState
 {
-    private static readonly int IsClimbing = Animator.StringToHash("IsClimbing");
-    private static readonly int ClimbSpeed = Animator.StringToHash("ClimbSpeed");
-    private static readonly int IsHanging = Animator.StringToHash("IsHanging");
+    private static readonly int AnimIsClimbing = Animator.StringToHash("IsClimbing");
+    private static readonly int AnimClimbSpeed = Animator.StringToHash("ClimbSpeed");
+    private static readonly int AnimIsHanging = Animator.StringToHash("IsHanging");
 
     private ClimbingSettings Settings => stateMachine.ClimbingSettings;
     
@@ -120,7 +124,19 @@ public class ClimbingState : MovementState
     private float currentStamina;
     private bool isStartingClimb => climbTimer < Settings.ClimbingStartLockIntoPlace;
     private float ClimbingWidth => stateMachine.CurrentRadius + Settings.SideWidthOffset;
-    private float CurrentClimbRange => Settings.ClimbRange * stateMachine.CurrentRadius;
+    private float CurrentClimbRange => Settings.ClimbRange + (stateMachine.CurrentRadius/2);
+
+
+    private void TryDebugLog(string value)
+    {
+        if (Settings.ShowClimbingStateDebugLog)
+        {
+            //if (stateMachine.CurrentState != this)
+            //    return;
+            
+            Debug.Log(value);
+        }
+    }
 
 
     public override void Initialize()
@@ -147,7 +163,7 @@ public class ClimbingState : MovementState
 
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Climbing);
         
-        stateMachine.PlayerAnimator.SetBool(IsClimbing, true);
+        stateMachine.PlayerAnimator.SetBool(AnimIsClimbing, true);
         
         currentStamina = Settings.MaxClimbStamina;
         
@@ -176,7 +192,7 @@ public class ClimbingState : MovementState
             stateMachine.SetVelocity(Vector3.zero);
         
         // Climb speed needs to be set to 1 to finish climb animation properly
-        stateMachine.PlayerAnimator.SetFloat(ClimbSpeed, 1);
+        stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeed, 1);
         
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
         
@@ -187,7 +203,7 @@ public class ClimbingState : MovementState
 
     private void StopClimbing()
     {
-        stateMachine.PlayerAnimator.SetBool(IsClimbing, false);
+        stateMachine.PlayerAnimator.SetBool(AnimIsClimbing, false);
         stateMachine.PlayerAnimator.applyRootMotion = false;
     }
     
@@ -242,7 +258,7 @@ public class ClimbingState : MovementState
                 currentStamina = Mathf.Max(0f, currentStamina);
             }
             
-            stateMachine.PlayerAnimator.SetFloat(ClimbSpeed, currentClimbSpeed);
+            stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeed, currentClimbSpeed);
             
             // If moving upwards, sprinting, not on cooldown, not starting the climb, you have enough stamina
             if (upInput > 0 && 
@@ -340,7 +356,7 @@ public class ClimbingState : MovementState
     {
         isHanging = true;
         
-        stateMachine.PlayerAnimator.SetBool(IsHanging, true);
+        stateMachine.PlayerAnimator.SetBool(AnimIsHanging, true);
         stateMachine.PlayerAnimator.applyRootMotion = false;
         
         // If in the sprint leap animation, crossfade to hanging
@@ -356,7 +372,7 @@ public class ClimbingState : MovementState
     {
         isHanging = false;
         
-        stateMachine.PlayerAnimator.SetBool(IsHanging, false);
+        stateMachine.PlayerAnimator.SetBool(AnimIsHanging, false);
         stateMachine.PlayerAnimator.applyRootMotion = true;
  
         rehangDelayTween = Tween.Delay(Settings.RehangDelay);
@@ -526,15 +542,22 @@ public class ClimbingState : MovementState
         if (Physics.Raycast(headRay, out var hitInfo, 100, Settings.ClimbableLayer))
         {
             // If hit position is too far, ignore
-            // Do additional check at feet in case of walls slanted forward
             if (Vector3.Distance(hitInfo.point, headOrigin) > CurrentClimbRange)
             {
+                // Dont end check if the feet hit an obj instead
                 if(!Physics.Raycast(downRay, out var downHit, CurrentClimbRange, Settings.ClimbableLayer))
+                {
+                    Debug.DrawRay(headRay.origin, headRay.direction * CurrentClimbRange, Color.red, 1f);
+                    TryDebugLog("Head and feet did not hit close surface");
                     return climbDirections;
+                }
                 
                 // Make sure head and down ray hit the same object
                 if (downHit.collider != hitInfo.collider)
+                {
+                    TryDebugLog("Feet hit surface but it was the same collider as head");
                     return climbDirections;
+                }
                 
             }
 
@@ -543,12 +566,20 @@ public class ClimbingState : MovementState
                 // Calculate angle between normal and up direction
                 float verticalAngle = Vector3.SignedAngle(-normal, Vector3.up, Vector3.up);
                 verticalAngle -= 90;
-                if (verticalAngle < Settings.ClimbingVerticalAngleLimits.x || verticalAngle > Settings.ClimbingVerticalAngleLimits.y)
+                if (verticalAngle < Settings.ClimbingVerticalAngleLimits.x ||
+                    verticalAngle > Settings.ClimbingVerticalAngleLimits.y)
+                {
+                    TryDebugLog("Surface normal vertical angle " + verticalAngle + " is outside of limits");
                     return false;
+                }
                 // Calculate angle between normal and forward direction
                 float horizontalAngle = Vector3.SignedAngle(-normal, stateMachine.Forward, sideDirection);
-                if (horizontalAngle < Settings.ClimbingHorizontalAngleLimits.x || horizontalAngle > Settings.ClimbingHorizontalAngleLimits.y)
+                if (horizontalAngle < Settings.ClimbingHorizontalAngleLimits.x || 
+                    horizontalAngle > Settings.ClimbingHorizontalAngleLimits.y)
+                {
+                    TryDebugLog("Surface normal horizontal angle " + horizontalAngle + " is outside of limits");
                     return false;
+                }
                 return true;
             }
             
@@ -625,6 +656,8 @@ public class ClimbingState : MovementState
             }
 
         }
+        else
+            TryDebugLog("Head did not find any surface nearby at all");
         return climbDirections;
     }
     
