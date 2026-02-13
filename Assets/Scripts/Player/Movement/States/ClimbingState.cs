@@ -302,11 +302,9 @@ public class ClimbingState : MovementState
 
             currentClimbDirection = new Vector3(sideInput, upInput, 0);
             
-            // // Slerp rotation based on the walls normal 
-            Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal, climbStartData.UpDirection);
-            stateMachine.SetRotation(
-                Quaternion.RotateTowards(stateMachine.Rotation, targetRotation, Settings.ClimbRotateSpeed * Time.deltaTime)
-            );
+            // // // Slerp rotation based on the walls normal 
+            // Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal, climbStartData.UpDirection);
+            // stateMachine.SetRotation(targetRotation);
         }
         
         // If they cant climb up
@@ -348,8 +346,8 @@ public class ClimbingState : MovementState
             
             stateMachine.SetPosition(Vector3.Lerp(climbStartData.PlayerPosition, targetPosition, lockT));
             // // Face wall
-            // Quaternion targetRotation = Quaternion.LookRotation(direction);
-            // stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, lockT));
+            Quaternion targetRotation = Quaternion.LookRotation(direction);
+            stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, lockT));
         }
         
         UpdateStaminaUI();
