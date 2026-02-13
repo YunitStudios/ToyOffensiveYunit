@@ -62,7 +62,12 @@ public class JumpingState : InputMoveState
     {
         base.Tick();
     }
-    
+
+    public override void LateTick()
+    {
+        
+    }
+
     public override void CheckTransitions()
     {
         base.CheckTransitions();

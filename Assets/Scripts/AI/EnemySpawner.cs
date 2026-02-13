@@ -14,12 +14,22 @@ public class EnemySpawner : MonoBehaviour
     
     [Tooltip("Assign the amount of enemies in squad here")]
     [SerializeField] private int EnemyAmount = 3;
-    [Tooltip("Assign the base enemy prefab here")]
-    [SerializeField] private GameObject enemyPrefab;
     [Tooltip("Assign the squads waypoints here")]
     [SerializeField] private List<Transform> waypoints;
     [Tooltip("Assign the spacing between enemies here")]
     [SerializeField] private float FormationSpacing = 2f;
+    [Tooltip("Assign the base enemy prefab here")]
+    [SerializeField] private GameObject enemyPrefab;
+    
+    [Header("Enemy Type Data")]
+    [Tooltip("Assign the patrolData SO here")]
+    [SerializeField] private AIDataSO patrolData;
+    [Tooltip("Assign the targetData SO here")]
+    [SerializeField] private AIDataSO targetData;
+    [Tooltip("Assign the guardData SO here")]
+    [SerializeField] private AIDataSO guardData;
+    [Tooltip("Assign the stationaryData SO here")]
+    [SerializeField] private AIDataSO stationaryData;
     
     private List<GameObject> squadMembers = new List<GameObject>();
 
@@ -94,11 +104,15 @@ public class EnemySpawner : MonoBehaviour
                 // First enemy becomes patrol commander
                 commanderController.SetTypeToPatrol();
                 commanderController.Waypoints = waypoints;
+                AIInventory commanderInventory = squadMembers[0].GetComponentInChildren<AIInventory>();
+                commanderInventory.SetAIData(patrolData);
                 // remaining enemies become patrol followers
                 for (int i = 1; i < squadMembers.Count; i++)
                 {
                     AIStateMachine patrolFollower = squadMembers[i].GetComponent<AIStateMachine>();
                     patrolFollower.SetTypeToPatrol();
+                    AIInventory patrolFollowerInventory = squadMembers[i].GetComponentInChildren<AIInventory>();
+                    patrolFollowerInventory.SetAIData(patrolData);
                 }
 
                 break;
@@ -107,12 +121,16 @@ public class EnemySpawner : MonoBehaviour
                 // First enemy becomes target
                 commanderController.SetTypeToTarget();
                 commanderController.Waypoints = waypoints;
+                AIInventory targetInventory = squadMembers[0].GetComponentInChildren<AIInventory>();
+                targetInventory.SetAIData(targetData);
                 // remaining enemies become guards
                 for (int i = 1; i < squadMembers.Count; i++)
                 {
                     AIStateMachine guard = squadMembers[i].GetComponent<AIStateMachine>();
                     guard.SetTypeToGuard();
                     guard.SetProtectedTarget(commanderController);
+                    AIInventory guardInventory = squadMembers[i].GetComponentInChildren<AIInventory>();
+                    guardInventory.SetAIData(guardData);
                 }
                 
                 break;
@@ -123,6 +141,8 @@ public class EnemySpawner : MonoBehaviour
                 {
                     AIStateMachine stationary = squadMembers[i].GetComponent<AIStateMachine>();
                     stationary.SetTypeToStationary();
+                    AIInventory stationaryInventory = squadMembers[i].GetComponentInChildren<AIInventory>();
+                    stationaryInventory.SetAIData(stationaryData);
                 }
 
                 break;

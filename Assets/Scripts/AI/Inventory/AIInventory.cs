@@ -67,4 +67,10 @@ public class AIInventory : MonoBehaviour
     {
         SetThrowableCount(throwableCount + delta);
     }
+
+    public void SetAIData(AIDataSO newAIData)
+    {
+        aiData = newAIData;
+        Init();
+    }
 }
