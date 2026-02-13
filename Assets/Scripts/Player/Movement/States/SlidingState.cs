@@ -68,6 +68,11 @@ public class SlidingState : MovementState
         slideTime += Time.deltaTime;
     }
 
+    public override void LateTick()
+    {
+        
+    }
+
     public override void CheckTransitions()
     {
         // End of slide
