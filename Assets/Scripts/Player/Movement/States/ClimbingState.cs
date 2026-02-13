@@ -303,10 +303,7 @@ public class ClimbingState : MovementState
             currentClimbDirection = new Vector3(sideInput, upInput, 0);
             
             // // Slerp rotation based on the walls normal 
-            Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal, climbStartData.UpDirection);
-            stateMachine.SetRotation(
-                Quaternion.RotateTowards(stateMachine.Rotation, targetRotation, Settings.ClimbRotateSpeed * Time.deltaTime)
-            );
+            RotatePlayer(currentWallNormal);
         }
         
         // If they cant climb up
@@ -367,6 +364,15 @@ public class ClimbingState : MovementState
         lastClimbDirection = currentClimbDirection;
         currentClimbDirection = Vector3.zero;
         Debug.Log(lastClimbDirection);
+    }
+
+    private void RotatePlayer(Vector3 wallNormal)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(-wallNormal, climbStartData.UpDirection);
+        stateMachine.SetRotation(
+            Quaternion.RotateTowards(stateMachine.Rotation, targetRotation, Settings.ClimbRotateSpeed * Time.deltaTime)
+        );
+
     }
 
     private void UpdateStaminaUI()
@@ -601,20 +607,28 @@ public class ClimbingState : MovementState
             Ray rayMax,
             float distance,
             LayerMask mask,
-            out RaycastHit validHit)
+            out RaycastHit validHit,
+            out Vector3 weightedWallNormal)
         {
+            bool result = false;
+            
+            we
+            
+            // Priorities Min
             if (Physics.Raycast(rayMin, out var hitMin, distance, mask) &&
                 CheckNormalAngles(hitMin.normal))
             {
                 validHit = hitMin;
-                return true;
+                result = true;
             }
 
             if (Physics.Raycast(rayMax, out var hitMax, distance, mask) &&
                 CheckNormalAngles(hitMax.normal))
             {
-                validHit = hitMax;
-                return true;
+                if(!result)
+                {
+                    validHit = hitMax;
+                }
             }
             
             bool CheckNormalAngles(Vector3 normal)
@@ -640,7 +654,7 @@ public class ClimbingState : MovementState
             }
 
             validHit = default;
-            return false;
+            return result;
         }
         
         Vector3 playerPosition = stateMachine.Position;
@@ -704,11 +718,6 @@ public class ClimbingState : MovementState
                 
             }
 
-            Debug.Log(foundWall);  
-
-            
-
-            
             Vector3 headNormal = headHitInfo.normal;
 
             
