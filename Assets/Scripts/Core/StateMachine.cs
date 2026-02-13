@@ -16,6 +16,11 @@ public class StateMachine : MonoBehaviour
     {
         currentState?.FixedTick();
     }
+    
+    protected virtual void LateUpdate()
+    {
+        currentState?.LateTick();
+    }
 
     public bool SwitchState(State newState, State oldState)
     {

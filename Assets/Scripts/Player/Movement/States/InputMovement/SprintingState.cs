@@ -39,6 +39,11 @@ public class SprintingState : InputMoveState
         base.Tick();
     }
 
+    public override void LateTick()
+    {
+        
+    }
+
     public override void CheckTransitions()
     {
         base.CheckTransitions();

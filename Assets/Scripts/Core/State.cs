@@ -22,6 +22,7 @@ public abstract class State
     public abstract void OnExit();
     public abstract void Tick();
     public abstract void FixedTick();
+    public abstract void LateTick();
     public abstract void CheckTransitions();
     
     
