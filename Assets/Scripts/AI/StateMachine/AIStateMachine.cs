@@ -6,7 +6,7 @@ using UnityEngine.Serialization;
 public class AIStateMachine : MonoBehaviour
 {
 
-    private enum EnemyType
+    public enum EnemyType
     {
         Patrol,
         Target,
@@ -15,6 +15,8 @@ public class AIStateMachine : MonoBehaviour
     }
     [Tooltip("Assign the enemy type here")]
     [SerializeField] private EnemyType enemyType;
+
+    public EnemyType Type => enemyType;
     
     [HideInInspector] public NavMeshAgent agent;
     private AIState currentState;
@@ -49,6 +51,11 @@ public class AIStateMachine : MonoBehaviour
     [HideInInspector] public bool isBeingAssisted;
     [HideInInspector] public bool inCover = false;
 
+    [Tooltip("The distance from the enemy that a throwable can be detected")]
+    [SerializeField] private float grenadeCheckRadius = 10f;
+    
+    [HideInInspector] public static List<AIStateMachine> TargetsAndGuards = new List<AIStateMachine>();
+
     // Sets starting states for AI 
     void Start()
     {
@@ -66,7 +73,14 @@ public class AIStateMachine : MonoBehaviour
 
     void Update()
     {
+        CheckForThreats();
+        
         currentState?.Execute();
+        
+        if (currentState is EvadeState)
+        {
+            return;
+        }
         
         // if enemy is a guard start protecting functionality
         if (enemyType == EnemyType.Guard)
@@ -284,6 +298,25 @@ public class AIStateMachine : MonoBehaviour
             ChangeState(new AssistState(this, agent, protectedTarget));
         }
     }
+    
+    private void CheckForThreats()
+    {
+        float threatCheckRadius = 8f;
+        Collider[] hits = Physics.OverlapSphere(transform.position, threatCheckRadius);
+        foreach (Collider hit in hits)
+        {
+            ThrowableTemplate grenade = hit.GetComponent<ThrowableTemplate>();
+            if (grenade != null && grenade.Damage > 0f)
+            {
+                if (!(currentState is EvadeState))
+                {
+                    ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
+                }
+
+                return;
+            }
+        }
+    }
 
     public void SetTypeToPatrol()
     {
@@ -308,5 +341,21 @@ public class AIStateMachine : MonoBehaviour
     public void SetProtectedTarget(AIStateMachine target)
     {
         protectedTarget = target;
+    }
+
+    void OnEnable()
+    {
+        if (Type == EnemyType.Guard || Type == EnemyType.Target)
+        {
+            TargetsAndGuards.Add(this);
+        }
+    }
+
+    void OnDisable()
+    {
+        if (TargetsAndGuards.Contains(this))
+        {
+            TargetsAndGuards.Remove(this);
+        }
     }
 }

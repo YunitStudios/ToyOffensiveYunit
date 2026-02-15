@@ -5,7 +5,7 @@ public class MoveToCoverState : AIState
 {
     private CoverPoint coverPoint;
     private Transform player;
-    private float moveToCoverSpeed = 3f;
+    private float moveToCoverSpeed = 4f;
     private float regularSpeed = 2f;
 
     public MoveToCoverState(AIStateMachine controller, NavMeshAgent agent, CoverPoint point, Transform player) : base(controller, agent)
