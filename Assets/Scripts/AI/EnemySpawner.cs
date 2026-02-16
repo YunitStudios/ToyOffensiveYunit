@@ -123,6 +123,8 @@ public class EnemySpawner : MonoBehaviour
                 commanderController.Waypoints = waypoints;
                 AIInventory targetInventory = squadMembers[0].GetComponentInChildren<AIInventory>();
                 targetInventory.SetAIData(targetData);
+                // register spawned target
+                AIStateMachine.TargetsAndGuards.Add(commanderController);
                 // remaining enemies become guards
                 for (int i = 1; i < squadMembers.Count; i++)
                 {
@@ -131,6 +133,8 @@ public class EnemySpawner : MonoBehaviour
                     guard.SetProtectedTarget(commanderController);
                     AIInventory guardInventory = squadMembers[i].GetComponentInChildren<AIInventory>();
                     guardInventory.SetAIData(guardData);
+                    // register spawned guards
+                    AIStateMachine.TargetsAndGuards.Add(guard);
                 }
                 
                 break;
