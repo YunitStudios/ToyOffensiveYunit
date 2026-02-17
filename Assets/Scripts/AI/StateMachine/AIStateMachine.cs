@@ -40,6 +40,14 @@ public class AIStateMachine : MonoBehaviour
     
     [HideInInspector] public Vector3 stationPosition;
 
+    [Header("Weapon Settings")]
+    [Tooltip("Damage multiplier for enemy weapons")]
+    [SerializeField] private float damageMultiplier = 0.5f;
+    public float DamageMultiplier => damageMultiplier;
+    [Tooltip("Accuracy multiplier for enemy weapons (higher = less accurate)")]
+    [SerializeField] private float accuracyMultiplier = 1f;
+    public float AccuracyMultiplier => accuracyMultiplier;
+
     [Header("Guard Settings")]
     [Tooltip("The Target to guard")]
     [SerializeField] private AIStateMachine protectedTarget;

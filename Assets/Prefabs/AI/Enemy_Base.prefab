@@ -80,11 +80,15 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 215
   firePoint: {fileID: 3498387795445704624}
+  currentWeapon:
+    WeaponData: {fileID: 0}
+    currentAmmoInMag: 0
+    FirePoint: {fileID: 0}
+    AttachmentSOs: []
   tracerPrefab: {fileID: 1779594140215910652, guid: f4d1a7441a64b8543bc8ae92e32c70f6, type: 3}
   tracerSpeed: 200
   physicsProjectilePrefab: {fileID: 1779594140215910652, guid: 99236bb3e982031448498db290581e9f, type: 3}
   target: {fileID: 0}
-  damageMult: 0.5
   shootCooldownRange: {x: 1, y: 3}
   shootPeriodRange: {x: 1, y: 3}
   currentShootCooldown: 0
@@ -288,11 +292,14 @@ MonoBehaviour:
   vision: {fileID: 0}
   DeathDelay: 0
   stationPosition: {x: 0, y: 0, z: 0}
+  damageMultiplier: 0.5
+  accuracyMultiplier: 1
   protectedTarget: {fileID: 0}
   protectRadius: 10
   assistAtHealthPercent: 0.5
   isBeingAssisted: 0
   inCover: 0
+  grenadeCheckRadius: 10
 --- !u!114 &7957067169057820186
 MonoBehaviour:
   m_ObjectHideFlags: 0
