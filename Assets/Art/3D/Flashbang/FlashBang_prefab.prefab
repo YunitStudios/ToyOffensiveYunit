@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1573530802099976571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.63}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2a089848ec583a4da4335964861eac6, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071067
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2a089848ec583a4da4335964861eac6, type: 3}
       propertyPath: m_LocalRotation.x
@@ -62,15 +62,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2a089848ec583a4da4335964861eac6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2a089848ec583a4da4335964861eac6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2a089848ec583a4da4335964861eac6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c2a089848ec583a4da4335964861eac6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -91,8 +91,39 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c2a089848ec583a4da4335964861eac6, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7086666051336963165}
   m_SourcePrefab: {fileID: 100100000, guid: c2a089848ec583a4da4335964861eac6, type: 3}
+--- !u!1 &4792034148670296303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c2a089848ec583a4da4335964861eac6, type: 3}
+  m_PrefabInstance: {fileID: 5639017434523758014}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &7086666051336963165
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4792034148670296303}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.00025183085
+  m_Height: 0.0016303438
+  m_Direction: 2
+  m_Center: {x: 0.00000198286, y: -0.000000628829, z: 0.00015520409}
 --- !u!4 &5317459266607024725 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c2a089848ec583a4da4335964861eac6, type: 3}
