@@ -19,5 +19,6 @@ public class PlayerAnimator : MonoBehaviour
             Vector3 animDeltaPosition = animator.deltaPosition;
             cc.Move(animDeltaPosition);
         }
+        
     }
 }

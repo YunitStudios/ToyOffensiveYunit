@@ -138,7 +138,7 @@ public class ClimbingState : MovementState
     }
 
     public override bool UseGravity => false;
-    public override bool UseRootMotion => true;
+    public override bool UseRootMotion => false;
     public override bool UseMouseRotatePlayer => false;
     public override bool ControlRotation => true;
 
@@ -153,10 +153,6 @@ public class ClimbingState : MovementState
     private bool isHanging;
     private float currentStamina;
     
-    // If already in the climbing state, the direction is the opposite wall normal. If not, then its the players direction. This fixes any problems with gradual rotation changes
-    private Vector3 CurrentForwardDirection => stateMachine.CurrentState == this ? -currentWallNormal : stateMachine.Forward;
-    private Vector3 CurrentUpDirection => Vector3.Cross(CurrentForwardDirection, stateMachine.Right);
-        
     private Vector3 currentWallNormal;
     private Vector3 currentWallPos;
 
@@ -250,6 +246,19 @@ public class ClimbingState : MovementState
 
         ClimbDirections climbState = GetClimbState();
         
+
+        Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal);
+        stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, Settings.ClimbingWallLockSpeed * Time.deltaTime));
+        
+        // Lock to wall
+        Vector3 targetPosition = currentWallPos + currentWallNormal * Settings.ClimbDistanceFromWall;
+        // Since the start position is based on the players head, shift target position down to feet
+        targetPosition -= stateMachine.Up * stateMachine.PlayerHeadHeight;
+        stateMachine.SetPosition(Vector3.Lerp(stateMachine.Position, targetPosition, Settings.ClimbingWallLockSpeed * Time.deltaTime));
+            
+            
+        
+        
         // If they can climb or hang
         if (CanClimb(climbState))
         {
@@ -303,7 +312,7 @@ public class ClimbingState : MovementState
                 !IsStartingClimb)
                 SprintLeap();
             
-            Vector3 upVelocity = CurrentUpDirection * (Settings.ClimbVerticalSpeed * upInput);
+            Vector3 upVelocity = stateMachine.Up * (Settings.ClimbVerticalSpeed * upInput);
             Vector3 rightVelocity = stateMachine.Right * (Settings.ClimbHorizontalSpeed * sideInput);
             Vector3 finalVelocity = upVelocity + rightVelocity;
             
@@ -338,42 +347,13 @@ public class ClimbingState : MovementState
             StopHanging();
         }
         
-        if (IsStartingClimb)
-        {
-            float lockT = climbTimer / Settings.ClimbingStartLockIntoPlace;
-            Vector3 direction = -currentWallNormal;
 
-            // Lerp in direction
-            Vector3 targetPosition = currentWallPos - direction * Settings.ClimbDistanceFromWall;
-            // Since the start position is based on the players head, shift target position down to feet
-            targetPosition -= stateMachine.Up * stateMachine.PlayerHeadHeight;
-            
-            stateMachine.SetPosition(Vector3.Lerp(stateMachine.Position, targetPosition, lockT));
-            // // Face wall
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, lockT));
-        }
-        else
-        {
-            // Face wall
-            Quaternion targetRotation = Quaternion.LookRotation(CurrentForwardDirection, CurrentUpDirection);
-            stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, Settings.ClimbingWallLockSpeed * Time.deltaTime));
-            
-            // If distance to wall is more than climb distance from wall, move back towards wall
-            Vector3 headPosition = stateMachine.Position + stateMachine.Up * stateMachine.PlayerHeadHeight;
-            if(Vector3.Distance(headPosition, currentWallPos) > Settings.ClimbDistanceFromWall + 0.1f)
-            {
-                Vector3 targetPosition = (currentWallPos + currentWallNormal * Settings.ClimbDistanceFromWall) - stateMachine.Up * stateMachine.PlayerHeadHeight;
-                stateMachine.SetPosition(Vector3.Lerp(stateMachine.Position, targetPosition, Settings.ClimbingWallLockSpeed * Time.deltaTime));
-            }
-            
-        }
         
         UpdateStaminaUI();
         
         climbTimer += Time.deltaTime;
-
     }
+    
 
     public override void FixedTick()
     {
@@ -472,8 +452,8 @@ public class ClimbingState : MovementState
     private Vector3 GetVaultPosition()
     {
         // Calculate ending position
-        Vector3 verticalOffset = CurrentUpDirection * stateMachine.PlayerHeight + (Vector3.up * Settings.ClimbMaxVaultHeight);
-        Vector3 forwardOffset = CurrentForwardDirection * Settings.ClimbVaultDistance;
+        Vector3 verticalOffset = stateMachine.Up * stateMachine.PlayerHeight + (Vector3.up * Settings.ClimbMaxVaultHeight);
+        Vector3 forwardOffset = stateMachine.Forward * Settings.ClimbVaultDistance;
         Vector3 targetPosition = stateMachine.Position + verticalOffset + forwardOffset;
         // Raycast down to find ground
         return targetPosition;
@@ -552,10 +532,10 @@ public class ClimbingState : MovementState
     {
         float maxDistance = 100;
         
-        Vector3 headOrigin = stateMachine.Position + CurrentUpDirection * stateMachine.PlayerHeadHeight;
-        Vector3 wallPosition = headOrigin + (CurrentForwardDirection * (CurrentClimbRange + 0.1f));
+        Vector3 headOrigin = stateMachine.Position + stateMachine.Up * stateMachine.PlayerHeadHeight;
+        Vector3 wallPosition = headOrigin + (-currentWallNormal * (CurrentClimbRange + 0.1f));
 
-        Ray distanceRay = new Ray(wallPosition + Vector3.up * maxDistance, -CurrentUpDirection);
+        Ray distanceRay = new Ray(wallPosition + Vector3.up * maxDistance, -stateMachine.Up);
         if (Physics.Raycast(distanceRay, out var hitInfo, maxDistance, Settings.ClimbableLayer))
         {
             topPosition = hitInfo.point;
@@ -614,7 +594,7 @@ public class ClimbingState : MovementState
                 // Calculate vertical angle between normal and world up
                 float verticalAngle = Vector3.Angle(-normal, Vector3.up) - 90f;
                 // Calculate horizontal angle between normal and player forward
-                float horizontalAngle = Vector3.SignedAngle(-normal, CurrentForwardDirection, CurrentUpDirection);
+                float horizontalAngle = Vector3.SignedAngle(-normal, stateMachine.Forward, stateMachine.Up);
                 // Check if angles are within limits
                 if (verticalAngle < Settings.ClimbingVerticalAngleLimits.x || verticalAngle > Settings.ClimbingVerticalAngleLimits.y)
                     return false;
@@ -625,8 +605,8 @@ public class ClimbingState : MovementState
             }
         
         Vector3 playerPosition = stateMachine.Position;
-        Vector3 direction = CurrentForwardDirection;
-        Vector3 playerUp = CurrentUpDirection;
+        Vector3 direction = stateMachine.Forward;
+        Vector3 playerUp = stateMachine.Up;
         Vector3 bottomOrigin = playerPosition + playerUp;
         Vector3 topOrigin = playerPosition + playerUp * stateMachine.PlayerHeight;
         Vector3 headOrigin = playerPosition + playerUp * stateMachine.PlayerHeadHeight;
@@ -638,7 +618,7 @@ public class ClimbingState : MovementState
         Ray headRay = new Ray(headOrigin, direction);
         Ray leftRay = new Ray(headOrigin - widthOffset, direction);
         Ray rightRay = new Ray(headOrigin + widthOffset, direction);
-        Ray downRay = new Ray(headOrigin - heightOffset, direction);
+        Ray downRay = new Ray(bottomOrigin, direction);
         Ray upRay = new Ray(topOrigin, direction);
         Ray ceilingRay = new Ray(topOrigin, playerUp);
         
@@ -738,7 +718,7 @@ public class ClimbingState : MovementState
             else
                 surfaceNormal = headNormal;
 
-            wallNormal = headNormal;
+            wallNormal = surfaceNormal.normalized;
             wallPos = headHitInfo.point;
             
             // Set the start data if they aren't currently climbing
@@ -776,7 +756,11 @@ public class ClimbingState : MovementState
                 }
             }
 
-            currentWallNormal = wallNormal;
+            currentWallNormal = Vector3.Slerp(
+                currentWallNormal,
+                wallNormal,
+                Settings.ClimbingWallLockSpeed * Time.deltaTime
+            ).normalized;
             currentWallPos = wallPos;
 
         }
@@ -801,6 +785,9 @@ public class ClimbingState : MovementState
     private bool CanVault()
     {
         Vector3 vaultPosition = GetVaultPosition();
+        
+        Vector3 headPosition = stateMachine.Position + stateMachine.Up * stateMachine.PlayerHeadHeight;
+        Debug.DrawLine(headPosition, vaultPosition, Color.red, 2f);
         // Make sure point isnt inside mesh and player collider can fit
         if (IsPointInsideMesh(vaultPosition) || Physics.CheckSphere(vaultPosition, stateMachine.PlayerRadius, stateMachine.EnvironmentLayer, QueryTriggerInteraction.Ignore))
             return false;
