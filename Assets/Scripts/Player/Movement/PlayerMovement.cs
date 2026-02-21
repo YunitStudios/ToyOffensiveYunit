@@ -190,17 +190,6 @@ public class PlayerMovement : StateMachine
         Vector3 finalVelocity = currentVelocity * Time.deltaTime;
         cc.Move(finalVelocity); 
     }
-
-    
-    private void OnAnimatorMove()
-    {
-        if (playerAnimator.applyRootMotion)
-        {
-            Vector3 animDeltaPosition = playerAnimator.deltaPosition;
-            cc.Move(animDeltaPosition);
-        }
-    }
-
     public void SetVelocity(Vector3 newVelocity)
     {
         currentVelocity = newVelocity;
@@ -315,7 +304,6 @@ public class PlayerMovement : StateMachine
         bool isSliding = (angle > hit.controller.slopeLimit && angle < 85f);
         if (isSliding && !IsGrounded && currentVelocity.y <= 0f){
             {
-                print("slide");
                 var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitNormal);
                 // Calculate speed based on rotation from up
                 float slopeSpeed = (angle-45) / 45f; // Normalize between 0 and 1 from 45 to 90 degrees
