@@ -4,11 +4,13 @@ namespace SoundSystem
 {
     public class SpatialAudioCue
     {
-        private static Collider[] _overlapBuffer = new Collider[32]; 
-        private static LayerMask _hearingLayerMask = LayerMask.GetMask("AI_Hearing");
+        private static Collider[] _overlapBuffer = new Collider[32];
+        private static LayerMask _hearingLayerMask;
 
         public void PlayCue(WwisePlayer player, SoundDataSO SoundData, Vector3 position)
         {
+            _hearingLayerMask = LayerMask.GetMask("AI_Hearing");
+            
             // first play the sound using the wwise player as you normally would
             player.PlaySound(SoundData);
             
@@ -22,6 +24,7 @@ namespace SoundSystem
                 _overlapBuffer,
                 _hearingLayerMask
             );
+            Debug.Log(hitCount);
 
             // forward to AI in range
             for (int i = 0; i < hitCount; i++)
