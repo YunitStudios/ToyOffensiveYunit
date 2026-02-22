@@ -116,7 +116,8 @@ public class PlayerMovement : StateMachine
     private InputAxis.RecenteringSettings originalCameraRecentering;
     
     // Public Properties
-    public bool IsGrounded => CheckOnGround(); 
+    public bool IsGrounded => CheckOnGround();
+    [HideInInspector] public bool CanAds => CanADS();
 
     private void Awake()
     {
@@ -359,10 +360,19 @@ public class PlayerMovement : StateMachine
         if (GetGroundDistance() < minGroundDistance)
         {
             CheckFallDamage();
+            climbingState.ResetStamina();
             return true;
         }
 
         return false;
+    }
+
+    private bool CanADS()
+    {
+        //return currentState is IMovementState { CanADS: false };
+        if (currentState is IMovementState state)
+            return state.CanADS;
+        return true;
     }
 
     private void CheckFallDamage()
