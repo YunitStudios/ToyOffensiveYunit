@@ -118,12 +118,12 @@ MonoBehaviour:
     climbHorizontalSpeed: 1
     climbingDelayAfterJump: 0.5
     climbingRetryDelay: 0.5
-    climbDistanceFromWall: 0.33
+    climbDistanceFromWall: {x: -0.33, y: 1}
+    climbDistanceFromWallRange: {x: -40, y: 40}
     climbWidth: 0.25
     climbingMaxGapDistance: 0.5
     climbingWallLockSpeed: 5
     climbingStartWallLockTime: 0.25
-    climbingCheckRayRadius: 0.2
     climbVaultDistance: 0.5
     climbMaxVaultHeight: 1
     climbVaultDuration: 1
