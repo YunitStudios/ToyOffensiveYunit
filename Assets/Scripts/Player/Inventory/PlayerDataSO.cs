@@ -46,6 +46,8 @@ public class PlayerDataSO : ScriptableObject
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public float CurrentHealth { get; private set; }
     
+    public float HealthPercentage => CurrentHealth / MaxHealth;
+    
     public void SetWeaponSlot(WeaponSlot newSlot)
     {
         if (CurrentWeaponSlot == newSlot) return;
