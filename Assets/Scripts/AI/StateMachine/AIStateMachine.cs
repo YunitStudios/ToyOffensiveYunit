@@ -21,6 +21,7 @@ public class AIStateMachine : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     private AIState currentState;
     public AIState CurrentState => currentState;
+    [SerializeField] private string debugState;
     [HideInInspector] public Health health;
     
     [Tooltip("Set waypoints by creating empty game objects in the scene, then setting their transform to the waypoint.")]
@@ -95,6 +96,7 @@ public class AIStateMachine : MonoBehaviour
 
     void Update()
     {
+        debugState = currentState.GetType().Name;
         CheckForThreats();
         
         currentState?.Execute();
@@ -102,6 +104,13 @@ public class AIStateMachine : MonoBehaviour
         if (currentState is EvadeState)
         {
             return;
+        }
+
+        if (!detection.IsDetected && detection.ShouldInvestigate && !(currentState is SearchState) &&
+            !(currentState is AttackState) && !(currentState is MoveToCoverState) &&
+            !(currentState is BehindCoverState) && !(currentState is PeekShootState) && !(currentState is FleeState))
+        {
+            ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
         }
 
         if (health != null && HoldMedkit && health.CurrentHealth / health.MaxHealth <= healAtPercent &&
@@ -137,7 +146,7 @@ public class AIStateMachine : MonoBehaviour
                 }
                 else
                 {
-                    ChangeState(new SearchState(this, agent, vision.lastSeenPosition));
+                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
                 }
             }
         }

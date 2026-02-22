@@ -32,7 +32,7 @@ public class SpatialAudioReciever : MonoBehaviour
         // give this percieved loudness to the ai and it can handle it
         // for now just debug log it until ollie comes up with an implementation
         AIDetection detection = GetComponentInParent<AIDetection>();
-        detection.HearingDetection(percievedLoudness);
+        detection.HearingDetection(percievedLoudness, soundPos);
         Debug.Log(percievedLoudness);
     }
 }
