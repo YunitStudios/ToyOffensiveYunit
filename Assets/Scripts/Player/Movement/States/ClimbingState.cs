@@ -817,18 +817,31 @@ public class ClimbingState : MovementState
 
     public bool CanHang()
     {
-        // Raycast above top to see if it hits anything
-        Vector3 rayOrigin = stateMachine.Position + CurrentUpDirection * stateMachine.PlayerHeight + Vector3.up * Settings.HangCheckVerticalOffset;
-        Ray hangRay = new Ray(rayOrigin, CurrentForwardDirection);
-        // The amount of space to check should be the players radius + the current climbing distance. This accounts for their distance fromt he wall, as well as the needed space for them to stand above
-        float rayDistance = stateMachine.PlayerRadius + GetClimbingDistance();
+        // Check directly up for ceiling
+        Ray ceilingRay = new Ray(stateMachine.Position , CurrentUpDirection);
+        if (Physics.Raycast(ceilingRay, stateMachine.PlayerHeight*2, Settings.ClimbableLayer))
+            return false;
         
-        Debug.DrawRay(hangRay.origin, hangRay.direction * rayDistance, Color.blue);
-        if (Physics.Raycast(hangRay, out var hangHitInfo, rayDistance, Settings.ClimbableLayer))
+        // Raycast above top to see if it hits anything
+        Vector3 hangRayOrigin = stateMachine.Position + CurrentUpDirection * stateMachine.PlayerHeight + Vector3.up * Settings.HangCheckVerticalOffset;
+        Ray hangRay = new Ray(hangRayOrigin, CurrentForwardDirection);
+        // The amount of space to check should be the players radius + the current climbing distance. This accounts for their distance fromt he wall, as well as the needed space for them to stand above
+        float hangRayDistance = stateMachine.PlayerRadius + GetClimbingDistance();
+        
+        Debug.DrawRay(hangRay.origin, hangRay.direction * hangRayDistance, Color.blue);
+        if (Physics.Raycast(hangRay, out var hangHitInfo, hangRayDistance, Settings.ClimbableLayer))
         {
             // If below the minimum hang angle
-            float surfaceAngle = Vector3.Angle(hangHitInfo.normal, currentWallNormal);
-            if (surfaceAngle < Settings.HangSurfaceMinAngle)
+            Vector3 wallRight = Vector3.Cross(stateMachine.Up, currentWallNormal).normalized;
+            float surfaceAngle = Vector3.SignedAngle(
+                currentWallNormal,
+                hangHitInfo.normal,
+                wallRight
+            );
+            
+            TryDebugLog(""+surfaceAngle);
+            TryDebugLog(""+(surfaceAngle > -Settings.HangSurfaceMinAngle));
+            if (surfaceAngle > -Settings.HangSurfaceMinAngle)
                 return false;
             
         }
