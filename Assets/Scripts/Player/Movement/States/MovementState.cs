@@ -15,6 +15,7 @@ public abstract class MovementState : State, IMovementState
     public virtual bool UseRootMotion => false;
     public virtual bool UseMouseRotatePlayer => true;
     public virtual bool ControlRotation => false;
+    public virtual bool CanADS => true;
 
     public override void OnEnter()
     {
@@ -33,4 +34,5 @@ public interface IMovementState
     public bool UseRootMotion { get; }
     public bool UseMouseRotatePlayer { get; }
     public bool ControlRotation { get; }
+    public bool CanADS { get; }
 }

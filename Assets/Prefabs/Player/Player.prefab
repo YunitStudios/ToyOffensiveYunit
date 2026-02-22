@@ -125,7 +125,10 @@ MonoBehaviour:
     climbingRetryDelay: 0.5
     climbingStartLockIntoPlace: 0.25
     climbDistanceFromWall: 0.33
+    sideWidthPadding: 0.5
+    climbingMaxGapDistance: 0.5
     climbVaultDistance: 0.5
+    climbMaxVaultHeight: 1
     climbVaultDuration: 1
     climbVaultEasingVertical:
       serializedVersion: 2
@@ -175,10 +178,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    climbRotateSpeed: 10
     unhangDelay: 0.4
     rehangDelay: 0.2
     autoTriggerHangDistance: 1.66
-    sideWidthOffset: 0.5
     climbSprintLeapCooldown: 2
     climbSprintLeapStaminaPercentage: 0.2
     climbSprintLeapStaminaPadding: 0.1
@@ -219,6 +222,7 @@ MonoBehaviour:
       m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     climbStartMinStamina: 0.2
+    showClimbingStateDebugLog: 0
   jumpingSettings:
     jumpHeight: 4.25
     jumpLandDelay: 0.5
@@ -498,6 +502,7 @@ MonoBehaviour:
   onShowHitmarker: {fileID: 11400000, guid: 2bfcc4b2ae03dae43854f2d52d70e182, type: 2}
   onUpdateSpread: {fileID: 11400000, guid: 6e2e77c3c63300b4c9ec1e86f4fb61ca, type: 2}
   onUpdateReload: {fileID: 11400000, guid: 0aa7dcf917e652e42b8bdc0192c0f83b, type: 2}
+  playerMovement: {fileID: 386950647050592367}
 --- !u!1 &5754689768074386340
 GameObject:
   m_ObjectHideFlags: 0

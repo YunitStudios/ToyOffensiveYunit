@@ -125,6 +125,8 @@ public class ClimbingState : MovementState
     private static readonly int AnimIsClimbing = Animator.StringToHash("IsClimbing");
     private static readonly int AnimClimbSpeed = Animator.StringToHash("ClimbSpeed");
     private static readonly int AnimIsHanging = Animator.StringToHash("IsHanging");
+    
+    public override bool CanADS => false;
 
     private ClimbingSettings Settings => stateMachine.ClimbingSettings;
     
@@ -190,7 +192,7 @@ public class ClimbingState : MovementState
         
         stateMachine.PlayerAnimator.SetBool(AnimIsClimbing, true);
         
-        currentStamina = Settings.MaxClimbStamina;
+        //currentStamina = Settings.MaxClimbStamina;
         
         ToggleStaminaBar(true);
         
@@ -230,6 +232,11 @@ public class ClimbingState : MovementState
     {
         stateMachine.PlayerAnimator.SetBool(AnimIsClimbing, false);
         stateMachine.PlayerAnimator.applyRootMotion = false;
+    }
+
+    public void ResetStamina()
+    {
+        currentStamina = Settings.MaxClimbStamina;
     }
     
 
