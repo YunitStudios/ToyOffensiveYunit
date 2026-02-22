@@ -12,6 +12,7 @@ public class FleeState : AIState
     private float shootPeriodTimer;
     private bool destinationSet = false;
     private Vector3 fleeDestination;
+    private SafePoint chosenSafePoint;
 
     public FleeState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(
         controller, agent)
@@ -27,12 +28,21 @@ public class FleeState : AIState
 
     public override void Execute()
     {
+        if (chosenSafePoint != null && chosenSafePoint.isCompromised)
+        {
+            destinationSet = false;
+            chosenSafePoint = null;
+            return;
+        }
+        
         if (!destinationSet)
         {
             ChooseFleeDestination();
         }
+        
         agent.SetDestination(fleeDestination);
         shootCooldownTimer += Time.deltaTime;
+        
         if (shootCooldownTimer >= shootCooldown)
         {
             shootPeriodTimer += Time.deltaTime;
@@ -63,6 +73,7 @@ public class FleeState : AIState
         SafePoint safePoint = SafePointManager.instance.GetNearestSafePoint(controller.transform.position);
         if (safePoint != null)
         {
+            chosenSafePoint = safePoint;
             fleeDestination = safePoint.transform.position;
             destinationSet = true;
             return;

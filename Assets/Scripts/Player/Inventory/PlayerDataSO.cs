@@ -46,6 +46,9 @@ public class PlayerDataSO : ScriptableObject
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public float CurrentHealth { get; private set; }
     
+    public Vector3 PlayerPosition { get; private set;}
+    public float HealthPercentage => CurrentHealth / MaxHealth;
+    
     public void SetWeaponSlot(WeaponSlot newSlot)
     {
         if (CurrentWeaponSlot == newSlot) return;
@@ -137,6 +140,12 @@ public class PlayerDataSO : ScriptableObject
     public void Reset()
     {
         
+    }
+    
+    // Runtime value setting
+    public void SetPosition(Vector3 newPosition)
+    {
+        PlayerPosition = newPosition;
     }
 
     public enum WeaponSlot

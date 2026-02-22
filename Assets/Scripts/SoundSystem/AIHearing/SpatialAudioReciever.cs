@@ -3,7 +3,13 @@
 public class SpatialAudioReciever : MonoBehaviour
 {
     private float obfuscationMultiplier = 1f;
-    private static LayerMask hearingLayerMask = LayerMask.GetMask("Environment");
+    private static LayerMask hearingLayerMask;
+
+    private void Awake()
+    {
+        hearingLayerMask = LayerMask.GetMask("Environment");
+    }
+    
     public void OnHeardSound(SoundStimulus stimulus)
     {
         Vector3 listenerPos = transform.position;
@@ -25,6 +31,8 @@ public class SpatialAudioReciever : MonoBehaviour
         
         // give this percieved loudness to the ai and it can handle it
         // for now just debug log it until ollie comes up with an implementation
+        AIDetection detection = GetComponentInParent<AIDetection>();
+        detection.HearingDetection(percievedLoudness, soundPos);
         Debug.Log(percievedLoudness);
     }
 }

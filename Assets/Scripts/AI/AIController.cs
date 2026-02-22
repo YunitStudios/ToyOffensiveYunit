@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +20,8 @@ public class AIController : MonoBehaviour, IDamageable
     private Transform playerTransform;
     
     public IDamageSource RecentDamageSource { get; set; }
+
+    public static Action<IObjectiveTarget> OnEnemyKilled;
     
     void Start()
     {
@@ -56,7 +59,13 @@ public class AIController : MonoBehaviour, IDamageable
         if (didDie)
         {
             stateMachine.Die();
-            GameManager.ScoreTracker.RegisterKill(ScoreTrackerSO.KillTypes.Generic, RecentDamageSource);
+            
+            // Check if the enemy was a target by doing a TryGetComponent check
+            // THIS IS SO JANK I KNOW IM SORRY BUT IDK HOW ELSE AND IM TIRED OKAY
+            bool isTarget = TryGetComponent<ObjectiveTarget>(out _);
+            
+            GameManager.ScoreTracker.RegisterKill(ScoreTrackerSO.KillTypes.Generic, RecentDamageSource, isTarget);
+            OnEnemyKilled?.Invoke(enemyHealth);
         }
     }
 

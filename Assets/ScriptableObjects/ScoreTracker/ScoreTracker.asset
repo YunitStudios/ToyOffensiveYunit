@@ -39,3 +39,10 @@ MonoBehaviour:
   healthBonusPerPoints: 20
   accuracyBonusPerPercentage: 20
   allBonusObjectivesMultiplier: 1.25
+  heightDifferenceThreshold: 0.5
+  OnGenericKillAbove: {fileID: 11400000, guid: eeef65d4b491a8146918d8e64d91ee7f, type: 2}
+  OnGenericKillBelow: {fileID: 11400000, guid: 11de285c2c10b1a4ca4c33e097bacc9f, type: 2}
+  OnTargetKillAbove: {fileID: 11400000, guid: dda240e662f55f740b2cc6cc5fb49b6e, type: 2}
+  OnTargetKillBelow: {fileID: 11400000, guid: 2bcd0f1da01fdd046a42dd638b05e578, type: 2}
+  OnMultiKillWithHazard: {fileID: 0}
+  OnMultiKillWithGadget: {fileID: 0}

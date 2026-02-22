@@ -15,9 +15,6 @@ public abstract class CoreObjectiveSO : ScriptableObject
     [SerializeField] protected string objectiveName;
     [SerializeField] protected string objectiveDesc;
 
-    [Header("Settings")] 
-    [SerializeField] private bool isMainObjective = true;
-
     public Action OnObjectiveUpdated;
     public Action OnObjectiveCompleted;
     public Action OnObjectiveFailed;

@@ -44,6 +44,8 @@ public class WeaponsSystem : MonoBehaviour
 
     private float ReloadProgress => (Time.time - lastReloadTime) / currentWeapon.WeaponData.ReloadTime;
 
+    [SerializeField] private PlayerMovement playerMovement;
+
     private void Start()
     {
         InputManager.Instance.OnReloadAction += Reload;
@@ -56,20 +58,23 @@ public class WeaponsSystem : MonoBehaviour
 
     private void Update()
     {
-        // Check for weapon switch
-        WeaponSwitching();
-        
-        // TODO: use events this is temp due to it not working for unknown reason
-        if (InputManager.Instance.IsShooting)
-            Fire();
-
-        if (InputManager.Instance.IsAiming && !aiming)
-            Aim();
-
-        if (!InputManager.Instance.IsAiming && aiming)
+        if (GameManager.PlayerData.IsAlive)
         {
-            playerCameraSystem.ResetCamera(); 
-            aiming = false;
+            // Check for weapon switch
+            WeaponSwitching();
+            
+            // TODO: use events this is temp due to it not working for unknown reason
+            if (InputManager.Instance.IsShooting)
+                Fire();
+    
+            if (InputManager.Instance.IsAiming && !aiming)
+                Aim();
+    
+            if (!InputManager.Instance.IsAiming && aiming)
+            {
+                playerCameraSystem.ResetCamera(); 
+                aiming = false;
+            }
         }
         
         currentWeapon.WeaponSpread.UpdateSpreadOverTime();
@@ -80,7 +85,6 @@ public class WeaponsSystem : MonoBehaviour
         // Reload update
         if(ReloadProgress > 0)
             onUpdateReload?.Invoke(ReloadProgress);
-        
     }
 
     private void WeaponSwitching()
@@ -171,19 +175,25 @@ public class WeaponsSystem : MonoBehaviour
 
     private void Aim()
     {
-        if (playerCameraSystem.CurrentCameraType != currentWeapon.WeaponData.AimCameraType)
+        if (playerMovement.CanAds)
         {
-            playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
-            aiming = true;
+            if (playerCameraSystem.CurrentCameraType != currentWeapon.WeaponData.AimCameraType)
+            {
+                playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
+                aiming = true;
+            }
         }
     }
 
     private void Reload()
     {
-        accumulatedShootingTime = 0f;
-        lastReloadTime = Time.time;
+        if (ReloadProgress >= 1)
+        {
+            accumulatedShootingTime = 0f;
+            lastReloadTime = Time.time;
 
-        currentWeapon.Reload(PlayerData);
+            currentWeapon.Reload(PlayerData);
+        }
     }
 
     private void DoMultiShoot(bool isPhysicsBased = false)
@@ -324,6 +334,6 @@ public class WeaponsSystem : MonoBehaviour
 
     public class Bullet : IDamageSource
     {
-        
+        public Transform transform => null;
     }
 }

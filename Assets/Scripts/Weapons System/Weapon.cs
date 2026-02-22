@@ -155,6 +155,13 @@ public class Weapon
     
     public void Reload(PlayerDataSO playerData)
     {
+        int ammoNeeded = WeaponData.MagSize - CurrentAmmoInMag;
+
+        if (ammoNeeded == 0)
+        {
+            return;
+        }
+        
         // reset spread on reload
         WeaponSpread.ResetSpread();
 
@@ -180,15 +187,16 @@ public class Weapon
         // actually give/take the ammo
         if (availableAmmo >= WeaponData.MagSize)
         {
+            
             CurrentAmmoInMag = WeaponData.MagSize;
-
+            
             if (WeaponData.SpecialAmmo)
             {
-                playerData.AdjustSpecialAmmoCount(-WeaponData.MagSize);;
+                playerData.AdjustSpecialAmmoCount(-ammoNeeded);;
             }
             else
             {
-                playerData.AdjustNormalAmmoCount(-WeaponData.MagSize);
+                playerData.AdjustNormalAmmoCount(-ammoNeeded);
             }
             Debug.Log("Reloaded full mag");
         }

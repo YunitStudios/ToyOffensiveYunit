@@ -30,12 +30,12 @@ public class TriggerObjectivesSO : CoreObjectiveSO
             failTrigger.OnEventRaised -= TriggeredFail;
     }
 
-    public void TriggeredComplete()
+    public virtual void TriggeredComplete()
     {
         CompleteObjective();
     }
     
-    public void TriggeredFail()
+    public virtual void TriggeredFail()
     {
         FailObjective();
     }

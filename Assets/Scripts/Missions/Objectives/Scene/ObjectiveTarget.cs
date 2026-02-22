@@ -5,7 +5,7 @@ using UnityEngine.Serialization;
 
 public class ObjectiveTarget : MonoBehaviour
 {
-    [SerializeField] private TargetObjectivesSO objective;
+    [SerializeField] private TargetObjectivesSO[] objectives;
     [SerializeField] private SerializableInterface<IObjectiveTarget> target;
 
     private void OnEnable()
@@ -17,7 +17,8 @@ public class ObjectiveTarget : MonoBehaviour
         }
 
         target.Instance.OnTargetComplete += CompleteTarget;
-        objective.RegisterTarget(this);
+        foreach (var objective in objectives)
+            objective.RegisterTarget(target);
     }
 
     private void OnDisable()
@@ -27,8 +28,9 @@ public class ObjectiveTarget : MonoBehaviour
 
     public void CompleteTarget()
     {
-        if(objective) 
-            objective.CompleteTarget(this);
+        if(objectives is { Length: > 0 })
+            foreach (var objective in objectives)
+                objective.CompleteTarget(target);
     }
 
 
