@@ -56,11 +56,11 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Climbing initialization is based on this ray. This variable is the % of the players height where the ray should happen")] 
     [SerializeField, Range(0, 1)] private float mainRayNormalizedHeight = 0.5f;
     public float MainRayNormalizedHeight => mainRayNormalizedHeight;
-    
-    
-    
-    
-    [Header("Vaulting")]
+
+
+
+
+    [Header("Vaulting")] 
     [Tooltip("How far forward from the ledge to vault forward")]
     [SerializeField] private float climbVaultDistance = 0.5f;
     public float ClimbVaultDistance => climbVaultDistance;
@@ -79,8 +79,13 @@ public class ClimbingSettings : StateSettings
 
 
     
-    
     [Header("Hanging")]
+    [Tooltip("How far above the players top to check if they've hit the top of the wall to hang")]
+    [SerializeField] private float hangCheckVerticalOffset = 0.25f;
+    public float HangCheckVerticalOffset => hangCheckVerticalOffset;
+    [Tooltip("Minimum angle for the  surface to be to be considered hangable.")]
+    [SerializeField] private float hangSurfaceMinAngle = 60f;
+    public float HangSurfaceMinAngle => hangSurfaceMinAngle;
     [Tooltip("Brief delay before being able to stop hanging")]
     [SerializeField] private float unhangDelay = 0.4f;
     public float UnhangDelay => unhangDelay;
@@ -90,6 +95,9 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Distance from the top of the wall at which entering climb will automatically hang")]
     [SerializeField] private float autoTriggerHangDistance = 1f;
     public float AutoTriggerHangDistance => autoTriggerHangDistance;
+    
+    
+    
     
     [Header("Up Leap")]
     [Tooltip("Cooldown before being able to sprint leap again")]
@@ -101,6 +109,9 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Padding of extra stamina needed to be able to sprint leap, prevents sprint leaping and then immediately falling because you have no stamina")]
     [SerializeField] private float climbSprintLeapStaminaPadding = 0.1f;
     public float ClimbSprintLeapStaminaPadding => climbSprintLeapStaminaPadding;
+    
+    
+    
     
     
     [Header("Climbing Stamina")]
@@ -176,6 +187,7 @@ public class ClimbingState : MovementState
     private float CurrentClimbRange => Settings.ClimbRange;
     private bool IsStartingClimb => climbTimer < Settings.ClimbingStartLockIntoPlace;
     
+    private float GetClimbingDistance() => GetClimbingDistance(Vector3.Angle(currentWallNormal, Vector3.up));
     private float GetClimbingDistance(float angle)
     {
         float normalizedAngle = angle - 90;
@@ -327,9 +339,10 @@ public class ClimbingState : MovementState
             currentClimbDirection = new Vector3(sideInput, upInput, 0);
             
             // Lock to wall
-            Vector3 lockPos = currentWallPos + currentWallNormal * GetClimbingDistance(Vector3.Angle(currentWallNormal, Vector3.up));
+            Vector3 lockPos = currentWallPos + currentWallNormal * GetClimbingDistance();
             // Since the start position is based on the players center, shift target position down to feet
             lockPos -= stateMachine.Up * (stateMachine.PlayerHeight*Settings.MainRayNormalizedHeight);
+            
             stateMachine.SetPosition(Vector3.Lerp(stateMachine.Position, lockPos, Settings.ClimbingWallLockSpeed * Time.deltaTime));
         
             // Face wall
@@ -339,7 +352,7 @@ public class ClimbingState : MovementState
         }
         
         // If they cant climb up
-        if (CanHang(climbState) && !rehangDelayTween.isAlive)
+        if (CanHang() && !rehangDelayTween.isAlive && !IsStartingClimb)
         {
             // If not currently hanging, start hanging
             if(!isHanging)
@@ -348,16 +361,11 @@ public class ClimbingState : MovementState
             // Regain stamina while hanging
             currentStamina = Mathf.Clamp(currentStamina + Settings.ClimbStaminaRegenRate * Time.deltaTime, 0, Settings.MaxClimbStamina);
             
-            // Can jump to vault over ledge
-            if (stateMachine.InputController.JumpDown && !unhangDelayTween.isAlive)
-            {
+            // Can jump/sprint to vault over ledge
+            bool vaultInput = stateMachine.InputController.JumpDown || stateMachine.InputController.IsSprinting;
+            if (vaultInput && !unhangDelayTween.isAlive)
                 VaultOverLedge();
-            }
-
-            if (stateMachine.InputController.IsSprinting && !unhangDelayTween.isAlive)
-            {
-                VaultOverLedge();
-            }
+            
         }
         else if(isHanging && !unhangDelayTween.isAlive)
         {
@@ -444,14 +452,8 @@ public class ClimbingState : MovementState
         SetDelay(Settings.ClimbingDelayAfterJump);
         
         ToggleStaminaBar(false);
-                
+
         Vector3 vaultPosition = GetVaultPosition();
-        // Raycast down to find ground
-        Ray downRay = new Ray(vaultPosition, Vector3.down);
-        if (Physics.SphereCast(downRay, Settings.ClimbVaultDistance, out var hitInfo, stateMachine.PlayerHeight + Settings.ClimbMaxVaultHeight, Settings.ClimbableLayer))
-        {
-            vaultPosition = hitInfo.point + stateMachine.Up * 0.1f; // Slightly above ground
-        }
         
         stateMachine.PlayerAnimator.CrossFadeInFixedTime("ClimbingFinish", 0.2f);
         //StopClimbing();
@@ -464,7 +466,7 @@ public class ClimbingState : MovementState
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
     }
 
-    private Vector3 GetVaultPosition()
+    private Vector3 GetVaultCheckPosition()
     {
         // Calculate ending position
         Vector3 verticalOffset = CurrentUpDirection * stateMachine.PlayerHeight + (Vector3.up * Settings.ClimbMaxVaultHeight);
@@ -472,6 +474,19 @@ public class ClimbingState : MovementState
         Vector3 targetPosition = stateMachine.Position + verticalOffset + forwardOffset;
         // Raycast down to find ground
         return targetPosition;
+    }
+
+    private Vector3 GetVaultPosition()
+    {
+        Vector3 result = GetVaultCheckPosition();
+        // Raycast down to find ground
+        Ray downRay = new Ray(result, Vector3.down);
+        if (Physics.SphereCast(downRay, Settings.ClimbVaultDistance, out var hitInfo, Settings.ClimbableLayer))
+        {
+            result = hitInfo.point + stateMachine.Up * 0.1f; // Slightly above ground
+        }
+
+        return result;
     }
 
     private IEnumerator VaultingOverLedge(Vector3 targetPosition)
@@ -576,9 +591,9 @@ public class ClimbingState : MovementState
     // In the case for this climbing, I'll do a linecast from the point to the player
     // If it passes through an odd number of surfaces, then that means it started inside an object
     private static readonly RaycastHit[] raycastBuffer = new RaycastHit[16];
-    private bool IsPointInsideMesh(Vector3 point)
+    private bool IsPointInsideMesh(Vector3 point, Vector3 checkPos)
     {
-        Vector3 origin = stateMachine.Position;
+        Vector3 origin = checkPos;
         Vector3 direction = point - origin;
         float distance = direction.magnitude;
         direction.Normalize();
@@ -735,7 +750,6 @@ public class ClimbingState : MovementState
             if (!CheckNormalAngles(surfaceNormal))
             {
                 surfaceNormal = mainHitInfo.normal;
-                TryDebugLog("Out of angle range");
             }
 
             wallNormal = surfaceNormal;
@@ -795,14 +809,38 @@ public class ClimbingState : MovementState
                                                                       (climbDirections.HasFlag(ClimbDirections.Left ) || climbDirections.HasFlag(ClimbDirections.Right));
     public bool CanInitiateClimb() => CanInitiateClimb(GetClimbState());
 
-    private bool CanHang(ClimbDirections climbDirections) => CanClimb(climbDirections) && !climbDirections.HasFlag(ClimbDirections.Up) && CanVault();
-    public bool CanHang() => CanHang(GetClimbState());
+    //private bool CanHang(ClimbDirections climbDirections) => CanClimb(climbDirections) && !climbDirections.HasFlag(ClimbDirections.Up) && CanVault();
+
+    public bool CanHang()
+    {
+        // Raycast above top to see if it hits anything
+        Vector3 rayOrigin = stateMachine.Position + CurrentUpDirection * stateMachine.PlayerHeight + Vector3.up * Settings.HangCheckVerticalOffset;
+        Ray hangRay = new Ray(rayOrigin, CurrentForwardDirection);
+        // The amount of space to check should be the players radius + the current climbing distance. This accounts for their distance fromt he wall, as well as the needed space for them to stand above
+        float rayDistance = stateMachine.PlayerRadius + GetClimbingDistance();
+        
+        Debug.DrawRay(hangRay.origin, hangRay.direction * rayDistance, Color.blue);
+        if (Physics.Raycast(hangRay, out var hangHitInfo, rayDistance, Settings.ClimbableLayer))
+        {
+            // If below the minimum hang angle
+            float surfaceAngle = Vector3.Angle(hangHitInfo.normal, currentWallNormal);
+            if (surfaceAngle < Settings.HangSurfaceMinAngle)
+                return false;
+            
+        }
+
+        if (!CanVault())
+            return false;
+
+        return true;
+    }
 
     private bool CanVault()
     {
-        Vector3 vaultPosition = GetVaultPosition();
+        Vector3 vaultPosition = GetVaultCheckPosition();
+        Vector3 headPos = vaultPosition + Vector3.up * (stateMachine.PlayerHeight - stateMachine.PlayerHeadHeight);
         // Make sure point isnt inside mesh and player collider can fit
-        if (IsPointInsideMesh(vaultPosition) || Physics.CheckSphere(vaultPosition, stateMachine.PlayerRadius, stateMachine.EnvironmentLayer, QueryTriggerInteraction.Ignore))
+        if (IsPointInsideMesh(vaultPosition, headPos) || Physics.CheckSphere(vaultPosition + Vector3.one * stateMachine.PlayerRadius/2, stateMachine.PlayerRadius, stateMachine.EnvironmentLayer, QueryTriggerInteraction.Ignore))
             return false;
 
         return true;
