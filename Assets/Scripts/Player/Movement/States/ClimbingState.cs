@@ -35,9 +35,12 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Delay before being able to enter climb state again")]
     [SerializeField] private float climbingRetryDelay = 0.5f;
     public float ClimbingRetryDelay => climbingRetryDelay;
-    [Tooltip("How far the player is from the wall while climbing")]
-    [SerializeField] private float climbDistanceFromWall = 0.33f;
-    public float ClimbDistanceFromWall => climbDistanceFromWall;
+    [Tooltip("How far the player is from the wall while climbing. Choose a value from X to Y based on the climbDistanceFromWallRange value and the current angle.")]
+    [SerializeField] private Vector2 climbDistanceFromWall = new(0.33f,0.75f);
+    public Vector2 ClimbDistanceFromWall => climbDistanceFromWall;
+    [Tooltip("Min and max angle to use when checking what distance from the wall to use")]
+    [SerializeField] private Vector2 climbDistanceFromWallRange = new(0f,40f);
+    public Vector2 ClimbDistanceFromWallRange => climbDistanceFromWallRange;
     [Tooltip("Width of player from their head when checking for side climbing space")]
     [SerializeField] private float climbWidth = 0.5f;
     public float ClimbWidth => climbWidth;
@@ -50,9 +53,6 @@ public class ClimbingSettings : StateSettings
     [Tooltip("How long it takes to lock the player to the wall at the start of a climb")] 
     [SerializeField] private float climbingStartWallLockTime = 0.25f;
     public float ClimbingStartLockIntoPlace => climbingStartWallLockTime;
-    [Tooltip("Radius of the raycast when checking for a climbing direction")] 
-    [SerializeField] private float climbingCheckRayRadius = 0.2f;
-    public float ClimbingCheckRayRadius => climbingCheckRayRadius;
     
     
     
@@ -172,6 +172,15 @@ public class ClimbingState : MovementState
     
     private float CurrentClimbRange => Settings.ClimbRange;
     private bool IsStartingClimb => climbTimer < Settings.ClimbingStartLockIntoPlace;
+    
+    private float GetClimbingDistance(float angle)
+    {
+        float normalizedAngle = angle - 90;
+        float t = Mathf.InverseLerp(Settings.ClimbDistanceFromWallRange.x, Settings.ClimbDistanceFromWallRange.y, normalizedAngle);
+
+        Debug.Log(Mathf.Lerp(Settings.ClimbDistanceFromWall.x, Settings.ClimbDistanceFromWall.y, t));
+        return Mathf.Lerp(Settings.ClimbDistanceFromWall.x, Settings.ClimbDistanceFromWall.y, t);
+    }
 
 
     private void TryDebugLog(string value)
@@ -254,35 +263,6 @@ public class ClimbingState : MovementState
 
         ClimbDirections climbState = GetClimbState();
         
-        if (IsStartingClimb)
-        {
-            float lockT = climbTimer / Settings.ClimbingStartLockIntoPlace;
-            Vector3 direction = -currentWallNormal;
-
-            // Lerp in direction
-            Vector3 targetPosition = currentWallPos - direction * Settings.ClimbDistanceFromWall;
-            // Since the start position is based on the players center, shift target position down to feet
-            targetPosition -= stateMachine.Up * (stateMachine.PlayerHeight/2);
-            
-            stateMachine.SetPosition(Vector3.Lerp(stateMachine.Position, targetPosition, lockT));
-            // // Face wall
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, lockT));
-        }
-        else
-        {
-            // Lock to wall
-            Vector3 lockPos = currentWallPos + currentWallNormal * Settings.ClimbDistanceFromWall;
-            // Since the start position is based on the players center, shift target position down to feet
-            lockPos -= stateMachine.Up * (stateMachine.PlayerHeight/2);
-            stateMachine.SetPosition(Vector3.Lerp(stateMachine.Position, lockPos, Settings.ClimbingWallLockSpeed * Time.deltaTime));
-            
-            // Face wall
-            Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal);
-            stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, Settings.ClimbingWallLockSpeed * Time.deltaTime));
-            
-        }
-        
         // If they can climb or hang
         if (CanClimb(climbState))
         {
@@ -343,6 +323,18 @@ public class ClimbingState : MovementState
             stateMachine.SetVelocity(finalVelocity);
 
             currentClimbDirection = new Vector3(sideInput, upInput, 0);
+            
+            // Lock to wall
+            Vector3 lockPos = currentWallPos + currentWallNormal * GetClimbingDistance(Vector3.Angle(currentWallNormal, Vector3.up));
+            Debug.Log(Vector3.Angle(currentWallNormal, Vector3.up));
+            // Since the start position is based on the players center, shift target position down to feet
+            lockPos -= stateMachine.Up * (stateMachine.PlayerHeight/2);
+            stateMachine.SetPosition(Vector3.Lerp(stateMachine.Position, lockPos, Settings.ClimbingWallLockSpeed * Time.deltaTime));
+        
+            // Face wall
+            Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal);
+            stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, Settings.ClimbingWallLockSpeed * Time.deltaTime));
+            
         }
         
         // If they cant climb up
@@ -655,7 +647,7 @@ public class ClimbingState : MovementState
         
         RaycastHit headHitInfo;
         // Check if middle can find wall
-        bool foundWall = Physics.SphereCast(middleRay, Settings.ClimbingCheckRayRadius, out headHitInfo, CurrentClimbRange, Settings.ClimbableLayer);
+        bool foundWall = Physics.Raycast(middleRay, out headHitInfo, CurrentClimbRange, Settings.ClimbableLayer);
         
 
         if (foundWall)
@@ -692,10 +684,10 @@ public class ClimbingState : MovementState
             
             RaycastHit upHit, downHit, leftHit, rightHit;
 
-            bool canUp = Physics.SphereCast(upRay, Settings.ClimbingCheckRayRadius, out upHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(upHit.normal);
-            bool canDown = Physics.SphereCast(downRay, Settings.ClimbingCheckRayRadius, out downHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(downHit.normal);
-            bool canLeft = Physics.SphereCast(leftRay, Settings.ClimbingCheckRayRadius, out leftHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(leftHit.normal);
-            bool canRight = Physics.SphereCast(rightRay, Settings.ClimbingCheckRayRadius, out rightHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(rightHit.normal);
+            bool canUp = Physics.Raycast(upRay, out upHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(upHit.normal);
+            bool canDown = Physics.Raycast(downRay, out downHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(downHit.normal);
+            bool canLeft = Physics.Raycast(leftRay, out leftHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(leftHit.normal);
+            bool canRight = Physics.Raycast(rightRay, out rightHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalAngles(rightHit.normal);
             
             Debug.DrawRay(upRay.origin, upRay.direction * CurrentClimbRange, canUp ? Color.green : Color.red);
             Debug.DrawRay(downRay.origin, downRay.direction * CurrentClimbRange, canDown ? Color.green : Color.red);
