@@ -324,6 +324,6 @@ public class WeaponsSystem : MonoBehaviour
 
     public class Bullet : IDamageSource
     {
-        
+        public Transform transform => null;
     }
 }
