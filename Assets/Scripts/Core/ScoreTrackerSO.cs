@@ -24,6 +24,17 @@ public class ScoreTrackerSO : ScriptableObject
     [SerializeField] private float healthBonusPerPoints = 20f;
     [SerializeField] private float accuracyBonusPerPercentage = 20f;
     [SerializeField] private float allBonusObjectivesMultiplier = 1.25f;
+    [Tooltip("How far should the player and kill height be to trigger above/below events")]
+    [SerializeField] private float heightDifferenceThreshold = 0.5f;
+
+    [Header("Output Events")] 
+    [SerializeField] private VoidEventChannelSO OnGenericKillAbove;
+    [SerializeField] private VoidEventChannelSO OnGenericKillBelow;
+    [SerializeField] private VoidEventChannelSO OnTargetKillAbove;
+    [SerializeField] private VoidEventChannelSO OnTargetKillBelow;
+    [SerializeField] private VoidEventChannelSO OnMultiKillWithHazard;
+    [SerializeField] private VoidEventChannelSO OnMultiKillWithGadget;
+    
 
     public static Action<List<ScoreTypes>, float> OnScoreAdded;
 
@@ -44,9 +55,12 @@ public class ScoreTrackerSO : ScriptableObject
         CurrentScore += value;
     }
 
-    public void RegisterKill(KillTypes killType, IDamageSource source)
+    public void RegisterKill(KillTypes killType, IDamageSource source, bool wasTarget = false)
     {
         List<ScoreTypes> scoreTypes = new() { ScoreTypes.GenericKill };
+        
+        if(wasTarget)
+            scoreTypes.Add(ScoreTypes.TargetKill);
 
         int killScore = GetScoreValue(ScoreTypes.GenericKill);
 
@@ -74,9 +88,11 @@ public class ScoreTrackerSO : ScriptableObject
 
         OnScoreAdded?.Invoke(scoreTypes, killScore);
         
+        UniqueKillConditions(killType, source, scoreTypes);
+        
         Debug.Log("Registered Kill: " + killType + " | Score: " + killScore);
     }
-
+    
     private void RegisterDamageSource(IDamageSource source)
     {
         if (activeDamageSources.TryGetValue(source, out var activeDamageSource))
@@ -103,6 +119,49 @@ public class ScoreTrackerSO : ScriptableObject
     private Tween GetUnregisterTimer(IDamageSource source)
     {
         return Tween.Delay(multiKillTimeThreshold, () => UnregisterDamageSource(source));
+    }
+    
+    private void UniqueKillConditions(KillTypes killType, IDamageSource source, List<ScoreTypes> scoreTypes)
+    {
+        // If generic kill and player is above the damage source
+        if (killType == KillTypes.Generic && source != null)
+        {
+            float yDifference = GameManager.PlayerData.PlayerPosition.y - source.transform.position.y;
+            if (yDifference > heightDifferenceThreshold)
+            {
+                if(scoreTypes.Contains(ScoreTypes.TargetKill))
+                {
+                    OnTargetKillAbove?.Invoke();
+                    Debug.Log("Target Kill Above Triggered");
+                }
+                OnGenericKillAbove?.Invoke();
+            }
+            if (yDifference < heightDifferenceThreshold)
+            {
+                if (scoreTypes.Contains(ScoreTypes.TargetKill))
+                {
+                    OnTargetKillBelow?.Invoke();
+                    Debug.Log("Target Kill Below Triggered");
+                }
+                OnGenericKillBelow?.Invoke();
+            }
+        }
+        
+        // If multi kill with hazard or gadget
+        if (source != null && activeDamageSources.TryGetValue(source, out var activeSourceData))
+        {
+            if (activeSourceData.count > 1)
+            {
+                //if (source is IHazard)
+                //{
+                //    OnMultiKillWithHazard?.Invoke();
+                //}
+                //else if (source is IGadget)
+                //{
+                //    OnMultiKillWithGadget?.Invoke();
+                //}
+            }
+        }
     }
 
 
@@ -161,7 +220,8 @@ public class ScoreTrackerSO : ScriptableObject
         ParachutingKill,
         EnvironmentalKill,
         BreakCamKill,
-        MultiKill
+        MultiKill,
+        TargetKill
     }
 
     public static string TypeToString(ScoreTypes type)

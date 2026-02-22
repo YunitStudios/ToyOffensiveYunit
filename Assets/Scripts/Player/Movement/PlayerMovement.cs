@@ -170,6 +170,9 @@ public class PlayerMovement : StateMachine
         FrameLook();
         
         ApplyVelocity();
+        
+        if(GameManager.PlayerData)
+            GameManager.PlayerData.SetPosition(transform.position);
     }
     
 

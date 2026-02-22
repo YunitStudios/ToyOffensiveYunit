@@ -13,7 +13,7 @@ public class TargetObjectivesSO : CoreObjectiveSO
     [SerializeField, Tooltip("If the objective requires all targets for completion")] private bool allTargets = true;
     [SerializeField, HideField(nameof(allTargets)), Tooltip("Number of targets to be completed before completing the objective")] private int goalCount;
     
-    [SerializeField, HideInEditMode, DisableInPlayMode] private SerializedDictionary<ObjectiveTarget, bool> targetStates = new();
+    [SerializeField, HideInEditMode, DisableInPlayMode] protected SerializedDictionary<SerializableInterface<IObjectiveTarget>, bool> targetStates = new();
     
     [Header("Output Events")] 
     [SerializeField] private VoidEventChannelSO onFirstTargetComplete;
@@ -28,7 +28,7 @@ public class TargetObjectivesSO : CoreObjectiveSO
 
     private bool completedFirstTarget;
     
-    public void RegisterTarget(ObjectiveTarget target)
+    public void RegisterTarget(SerializableInterface<IObjectiveTarget> target)
     {
         targetStates.Add(target, false);
     }
@@ -43,10 +43,9 @@ public class TargetObjectivesSO : CoreObjectiveSO
     {
         base.ResetObjective();
         targetStates.Clear();
-        Debug.Log("rewset");
     }
     
-    public void CompleteTarget(ObjectiveTarget target)
+    public void CompleteTarget(SerializableInterface<IObjectiveTarget> target)
     {
         if (targetStates.ContainsKey(target))
             targetStates[target] = true;

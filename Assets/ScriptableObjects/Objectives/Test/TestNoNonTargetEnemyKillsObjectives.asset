@@ -9,16 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3323a3fdb3f1702489e140664c72733a, type: 3}
-  m_Name: TestEnemyKillObjective
-  m_EditorClassIdentifier: Assembly-CSharp::TargetObjectivesSO
+  m_Script: {fileID: 11500000, guid: 09e15217c894c2b4a926025827bab7fb, type: 3}
+  m_Name: TestNoNonTargetEnemyKillsObjectives
+  m_EditorClassIdentifier: Assembly-CSharp::NoNonTargetEnemyKillsObjectiveSO
   <Active>k__BackingField: 0
   <Completed>k__BackingField: 0
   <Failed>k__BackingField: 0
   objectiveName: Test
-  objectiveDesc: Kill all targets
-  allTargets: 0
-  goalCount: 2
+  objectiveDesc: Kill all targets without killing a non-target
+  allTargets: 1
+  goalCount: 0
   targetStates:
     _serializedList: []
   onFirstTargetComplete: {fileID: 11400000, guid: 1dbd6a66c14cc4541b3f5db6538e5086, type: 2}
