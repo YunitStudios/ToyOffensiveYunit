@@ -17,6 +17,7 @@ public abstract class MovementState : State, IMovementState
     public virtual bool ControlRotation => false;
     public virtual bool UseCollision => true;
     public virtual Vector2 CollisionScale => Vector2.one;
+    public virtual bool CanADS => true;
 
     public override void OnEnter()
     {
@@ -39,4 +40,5 @@ public interface IMovementState
     public bool ControlRotation { get; }
     public bool UseCollision { get; }
     public Vector2 CollisionScale { get; }
+    public bool CanADS { get; }
 }

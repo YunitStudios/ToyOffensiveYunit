@@ -16,7 +16,7 @@ public class AssistState : AIState
         healingCompleted = false;
         this.target = target;
         target.isBeingAssisted = true;
-        CoverPoint assistCover = CoverPointManager.instance.GetNearestCoverPoint(target.transform.position, controller.vision.player);
+        assistCover = CoverPointManager.instance.GetNearestCoverPoint(target.transform.position, controller.vision.player);
         target.ChangeState(new MoveToAssistCoverState(target, target.agent, assistCover));
         
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
@@ -70,7 +70,7 @@ public class AssistState : AIState
         Health health = target.GetComponent<Health>();
         if (health != null)
         {
-            health.Heal(50f);
+            health.Heal(target.HealAmount);
 
             if (target != null)
             {
@@ -79,6 +79,7 @@ public class AssistState : AIState
             }
         } 
         healingCompleted = true; 
+        controller.SetMedkit(false);
     }
     
 }

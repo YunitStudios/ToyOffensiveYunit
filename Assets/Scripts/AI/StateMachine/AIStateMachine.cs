@@ -21,6 +21,8 @@ public class AIStateMachine : MonoBehaviour
     [HideInInspector] public NavMeshAgent agent;
     private AIState currentState;
     public AIState CurrentState => currentState;
+    [SerializeField] private string debugState;
+    [HideInInspector] public Health health;
     
     [Tooltip("Set waypoints by creating empty game objects in the scene, then setting their transform to the waypoint.")]
     [SerializeField] private List<Transform> waypoints;
@@ -32,6 +34,7 @@ public class AIStateMachine : MonoBehaviour
     public Vector2 formationOffset;
     [HideInInspector] public int currentWaypoint; 
     [HideInInspector] public AIVision vision;
+    [HideInInspector] public AIDetection detection;
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
     private AIController aiController;
 
@@ -39,6 +42,24 @@ public class AIStateMachine : MonoBehaviour
     [SerializeField] private float DeathDelay = 0;
     
     [HideInInspector] public Vector3 stationPosition;
+
+    [Header("Weapon Settings")]
+    [Tooltip("Damage multiplier for enemy weapons")]
+    [SerializeField] private float damageMultiplier = 0.5f;
+    public float DamageMultiplier => damageMultiplier;
+    [Tooltip("Accuracy multiplier for enemy weapons (higher = less accurate)")]
+    [SerializeField] private float accuracyMultiplier = 1f;
+    public float AccuracyMultiplier => accuracyMultiplier;
+    
+    [Header("Healing Settings")]
+    [Tooltip("Does this enemy hold a medkit?")]
+    [SerializeField] private bool holdMedkit = false;
+    public bool HoldMedkit => holdMedkit;
+    [Tooltip("Once this health percentage is reached, AI will try heal itself")]
+    [SerializeField] private float healAtPercent = 0.3f;
+    [Tooltip("Amount of health to heal")] 
+    [SerializeField] private float healAmount = 50f;
+    public float HealAmount => healAmount;
 
     [Header("Guard Settings")]
     [Tooltip("The Target to guard")]
@@ -61,7 +82,9 @@ public class AIStateMachine : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<AIVision>();
+        detection = GetComponent<AIDetection>();
         aiController = GetComponent<AIController>();
+        health =  GetComponent<Health>();
 
         // Sets station point to enemies start location
         if (enemyType == EnemyType.Stationary)
@@ -73,12 +96,27 @@ public class AIStateMachine : MonoBehaviour
 
     void Update()
     {
+        debugState = currentState.GetType().Name;
         CheckForThreats();
         
         currentState?.Execute();
         
         if (currentState is EvadeState)
         {
+            return;
+        }
+
+        if (!detection.IsDetected && detection.ShouldInvestigate && !(currentState is SearchState) &&
+            !(currentState is AttackState) && !(currentState is MoveToCoverState) &&
+            !(currentState is BehindCoverState) && !(currentState is PeekShootState) && !(currentState is FleeState))
+        {
+            ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
+        }
+
+        if (health != null && HoldMedkit && health.CurrentHealth / health.MaxHealth <= healAtPercent &&
+            !(currentState is HealingState) && !(currentState is AssistState))
+        {
+            ChangeState(new HealingState(this, agent));
             return;
         }
         
@@ -88,11 +126,11 @@ public class AIStateMachine : MonoBehaviour
             Protecting();
         }
         // if player enters vision collider, switch to their alert state
-        if (vision.canSeePlayer && enemyType == EnemyType.Target && !(currentState is FleeState) && !(CurrentState is MoveToAssistCoverState))
+        if (detection.IsDetected && enemyType == EnemyType.Target && !(currentState is FleeState) && !(CurrentState is MoveToAssistCoverState))
         {
             ChangeState(new FleeState(this, agent, vision.player));
         }
-        if (vision.canSeePlayer && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && enemyType != EnemyType.Target)
+        if (detection.IsDetected && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && enemyType != EnemyType.Target)
         { 
             ChangeState(new AttackState(this, agent, vision.player));
         }
@@ -108,7 +146,7 @@ public class AIStateMachine : MonoBehaviour
                 }
                 else
                 {
-                    ChangeState(new SearchState(this, agent, vision.lastSeenPosition));
+                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
                 }
             }
         }
@@ -191,7 +229,6 @@ public class AIStateMachine : MonoBehaviour
     {
         if (waypoints != null && waypoints.Count > 0)
         {
-            Debug.Log("Hello");
             ChangeState(new PatrolState(this, agent, waypoints, currentWaypoint));
         }
         else if (commander != null)
@@ -245,6 +282,7 @@ public class AIStateMachine : MonoBehaviour
     private void ReactToAlert(Transform player)
     {
         vision.canSeePlayer = true;
+        detection.AddDetection(100);
         vision.lastSeenTime = Time.time;
         
         // if Enemy is a target it will enter the flee state
@@ -293,7 +331,7 @@ public class AIStateMachine : MonoBehaviour
         
         // assists target if health is low
         Health targetHealth = protectedTarget.GetComponent<Health>();
-        if (targetHealth != null && targetHealth.CurrentHealth / targetHealth.MaxHealth <= assistAtHealthPercent && !protectedTarget.isBeingAssisted)
+        if (targetHealth != null && targetHealth.CurrentHealth / targetHealth.MaxHealth <= assistAtHealthPercent && !protectedTarget.isBeingAssisted && HoldMedkit)
         {
             ChangeState(new AssistState(this, agent, protectedTarget));
         }
@@ -341,6 +379,11 @@ public class AIStateMachine : MonoBehaviour
     public void SetProtectedTarget(AIStateMachine target)
     {
         protectedTarget = target;
+    }
+
+    public void SetMedkit(bool hasMedkit)
+    {
+        holdMedkit =  hasMedkit;
     }
 
     void OnEnable()
