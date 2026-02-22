@@ -230,6 +230,21 @@ public class PlayerMovement : StateMachine
         cc.excludeLayers = enabled ? 0 : ~0; // If enabled, collide with everything. If disabled, collide with nothing.
         col.enabled = enabled;
     }
+    public void SetCollisionScale(Vector2 newScale, bool dontMoveCenter)
+    {
+        cc.radius = playerRadius * newScale.x;
+        cc.height = playerHeight * newScale.y;
+        
+        col.radius = playerRadius * newScale.x;
+        col.height = playerHeight * newScale.y;
+
+        if (dontMoveCenter)
+            return;
+        Vector3 center = cc.center;
+        center.y = cc.height / 2f;
+        cc.center = center;
+        col.center = center;
+    }
     
     public void ChangeHeight(float newHeight)
     {

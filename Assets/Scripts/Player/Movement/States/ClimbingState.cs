@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Numerics;
 using System.Runtime.InteropServices.ComTypes;
+using EditorAttributes;
 using PrimeTween;
 using Unity.Cinemachine;
 using UnityEngine;
@@ -56,6 +57,9 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Climbing initialization is based on this ray. This variable is the % of the players height where the ray should happen")] 
     [SerializeField, Range(0, 1)] private float mainRayNormalizedHeight = 0.5f;
     public float MainRayNormalizedHeight => mainRayNormalizedHeight;
+    [Tooltip("The scale of the players collider while climbing. Cant outright disable the collider as I still need the CharacterController to check for collisions when moving, but changing the scale will stop the collider messing with regular climbing")]
+    [SerializeField, Clamp(0, 1f, 0f, 1f)] private Vector2 climbingCollisionScale;
+    public Vector2 ClimbingCollisionScale => climbingCollisionScale;
 
 
 
@@ -156,7 +160,7 @@ public class ClimbingState : MovementState
     public override bool UseRootMotion => true;
     public override bool UseMouseRotatePlayer => false;
     public override bool ControlRotation => true;
-    public override bool UseCollision => false;
+    public override Vector2 CollisionScale => Settings.ClimbingCollisionScale;
 
     private Tween unhangDelayTween;
     private Tween rehangDelayTween;

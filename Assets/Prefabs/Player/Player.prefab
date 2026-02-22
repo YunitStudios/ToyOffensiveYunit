@@ -112,8 +112,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
     climbRange: 1.5
-    climbingVerticalAngleLimits: {x: -89, y: 89}
-    climbingHorizontalAngleLimits: {x: -89, y: 89}
+    climbingVerticalAngleLimits: {x: -40, y: 40}
+    climbingHorizontalAngleLimits: {x: -40, y: 40}
     climbVerticalSpeed: 0
     climbHorizontalSpeed: 1
     climbingDelayAfterJump: 0.5
@@ -124,6 +124,8 @@ MonoBehaviour:
     climbingMaxGapDistance: 0.5
     climbingWallLockSpeed: 5
     climbingStartWallLockTime: 0.25
+    mainRayNormalizedHeight: 0.6
+    climbingCollisionScale: {x: 0.5, y: 0.5}
     climbVaultDistance: 0.5
     climbMaxVaultHeight: 1
     climbVaultDuration: 1
@@ -175,6 +177,8 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    hangCheckVerticalOffset: 0.25
+    hangSurfaceMinAngle: 60
     unhangDelay: 0.4
     rehangDelay: 0.2
     autoTriggerHangDistance: 1.66

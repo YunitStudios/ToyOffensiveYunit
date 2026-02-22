@@ -16,11 +16,13 @@ public abstract class MovementState : State, IMovementState
     public virtual bool UseMouseRotatePlayer => true;
     public virtual bool ControlRotation => false;
     public virtual bool UseCollision => true;
+    public virtual Vector2 CollisionScale => Vector2.one;
 
     public override void OnEnter()
     {
         stateMachine.PlayerAnimator.applyRootMotion = UseRootMotion;
         stateMachine.ToggleCollision(UseCollision);
+        stateMachine.SetCollisionScale(CollisionScale, true);
     }
 
 
@@ -36,4 +38,5 @@ public interface IMovementState
     public bool UseMouseRotatePlayer { get; }
     public bool ControlRotation { get; }
     public bool UseCollision { get; }
+    public Vector2 CollisionScale { get; }
 }
