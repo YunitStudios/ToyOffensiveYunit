@@ -225,6 +225,12 @@ public class PlayerMovement : StateMachine
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
     }
     
+    public void ToggleCollision(bool enabled)
+    {
+        cc.excludeLayers = enabled ? 0 : ~0; // If enabled, collide with everything. If disabled, collide with nothing.
+        col.enabled = enabled;
+    }
+    
     public void ChangeHeight(float newHeight)
     {
         // Clamp height to double the radius minimum
