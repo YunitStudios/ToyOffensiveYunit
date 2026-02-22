@@ -25,18 +25,22 @@ public class AIWeaponSystem : MonoBehaviour
     [HideInInspector] public Transform target;
     private AIInventory aiInventory;
 
-    [Tooltip("Damage multiplier for enemy weapons")]
-    [SerializeField] private float damageMult = 0.5f;
-
+    private float damageMult = 0.5f;
+    private float accuracyMult = 1f;
+ 
     [SerializeField] private Vector2 shootCooldownRange = new Vector2(1.0f, 3.0f);
     [SerializeField] private Vector2 shootPeriodRange = new Vector2 (1.0f, 3.0f);
     [HideInInspector] public float currentShootCooldown;
     [HideInInspector] public float currentShootPeriod;
     private float shootCooldownTimer;
     private float shootPeriodTimer;
+    private AIStateMachine aiStateMachine;
 
     private void Start()
     {
+        aiStateMachine = GetComponentInParent<AIStateMachine>();
+        damageMult = aiStateMachine.DamageMultiplier;
+        accuracyMult = aiStateMachine.AccuracyMultiplier;
         aiInventory = GetComponent<AIInventory>();
         currentWeapon = aiInventory.GetPrimaryWeapon();
         RandomiseShootTimes();
@@ -208,7 +212,7 @@ public class AIWeaponSystem : MonoBehaviour
     
     private float GetSpreadRotation()
     {
-        float max = currentWeapon.WeaponSpread.CurrentSpreadAmount;
+        float max = currentWeapon.WeaponSpread.CurrentSpreadAmount * accuracyMult;
         return Random.Range(-max, max);
     }
     
