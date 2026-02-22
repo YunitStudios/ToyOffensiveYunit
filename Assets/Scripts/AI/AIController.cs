@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +20,8 @@ public class AIController : MonoBehaviour, IDamageable
     private Transform playerTransform;
     
     public IDamageSource RecentDamageSource { get; set; }
+
+    public static Action<IObjectiveTarget> OnEnemyKilled;
     
     void Start()
     {
@@ -57,6 +60,7 @@ public class AIController : MonoBehaviour, IDamageable
         {
             stateMachine.Die();
             GameManager.ScoreTracker.RegisterKill(ScoreTrackerSO.KillTypes.Generic, RecentDamageSource);
+            OnEnemyKilled?.Invoke(enemyHealth);
         }
     }
 
