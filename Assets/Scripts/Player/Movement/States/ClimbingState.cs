@@ -625,13 +625,24 @@ public class ClimbingState : MovementState
             
             bool CheckNormalAngles(Vector3 normal)
             {
+                return CheckNormalVertical(normal) && CheckNormalHorizontal(normal);
+            }
+
+            bool CheckNormalVertical(Vector3 normal)
+            {
                 // Calculate vertical angle between normal and world up
                 float verticalAngle = Vector3.Angle(-normal, Vector3.up) - 90f;
-                // Calculate horizontal angle between normal and player forward
-                float horizontalAngle = Vector3.SignedAngle(-normal, CurrentForwardDirection, CurrentUpDirection);
-                // Check if angles are within limits
+                // Check if angle is within limits
                 if (verticalAngle < Settings.ClimbingVerticalAngleLimits.x || verticalAngle > Settings.ClimbingVerticalAngleLimits.y)
                     return false;
+                
+                return true;
+            }
+            bool CheckNormalHorizontal(Vector3 normal)
+            {
+                // Calculate horizontal angle between normal and player forward
+                float horizontalAngle = Vector3.SignedAngle(-normal, CurrentForwardDirection, CurrentUpDirection);
+                // Check if angle is within limits
                 if (horizontalAngle < Settings.ClimbingHorizontalAngleLimits.x || horizontalAngle > Settings.ClimbingHorizontalAngleLimits.y)
                     return false;
                 
@@ -696,8 +707,8 @@ public class ClimbingState : MovementState
             
             RaycastHit upHit, downHit, leftHit, rightHit;
 
-            bool canUp = Physics.Raycast(upRay, out upHit, CurrentClimbRange, Settings.ClimbableLayer);
-            bool canDown = Physics.Raycast(downRay, out downHit, CurrentClimbRange, Settings.ClimbableLayer);
+            bool canUp = Physics.Raycast(upRay, out upHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalVertical(upHit.normal);
+            bool canDown = Physics.Raycast(downRay, out downHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalVertical(downHit.normal);
             bool canLeft = Physics.Raycast(leftRay, out leftHit, CurrentClimbRange, Settings.ClimbableLayer);
             bool canRight = Physics.Raycast(rightRay, out rightHit, CurrentClimbRange, Settings.ClimbableLayer);
             
@@ -839,8 +850,6 @@ public class ClimbingState : MovementState
                 wallRight
             );
             
-            TryDebugLog(""+surfaceAngle);
-            TryDebugLog(""+(surfaceAngle > -Settings.HangSurfaceMinAngle));
             if (surfaceAngle > -Settings.HangSurfaceMinAngle)
                 return false;
             

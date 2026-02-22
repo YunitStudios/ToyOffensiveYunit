@@ -120,7 +120,7 @@ MonoBehaviour:
     climbingRetryDelay: 0.5
     climbDistanceFromWall: {x: -0.33, y: 1}
     climbDistanceFromWallRange: {x: -40, y: 40}
-    climbWidth: 0.25
+    climbWidth: 0.15
     climbingMaxGapDistance: 0.5
     climbingWallLockSpeed: 5
     climbingStartWallLockTime: 0.25
@@ -178,9 +178,9 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     hangCheckVerticalOffset: 0.25
-    hangSurfaceMinAngle: 60
+    hangSurfaceMinAngle: 45
     unhangDelay: 0.4
-    rehangDelay: 0.2
+    rehangDelay: 0.66
     autoTriggerHangDistance: 1.66
     climbSprintLeapCooldown: 2
     climbSprintLeapStaminaPercentage: 0.2
