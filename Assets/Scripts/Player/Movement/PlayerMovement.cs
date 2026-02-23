@@ -116,7 +116,8 @@ public class PlayerMovement : StateMachine
     private InputAxis.RecenteringSettings originalCameraRecentering;
     
     // Public Properties
-    public bool IsGrounded => CheckOnGround(); 
+    public bool IsGrounded => CheckOnGround();
+    [HideInInspector] public bool CanAds => CanADS();
 
     private void Awake()
     {
@@ -169,6 +170,9 @@ public class PlayerMovement : StateMachine
         FrameLook();
         
         ApplyVelocity();
+        
+        if(GameManager.PlayerData)
+            GameManager.PlayerData.SetPosition(transform.position);
     }
     
 
@@ -190,17 +194,6 @@ public class PlayerMovement : StateMachine
         Vector3 finalVelocity = currentVelocity * Time.deltaTime;
         cc.Move(finalVelocity); 
     }
-
-    
-    private void OnAnimatorMove()
-    {
-        if (playerAnimator.applyRootMotion)
-        {
-            Vector3 animDeltaPosition = playerAnimator.deltaPosition;
-            cc.Move(animDeltaPosition);
-        }
-    }
-
     public void SetVelocity(Vector3 newVelocity)
     {
         currentVelocity = newVelocity;
@@ -234,6 +227,27 @@ public class PlayerMovement : StateMachine
     public void SetVisualRotation(Vector3 eulerAngles)
     {
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
+    }
+    
+    public void ToggleCollision(bool enabled)
+    {
+        cc.excludeLayers = enabled ? 0 : ~0; // If enabled, collide with everything. If disabled, collide with nothing.
+        col.enabled = enabled;
+    }
+    public void SetCollisionScale(Vector2 newScale, bool dontMoveCenter)
+    {
+        cc.radius = playerRadius * newScale.x;
+        cc.height = playerHeight * newScale.y;
+        
+        col.radius = playerRadius * newScale.x;
+        col.height = playerHeight * newScale.y;
+
+        if (dontMoveCenter)
+            return;
+        Vector3 center = cc.center;
+        center.y = cc.height / 2f;
+        cc.center = center;
+        col.center = center;
     }
     
     public void ChangeHeight(float newHeight)
@@ -315,7 +329,6 @@ public class PlayerMovement : StateMachine
         bool isSliding = (angle > hit.controller.slopeLimit && angle < 85f);
         if (isSliding && !IsGrounded && currentVelocity.y <= 0f){
             {
-                print("slide");
                 var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitNormal);
                 // Calculate speed based on rotation from up
                 float slopeSpeed = (angle-45) / 45f; // Normalize between 0 and 1 from 45 to 90 degrees
@@ -359,10 +372,19 @@ public class PlayerMovement : StateMachine
         if (GetGroundDistance() < minGroundDistance)
         {
             CheckFallDamage();
+            climbingState.ResetStamina();
             return true;
         }
 
         return false;
+    }
+
+    private bool CanADS()
+    {
+        //return currentState is IMovementState { CanADS: false };
+        if (currentState is IMovementState state)
+            return state.CanADS;
+        return true;
     }
 
     private void CheckFallDamage()

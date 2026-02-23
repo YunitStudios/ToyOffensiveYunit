@@ -82,6 +82,12 @@ public class MissionManager : MonoBehaviour
             if(bonusObjective is TriggerObjectivesSO { HasFailTrigger: false, Completed: false } triggerObjective)
                 triggerObjective.TriggeredFail();
         }
+        // Run complete trigger on any non-failed Trigger based objectives without complete trigger
+        foreach (var bonusObjective in currentMission.BonusObjectives)
+        {
+            if(bonusObjective is TriggerObjectivesSO { HasCompleteTrigger: false, Failed: false } triggerObjective)
+                triggerObjective.TriggeredComplete();
+        }
         
         onMissionEnd?.Invoke();
     }
@@ -89,13 +95,7 @@ public class MissionManager : MonoBehaviour
     private void CompleteMission()
     {
         onMissionComplete?.Invoke();
-        
-        // Run complete trigger on any non-failed Trigger based objectives without complete trigger
-        foreach (var bonusObjective in currentMission.BonusObjectives)
-        {
-            if(bonusObjective is TriggerObjectivesSO { HasCompleteTrigger: false, Failed: false } triggerObjective)
-                triggerObjective.TriggeredComplete();
-        }
+
     }
 
     private void FailMission()

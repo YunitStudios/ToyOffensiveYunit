@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: TestCompleteAfterFirstX
   m_EditorClassIdentifier: Assembly-CSharp::TimerObjectiveSO
   <Active>k__BackingField: 1
-  <Completed>k__BackingField: 1
+  <Completed>k__BackingField: 0
   <Failed>k__BackingField: 0
   objectiveName: Test
   objectiveDesc: Kill all targets in {1}:{0}
-  isMainObjective: 0
   maxTime: 5
   startTimerEvent: {fileID: 11400000, guid: 1dbd6a66c14cc4541b3f5db6538e5086, type: 2}
   endTimerEvent: {fileID: 11400000, guid: f353a3c6e7051e64c988305ea3ec4831, type: 2}

@@ -7,14 +7,15 @@ public class DebugUI : MonoBehaviour
     private bool showPanel = false;
     private float deltaTime;
     private readonly int[] fpsOptions = { 30, 60, 120, 144, 240 };
-    private int selectedFPSIndex = 1;
-    private bool vSyncOn;
+    private int selectedFPSIndex = 3;
+    private bool vSyncOn = true;
 
     private bool isPaused = false;
 
     private void Start()
     {
         InputManager.Instance.OnDebug += TogglePanel;
+        UpdateOptions();
     }
 
     private void OnDisable()
@@ -22,10 +23,15 @@ public class DebugUI : MonoBehaviour
         InputManager.Instance.OnDebug -= TogglePanel;
     }
 
-    void Update()
+    private void Update()
     {
-        deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+        // update the fps counter
+        if(showPanel)
+            deltaTime += (Time.unscaledDeltaTime - deltaTime) * 0.1f;
+    }
 
+    void UpdateOptions()
+    {
         // set fps
         Application.targetFrameRate = fpsOptions[selectedFPSIndex];
 
@@ -65,6 +71,12 @@ public class DebugUI : MonoBehaviour
         {
             isPaused = !isPaused;
             Time.timeScale = isPaused ? 0f : 1f;
+        }
+
+        // something was modified
+        if (GUI.changed)
+        {
+            UpdateOptions();
         }
     }
 
