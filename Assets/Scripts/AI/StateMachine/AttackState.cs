@@ -5,7 +5,7 @@ public class AttackState : AIState
 {
     private Transform player;
     private AIWeaponSystem weaponSystem;
-    private float stoppingDistance = 30f;
+    private float stoppingDistance = 12f;
     private CoverPoint coverPoint;
     float distanceToPlayer;
     float distanceToCoverPoint;
@@ -39,11 +39,11 @@ public class AttackState : AIState
         
         // needs changing 
         agent.SetDestination(player.position);
+        weaponSystem.Fire();
         if (agent.remainingDistance <= stoppingDistance)
         {
             agent.isStopped = true;
             weaponSystem.target = player;
-            weaponSystem.Fire();
         }
         else
         {

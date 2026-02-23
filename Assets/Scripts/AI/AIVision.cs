@@ -27,7 +27,7 @@ public class AIVision : MonoBehaviour
     [HideInInspector] public float lastSeenTime;
 
     [Tooltip("Time before switching to search state")]
-    [SerializeField] private float searchTimeout = 20f;
+    [SerializeField] private float searchTimeout = 5f;
     public float SearchTimeout => searchTimeout;
 
     private bool playerInsideVision = false;
