@@ -235,6 +235,10 @@ public class AIStateMachine : MonoBehaviour
         {
             ChangeState(new FollowCommanderState(this, agent, commander, formationOffset));
         }
+        else
+        {
+            ChangeState(new StationaryState(this, agent));
+        }
     }
     
     // Alerts enemy squad, setting all of their states to their specific alert state, if not already
@@ -364,6 +368,8 @@ public class AIStateMachine : MonoBehaviour
     public void SetTypeToTarget()
     {
         enemyType = EnemyType.Target;
+        GameObject parentGameObject = this.transform.parent.gameObject;
+        parentGameObject.AddComponent<ObjectiveTarget>();
     }
     
     public void SetTypeToGuard()
