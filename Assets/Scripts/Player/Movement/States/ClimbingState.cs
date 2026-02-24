@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Numerics;
-using System.Runtime.InteropServices.ComTypes;
 using EditorAttributes;
 using PrimeTween;
-using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using UnityEngine.Windows.WebCam;
-using Plane = UnityEngine.Plane;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -17,6 +12,7 @@ using Vector3 = UnityEngine.Vector3;
 [Serializable]
 public class ClimbingSettings : StateSettings
 {
+    [field: SerializeField] public float RandomField { get; private set; }
     [Header("Climbing")]
     [SerializeField] private LayerMask climbableLayer;
     public LayerMask ClimbableLayer => climbableLayer;
@@ -657,7 +653,9 @@ public class ClimbingState : MovementState
             }
         
         Vector3 playerPosition = stateMachine.Position;
+        Vector3 curInput = new Vector3(InputManager.Instance.FrameMove.x, 0, InputManager.Instance.FrameMove.y);
         Vector3 direction = CurrentForwardDirection;
+        Vector3 rotatedDirection = stateMachine.Rotation * curInput;
         Vector3 playerUp = CurrentUpDirection;
         Vector3 bottomOrigin = playerPosition;
         Vector3 topOrigin = playerPosition + playerUp * stateMachine.PlayerHeight;
@@ -667,10 +665,15 @@ public class ClimbingState : MovementState
         
         // Create rays for each direction
         Ray mainRay = new Ray(mainOrigin, direction);
+        Ray mainRayRotated = new Ray(mainOrigin, rotatedDirection);
         Ray leftRay = new Ray(mainOrigin - widthOffset, direction);
+        Ray leftRayRotated = new Ray(mainOrigin - widthOffset, rotatedDirection);
         Ray rightRay = new Ray(mainOrigin + widthOffset, direction);
+        Ray rightRayRotated = new Ray(mainOrigin + widthOffset, rotatedDirection);
         Ray downRay = new Ray(bottomOrigin, direction);
+        Ray downRayRotated = new Ray(bottomOrigin, rotatedDirection);
         Ray upRay = new Ray(topOrigin, direction);
+        Ray upRayRotated = new Ray(topOrigin, rotatedDirection);
         Ray ceilingRay = new Ray(topOrigin, playerUp);
         
         // Set wallnormal to be player backwards by default
@@ -712,17 +715,19 @@ public class ClimbingState : MovementState
             
             // If some ray don't hit, remove from result
             
-            RaycastHit upHit, downHit, leftHit, rightHit;
+            RaycastHit upHit, upHitRot, downHit, downHitRot, leftHit, leftHitRot, rightHit, rightHitRot;
 
             bool canUp = Physics.Raycast(upRay, out upHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalVertical(upHit.normal);
             bool canDown = Physics.Raycast(downRay, out downHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalVertical(downHit.normal);
-            bool canLeft = Physics.Raycast(leftRay, out leftHit, CurrentClimbRange, Settings.ClimbableLayer);
-            bool canRight = Physics.Raycast(rightRay, out rightHit, CurrentClimbRange, Settings.ClimbableLayer);
+            bool canLeft = Physics.Raycast(leftRay, out leftHit, CurrentClimbRange, Settings.ClimbableLayer) || Physics.Raycast(leftRayRotated, out leftHitRot, CurrentClimbRange, Settings.ClimbableLayer);
+            bool canRight = Physics.Raycast(rightRay, out rightHit, CurrentClimbRange, Settings.ClimbableLayer) || Physics.Raycast(rightRayRotated, out rightHitRot, CurrentClimbRange, Settings.ClimbableLayer); ;
             
             Debug.DrawRay(upRay.origin, upRay.direction * CurrentClimbRange, canUp ? Color.green : Color.red);
             Debug.DrawRay(downRay.origin, downRay.direction * CurrentClimbRange, canDown ? Color.green : Color.red);
             Debug.DrawRay(leftRay.origin, leftRay.direction * CurrentClimbRange, canLeft ? Color.green : Color.red);
+            Debug.DrawRay(leftRayRotated.origin, leftRayRotated.direction * CurrentClimbRange, canLeft ? Color.green : Color.red);
             Debug.DrawRay(rightRay.origin, rightRay.direction * CurrentClimbRange, canRight ? Color.green : Color.red);
+            Debug.DrawRay(rightRayRotated.origin, rightRayRotated.direction * CurrentClimbRange, canRight ? Color.green : Color.red);
 
             if (!canUp)
                 climbDirections &= ~ClimbDirections.Up;
