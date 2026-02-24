@@ -367,9 +367,7 @@ public class AIStateMachine : MonoBehaviour
     
     public void SetTypeToTarget()
     {
-        enemyType = EnemyType.Target;
-        GameObject parentGameObject = this.transform.parent.gameObject;
-        parentGameObject.AddComponent<ObjectiveTarget>();
+        enemyType = EnemyType.Target; 
     }
     
     public void SetTypeToGuard()
