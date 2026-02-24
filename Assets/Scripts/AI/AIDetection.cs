@@ -3,13 +3,21 @@ using UnityEngine;
 
 public class AIDetection : MonoBehaviour
 {
-    [SerializeField] private float visionIncreaseRate = 50f;
+    [Header("Detection Settings")]
+    [Tooltip("Rate at which the player is detected from vision")]
+    [SerializeField] private float visionMultiplier = 50f;
+    [Tooltip("Rate at which the player is detected from sound")]
     [SerializeField] private float hearingMultiplier = 20f;
+    [Tooltip("Rate at which the detection drops per second when out of combat")]
     [SerializeField] private float detectionDropPerSecond = 10f;
+    [Tooltip("The detection percent you want the enemy to attack at")]
     [SerializeField] private float engageThreshold = 100f;
+    [Tooltip("The detection percent you want the enemy to no longer attack on sight")]
     [SerializeField] private float disengageThreshold = 50f;
+    [Tooltip("The current detection")]
     [SerializeField] private float detectionPercent = 0f;
     public float DetectionPercent => detectionPercent;
+    [Tooltip("The detection percent you want the enemy to investigate at")]
     [SerializeField] private float investigateThreshold = 50f;
     public float InvestigateThreshold => investigateThreshold;
     
@@ -26,8 +34,9 @@ public class AIDetection : MonoBehaviour
     public bool ShouldInvestigate => shouldInvestigate;
     [HideInInspector] public bool isSearching = false;
     
+    [Header("Visual Settings")]
+    [Tooltip("The TMP on enemy prefab")]
     [SerializeField] private TextMeshProUGUI alertText;
-    [SerializeField] private float alertDisplayTime = 1.5f;
 
     
     void Awake()
@@ -67,7 +76,7 @@ public class AIDetection : MonoBehaviour
         float distance = Vector3.Distance(transform.position, aiVision.player.position);
         float maxRange = aiVision.GetComponent<SphereCollider>().radius;
         float distanceFactor = 1f - (distance / maxRange);
-        float increase = distanceFactor * visionIncreaseRate * Time.deltaTime;
+        float increase = distanceFactor * visionMultiplier * Time.deltaTime;
         detectionPercent += increase;
         lastKnownPosition = aiVision.player.position;
     }

@@ -64,7 +64,10 @@ public class FleeState : AIState
 
         if (!agent.pathPending && agent.remainingDistance <= 1f)
         {
-            //controller.ChangeState();
+            if (controller.detection.DetectionPercent <= 0)
+            {
+                controller.ReturnToStartingState();
+            }
         }
     }
 
