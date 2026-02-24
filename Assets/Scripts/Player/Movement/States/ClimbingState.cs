@@ -378,7 +378,7 @@ public class ClimbingState : MovementState
                 VaultOverLedge();
             
         }
-        else if(isHanging && !unhangDelayTween.isAlive)
+        else if(isHanging && !unhangDelayTween.isAlive && !IsStartingClimb)
         {
             StopHanging();
         }
@@ -780,13 +780,10 @@ public class ClimbingState : MovementState
             // Set the start data if they aren't currently climbing
             if (stateMachine.CurrentState != this)
             {
-                Vector3 startPosition = mainHitInfo.point;
-                Vector3 startNormal = mainHitInfo.normal;
-                
                 void HorizontalOffsetStartPosition(bool isLeft)
                 {
                     float directionSign = isLeft ? -1f : 1f;
-                    Vector3 horizontalDirection = Vector3.Cross(startNormal, playerUp).normalized * directionSign;
+                    Vector3 horizontalDirection = Vector3.Cross(wallNormal, playerUp).normalized * directionSign;
                     Vector3 horizontalOffset = horizontalDirection * Settings.ClimbWidth;
                 
                     // Draw line from side ray into wall
@@ -797,7 +794,7 @@ public class ClimbingState : MovementState
                     if (Physics.Raycast(horizontalRay, out var horizontalHit, Settings.ClimbWidth, Settings.ClimbableLayer))
                     {
                         // Shift start position by the distance hit
-                        startPosition -= horizontalDirection * horizontalHit.distance;
+                        wallPos -= horizontalDirection * horizontalHit.distance;
                     }
                 }
                 
