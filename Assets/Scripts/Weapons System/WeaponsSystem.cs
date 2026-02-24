@@ -72,7 +72,11 @@ public class WeaponsSystem : MonoBehaviour
     
             if (!InputManager.Instance.IsAiming && aiming)
             {
-                playerCameraSystem.ResetCamera(); 
+                // ensures camera doesn't reset if player can not ads (fixed camera reset when climbing)
+                if (playerMovement.CanAds)
+                {
+                    playerCameraSystem.ResetCamera();
+                }
                 aiming = false;
             }
         }
