@@ -40,6 +40,8 @@ public class CanvasFader : MonoBehaviour
 
     private CanvasGroup canvasGroup;
     private Sequence fadeSequence;
+    
+    public bool IsFading => fadeSequence.isAlive;
 
     private void Awake()
     {
@@ -52,35 +54,39 @@ public class CanvasFader : MonoBehaviour
         if(fadeSequence.isAlive)
             fadeSequence.Stop();
     }
-
-
-    public void PlayFull()
+    
+    public enum FadeType
+    {
+        Full,
+        In,
+        Out
+    }
+    
+    public void Play(FadeType fadeType)
     {
         if (fadeSequence.isAlive)
             fadeSequence.Stop();
 
         fadeSequence = Sequence.Create();
 
-        fadeSequence.Chain(FadeIn());
-        if(scaleIn)
-            fadeSequence.Group(ScaleIn());
-        fadeSequence.ChainDelay(showTime);
-        fadeSequence.Chain(FadeOut());
-        if(scaleOut)
-            fadeSequence.Group(ScaleOut());
+        if (fadeType is FadeType.Full or FadeType.In)
+        {
+            fadeSequence.Chain(FadeIn());
+            if (scaleIn)
+                fadeSequence.Group(ScaleIn());
+        }
 
-    }
-    public void PlayIn() 
-    { 
-        FadeIn(); 
-        if(scaleIn)
-            ScaleIn(); 
-    }
-    public void PlayOut() 
-    { 
-        FadeOut(); 
-        if(scaleOut)
-            ScaleOut(); 
+        if (fadeType == FadeType.Full)
+        {
+            fadeSequence.ChainDelay(showTime);
+        }
+
+        if (fadeType is FadeType.Full or FadeType.Out)
+        {
+            fadeSequence.Chain(FadeOut());
+            if (scaleOut)
+                fadeSequence.Group(ScaleOut());
+        }
     }
 
     private Tween FadeIn()
@@ -101,5 +107,12 @@ public class CanvasFader : MonoBehaviour
     private Tween ScaleOut()
     {
         return Tween.Scale(ScalingTransform, endingScale, scaleInTime);
+    }
+    
+    public void OverwriteFadeTimes(float fadeIn, float fadeOut, float show)
+    {
+        fadeInTime = fadeIn;
+        fadeOutTime = fadeOut;
+        showTime = show;
     }
 }

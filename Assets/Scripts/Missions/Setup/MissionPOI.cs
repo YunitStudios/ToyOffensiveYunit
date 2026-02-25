@@ -147,6 +147,7 @@ public class MissionPOI : MonoBehaviour
     private void ExtractEnable()
     {
         TogglePOI(true);
+        NotificationUI.DisplayNotification?.Invoke(new NotificationUI.NotificationData("New Goal", "Reach the extract point"));
     }
 
     private void OnDrawGizmos()
