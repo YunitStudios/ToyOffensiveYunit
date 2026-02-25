@@ -97,33 +97,33 @@ namespace Utility
         /// <summary>
         /// rotates the ray to the right such that the leftmost ray now points forward 
         /// </summary>
-        public void LookRight()
+        public void LookRight(float angleScale = 0.5f)
         {
-            Direction = Quaternion.AngleAxis(Angle / 2, Vector3.up) * _forward;
+            Direction = Quaternion.AngleAxis(Angle * angleScale, Vector3.up) * _forward;
         }
         
         /// <summary>
         /// rotates the ray to the left such that the rightmost ray now points forward 
         /// </summary>
-        public void LookLeft()
+        public void LookLeft(float angleScale = 0.5f)
         {
-            Direction = Quaternion.AngleAxis(-Angle / 2, Vector3.up) * _forward;
+            Direction = Quaternion.AngleAxis(-Angle * angleScale, Vector3.up) * _forward;
         }
 
         /// <summary>
         /// rotates the ray upwards such that the bottom ray now points forward 
         /// </summary>
-        public void LookUp()
+        public void LookUp(float angleScale = 0.5f)
         {
-            Direction = Quaternion.AngleAxis(-Angle / 2, Right) * _forward;
+            Direction = Quaternion.AngleAxis(-Angle * angleScale, Right) * _forward;
         }
 
         /// <summary>
         /// rotates the ray downwards such that the top ray now points forward 
         /// </summary>
-        public void LookDown()
+        public void LookDown(float angleScale = 0.5f)
         {
-            Direction = Quaternion.AngleAxis(Angle / 2, Right) * _forward;
+            Direction = Quaternion.AngleAxis(Angle * angleScale, Right) * _forward;
         }
     }
 }
