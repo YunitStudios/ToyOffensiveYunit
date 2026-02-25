@@ -4,32 +4,33 @@ using UnityEngine;
 // Code taken from Voidloop
 
 [CreateAssetMenu(fileName = "GameSettings", menuName = "ScriptableObjects/GameSettings")]
+[JsonObject(MemberSerialization.OptIn)]
 public class GameSettings : ScriptableObject
 {
     [Header("Controls")] 
-    [Range(0, 100)] public float sensitivty;
-    public bool toggleADS;
-    public bool inverseLook;
-    [Range(0,0.4f)] public float deadzone;
+    [JsonProperty] [Range(0, 100)] public float sensitivty;
+    [JsonProperty] public bool toggleADS;
+    [JsonProperty] public bool inverseLook;
+    [JsonProperty] [Range(0,0.4f)] public float deadzone;
 
     [Header("Video")] 
-    public int resolutionWidth = 1920;
-    public int resolutionHeight = 1080;
-    public bool fullScreen = true;
-    [Range(60,110)] public int fov = 90;
-    public float brightness = 50;
-    public QualitySettings quality = QualitySettings.Quality;
-    public bool motionBlur = false;
+    [JsonProperty] public int resolutionWidth = 1920;
+    [JsonProperty] public int resolutionHeight = 1080;
+    [JsonProperty] public bool fullScreen = true;
+    [JsonProperty] [Range(60,110)] public int fov = 90;
+    [JsonProperty] public float brightness = 50;
+    [JsonProperty] public QualitySettings quality = QualitySettings.Quality;
+    [JsonProperty] public bool motionBlur = false;
     
     [Header("Audio")]
-    [Range(0, 1)] public float masterVolume;
-    [Range(0, 1)] public float musicVolume;
+    [JsonProperty] [Range(0, 1)] public float masterVolume;
+    [JsonProperty] [Range(0, 1)] public float musicVolume;
     
     [Header("Accessibility")]
-    public bool cameraShake = true;
-    public bool colorBlindMode = false;
-    public ColorBlindType colorBlindType;
-    public bool hapticFeedback = true;
+    [JsonProperty] public bool cameraShake = true;
+    [JsonProperty] public bool colorBlindMode = false;
+    [JsonProperty] public ColorBlindType colorBlindType;
+    [JsonProperty] public bool hapticFeedback = true;
 
     public static void CopySettings(GameSettings a, GameSettings b)
     {

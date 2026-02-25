@@ -1,4 +1,5 @@
 using System;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,6 +47,12 @@ public class SettingsManager : MonoBehaviour
 
     public void ApplySettingsToScene()
     {
+        if (!playerSettings)
+        {
+            Debug.LogError("No valid settings SO on SettingsManager");
+            return;
+        }
+        
         OnSettingsChanged?.Invoke();
         
         // Apply deadzone
@@ -68,8 +75,15 @@ public class SettingsManager : MonoBehaviour
             // Load settings from player prefs
             if (PlayerPrefs.HasKey("PlayerSettings"))
             {
-                string json = PlayerPrefs.GetString("PlayerSettings");
-                playerSettings = JsonUtility.FromJson<GameSettings>(json);
+                var settings = new JsonSerializerSettings
+                {
+                    TypeNameHandling = TypeNameHandling.Auto
+                };
+                
+                settings.Converters.Add(new GameSettingsConverter(defaultSettings));
+
+                string dataToLoad = PlayerPrefs.GetString("PlayerSettings");
+                GameSettings.CopySettings(playerSettings, JsonConvert.DeserializeObject<GameSettings>(dataToLoad, settings));
             }
             else
             {
@@ -87,8 +101,16 @@ public class SettingsManager : MonoBehaviour
     private void SaveSettings()
     {
         // Store settings into player prefs as JSON
-        string json = JsonUtility.ToJson(playerSettings);
-        PlayerPrefs.SetString("PlayerSettings", json);
+        var settings = new JsonSerializerSettings
+        {
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            Formatting = Formatting.Indented,
+            TypeNameHandling = TypeNameHandling.Auto
+        };
+            
+        // Convert data to string
+        string dataToStore = JsonConvert.SerializeObject(playerSettings, settings);
+        PlayerPrefs.SetString("PlayerSettings", dataToStore);
         PlayerPrefs.Save();
     }
     
