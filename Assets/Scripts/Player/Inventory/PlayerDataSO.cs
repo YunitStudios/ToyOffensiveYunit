@@ -11,8 +11,8 @@ public class PlayerDataSO : ScriptableObject
     public float MaxHealth => maxHealth;
 
     [Header("Weapons data")]
-    [SerializeField] private WeaponDataSO startingPrimaryWeapon;
-    [SerializeField] private WeaponDataSO startingSecondaryWeapon;
+    [field: SerializeField] public WeaponDataSO StartingPrimaryWeapon { get; set; }
+    [field: SerializeField] public WeaponDataSO StartingSecondaryWeapon { get; set; }
     [SerializeField] private int maxNormalAmmo = 300;
     [SerializeField] private int maxSpecialAmmo = 100;
     [SerializeField] private List<AttachmentDataSO> primaryAttachments;
@@ -48,6 +48,17 @@ public class PlayerDataSO : ScriptableObject
     
     public Vector3 PlayerPosition { get; private set;}
     public float HealthPercentage => CurrentHealth / MaxHealth;
+    
+    public void SetStartingPrimaryWeaponData(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    {
+        StartingPrimaryWeapon = weaponData;
+        primaryAttachments = attachments;
+    }
+    public void SetStartingSecondaryWeaponData(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    {
+        StartingSecondaryWeapon = weaponData;
+        secondaryAttachments = attachments;
+    }
     
     public void SetWeaponSlot(WeaponSlot newSlot)
     {
@@ -125,8 +136,8 @@ public class PlayerDataSO : ScriptableObject
     public void Start()
     {
         SetWeaponSlot(WeaponSlot.Primary);
-        SetPrimaryWeapon(new Weapon(startingPrimaryWeapon, primaryAttachments));
-        SetSecondaryWeapon(new Weapon(startingSecondaryWeapon, secondaryAttachments));
+        SetPrimaryWeapon(new Weapon(StartingPrimaryWeapon, primaryAttachments));
+        SetSecondaryWeapon(new Weapon(StartingSecondaryWeapon, secondaryAttachments));
         SetPrimaryAttachments(primaryAttachments);
         SetSecondaryAttachments(secondaryAttachments);
         SetThrowables(startingThrowable);
