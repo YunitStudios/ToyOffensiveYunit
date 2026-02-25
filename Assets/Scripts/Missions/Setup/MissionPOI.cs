@@ -7,6 +7,8 @@ using Random = UnityEngine.Random;
 
 public class MissionPOI : MonoBehaviour
 {
+    private static readonly int ShaderProgress = Shader.PropertyToID("_Progress");
+
     [Header("POI Data")]
     [Tooltip("List of missions this POI is available in")]
     [SerializeField] private MissionSO[] missions;
@@ -32,6 +34,8 @@ public class MissionPOI : MonoBehaviour
         Circle
     }
     [SerializeField] private Renderer visual;
+    private bool HasVisual => visual;
+    [SerializeField, ShowField(nameof(HasVisual))] private Material visualMaterial;
 
     [Header("Input Callbacks")] 
     [SerializeField] private VoidEventChannelSO onMissionCompleted;
@@ -109,6 +113,9 @@ public class MissionPOI : MonoBehaviour
         
         if(IsExtractPoint)
             TogglePOI(false);
+        
+        if(visualMaterial)
+            visualMaterial.SetFloat(ShaderProgress, 0);
     }
     
     private void TogglePOI(bool value)
@@ -130,7 +137,11 @@ public class MissionPOI : MonoBehaviour
         }
 
         if (IsInRange())
+        {
             currentExtractTime += Time.deltaTime;
+            if(visualMaterial)
+                visualMaterial.SetFloat(ShaderProgress, ExtractProgress);
+        }
         else
             currentExtractTime = 0.0f;
         
