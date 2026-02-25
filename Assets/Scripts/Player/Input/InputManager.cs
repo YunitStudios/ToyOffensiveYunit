@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
     public static InputManager Instance { get; private set; }
 
     [SerializeField] private InputActionAsset inputActions;
+    [SerializeField] private InputSettings settings;
 
 
     private void Awake()
@@ -69,6 +70,11 @@ public class InputManager : MonoBehaviour
     {
         Cursor.visible = value;
         Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Confined;
+    }
+    
+    public void SetDeadzone(float playerSettingsDeadzone)
+    {
+        settings.defaultDeadzoneMin = playerSettingsDeadzone;
     }
 
     #region PlayerInput
