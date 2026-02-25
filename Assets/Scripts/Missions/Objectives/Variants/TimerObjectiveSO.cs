@@ -1,4 +1,5 @@
 using System.Collections;
+using EditorAttributes;
 using PrimeTween;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -8,8 +9,8 @@ public class TimerObjectiveSO : CoreObjectiveSO
 {
     [Header("Timer")] 
     [SerializeField] private int maxTime;
-    [SerializeField, Tooltip("Begins timer or sets it back to 0")] private VoidEventChannelSO startTimerEvent;
-    [SerializeField, Tooltip("End the timer and check if they were quick enough")] private VoidEventChannelSO endTimerEvent;
+    [SerializeField, Tooltip("Begins timer or sets it back to 0"), Required] private VoidEventChannelSO startTimerEvent;
+    [SerializeField, Tooltip("End the timer and check if they were quick enough"), Required] private VoidEventChannelSO endTimerEvent;
 
     private float currentTime;
     private Sequence timerSequence;
@@ -21,6 +22,13 @@ public class TimerObjectiveSO : CoreObjectiveSO
     {
         base.SetupObjective();
         currentTime = 0;
+
+        if (!startTimerEvent || !endTimerEvent)
+        {
+            Debug.LogError("Timer events not properly set for " + name);
+            return;
+        }
+        
         startTimerEvent.OnEventRaised += StartTime;
         endTimerEvent.OnEventRaised += StopTimer;
     }
