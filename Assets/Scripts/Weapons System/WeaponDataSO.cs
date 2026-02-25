@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "ScriptableObjects/Weapon")]
-public class WeaponDataSO : ScriptableObject
+public class WeaponDataSO : ScriptableObject, ILoadout
 {
     [Header("Name")]
     [Tooltip("How the weapon will be referred to in code")]
@@ -63,7 +63,7 @@ public class WeaponDataSO : ScriptableObject
     [Tooltip("Type of aiming used (scope or aim or whatever)")]
     public PlayerCamera.CameraType AimCameraType;
     
-    public List<AttachmentDataSO> AttachmentSOs = new List<AttachmentDataSO>();
+    public List<AttachmentDataSO> AttachmentSOs = new();
 
     public enum FireModes
     {
@@ -96,4 +96,6 @@ public class WeaponDataSO : ScriptableObject
         AimCameraType = other.AimCameraType;
         AttachmentSOs = other.AttachmentSOs;
     }
+
+    public string GetDisplayName => DisplayName;
 }
