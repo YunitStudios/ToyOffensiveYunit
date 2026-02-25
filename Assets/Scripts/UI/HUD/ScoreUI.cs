@@ -44,7 +44,7 @@ public class ScoreUI : MonoBehaviour
                 currentTypes.Add(type, 1);
         }
 
-        fader.PlayFull();
+        fader.Play(CanvasFader.FadeType.Full);
 
         Tween.PunchScale(valueText.transform, new ShakeSettings(Vector3.one * 2, 0.2f, 1));
 

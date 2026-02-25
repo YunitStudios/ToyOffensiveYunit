@@ -143,7 +143,7 @@ public class PlayerDataSO : ScriptableObject
     }
     
     // Runtime value setting
-    public void SetPosition(Vector3 newPosition)
+    public void StorePosition(Vector3 newPosition)
     {
         PlayerPosition = newPosition;
     }

@@ -607,6 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   agent: {fileID: 7845023440399694822}
+  debugState: 
   health: {fileID: 0}
   waypoints: []
   commander: {fileID: 0}
@@ -646,7 +647,7 @@ MonoBehaviour:
   onTakeDamage: {fileID: 0}
   onDamageTaken: {fileID: 0}
   onHealthChanged: {fileID: 0}
-  onDie: {fileID: 0}
+  onDie: {fileID: 11400000, guid: ca71c88db333ccb48b1182c30837a49a, type: 2}
   OnDieUnity:
     m_PersistentCalls:
       m_Calls: []
@@ -722,7 +723,9 @@ MonoBehaviour:
   disengageThreshold: 50
   detectionPercent: 0
   investigateThreshold: 30
+  isSearching: 0
   alertText: {fileID: 8662218175530896326}
+  alertDisplayTime: 1.5
 --- !u!1001 &1645429609514457907
 PrefabInstance:
   m_ObjectHideFlags: 0

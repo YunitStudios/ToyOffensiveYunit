@@ -39,7 +39,8 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private MissionSO currentMission;
     public static MissionSO CurrentMission => Instance.currentMission;
 
-    [Title("\n<b><color=#8880ff>Output Callbacks", 15, 5, false)]
+    [Title("\n<b><color=#8880ff>Output Callbacks", 15, 5, false)] 
+    [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     [SerializeField] private VoidEventChannelSO onMissionStart;
     [SerializeField] private VoidEventChannelSO onMissionComplete;
     [SerializeField] private VoidEventChannelSO onMissionEnd;
@@ -69,6 +70,8 @@ public class MissionManager : MonoBehaviour
         currentMission.MainObjective.OnObjectiveCompleted += CompleteMission;
         
         onMissionStart?.Invoke();
+        
+        onTeleportPlayer?.Invoke(currentMission.GetStartPosition);
     }
 
     public void EndMission()
