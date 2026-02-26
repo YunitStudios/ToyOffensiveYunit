@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: FreeMission
   m_EditorClassIdentifier: Assembly-CSharp::MissionSO
   mainObjective: {fileID: 11400000, guid: b2d3f026675501046bfefd3b76996dd4, type: 2}
-  bonusObjectives: []
+  bonusObjectives:
+  - {fileID: 11400000, guid: 741b569773d45a547b76041452520e41, type: 2}
+  - {fileID: 11400000, guid: b990cf729ec36a14497d69101cd0850b, type: 2}
   startPoints: []
   extractPoints: []
+  StartPointIndex: 0

@@ -16,7 +16,8 @@ public class ScoreTrackerSO : ScriptableObject
 
     [Header("Score Values")] 
     [SerializeField] private SerializedDictionary<ScoreTypes, int> scoreValues;
-    private int GetScoreValue(ScoreTypes type) => scoreValues.GetValueOrDefault(type);
+    public int GetScoreValue(ScoreTypes type) => scoreValues.GetValueOrDefault(type);
+    public int GetScoreValue(ScoreTypes type, int count) => scoreValues.GetValueOrDefault(type) * count;
 
     [Header("Bonus Attributes")] 
     [SerializeField] private float timerStartBonus = 6000f;
@@ -26,7 +27,12 @@ public class ScoreTrackerSO : ScriptableObject
     [SerializeField] private float allBonusObjectivesMultiplier = 1.25f;
     [Tooltip("How far should the player and kill height be to trigger above/below events")]
     [SerializeField] private float heightDifferenceThreshold = 0.5f;
+    [SerializeField] private float targetKillMultiplier = 1.2f;
 
+    [Header("Input Events")] 
+    [SerializeField] private VoidEventChannelSO OnMainObjectiveCompleted;
+    [SerializeField] private VoidEventChannelSO OnBonusObjectiveCompleted;
+    
     [Header("Output Events")] 
     [SerializeField] private VoidEventChannelSO OnGenericKillAbove;
     [SerializeField] private VoidEventChannelSO OnGenericKillBelow;
@@ -41,6 +47,24 @@ public class ScoreTrackerSO : ScriptableObject
     public float CurrentScore { get; private set; }
 
     private Dictionary<IDamageSource, ActiveSourceData> activeDamageSources = new();
+    public Dictionary<ScoreTypes, int> RuntimeScoreCounts = new();
+
+    public void Init()
+    {
+        OnMainObjectiveCompleted.OnEventRaised += AddMainObjective;
+        OnBonusObjectiveCompleted.OnEventRaised += AddBonusObjective;
+    }
+    public void Start()
+    {
+        CurrentScore = 0;
+        RuntimeScoreCounts = new();
+    }
+
+    public void Reset()
+    {
+        OnMainObjectiveCompleted.OnEventRaised -= AddMainObjective;
+        OnBonusObjectiveCompleted.OnEventRaised -= AddBonusObjective;
+    }
 
     public void AddScore(ScoreTypes type)
     {
@@ -49,20 +73,42 @@ public class ScoreTrackerSO : ScriptableObject
 
         List<ScoreTypes> scoreTypes = new() { type };
         OnScoreAdded?.Invoke(scoreTypes, value);
+        UpdateScoreCount(type);
     }
     private void AddScore(int value)
     {
         CurrentScore += value;
     }
 
+    private void UpdateScoreCounts(List<ScoreTypes> types)
+    {
+        foreach (ScoreTypes type in types)
+            UpdateScoreCount(type);
+    }
+
+    private void UpdateScoreCount(ScoreTypes type)
+    {
+        if (!RuntimeScoreCounts.TryAdd(type, 1))
+            RuntimeScoreCounts[type]++;
+    }
+
+    private void AddMainObjective()
+    {
+        AddScore(ScoreTypes.MainObjective);
+    }
+    private void AddBonusObjective()
+    {
+        AddScore(ScoreTypes.BonusObjective);
+    }
+
     public void RegisterKill(KillTypes killType, IDamageSource source, bool wasTarget = false)
     {
-        List<ScoreTypes> scoreTypes = new() { ScoreTypes.GenericKill };
+        List<ScoreTypes> scoreTypes = new() { ScoreTypes.Kill };
         
         if(wasTarget)
             scoreTypes.Add(ScoreTypes.TargetKill);
 
-        int killScore = GetScoreValue(ScoreTypes.GenericKill);
+        int killScore = GetScoreValue(ScoreTypes.Kill);
 
         if (killType != KillTypes.Generic)
         {
@@ -84,11 +130,16 @@ public class ScoreTrackerSO : ScriptableObject
                 scoreTypes.Add(ScoreTypes.MultiKill);
         }
         
+        if(wasTarget)
+            killScore = Mathf.RoundToInt(killScore * targetKillMultiplier);
+        
         AddScore(killScore);
 
         OnScoreAdded?.Invoke(scoreTypes, killScore);
         
         UniqueKillConditions(killType, source, scoreTypes);
+
+        UpdateScoreCounts(scoreTypes);
         
         Debug.Log("Registered Kill: " + killType + " | Score: " + killScore);
     }
@@ -204,7 +255,7 @@ public class ScoreTrackerSO : ScriptableObject
 
     private Dictionary<KillTypes, ScoreTypes> killScoreTypes = new()
     {
-        { KillTypes.Generic, ScoreTypes.GenericKill },
+        { KillTypes.Generic, ScoreTypes.Kill },
         { KillTypes.Parachuting, ScoreTypes.ParachutingKill },
         { KillTypes.EnvironmentalKill, ScoreTypes.EnvironmentalKill },
         { KillTypes.BreakCam, ScoreTypes.BreakCamKill }
@@ -213,10 +264,8 @@ public class ScoreTrackerSO : ScriptableObject
     public enum ScoreTypes
     {
         MainObjective,
-        BonusObjective1,
-        BonusObjective2,
-        BonusObjective3,
-        GenericKill,
+        BonusObjective,
+        Kill,
         ParachutingKill,
         EnvironmentalKill,
         BreakCamKill,
@@ -232,13 +281,9 @@ public class ScoreTrackerSO : ScriptableObject
                 return "";
             case ScoreTypes.MainObjective:
                 return "Main Objective";
-            case ScoreTypes.BonusObjective1:
+            case ScoreTypes.BonusObjective:
                 return "Bonus Objective";
-            case ScoreTypes.BonusObjective2:
-                return "Bonus Objective";
-            case ScoreTypes.BonusObjective3:
-                return "Bonus Objective";
-            case ScoreTypes.GenericKill:
+            case ScoreTypes.Kill:
                 return "Enemy Killed";
             case ScoreTypes.ParachutingKill:
                 return "Parachute Kill";

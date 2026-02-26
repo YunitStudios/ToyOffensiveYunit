@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviour
         onStartLevel.OnEventRaised -= StopLevel;
         onRestartLevel.OnEventRaised -= RestartLevel;
         onQuitToDesktop.OnEventRaised -= QuitToDesktop;
+        StopLevel();
     }
 
     private void Init()
@@ -73,12 +74,14 @@ public class GameManager : MonoBehaviour
         
         ingameStats.Init();
         PlayerData.Init();
+        scoreTracker.Init();
     }
 
     private void OnApplicationQuit()
     {
         ingameStats.Reset();
         PlayerData.Reset();
+        scoreTracker.Reset();
     }
 
 
@@ -105,6 +108,7 @@ public class GameManager : MonoBehaviour
         
         ingameStats.Start();
         PlayerData.Start();
+        scoreTracker.Start();
         MissionManager.Instance.StartMission();
 
         print("Game Started");
