@@ -12,8 +12,8 @@ public class AIInventory : MonoBehaviour
     private int normalAmmoCount;
     public int GetNormalAmmoCount() => normalAmmoCount;
     
-    private int specialAmmoCount;
-    public int GetSpecialAmmoCount() => specialAmmoCount;
+    private int secondaryAmmoCount;
+    public int GetSecondaryAmmoCount() => secondaryAmmoCount;
     
     private ThrowableDataSO throwableData;
     public ThrowableDataSO GetThrowableData() => throwableData;
@@ -33,7 +33,7 @@ public class AIInventory : MonoBehaviour
         int index = Random.Range(0, weapons.Count);
         primaryWeapon = new Weapon(weapons[index], null);
         normalAmmoCount = aiData.MaxNormalAmmo;
-        specialAmmoCount = aiData.MaxSpecialAmmo;
+        secondaryAmmoCount = aiData.MaxSecondaryAmmo;
         throwableData = aiData.StartingThrowable;
         throwableCount = aiData.MaxThrowableAmount;
     }
@@ -48,14 +48,14 @@ public class AIInventory : MonoBehaviour
         SetNormalAmmoCount(normalAmmoCount + delta);
     }
     
-    public void SetSpecialAmmoCount(int count)
+    public void SetSecondaryAmmoCount(int count)
     {
-        specialAmmoCount = Mathf.Clamp(count, 0, aiData.MaxSpecialAmmo);
+        secondaryAmmoCount = Mathf.Clamp(count, 0, aiData.MaxSecondaryAmmo);
     }
     
-    public void AdjustSpecialAmmoCount(int delta)
+    public void AdjustSecondaryAmmoCount(int delta)
     {
-        SetSpecialAmmoCount(specialAmmoCount + delta);
+        SetSecondaryAmmoCount(secondaryAmmoCount + delta);
     }
     
     public void SetThrowableCount(int count)
