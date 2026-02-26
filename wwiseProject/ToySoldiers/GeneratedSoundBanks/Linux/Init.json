@@ -10,7 +10,7 @@
     "Type": "User",
     "GUID": "{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}",
     "Language": "SFX",
-    "Hash": "{63728484-A041-0B35-D740-9A6032C5B25A}",
+    "Hash": "{05C81DF4-5257-73D8-4F60-3A8BB7B624E2}",
     "ObjectPath": "Init",
     "ShortName": "Init",
     "Path": "Init.bnk",
@@ -36,10 +36,22 @@
     },
     "Busses": [
      {
+      "Id": "1942696649",
+      "Name": "Effects",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Effects",
+      "GUID": "{0955737E-7307-455E-9DB7-D977D6650F42}"
+     },
+     {
       "Id": "3803692087",
       "Name": "Master Audio Bus",
       "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus",
       "GUID": "{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"
+     },
+     {
+      "Id": "3991942870",
+      "Name": "Music",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Music",
+      "GUID": "{4FA3C533-3E97-4511-9FCC-80770F906F2C}"
      }
     ],
     "AcousticTextures": [
@@ -521,6 +533,6 @@
     ]
    }
   ],
-  "FileHash": "{DC22BA0A-9A15-D7CA-0450-969FB5F25E35}"
+  "FileHash": "{93CC13B5-749D-CF08-CF43-8C88B478A25F}"
  }
 }
