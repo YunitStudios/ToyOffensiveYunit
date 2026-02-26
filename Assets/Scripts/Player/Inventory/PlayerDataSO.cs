@@ -2,6 +2,7 @@ using EditorAttributes;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData")]
 public class PlayerDataSO : ScriptableObject
@@ -11,12 +12,12 @@ public class PlayerDataSO : ScriptableObject
     public float MaxHealth => maxHealth;
 
     [Header("Weapons data")]
-    [SerializeField] private WeaponDataSO startingPrimaryWeapon;
-    [SerializeField] private WeaponDataSO startingSecondaryWeapon;
+    [field: SerializeField] public WeaponDataSO StartingPrimaryWeapon { get; set; }
+    [field: SerializeField] public WeaponDataSO StartingSecondaryWeapon { get; set; }
+    [field: SerializeField] public AttachmentDataSO StartingPrimaryAttachment;
+    [field: SerializeField] public AttachmentDataSO StartingSecondaryAttachment;
     [SerializeField] private int maxNormalAmmo = 300;
     [SerializeField] private int maxSpecialAmmo = 100;
-    [SerializeField] private List<AttachmentDataSO> primaryAttachments;
-    [SerializeField] private List<AttachmentDataSO> secondaryAttachments;
     [SerializeField] private float weaponSwapTime = 0.5f;
 
     [Header("Throwables data")]
@@ -34,9 +35,9 @@ public class PlayerDataSO : ScriptableObject
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public ThrowableDataSO StartingThrowable { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
-    public List<AttachmentDataSO> PrimaryAttachments { get; private set; }
+    public AttachmentDataSO PrimaryAttachment { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
-    public List<AttachmentDataSO> SecondaryAttachments { get; private set; }
+    public AttachmentDataSO SecondaryAttachment { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int NormalAmmoCount { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
@@ -48,6 +49,23 @@ public class PlayerDataSO : ScriptableObject
     
     public Vector3 PlayerPosition { get; private set;}
     public float HealthPercentage => CurrentHealth / MaxHealth;
+    
+    public void SetStartingPrimaryWeapon(WeaponDataSO weaponData)
+    {
+        StartingPrimaryWeapon = weaponData;
+    }
+    public void SetStartingPrimaryAttachment(AttachmentDataSO attachmentData)
+    {
+        StartingPrimaryAttachment = attachmentData;
+    }
+    public void SetStartingSecondaryWeapon(WeaponDataSO weaponData)
+    {
+        StartingSecondaryWeapon = weaponData;
+    }
+    public void SetStartingSecondaryAttachment(AttachmentDataSO attachmentData)
+    {
+        StartingSecondaryAttachment = attachmentData;
+    }
     
     public void SetWeaponSlot(WeaponSlot newSlot)
     {
@@ -68,14 +86,14 @@ public class PlayerDataSO : ScriptableObject
         OnWeaponChanged?.Invoke();
         weapon.OnAmmoChanged += OnAmmoCountChanged.Invoke;
     }
-    public void SetPrimaryAttachments(List<AttachmentDataSO> value)
+    public void SetPrimaryAttachment(AttachmentDataSO value)
     {
-        PrimaryAttachments = value;
+        PrimaryAttachment = value;
         OnAttachmentsChanged?.Invoke();
     }
-    public void SetSecondaryAttachments(List<AttachmentDataSO> value)
+    public void SetSecondaryAttachment(AttachmentDataSO value)
     {
-        SecondaryAttachments = value;
+        SecondaryAttachment = value;
         OnAttachmentsChanged?.Invoke();
     }
     public void SetThrowables(ThrowableDataSO value)
@@ -125,10 +143,10 @@ public class PlayerDataSO : ScriptableObject
     public void Start()
     {
         SetWeaponSlot(WeaponSlot.Primary);
-        SetPrimaryWeapon(new Weapon(startingPrimaryWeapon, primaryAttachments));
-        SetSecondaryWeapon(new Weapon(startingSecondaryWeapon, secondaryAttachments));
-        SetPrimaryAttachments(primaryAttachments);
-        SetSecondaryAttachments(secondaryAttachments);
+        SetPrimaryWeapon(new Weapon(StartingPrimaryWeapon, StartingPrimaryAttachment));
+        SetSecondaryWeapon(new Weapon(StartingSecondaryWeapon, StartingSecondaryAttachment));
+        SetPrimaryAttachment(StartingPrimaryAttachment);
+        SetSecondaryAttachment(StartingSecondaryAttachment);
         SetThrowables(startingThrowable);
         SetNormalAmmoCount(maxNormalAmmo);
         SetSpecialAmmoCount(maxSpecialAmmo);

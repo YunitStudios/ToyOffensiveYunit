@@ -49,7 +49,7 @@ public class MissionPOI : MonoBehaviour
     private bool extracted;
     private float currentExtractTime = 0.0f;
 
-    public Vector3 GetPoint()
+    public Vector3 GetPosition()
     {
         if (IsPoint)
             return transform.position;
