@@ -1,4 +1,5 @@
 using System;
+using EditorAttributes;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,6 +13,12 @@ public class SettingsManager : MonoBehaviour
     public GameSettings GetSettings => playerSettings;
     public GameSettings GetDefaultSettings => defaultSettings;
     public static Action OnSettingsChanged;
+    
+    [Header("Config")] 
+    [field: SerializeField] public Vector2 SensitivityRange = new(0.1f, 1f);
+    public float GetSensitivityValue => Mathf.Lerp(SensitivityRange.x, SensitivityRange.y, playerSettings.sensitivity/100);
+    [field: SerializeField] public Vector2 BrightnessRange = new(0.5f, 1.5f);
+    public float GetBrightnessValue => Mathf.Lerp(BrightnessRange.x, BrightnessRange.y, playerSettings.brightness/100);
 
 
     private void Awake()
@@ -45,6 +52,7 @@ public class SettingsManager : MonoBehaviour
         ApplySettingsToScene();
     }
 
+    [Button]
     public void ApplySettingsToScene()
     {
         if (!playerSettings)
@@ -56,8 +64,12 @@ public class SettingsManager : MonoBehaviour
         OnSettingsChanged?.Invoke();
         
         // Apply deadzone
-        if(InputManager.Instance)
+        if (InputManager.Instance)
+        {
+            InputManager.Instance.SetSensitivity(playerSettings.sensitivity);
+            InputManager.Instance.ToggleInverted(playerSettings.inverseLook);
             InputManager.Instance.SetDeadzone(playerSettings.deadzone);
+        }
         
         // Clamp resolution to 640 x 480 minimum
         playerSettings.resolutionWidth = Mathf.Max(playerSettings.resolutionWidth, 640);

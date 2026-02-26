@@ -1,5 +1,6 @@
 using Newtonsoft.Json;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 // Code taken from Voidloop
 
@@ -8,7 +9,7 @@ using UnityEngine;
 public class GameSettings : ScriptableObject
 {
     [Header("Controls")] 
-    [JsonProperty] [Range(0, 100)] public float sensitivty;
+    [JsonProperty] [Range(0, 100)] public float sensitivity;
     [JsonProperty] public bool toggleADS;
     [JsonProperty] public bool inverseLook;
     [JsonProperty] [Range(0,0.4f)] public float deadzone;
@@ -17,8 +18,8 @@ public class GameSettings : ScriptableObject
     [JsonProperty] public int resolutionWidth = 1920;
     [JsonProperty] public int resolutionHeight = 1080;
     [JsonProperty] public bool fullScreen = true;
-    [JsonProperty] [Range(60,110)] public int fov = 90;
-    [JsonProperty] public float brightness = 50;
+    [JsonProperty] [Range(40,90)] public int fov = 60;
+    [JsonProperty] [Range(0,100)] public float brightness = 50;
     [JsonProperty] public QualitySettings quality = QualitySettings.Quality;
     [JsonProperty] public bool motionBlur = false;
     
@@ -34,7 +35,7 @@ public class GameSettings : ScriptableObject
 
     public static void CopySettings(GameSettings a, GameSettings b)
     {
-        a.sensitivty = b.sensitivty;
+        a.sensitivity = b.sensitivity;
         a.toggleADS = b.toggleADS;
         a.inverseLook = b.inverseLook;
         a.deadzone = b.deadzone;

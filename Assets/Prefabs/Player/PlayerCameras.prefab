@@ -1029,15 +1029,26 @@ MonoBehaviour:
   cameras:
     _serializedList:
     - Key: 0
-      Value: {fileID: 2327280220460540034}
+      Value:
+        camera: {fileID: 2327280220460540034}
+        fovOffset: 0
     - Key: 1
-      Value: {fileID: 3959432234490798043}
+      Value:
+        camera: {fileID: 3959432234490798043}
+        fovOffset: -15
     - Key: 2
-      Value: {fileID: 1005750761122721008}
+      Value:
+        camera: {fileID: 1005750761122721008}
+        fovOffset: -40
     - Key: 3
-      Value: {fileID: 6128150691619200766}
+      Value:
+        camera: {fileID: 6128150691619200766}
+        fovOffset: 0
     - Key: 4
-      Value: {fileID: 7237495087080277502}
+      Value:
+        camera: {fileID: 7237495087080277502}
+        fovOffset: 0
+  playerSettings: {fileID: 11400000, guid: 382d08ead9134394ab8207e6a171bd29, type: 2}
   defaultCamera: 0
   fovResetDuration: 1
   fovSetDuration: 0.5
