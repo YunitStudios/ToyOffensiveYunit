@@ -1,12 +1,18 @@
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Processors;
 
 public class InputManager : MonoBehaviour
 {
     public static InputManager Instance { get; private set; }
 
     [SerializeField] private InputActionAsset inputActions;
+    [SerializeField] private InputSettings settings;
+    [SerializeField] private InputActionReference lookAction;
+    [SerializeField] private GameSettings playerSettings;
+
+
 
 
     private void Awake()
@@ -70,6 +76,25 @@ public class InputManager : MonoBehaviour
         Cursor.visible = value;
         Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Confined;
     }
+    
+    public void SetDeadzone(float playerSettingsDeadzone)
+    {
+        settings.defaultDeadzoneMin = playerSettingsDeadzone;
+    }
+    
+    public void SetSensitivity(float playerSettingsSensitivity)
+    {
+        Vector2 sensRange = SettingsManager.Instance.SensitivityRange;
+        float value = Mathf.Lerp(sensRange.x, sensRange.y, playerSettingsSensitivity/100);
+        lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.x, value);
+        lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.y, value);
+    }
+
+    public void ToggleInverted(bool playerSettingsInverseLook)
+    {
+        lookAction.action.ApplyParameterOverride((InvertVector2Processor p) => p.invertX, playerSettingsInverseLook);
+        lookAction.action.ApplyParameterOverride((InvertVector2Processor p) => p.invertY, playerSettingsInverseLook);
+    }
 
     #region PlayerInput
     public Vector2 FrameMove { get; private set; }
@@ -83,7 +108,9 @@ public class InputManager : MonoBehaviour
     public bool CrouchDown { get; private set; }
     public bool CrouchHeld { get; private set; }
     private bool previousCrouchHeld;
-    public bool IsAiming { get; private set; }
+    public bool AimHeld { get; private set; }
+    private bool previousAimHeld;
+    private bool currentAimValue;
     public bool IsShooting { get; private set; }
     public Action OnShootAction;
     public bool IsReloading { get; private set; }
@@ -104,6 +131,7 @@ public class InputManager : MonoBehaviour
     {
         previousJumpHeld = JumpHeld;
         previousCrouchHeld = CrouchHeld;
+        previousAimHeld = currentAimValue;
 
         JumpDown = false;
         CrouchDown = false;
@@ -145,7 +173,15 @@ public class InputManager : MonoBehaviour
     
     private void OnAim(InputValue inputValue)
     {
-        IsAiming = inputValue.isPressed;
+        currentAimValue = inputValue.isPressed;
+        
+        if(!playerSettings.toggleADS)
+            AimHeld = currentAimValue;
+        else
+        {
+            if(currentAimValue && !previousAimHeld)
+                AimHeld = !AimHeld;
+        }
     }
     
     private void OnShoot(InputValue inputValue)
@@ -203,4 +239,6 @@ public class InputManager : MonoBehaviour
         PauseDown = inputValue.isPressed;
     }
     #endregion
+
+
 }
