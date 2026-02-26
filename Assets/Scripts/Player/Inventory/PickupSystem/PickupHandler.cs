@@ -25,17 +25,25 @@ public class PickupHandler : MonoBehaviour
                 {
                     case AmmoType.Primary:
                         GameManager.PlayerData.AdjustNormalAmmoCount(obj.value);
+                        NotifyPlayer("Primary Ammo", obj.value);
                         break;
                     case AmmoType.Secondary:
                         GameManager.PlayerData.AdjustSecondaryAmmoCount(obj.value);
+                        NotifyPlayer("Secondary Ammo", obj.value);
                         break;
                 }
                 break;
             case PickupObjectType.Health:
                 GameManager.PlayerData.SetCurrentHealth(GameManager.PlayerData.CurrentHealth + obj.value);
+                NotifyPlayer("Health", obj.value);
                 break;
         }
         
         obj.ConsumeObject();
+    }
+
+    private void NotifyPlayer(string type, int quantity)
+    {
+        NotificationUI.DisplayNotification?.Invoke(new NotificationUI.NotificationData("Picked up", $"{type} +{quantity}"));
     }
 }

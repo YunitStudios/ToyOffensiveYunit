@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05481bb579084dc4ae9a1e0612853cfb, type: 3}
   m_Name: Pickup Database SO
   m_EditorClassIdentifier: Assembly-CSharp::Player.Inventory.PickupSystem.PickupDatabaseSO
-  entries: []
+  entries:
+  - type: 1
+    ammoType: 0
+    prefab: {fileID: 7986153208416137095, guid: e446af4f6d640a744ae4ce27c16d446c, type: 3}
+    value: 25
