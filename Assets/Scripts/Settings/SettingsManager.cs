@@ -30,7 +30,7 @@ public class SettingsManager : MonoBehaviour
         }
 
         Instance = this;
-        DontDestroyOnLoad(gameObject);
+        // DontDestroyOnLoad(gameObject);
         
 
     }
@@ -49,6 +49,13 @@ public class SettingsManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        ApplySettingsToScene();
+    }
+    
+    [Button]
+    private void ResetSettings()
+    {
+        GameSettings.CopySettings(playerSettings, defaultSettings);
         ApplySettingsToScene();
     }
 

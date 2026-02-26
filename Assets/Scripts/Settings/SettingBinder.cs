@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Reflection;
 using TMPro;
+using UnityExtensions;
 
 public class SettingBinder : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class SettingBinder : MonoBehaviour
         }
 
         // Bind to the correct UI type
-        if (TryGetComponent(out Toggle toggle))
+        if (gameObject.TryGetComponentInChildren(out Toggle toggle))
         {
             toggle.isOn = (bool)fieldInfo.GetValue(settings);
             if(label)
@@ -36,20 +37,22 @@ public class SettingBinder : MonoBehaviour
                 SettingsManager.Instance.ApplySettingsToScene();
             });
         }
-        else if (TryGetComponent(out Slider slider))
+        else if (gameObject.TryGetComponentInChildren(out Slider slider))
         {
             slider.value = (float)fieldInfo.GetValue(settings);
+            string stringVal = slider.value.ToString( slider.wholeNumbers ? "0" : "0.00");
+            
             if(label)
-                label.text = slider.value.ToString("0.000");
+                label.text = stringVal;
             slider.onValueChanged.AddListener(val =>
             {
                 fieldInfo.SetValue(settings, val);
                 if(label)
-                    label.text = val.ToString("0.000");
+                    label.text = val.ToString( slider.wholeNumbers ? "0" : "0.00");
                 SettingsManager.Instance.ApplySettingsToScene();
             });
         }
-        else if (TryGetComponent(out TMP_Dropdown dropdown))
+        else if (gameObject.TryGetComponentInChildren(out TMP_Dropdown dropdown))
         {
             dropdown.value = (int)fieldInfo.GetValue(settings);
             if(label && dropdown.options.Count > dropdown.value)

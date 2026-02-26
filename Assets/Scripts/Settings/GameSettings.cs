@@ -18,14 +18,14 @@ public class GameSettings : ScriptableObject
     [JsonProperty] public int resolutionWidth = 1920;
     [JsonProperty] public int resolutionHeight = 1080;
     [JsonProperty] public bool fullScreen = true;
-    [JsonProperty] [Range(40,90)] public int fov = 60;
+    [JsonProperty] [Range(40,90)] public float fov = 60;
     [JsonProperty] [Range(0,100)] public float brightness = 50;
-    [JsonProperty] public QualitySettings quality = QualitySettings.Quality;
+    [JsonProperty] public QualitySettings quality = QualitySettings.Balanced;
     [JsonProperty] public bool motionBlur = false;
     
     [Header("Audio")]
-    [JsonProperty] [Range(0, 1)] public float masterVolume;
-    [JsonProperty] [Range(0, 1)] public float musicVolume;
+    [JsonProperty] [Range(0, 100)] public float masterVolume;
+    [JsonProperty] [Range(0, 100)] public float musicVolume;
     
     [Header("Accessibility")]
     [JsonProperty] public bool cameraShake = true;
@@ -61,11 +61,10 @@ public class GameSettings : ScriptableObject
 
 public enum QualitySettings
 {
+    High,
     Balanced,
-    Quality,
-    Performance,
-    UltraPerformance,
-    Off
+    Low,
+    Ugly
 }
 
 public enum ColorBlindType

@@ -59,7 +59,6 @@ public class PlayerCamera : MonoBehaviour
         if (liftGammaGain)
         {
             liftGammaGain.gamma.value = new Vector4(1,1,1,1-SettingsManager.Instance.GetBrightnessValue);
-            print(SettingsManager.Instance.GetBrightnessValue);
         }
 
     }
@@ -77,8 +76,6 @@ public class PlayerCamera : MonoBehaviour
         foreach (var camData in cameras.Values)
             camData.camera.Priority = 0;
         
-        print("start");
-
         ResetCamera();
     }
 
