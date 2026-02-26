@@ -163,9 +163,9 @@ public class Weapon
         // determine which ammo to use
         int availableAmmo;
 
-        if (WeaponData.SpecialAmmo)
+        if (WeaponData.SecondaryAmmo)
         {
-            availableAmmo = playerData.SpecialAmmoCount;
+            availableAmmo = playerData.SecondaryAmmoCount;
         }
         else
         {
@@ -185,9 +185,9 @@ public class Weapon
             
             CurrentAmmoInMag = WeaponData.MagSize;
             
-            if (WeaponData.SpecialAmmo)
+            if (WeaponData.SecondaryAmmo)
             {
-                playerData.AdjustSpecialAmmoCount(-ammoNeeded);;
+                playerData.AdjustSecondaryAmmoCount(-ammoNeeded);;
             }
             else
             {
@@ -199,9 +199,9 @@ public class Weapon
         {
             CurrentAmmoInMag = availableAmmo;
 
-            if (WeaponData.SpecialAmmo)
+            if (WeaponData.SecondaryAmmo)
             {
-                playerData.SetSpecialAmmoCount(0);
+                playerData.SetSecondaryAmmoCount(0);
             }
             else
             {
@@ -220,9 +220,9 @@ public class Weapon
         // determine which ammo to use
         int availableAmmo;
 
-        if (WeaponData.SpecialAmmo)
+        if (WeaponData.SecondaryAmmo)
         {
-            availableAmmo = aiInventory.GetSpecialAmmoCount();
+            availableAmmo = aiInventory.GetSecondaryAmmoCount();
         }
         else
         {
