@@ -22,12 +22,14 @@ public class SummaryScreenUI : MonoBehaviour
         string scoreCounts = "";
         foreach (var scoreType in scoreTracker.RuntimeScoreCounts)
         {
-            int scoreValue = scoreTracker.GetScoreValue(scoreType.Key, scoreType.Value);
+            int countValue = scoreType.Value.count;
+            int scoreValue = scoreType.Value.score;
             string totalScoreString = scoreValue > 0 ? "" + scoreValue : "";
             string scoreTypeString = scoreType.Key.ToString();
             // Add spaces between words
             scoreTypeString = System.Text.RegularExpressions.Regex.Replace(scoreTypeString, "(\\B[A-Z])", " $1");
-            scoreCounts += $"x{scoreType.Value} {scoreTypeString} ({totalScoreString})\n";
+            string countString = countValue > 0 ? $"x{countValue} " : "";
+            scoreCounts += $"{countString}{scoreTypeString} (+{totalScoreString})\n";
         }
         scoreCountsText.text = scoreCounts;
         

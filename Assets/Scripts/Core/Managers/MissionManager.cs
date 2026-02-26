@@ -46,9 +46,6 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onMissionEnd;
     [SerializeField] private VoidEventChannelSO onBonusObjectiveComplete;
 
-    [Title("\n<b><color=#8880ff>Input Callbacks", 15, 5, false)] 
-    [SerializeField] private VoidEventChannelSO onLevelFail;
-
     public bool IsMissionActive { get; private set; }
     
     
