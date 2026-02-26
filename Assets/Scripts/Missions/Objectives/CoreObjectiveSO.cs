@@ -71,7 +71,7 @@ public abstract class CoreObjectiveSO : ScriptableObject
 
     public void CompleteObjective()
     {
-        if (Failed)
+        if (Failed || Completed)
             return;
         
         Completed = true;
@@ -83,6 +83,9 @@ public abstract class CoreObjectiveSO : ScriptableObject
 
     public void FailObjective()
     {
+        if (Failed || Completed)
+            return;
+        
         Failed = true;
         Completed = false;
         

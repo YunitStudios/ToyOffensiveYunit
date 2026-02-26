@@ -11,11 +11,13 @@ public class LeaderboardHandler : MonoBehaviour
     [Tooltip("Input field for the player's name")]
     [SerializeField] private TMP_InputField inputName;
 
-    [Tooltip("Input field for the player's score")]
-    [SerializeField] private TMP_InputField inputScore;
+    [Tooltip("Text  for the player's score")]
+    [SerializeField] private TMP_Text inputScore;
 
     [Tooltip("The content container inside the scroll view where score entries will be added")]
     [SerializeField] private Transform scrollableContent;
+
+    [SerializeField] private GameObject submitWindow;
 
     [Header("Prefab")]
     [SerializeField] private GameObject scoreEntryPrefab;
@@ -38,8 +40,15 @@ public class LeaderboardHandler : MonoBehaviour
         StartCoroutine(LoadScoresCoroutine());
     }
 
+    public void StartSubmitScore()
+    {
+        submitWindow.SetActive(true);
+        inputScore.text = ""+GameManager.ScoreTracker.CurrentScore;
+    }
+
     public void UploadScore()
     {
+        submitWindow.SetActive(false);
         // post request to the db at https://katie.games/custom-html/soldiers/upload_score.php
         StartCoroutine(UploadScoreCoroutine(inputName.text, inputScore.text != "" ? int.Parse(inputScore.text) : 0));
     }

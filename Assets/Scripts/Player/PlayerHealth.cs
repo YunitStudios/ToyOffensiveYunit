@@ -14,7 +14,6 @@ public class PlayerHealth : Health, IDamageable
 
     [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)] 
     [SerializeField] private VoidEventChannelSO onMissionFail;
-    [SerializeField] private VoidEventChannelSO onStopLevel;
 
     private Tween deathTween;
 
@@ -53,6 +52,5 @@ public class PlayerHealth : Health, IDamageable
     private void DieFinish()
     {
         onMissionFail?.Invoke();
-        onStopLevel?.Invoke();
     }
 }

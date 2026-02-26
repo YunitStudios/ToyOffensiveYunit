@@ -11,7 +11,8 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     [HideInInspector] public float MassKG;
     [HideInInspector] public LayerMask Shootable;
 
-    [Header("Output Events")]
+    [Header("Output Events")] 
+    [SerializeField] private VoidEventChannelSO onBulletHitEnemy;
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     
     // constants
@@ -63,6 +64,8 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                             onShowHitmarker.Invoke();
                         }
                         // onShowHitmarker.Invoke();
+                        
+                        onBulletHitEnemy?.Invoke();
                     }
                 }
 

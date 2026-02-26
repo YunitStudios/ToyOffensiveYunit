@@ -13,35 +13,29 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataSO
   maxHealth: 100
-  startingPrimaryWeapon: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
-  startingSecondaryWeapon: {fileID: 11400000, guid: c8cb7fec281bd414aa048ef0ac78d249, type: 2}
+  <StartingPrimaryWeapon>k__BackingField: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
+  <StartingSecondaryWeapon>k__BackingField: {fileID: 11400000, guid: 3b1a10df68d91a349a27277e150670ce, type: 2}
+  StartingPrimaryAttachment: {fileID: 0}
+  StartingSecondaryAttachment: {fileID: 0}
   maxNormalAmmo: 300
   maxSpecialAmmo: 100
-  primaryAttachments:
-  - {fileID: 11400000, guid: 023594a328ff7dd42aca784c8ab6ada5, type: 2}
-  secondaryAttachments:
-  - {fileID: 11400000, guid: 11c5c222d1636ae45aa77f701bd07929, type: 2}
   weaponSwapTime: 0.5
   startingThrowable: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
   maxThrowableAmount: 1
   <CurrentWeaponSlot>k__BackingField: 0
   <PrimaryWeapon>k__BackingField:
     WeaponData: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
-    currentAmmoInMag: 360
+    currentAmmoInMag: 23
     FirePoint: {fileID: 0}
-    AttachmentSOs:
-    - {fileID: 11400000, guid: 023594a328ff7dd42aca784c8ab6ada5, type: 2}
+    AttachmentSO: {fileID: 0}
   <SecondaryWeapon>k__BackingField:
-    WeaponData: {fileID: 11400000, guid: c8cb7fec281bd414aa048ef0ac78d249, type: 2}
-    currentAmmoInMag: 30
+    WeaponData: {fileID: 11400000, guid: 3b1a10df68d91a349a27277e150670ce, type: 2}
+    currentAmmoInMag: 5
     FirePoint: {fileID: 0}
-    AttachmentSOs:
-    - {fileID: 11400000, guid: 11c5c222d1636ae45aa77f701bd07929, type: 2}
+    AttachmentSO: {fileID: 0}
   <StartingThrowable>k__BackingField: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
-  <PrimaryAttachments>k__BackingField:
-  - {fileID: 11400000, guid: 023594a328ff7dd42aca784c8ab6ada5, type: 2}
-  <SecondaryAttachments>k__BackingField:
-  - {fileID: 11400000, guid: 11c5c222d1636ae45aa77f701bd07929, type: 2}
+  <PrimaryAttachment>k__BackingField: {fileID: 0}
+  <SecondaryAttachment>k__BackingField: {fileID: 0}
   <NormalAmmoCount>k__BackingField: 300
   <SpecialAmmoCount>k__BackingField: 100
   <ThrowableCount>k__BackingField: 1

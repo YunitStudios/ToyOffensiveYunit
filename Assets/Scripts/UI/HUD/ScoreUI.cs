@@ -46,7 +46,7 @@ public class ScoreUI : MonoBehaviour
 
         fader.Play(CanvasFader.FadeType.Full);
 
-        Tween.PunchScale(valueText.transform, new ShakeSettings(Vector3.one * 2, 0.2f, 1));
+        Tween.PunchScale(valueText.transform, new ShakeSettings(Vector3.one * 2, 0.2f, 1, true, Ease.Default, 0, 1, 0, 0, true));
 
         valueText.text = "+" + NumberUtility.FormatNumber(currentScore);
 

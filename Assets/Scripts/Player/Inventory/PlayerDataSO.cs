@@ -7,7 +7,8 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerData")]
 public class PlayerDataSO : ScriptableObject
 {
-    [Header("Player Stats")]
+    [Header("Player Stats")] 
+    [field: SerializeField] public string PlayerName;
     [SerializeField] private float maxHealth;
     public float MaxHealth => maxHealth;
 

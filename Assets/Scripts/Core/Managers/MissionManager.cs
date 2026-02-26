@@ -44,9 +44,9 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onMissionStart;
     [SerializeField] private VoidEventChannelSO onMissionComplete;
     [SerializeField] private VoidEventChannelSO onMissionEnd;
+    [SerializeField] private VoidEventChannelSO onBonusObjectiveComplete;
 
-    [Title("\n<b><color=#8880ff>Input Callbacks", 15, 5, false)] 
-    [SerializeField] private VoidEventChannelSO onLevelFail;
+    public bool IsMissionActive { get; private set; }
     
     
     // Notes:
@@ -61,6 +61,11 @@ public class MissionManager : MonoBehaviour
     
     private void ManagerDestroy()
     {
+        if (Instance != this)
+            return;
+        
+        if(IsMissionActive)
+            EndMission();
     }
 
     public void StartMission()
@@ -68,15 +73,25 @@ public class MissionManager : MonoBehaviour
         currentMission.Init();
 
         currentMission.MainObjective.OnObjectiveCompleted += CompleteMission;
+        foreach(var obj in currentMission.BonusObjectives)
+            obj.OnObjectiveCompleted += CompleteBonus;
         
         onMissionStart?.Invoke();
         
         onTeleportPlayer?.Invoke(currentMission.GetStartPosition());
+
+        IsMissionActive = true;
     }
 
     public void EndMission()
     {
+        print("mission end");
+        
         currentMission.Clear();
+        
+        currentMission.MainObjective.OnObjectiveCompleted -= CompleteMission;
+        foreach(var obj in currentMission.BonusObjectives)
+            obj.OnObjectiveCompleted -= CompleteBonus;
         
         // Run fail trigger on any uncompleted Trigger objectives without fail trigger
         // E.G. Complete a mission without triggering an alarm
@@ -93,12 +108,19 @@ public class MissionManager : MonoBehaviour
         }
         
         onMissionEnd?.Invoke();
+
+        IsMissionActive = false;
     }
 
     private void CompleteMission()
     {
         onMissionComplete?.Invoke();
 
+    }
+
+    private void CompleteBonus()
+    {
+        onBonusObjectiveComplete?.Invoke();
     }
 
     private void FailMission()
