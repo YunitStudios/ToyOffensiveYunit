@@ -1,2 +1,13 @@
-Wwise name,Type,Description
-PlayTestSound,Event,Plays the test sound
+Wwise name,Type,Description,MaxHearingRadius meters,"Arbitrary Loudness 1-10. 1 being a footstep, 10 being a gunshot right next to your ear"
+PlayTestSound,Event,Plays the test sound,100,1
+DefaultFootstep,Event,Generic boot footstep,20,2
+FabricFootstep,Event,Footstep on fabric,15,1
+MetalFootstep,Event,Footstep on metal,25,2
+WootFootstep,Event,Footstep on wood,20,2
+Rustle,Event,Generic clothing rustle,0,0
+PistolShot,Event,Shoot the pistol,65,6
+RifleShot,Event,Shoot the rifle,85,8
+SniperShot,Event,Shoot the sniper,100,10
+PistolReload,Event,Reload the pistol,15,3
+RifleReload,Event,Reload the rifle,15,3
+SniperReload,Event,Reload the sniper,15,3
