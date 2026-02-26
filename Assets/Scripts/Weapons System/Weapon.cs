@@ -22,22 +22,22 @@ public class Weapon
     public WeaponSpread WeaponSpread;
     public Transform FirePoint;
 
-    public List<AttachmentDataSO> AttachmentSOs;
+    public AttachmentDataSO AttachmentSO;
 
 
     public Action OnAmmoChanged;
     
     // Constructor
-    public Weapon(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    public Weapon(WeaponDataSO weaponData, AttachmentDataSO attachment)
     {
-        Initialize(weaponData, attachments);
+        Initialize(weaponData, attachment);
     }
     
-    public void Initialize(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    public void Initialize(WeaponDataSO weaponData, AttachmentDataSO attachment)
     {
         
         // load attachments
-        LoadAttachments(weaponData, attachments);
+        LoadAttachments(weaponData, attachment);
         
         WeaponData = weaponData;
         FirePoint = LocateFirePoint(weaponData.WeaponPrefab);
@@ -52,29 +52,24 @@ public class Weapon
         );
     }
 
-    private void LoadAttachments(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    private void LoadAttachments(WeaponDataSO weaponData, AttachmentDataSO attachment)
     {
-        if (weaponData == null || attachments == null) return;
+        if (weaponData == null || attachment == null) return;
 
-        foreach (AttachmentDataSO attachment in attachments)
+        foreach (StatModifier mod in attachment.Modifiers)
         {
-            if (attachment == null) continue;
+            // skip if modifier is for a different weapon
+            if (!string.IsNullOrEmpty(mod.WeaponClassName) &&
+                mod.WeaponClassName != weaponData.ClassName)
+                continue;
 
-            foreach (StatModifier mod in attachment.Modifiers)
-            {
-                // skip if modifier is for a different weapon
-                if (!string.IsNullOrEmpty(mod.WeaponClassName) &&
-                    mod.WeaponClassName != weaponData.ClassName)
-                    continue;
-
-                ApplyModifier(weaponData, mod);
-            }
-
-            if (!weaponData.AttachmentSOs.Contains(attachment))
-                weaponData.AttachmentSOs.Add(attachment);
+            ApplyModifier(weaponData, mod);
         }
+
+        if (!weaponData.AttachmentSOs.Contains(attachment))
+            weaponData.AttachmentSOs.Add(attachment);
         
-        AttachmentSOs = new List<AttachmentDataSO>(attachments);
+        AttachmentSO = attachment;
     }
 
     private void ApplyModifier(WeaponDataSO weaponData, StatModifier mod)

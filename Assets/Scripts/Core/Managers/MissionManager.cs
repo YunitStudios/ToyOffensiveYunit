@@ -71,7 +71,7 @@ public class MissionManager : MonoBehaviour
         
         onMissionStart?.Invoke();
         
-        onTeleportPlayer?.Invoke(currentMission.GetStartPosition);
+        onTeleportPlayer?.Invoke(currentMission.GetStartPosition());
     }
 
     public void EndMission()
