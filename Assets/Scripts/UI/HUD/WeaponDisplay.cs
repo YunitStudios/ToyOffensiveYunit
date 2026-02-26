@@ -42,7 +42,7 @@ public class WeaponDisplay : MonoBehaviour
     {
         Weapon currentWeapon = GameManager.PlayerData.CurrentWeapon;
         currentAmmoObj.text = ""+currentWeapon.CurrentAmmoInMag;
-        maxAmmoObj.text = "" + (currentWeapon.WeaponData.SpecialAmmo ? GameManager.PlayerData.SpecialAmmoCount : GameManager.PlayerData.NormalAmmoCount);
+        maxAmmoObj.text = "" + (currentWeapon.WeaponData.SecondaryAmmo ? GameManager.PlayerData.SecondaryAmmoCount : GameManager.PlayerData.NormalAmmoCount);
     }
 
     private void UpdateWeapon()

@@ -26,8 +26,8 @@ public class WeaponDataSO : ScriptableObject, ILoadout
 
     [Header("Reloading")]
     public int MagSize;
-    [Tooltip("True or false if it uses special ammo type")]
-    public bool SpecialAmmo;
+    [Tooltip("True or false if it uses secondary ammo type")]
+    public bool SecondaryAmmo;
     [Tooltip("Time taken to reload the weapon in seconds, needs to be the same length as the animation")]
     public float ReloadTime;
 
@@ -81,7 +81,7 @@ public class WeaponDataSO : ScriptableObject, ILoadout
         SupportedFireModes = other.SupportedFireModes;
         CurrentFireMode = other.CurrentFireMode;
         MagSize = other.MagSize;
-        SpecialAmmo = other.SpecialAmmo;
+        SecondaryAmmo = other.SecondaryAmmo;
         ReloadTime = other.ReloadTime;
         BaseSpread = other.BaseSpread;
         HalfSpread = other.HalfSpread;

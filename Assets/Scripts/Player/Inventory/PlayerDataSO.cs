@@ -17,7 +17,7 @@ public class PlayerDataSO : ScriptableObject
     [field: SerializeField] public AttachmentDataSO StartingPrimaryAttachment;
     [field: SerializeField] public AttachmentDataSO StartingSecondaryAttachment;
     [SerializeField] private int maxNormalAmmo = 300;
-    [SerializeField] private int maxSpecialAmmo = 100;
+    [SerializeField] private int maxSecondaryAmmo = 100;
     [SerializeField] private float weaponSwapTime = 0.5f;
 
     [Header("Throwables data")]
@@ -41,7 +41,7 @@ public class PlayerDataSO : ScriptableObject
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int NormalAmmoCount { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
-    public int SpecialAmmoCount { get; private set; }
+    public int SecondaryAmmoCount { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int ThrowableCount { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
@@ -107,12 +107,12 @@ public class PlayerDataSO : ScriptableObject
         OnAmmoCountChanged?.Invoke();
     }
     public void AdjustNormalAmmoCount(int delta) => SetNormalAmmoCount(NormalAmmoCount + delta);
-    public void SetSpecialAmmoCount(int value)
+    public void SetSecondaryAmmoCount(int value)
     {
-        SpecialAmmoCount = Mathf.Clamp(value, 0, maxSpecialAmmo);
+        SecondaryAmmoCount = Mathf.Clamp(value, 0, maxSecondaryAmmo);
         OnAmmoCountChanged?.Invoke();
     }
-    public void AdjustSpecialAmmoCount(int delta) => SetSpecialAmmoCount(SpecialAmmoCount + delta);
+    public void AdjustSecondaryAmmoCount(int delta) => SetSecondaryAmmoCount(SecondaryAmmoCount + delta);
     public void SetThrowableCount(int value) 
     {
         ThrowableCount = Mathf.Clamp(value, 0, maxThrowableAmount);
@@ -149,7 +149,7 @@ public class PlayerDataSO : ScriptableObject
         SetSecondaryAttachment(StartingSecondaryAttachment);
         SetThrowables(startingThrowable);
         SetNormalAmmoCount(maxNormalAmmo);
-        SetSpecialAmmoCount(maxSpecialAmmo);
+        SetSecondaryAmmoCount(maxSecondaryAmmo);
         SetThrowableCount(maxThrowableAmount);
         CameraType = PlayerCamera.CameraType.Main;
         CurrentHealth = MaxHealth;

@@ -7,7 +7,7 @@ public class AIDataSO : ScriptableObject
     [Header("Weapons data")]
     [SerializeField] private List<WeaponDataSO> startingPrimaryWeapons;
     [SerializeField] private int maxNormalAmmo = 300;
-    [SerializeField] private int maxSpecialAmmo = 100;
+    [SerializeField] private int maxSecondaryAmmo = 100;
     
     [Header("Throwables data")]
     [SerializeField] private ThrowableDataSO startingThrowable;
@@ -15,7 +15,7 @@ public class AIDataSO : ScriptableObject
 
     public List<WeaponDataSO> StartingPrimaryWeapons => startingPrimaryWeapons;
     public int MaxNormalAmmo => maxNormalAmmo;
-    public int MaxSpecialAmmo => maxSpecialAmmo;
+    public int MaxSecondaryAmmo => maxSecondaryAmmo;
     
     public ThrowableDataSO StartingThrowable => startingThrowable;
     public int MaxThrowableAmount => maxThrowableAmount;
