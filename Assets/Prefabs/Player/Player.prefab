@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2987020068191397963}
   - component: {fileID: 4040392277983441542}
   - component: {fileID: 5576340229021815528}
+  - component: {fileID: 3982826205419482273}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -298,7 +299,6 @@ MonoBehaviour:
   playerAnimator: {fileID: 333144685495156007}
   deathDelay: 2
   onMissionFail: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
-  onStopLevel: {fileID: 11400000, guid: 1ff5ec727636ee444a2097ecf4bbe0e4, type: 2}
   playerMovement: {fileID: 386950647050592367}
 --- !u!143 &2115216171671767547
 CharacterController:
@@ -384,6 +384,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!114 &3982826205419482273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2678b221f410644b84dd1fec8d8edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupHandler
+  pickupTag: Pickup
 --- !u!1 &3109495862477369271
 GameObject:
   m_ObjectHideFlags: 0

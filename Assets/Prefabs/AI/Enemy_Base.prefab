@@ -84,7 +84,7 @@ MonoBehaviour:
     WeaponData: {fileID: 0}
     currentAmmoInMag: 0
     FirePoint: {fileID: 0}
-    AttachmentSOs: []
+    AttachmentSO: {fileID: 0}
   tracerPrefab: {fileID: 1779594140215910652, guid: f4d1a7441a64b8543bc8ae92e32c70f6, type: 3}
   tracerSpeed: 200
   physicsProjectilePrefab: {fileID: 1779594140215910652, guid: 99236bb3e982031448498db290581e9f, type: 3}
@@ -521,6 +521,7 @@ GameObject:
   - component: {fileID: 3479961306864216117}
   - component: {fileID: 6840494681427744980}
   - component: {fileID: 9073887928814385525}
+  - component: {fileID: 5169064566367638864}
   m_Layer: 8
   m_Name: Enemy_Base
   m_TagString: Enemy
@@ -647,6 +648,7 @@ MonoBehaviour:
   onTakeDamage: {fileID: 0}
   onDamageTaken: {fileID: 0}
   onHealthChanged: {fileID: 0}
+  onHealthChangedDifference: {fileID: 0}
   onDie: {fileID: 11400000, guid: ca71c88db333ccb48b1182c30837a49a, type: 2}
   OnDieUnity:
     m_PersistentCalls:
@@ -716,7 +718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc81605fc1bcae9419113dc6784b0028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIDetection
-  visionIncreaseRate: 50
+  visionMultiplier: 50
   hearingMultiplier: 20
   detectionDropPerSecond: 10
   engageThreshold: 100
@@ -725,7 +727,20 @@ MonoBehaviour:
   investigateThreshold: 30
   isSearching: 0
   alertText: {fileID: 8662218175530896326}
-  alertDisplayTime: 1.5
+--- !u!114 &5169064566367638864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7081199409497347268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5362b01fb2db42c29895b16ed831884a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Player.Inventory.PickupSystem.PickupSpawner
+  database: {fileID: 11400000, guid: 7e421f99ea8fc354ea2bce30157b21d5, type: 2}
+  navSampleRadius: 2
 --- !u!1001 &1645429609514457907
 PrefabInstance:
   m_ObjectHideFlags: 0
