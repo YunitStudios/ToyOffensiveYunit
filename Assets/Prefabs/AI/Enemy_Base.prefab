@@ -607,6 +607,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: 0
   agent: {fileID: 7845023440399694822}
+  debugState: 
   health: {fileID: 0}
   waypoints: []
   commander: {fileID: 0}
@@ -639,7 +640,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 814b12307e009034c90716a6997440b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
-  maxHealth: 1
+  maxHealth: 100
   shouldRegen: 1
   regenRate: 5
   regenMaxWait: 5
@@ -715,13 +716,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc81605fc1bcae9419113dc6784b0028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIDetection
-  visionIncreaseRate: 50
+  visionMultiplier: 50
   hearingMultiplier: 20
   detectionDropPerSecond: 10
   engageThreshold: 100
   disengageThreshold: 50
   detectionPercent: 0
   investigateThreshold: 30
+  isSearching: 0
   alertText: {fileID: 8662218175530896326}
 --- !u!1001 &1645429609514457907
 PrefabInstance:

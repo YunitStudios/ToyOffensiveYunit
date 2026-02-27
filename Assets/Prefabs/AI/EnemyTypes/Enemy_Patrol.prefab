@@ -50,7 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7081199409497347268, guid: d941f8c25071b75408f4976baeb63121, type: 3}
       propertyPath: m_Name
-      value: AI_Enemy
+      value: Enemy_Patrol
+      objectReference: {fileID: 0}
+    - target: {fileID: 7957067169057820186, guid: d941f8c25071b75408f4976baeb63121, type: 3}
+      propertyPath: maxHealth
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
