@@ -114,6 +114,8 @@ public class PlayerMovement : StateMachine
     
     private float defaultColliderHeight;
     private InputAxis.RecenteringSettings originalCameraRecentering;
+
+    private bool movementFrozen;
     
     // Public Properties
     public bool IsGrounded => CheckOnGround();
@@ -164,6 +166,11 @@ public class PlayerMovement : StateMachine
 
     protected override void Update()
     {
+        if (movementFrozen)
+        {
+            return;
+        }
+        
         base.Update();
         
         // Rotation when no rigidbody
@@ -271,6 +278,11 @@ public class PlayerMovement : StateMachine
     public void ChangeRadiusDefault()
     {
         ChangeRadius(playerRadius);
+    }
+
+    public void SetMovementFrozen(bool isFrozen)
+    {
+        movementFrozen = isFrozen;
     }
 
     private void FrameLook()

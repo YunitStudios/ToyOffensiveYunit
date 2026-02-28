@@ -1,7 +1,7 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 public class AIStateMachine : MonoBehaviour
 {
@@ -77,6 +77,10 @@ public class AIStateMachine : MonoBehaviour
     
     [HideInInspector] public static List<AIStateMachine> TargetsAndGuards = new List<AIStateMachine>();
 
+    public static Action<bool> OnFreezeAllAI;
+    private bool isFrozen;
+    public bool IsFrozen => isFrozen;
+
     // Sets starting states for AI 
     void Start()
     {
@@ -97,6 +101,12 @@ public class AIStateMachine : MonoBehaviour
     void Update()
     {
         debugState = currentState.GetType().Name;
+        
+        if (isFrozen)
+        {
+            return;
+        }
+        
         CheckForThreats();
         
         currentState?.Execute();
@@ -392,6 +402,7 @@ public class AIStateMachine : MonoBehaviour
 
     void OnEnable()
     {
+        OnFreezeAllAI += HandleFreeze;
         if (Type == EnemyType.Guard || Type == EnemyType.Target)
         {
             TargetsAndGuards.Add(this);
@@ -400,9 +411,16 @@ public class AIStateMachine : MonoBehaviour
 
     void OnDisable()
     {
+        OnFreezeAllAI -= HandleFreeze;
         if (TargetsAndGuards.Contains(this))
         {
             TargetsAndGuards.Remove(this);
         }
+    }
+
+    void HandleFreeze(bool frozen)
+    {
+        isFrozen = frozen;
+        agent.isStopped = frozen;
     }
 }

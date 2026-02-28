@@ -100,6 +100,8 @@ public class InputManager : MonoBehaviour
     public bool SecondaryWeapon { get; private set; }
     public Action OnSecondaryWeaponAction;
 
+    public Action OnGloryKillAction;
+
     private void PlayerInputsEndFrame()
     {
         previousJumpHeld = JumpHeld;
@@ -192,6 +194,14 @@ public class InputManager : MonoBehaviour
         
         if(IsDebug && OnDebug != null)
             OnDebug.Invoke();
+    }
+
+    private void OnGloryKill(InputValue inputValue)
+    {
+        if (inputValue.isPressed)
+        {
+            OnGloryKillAction?.Invoke();
+        }
     }
     #endregion
 
