@@ -20,7 +20,7 @@
                     "type": "Value",
                     "id": "1cf86a22-90d8-4d5f-972a-823199a32dd2",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "InvertVector2(invertX=false,invertY=false),ScaleVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -376,26 +376,15 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "4e40b60a-c0d9-4bf1-8ee6-f63f28368f97",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "36d32ffc-c8a1-47ab-8757-9f4cbce40dbe",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Throw",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "4609a9db-a906-441d-83b9-252e20808b54",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Throw",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",

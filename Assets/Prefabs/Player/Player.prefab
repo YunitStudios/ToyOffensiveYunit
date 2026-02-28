@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2987020068191397963}
   - component: {fileID: 4040392277983441542}
   - component: {fileID: 5576340229021815528}
+  - component: {fileID: 3982826205419482273}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -108,6 +109,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     slideCooldown: 1
   climbingSettings:
+    <RandomField>k__BackingField: 0
     climbableLayer:
       serializedVersion: 2
       m_Bits: 64
@@ -187,7 +189,7 @@ MonoBehaviour:
     climbSprintLeapStaminaPadding: 0.1
     climbStaminaUI: {fileID: 5515616672219483051}
     climbStaminaBar: {fileID: 10641581326834246}
-    maxClimbStamina: 7
+    maxClimbStamina: 82.02
     climbStaminaDrainRate: 1
     climbStaminaRegenRate: 2
     climbStaminaFadeDuration: 0.5
@@ -255,6 +257,7 @@ MonoBehaviour:
     parachutingPlayerRadius: 0.66
   lookSensitivity: 1
   onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
+  onTeleportPlayer: {fileID: 11400000, guid: d19670ba62e52ec4da7a3f19fdda0c82, type: 2}
 --- !u!114 &8609337210801193703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,6 +290,7 @@ MonoBehaviour:
   onTakeDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onDamageTaken: {fileID: 11400000, guid: e70044af65091c545b2d38e97e6a0230, type: 2}
   onHealthChanged: {fileID: 11400000, guid: 012165d8166761545af3b264d54d7cb5, type: 2}
+  onHealthChangedDifference: {fileID: 11400000, guid: 7b7f991059942984ba680b0f33bc0f9a, type: 2}
   onDie: {fileID: 11400000, guid: 714073130b523f14ebdefe36c6f15884, type: 2}
   OnDieUnity:
     m_PersistentCalls:
@@ -295,7 +299,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 333144685495156007}
   deathDelay: 2
   onMissionFail: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
-  onStopLevel: {fileID: 11400000, guid: 1ff5ec727636ee444a2097ecf4bbe0e4, type: 2}
+  playerMovement: {fileID: 386950647050592367}
 --- !u!143 &2115216171671767547
 CharacterController:
   m_ObjectHideFlags: 0
@@ -380,6 +384,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!114 &3982826205419482273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2678b221f410644b84dd1fec8d8edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupHandler
+  pickupTag: Pickup
 --- !u!1 &3109495862477369271
 GameObject:
   m_ObjectHideFlags: 0
@@ -480,6 +497,7 @@ MonoBehaviour:
   onShowHitmarker: {fileID: 11400000, guid: 2bfcc4b2ae03dae43854f2d52d70e182, type: 2}
   onUpdateSpread: {fileID: 11400000, guid: 6e2e77c3c63300b4c9ec1e86f4fb61ca, type: 2}
   onUpdateReload: {fileID: 11400000, guid: 0aa7dcf917e652e42b8bdc0192c0f83b, type: 2}
+  onWeaponFired: {fileID: 11400000, guid: 108d26a63c535c9488289411aa622ba3, type: 2}
   playerMovement: {fileID: 386950647050592367}
 --- !u!1 &5754689768074386340
 GameObject:
@@ -695,6 +713,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.42
       objectReference: {fileID: 0}
+    - target: {fileID: 4660429553844770702, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: volumeSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: ab9cf1474333ea24486a93d8e758d8f2, type: 2}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 5.684342e-14

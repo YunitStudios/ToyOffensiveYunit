@@ -1,5 +1,6 @@
 using System;
 using EditorAttributes;
+using PrimeTween;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -16,19 +17,21 @@ public class EndScreenPopup : Popup
         winContent.SetActive(false);
     }
 
+    // Wait a frame to make sure other logic completes first
+    
     [Button]
     public void Fail()
     {
-        Display();
         failContent.SetActive(true);
         winContent.SetActive(false);
+        Tween.Delay(0.0001f, Display);
     }
     [Button]
     public void Win()
     {
-        Display();
         failContent.SetActive(false);
         winContent.SetActive(true);
+        Tween.Delay(0.0001f, Display); 
     }
 
 }
