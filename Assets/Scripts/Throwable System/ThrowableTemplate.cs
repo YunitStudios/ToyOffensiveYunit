@@ -55,4 +55,5 @@ public class ThrowableTemplate : MonoBehaviour, IDamageSource
     {
         
     }
+    public Vector3 damageSourcePos { get; set; }
 }

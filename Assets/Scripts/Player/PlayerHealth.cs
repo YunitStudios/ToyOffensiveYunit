@@ -1,6 +1,7 @@
 using System;
 using EditorAttributes;
 using PrimeTween;
+using UI.HUD;
 using UnityEngine;
 
 public class PlayerHealth : Health, IDamageable
@@ -33,6 +34,7 @@ public class PlayerHealth : Health, IDamageable
 
     public void TakeDamage(IDamageSource source, float damage)
     {
+        DirectionalDamageUI.SpawnMarker?.Invoke(source.damageSourcePos);
         DealDamage(damage);
     }
 
