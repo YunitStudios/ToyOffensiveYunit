@@ -23,6 +23,8 @@ public class AIController : MonoBehaviour, IDamageable
 
     public static Action<IObjectiveTarget> OnEnemyKilled;
     
+    private bool isFrozen;
+    
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
@@ -49,6 +51,12 @@ public class AIController : MonoBehaviour, IDamageable
     
     public void TakeDamage(IDamageSource source, float damage)
     {
+        // prevents squad being alerted during glory kill
+        if (stateMachine.IsFrozen)
+        {
+            return;
+        }
+        
         if(source != null)
             RecentDamageSource = source;
         
