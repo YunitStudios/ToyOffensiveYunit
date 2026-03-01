@@ -52,6 +52,8 @@ public class WeaponsSystem : MonoBehaviour
     [SerializeField] private ReloadPromptUI reloadPromptUI;
     private bool isReloading = false;
 
+    private bool weaponFrozen;
+
     private void Start()
     {
         InputManager.Instance.OnReloadAction += Reload;
@@ -67,7 +69,7 @@ public class WeaponsSystem : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.PlayerData.IsAlive)
+        if (GameManager.PlayerData.IsAlive && !weaponFrozen)
         {
             // Check for weapon switch
             WeaponSwitching();
@@ -219,6 +221,11 @@ public class WeaponsSystem : MonoBehaviour
 
     private void Reload()
     {
+        if (weaponFrozen)
+        {
+            return;
+        }
+        
         if (ReloadProgress >= 1)
         {
             isReloading = true;
@@ -370,5 +377,15 @@ public class WeaponsSystem : MonoBehaviour
     public class Bullet : IDamageSource
     {
         public Transform transform => null;
+    }
+
+    public void SetWeaponFrozen(bool isFrozen)
+    {
+        weaponFrozen =  isFrozen;
+        if (isFrozen)
+        {
+            aiming = false;
+            playerCameraSystem.ResetCamera();
+        }
     }
 }
