@@ -190,9 +190,13 @@ public class PlayerMovement : StateMachine
         FrameLook();
         
         ApplyVelocity();
-        
-        if(GameManager.PlayerData)
+
+        if (GameManager.PlayerData)
+        {
             GameManager.PlayerData.StorePosition(transform.position);
+            GameManager.PlayerData.StoreRotationRootTransform(rotationRoot);
+        }
+           
     }
     
 

@@ -9,7 +9,7 @@ namespace UI.HUD
         [SerializeField] private GameObject markerPrefab;
         [SerializeField] private Transform markerParent;
         [SerializeField] private float markerShowTime;
-        [SerializeField] private Transform player;
+        private Transform player;
 
         [Header("Grouping Settings")]
         [SerializeField] private int sectorCount = 36; // 36 sectors = 10 degrees each
@@ -32,6 +32,7 @@ namespace UI.HUD
 
         void SpawnMarkerUI(Vector3 attackerPosition)
         {
+            player = GameManager.PlayerData.RotationRootTransform;
             if (player == null) return;
 
             // 1. Calculate the angle exactly like your Marker does

@@ -49,6 +49,7 @@ public class PlayerDataSO : ScriptableObject
     public float CurrentHealth { get; private set; }
     
     public Vector3 PlayerPosition { get; private set;}
+    public Transform RotationRootTransform { get; private set;}
     public float HealthPercentage => CurrentHealth / MaxHealth;
     
     public void SetStartingPrimaryWeapon(WeaponDataSO weaponData)
@@ -165,6 +166,11 @@ public class PlayerDataSO : ScriptableObject
     public void StorePosition(Vector3 newPosition)
     {
         PlayerPosition = newPosition;
+    }
+    
+    public void StoreRotationRootTransform(Transform newRotation)
+    {
+        RotationRootTransform = newRotation;
     }
 
     public enum WeaponSlot
