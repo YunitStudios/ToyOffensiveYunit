@@ -8,6 +8,7 @@ using EditorAttributes;
 public class CanvasFader : MonoBehaviour
 {
     [Header("General")]
+    [SerializeField, Range(0, 1)] private float minAlpha = 0.0f;
     [SerializeField, Range(0, 1)] private float maxAlpha = 1.0f;
     [SerializeField, Tooltip("How long to stay at max alpha during full play")] private float showTime = 2;
 
@@ -40,11 +41,13 @@ public class CanvasFader : MonoBehaviour
 
     private CanvasGroup canvasGroup;
     private Sequence fadeSequence;
+    
+    public bool IsFading => fadeSequence.isAlive;
 
     private void Awake()
     {
         canvasGroup = GetComponent<CanvasGroup>();
-        canvasGroup.alpha = 0.0f;
+        canvasGroup.alpha = minAlpha;
     }
 
     private void OnDisable()
@@ -52,35 +55,60 @@ public class CanvasFader : MonoBehaviour
         if(fadeSequence.isAlive)
             fadeSequence.Stop();
     }
-
-
-    public void PlayFull()
+    
+    public enum FadeType
+    {
+        Full,
+        In,
+        Out
+    }
+    
+    public void Play(FadeType fadeType)
     {
         if (fadeSequence.isAlive)
             fadeSequence.Stop();
 
         fadeSequence = Sequence.Create();
 
-        fadeSequence.Chain(FadeIn());
-        if(scaleIn)
-            fadeSequence.Group(ScaleIn());
-        fadeSequence.ChainDelay(showTime);
-        fadeSequence.Chain(FadeOut());
-        if(scaleOut)
-            fadeSequence.Group(ScaleOut());
+        if (fadeType is FadeType.Full or FadeType.In)
+        {
+            fadeSequence.Chain(FadeIn());
+            if (scaleIn)
+                fadeSequence.Group(ScaleIn());
+        }
 
+        if (fadeType == FadeType.Full)
+        {
+            fadeSequence.ChainDelay(showTime);
+        }
+
+        if (fadeType is FadeType.Full or FadeType.Out)
+        {
+            fadeSequence.Chain(FadeOut());
+            if (scaleOut)
+                fadeSequence.Group(ScaleOut());
+        }
     }
-    public void PlayIn() 
-    { 
-        FadeIn(); 
-        if(scaleIn)
-            ScaleIn(); 
-    }
-    public void PlayOut() 
-    { 
-        FadeOut(); 
-        if(scaleOut)
-            ScaleOut(); 
+    
+    public void PlayInstant(FadeType fadeType)
+    {
+        if (fadeSequence.isAlive)
+            fadeSequence.Stop();
+
+        switch (fadeType)
+        {
+            case FadeType.Full:
+            case FadeType.In:
+                canvasGroup.alpha = maxAlpha;
+                if (scaleIn)
+                    ScalingTransform.localScale = Vector3.one * targetScale;
+                break;
+            case FadeType.Out:
+                canvasGroup.alpha = minAlpha;
+                if (scaleOut)
+                    ScalingTransform.localScale = Vector3.one * endingScale;
+                break;
+        }
     }
 
     private Tween FadeIn()
@@ -91,7 +119,7 @@ public class CanvasFader : MonoBehaviour
     private Tween FadeOut()
     {
         OnFadeOutStart?.Invoke();
-        return Tween.Alpha(canvasGroup, 0.0f, fadeOutTime, fadeOutEase).OnComplete(() => OnFadeOutEnd?.Invoke());
+        return Tween.Alpha(canvasGroup, minAlpha, fadeOutTime, fadeOutEase).OnComplete(() => OnFadeOutEnd?.Invoke());
     }
 
     private Tween ScaleIn()
@@ -101,5 +129,12 @@ public class CanvasFader : MonoBehaviour
     private Tween ScaleOut()
     {
         return Tween.Scale(ScalingTransform, endingScale, scaleInTime);
+    }
+    
+    public void OverwriteFadeTimes(float fadeIn, float fadeOut, float show)
+    {
+        fadeInTime = fadeIn;
+        fadeOutTime = fadeOut;
+        showTime = show;
     }
 }

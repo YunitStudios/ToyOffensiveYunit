@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Player.Inventory.PickupSystem;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -232,6 +233,11 @@ public class AIStateMachine : MonoBehaviour
             }
         }
 
+        if (GetComponent<PickupSpawner>() is not null)
+        {
+            PickupSpawner spawner = GetComponent<PickupSpawner>();
+            spawner.SpawnPickup(spawner.database.GetRandomPickup(), transform.position);
+        }
         Destroy(gameObject, DeathDelay);
     }
 

@@ -21,18 +21,12 @@ MonoBehaviour:
     - Key: 1
       Value: 2000
     - Key: 2
-      Value: 3000
+      Value: 100
     - Key: 3
-      Value: 5000
+      Value: 150
     - Key: 4
       Value: 100
     - Key: 6
-      Value: 200
-    - Key: 7
-      Value: 100
-    - Key: 5
-      Value: 250
-    - Key: 8
       Value: 50
   timerStartBonus: 6000
   timerMinusPerSecond: 20
@@ -40,6 +34,8 @@ MonoBehaviour:
   accuracyBonusPerPercentage: 20
   allBonusObjectivesMultiplier: 1.25
   heightDifferenceThreshold: 0.5
+  OnMainObjectiveCompleted: {fileID: 11400000, guid: f353a3c6e7051e64c988305ea3ec4831, type: 2}
+  OnBonusObjectiveCompleted: {fileID: 11400000, guid: a42e2c0d8e661624693110b197e53c9e, type: 2}
   OnGenericKillAbove: {fileID: 11400000, guid: eeef65d4b491a8146918d8e64d91ee7f, type: 2}
   OnGenericKillBelow: {fileID: 11400000, guid: 11de285c2c10b1a4ca4c33e097bacc9f, type: 2}
   OnTargetKillAbove: {fileID: 11400000, guid: dda240e662f55f740b2cc6cc5fb49b6e, type: 2}

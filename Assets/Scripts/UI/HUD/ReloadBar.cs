@@ -35,14 +35,14 @@ public class ReloadBar : MonoBehaviour
         if (!active && progress is > 0 and <= 1)
         {
             active = true;
-            canvasFader.PlayIn();
+            canvasFader.Play(CanvasFader.FadeType.In);
         }
         
         // End reload bar
         if (active && progress > 1)
         {
             active = false;
-            canvasFader.PlayOut();
+            canvasFader.Play(CanvasFader.FadeType.Out);
         }
 
         reloadBar.fillAmount = progress;

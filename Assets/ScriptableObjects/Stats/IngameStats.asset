@@ -12,8 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b068c65b3b476a46b16e1141dcc3ee2, type: 3}
   m_Name: IngameStats
   m_EditorClassIdentifier: Assembly-CSharp::IngameStats
-  <ElapsedTime>k__BackingField: 0
-  <EnemyKills>k__BackingField: 11
+  <ElapsedTime>k__BackingField: 8.685384
+  <EnemyKills>k__BackingField: 1
+  <ShotsFired>k__BackingField: 2
+  <ShotsHit>k__BackingField: 1
+  <PlayerDamageTaken>k__BackingField: 0
+  <Accuracy>k__BackingField: 0.5
   onTimePassed: {fileID: 11400000, guid: d461c0f0483eb7c4bbc0808d914a3b3b, type: 2}
   onEnemyKilled: {fileID: 11400000, guid: ca71c88db333ccb48b1182c30837a49a, type: 2}
-  Accuracy: 0
+  onWeaponFired: {fileID: 11400000, guid: 108d26a63c535c9488289411aa622ba3, type: 2}
+  onWeaponHit: {fileID: 11400000, guid: 9e05fc70d68649e4d8ce18bd50ce01cd, type: 2}
+  onPlayerHealthChangedDifference: {fileID: 11400000, guid: 7b7f991059942984ba680b0f33bc0f9a, type: 2}

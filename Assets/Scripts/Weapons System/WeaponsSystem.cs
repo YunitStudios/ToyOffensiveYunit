@@ -33,6 +33,7 @@ public class WeaponsSystem : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     [SerializeField] private FloatEventChannelSO onUpdateSpread;
     [SerializeField] private FloatEventChannelSO onUpdateReload;
+    [SerializeField] private VoidEventChannelSO onWeaponFired;
 
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
@@ -69,12 +70,16 @@ public class WeaponsSystem : MonoBehaviour
             if (InputManager.Instance.IsShooting)
                 Fire();
     
-            if (InputManager.Instance.IsAiming && !aiming)
+            if (InputManager.Instance.AimHeld && !aiming)
                 Aim();
     
-            if (!InputManager.Instance.IsAiming && aiming)
+            if (!InputManager.Instance.AimHeld && aiming)
             {
-                playerCameraSystem.ResetCamera(); 
+                // ensures camera doesn't reset if player can not ads (fixed camera reset when climbing)
+                if (playerMovement.CanAds)
+                {
+                    playerCameraSystem.ResetCamera();
+                }
                 aiming = false;
             }
         }
@@ -173,6 +178,8 @@ public class WeaponsSystem : MonoBehaviour
         lastShotTime = Time.time;
         
         currentWeapon.Fire();
+        
+        onWeaponFired?.Invoke();
     }
 
     private void Aim()

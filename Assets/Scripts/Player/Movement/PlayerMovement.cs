@@ -11,6 +11,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : StateMachine
 {
+    public static readonly Vector3 NULL_POSITION = new Vector3(0,-1000,0);
+
     private CharacterController cc;
     private CapsuleCollider col;
     
@@ -104,6 +106,7 @@ public class PlayerMovement : StateMachine
 
     [Header("Events")] 
     [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
+    [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
@@ -140,7 +143,17 @@ public class PlayerMovement : StateMachine
         
         defaultColliderHeight = cc.height;
     }
-    
+
+    private void OnEnable()
+    {
+        onTeleportPlayer.OnEventRaised += SetPosition;
+    }
+
+    private void OnDisable()
+    {
+        onTeleportPlayer.OnEventRaised -= SetPosition;
+    }
+
     private void SetupStates()
     {
         walkingState = new WalkingState(this);
@@ -179,7 +192,7 @@ public class PlayerMovement : StateMachine
         ApplyVelocity();
         
         if(GameManager.PlayerData)
-            GameManager.PlayerData.SetPosition(transform.position);
+            GameManager.PlayerData.StorePosition(transform.position);
     }
     
 
@@ -211,6 +224,12 @@ public class PlayerMovement : StateMachine
     }
     public void SetPosition(Vector3 newPosition)
     {
+        if (newPosition == NULL_POSITION)
+        {
+            Debug.LogError("Attempted to teleport player to NULL_POSITION, ignoring.");
+            return;
+        }
+        
         cc.enabled = false;
         transform.position = newPosition;
         cc.enabled = true;

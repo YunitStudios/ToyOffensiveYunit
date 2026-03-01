@@ -37,7 +37,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onQuitLevel;
     [SerializeField] private VoidEventChannelSO onRestartLevel;
     [SerializeField] private VoidEventChannelSO onStopLevel;
+    [SerializeField] private VoidEventChannelSO onFailLevel;
+    [SerializeField] private VoidEventChannelSO onWinLevel;
     [SerializeField] private VoidEventChannelSO onQuitToDesktop;
+
 
     [Header("Output Events")]
     [SerializeField] private FloatEventChannelSO onTimePassed;
@@ -53,15 +56,21 @@ public class GameManager : MonoBehaviour
         onQuitLevel.OnEventRaised += EndLevel;
         onStartLevel.OnEventRaised += StopLevel;
         onRestartLevel.OnEventRaised += RestartLevel;
+        onFailLevel.OnEventRaised += FailLevel;
+        onWinLevel.OnEventRaised += WinLevel;
         onQuitToDesktop.OnEventRaised += QuitToDesktop;
     }
+    
     private void OnDisable()
     {
         onStartLevel.OnEventRaised -= LoadLevel;
         onQuitLevel.OnEventRaised -= EndLevel;
         onStartLevel.OnEventRaised -= StopLevel;
         onRestartLevel.OnEventRaised -= RestartLevel;
+        onFailLevel.OnEventRaised -= FailLevel;
+        onWinLevel.OnEventRaised -= WinLevel;
         onQuitToDesktop.OnEventRaised -= QuitToDesktop;
+        StopLevel();
     }
 
     private void Init()
@@ -73,12 +82,14 @@ public class GameManager : MonoBehaviour
         
         ingameStats.Init();
         PlayerData.Init();
+        scoreTracker.Init();
     }
 
     private void OnApplicationQuit()
     {
         ingameStats.Reset();
         PlayerData.Reset();
+        scoreTracker.Reset();
     }
 
 
@@ -105,6 +116,7 @@ public class GameManager : MonoBehaviour
         
         ingameStats.Start();
         PlayerData.Start();
+        scoreTracker.Start();
         MissionManager.Instance.StartMission();
 
         print("Game Started");
@@ -143,7 +155,14 @@ public class GameManager : MonoBehaviour
         LoadLevel();
     }
     
-    
+    private void WinLevel()
+    {
+        scoreTracker.ApplyBonus();
+    }
+
+    private void FailLevel()
+    {
+    }
 
     public void QuitToDesktop()
     {

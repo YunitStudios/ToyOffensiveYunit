@@ -37,7 +37,7 @@ public struct StatModifier
 }
 
 [CreateAssetMenu(fileName = "NewAttachment", menuName = "ScriptableObjects/Attachment")]
-public class AttachmentDataSO : ScriptableObject
+public class AttachmentDataSO : ScriptableObject, ILoadout
 {
     [Header("Name")]
     [Tooltip("How the attachment will be referred to in code")]
@@ -55,6 +55,8 @@ public class AttachmentDataSO : ScriptableObject
         
         Modifiers = other.Modifiers;
     }
+
+    public string GetDisplayName => DisplayName;
 }
 
 // one of these attachment SO can have several modifiers attached. Each one of these is a reference to a weapon, the stat its modifying, how its modifying it, and the amnt it modifies it by
