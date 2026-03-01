@@ -35,34 +35,32 @@ namespace UI.HUD
             player = GameManager.PlayerData.RotationRootTransform;
             if (player == null) return;
 
-            // 1. Calculate the angle exactly like your Marker does
+            // calculate angle same as marker
             Vector3 dirToTarget = attackerPosition - player.position;
             dirToTarget.y = 0;
             Vector3 forward = player.forward;
             forward.y = 0;
-
-            // Get angle (-180 to 180)
             float angle = Vector3.SignedAngle(forward, dirToTarget, Vector3.up);
 
-            // 2. Convert to 0-360 for mathematical sectoring
+            // convert to a 360 degree range for the sectors
             float normalizedAngle = angle;
             if (normalizedAngle < 0) normalizedAngle += 360f;
 
-            // 3. Determine which sector this hit falls into
+            // work out what sector it goes in
             float sectorSize = 360f / sectorCount;
             int sectorIndex = Mathf.FloorToInt(normalizedAngle / sectorSize);
 
-            // 4. Grouping Logic: Check if a marker is already active in this sector
+            // see if theres already one in the sector
             if (activeMarkers.TryGetValue(sectorIndex, out var existingMarker) && existingMarker != null)
             {
-                // Update the existing marker's position (in case the enemy moved)
+                // update the position
                 existingMarker.targetPosition = attackerPosition;
-                // Extend the life of the existing marker
+                // extend the life
                 existingMarker.ResetTimer(markerShowTime);
                 return;
             }
 
-            // 5. If no existing marker, spawn a new one
+            // if no marker make one
             GameObject marker = Instantiate(markerPrefab, markerParent);
             DirectionalDamageMarker markerComponent = marker.GetComponent<DirectionalDamageMarker>();
 
@@ -70,10 +68,10 @@ namespace UI.HUD
             markerComponent.targetPosition = attackerPosition;
             markerComponent.showTime = markerShowTime;
 
-            // Store it in the dictionary
+            // store it in the dict
             activeMarkers[sectorIndex] = markerComponent;
 
-            // Important: Remove from dictionary when the marker is destroyed
+            // remove from dict when marker is destroyed
             markerComponent.OnExpired += () => {
                 if (activeMarkers.ContainsKey(sectorIndex))
                 {
