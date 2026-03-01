@@ -16,12 +16,13 @@ using Vector3 = UnityEngine.Vector3;
 [Serializable]
 public class ClimbingSettings : StateSettings
 {
-    [field: SerializeField] public float RandomField { get; private set; }
     [Header("Climbing")]
     [SerializeField] private LayerMask climbableLayer;
     public LayerMask ClimbableLayer => climbableLayer;
     [SerializeField, Tooltip("Distance to wall before starting climb. Multiplier by players radius")] private float climbRange = 1f;
     public float ClimbRange => climbRange;
+    [SerializeField, Tooltip("Multiplier on the climb range to make it so you have to be close to a wall to climb")] private float startClimbRangeMultiplier = 0.1f;
+    public float StartClimbRangeMultiplier => startClimbRangeMultiplier;
     [FormerlySerializedAs("climbingAngleLimits")] [SerializeField] private Vector2 climbingVerticalAngleLimits = new(-40f, 40f);
     public Vector2 ClimbingVerticalAngleLimits => climbingVerticalAngleLimits;
     [SerializeField] private Vector2 climbingHorizontalAngleLimits = new(-40f, 40f);
@@ -191,6 +192,7 @@ public class ClimbingState : MovementState
     private Vector3 lastClimbDirection;
     
     private float CurrentClimbRange => Settings.ClimbRange;
+    private float CurrentStartClimbRangeMultiplier => Settings.StartClimbRangeMultiplier;
     private bool IsStartingClimb => climbTimer < Settings.ClimbingStartLockIntoPlace;
     
     private float GetClimbingDistance() => GetClimbingDistance(Vector3.Angle(currentWallNormal, Vector3.up));
@@ -628,6 +630,12 @@ public class ClimbingState : MovementState
     
     public ClimbDirections GetClimbState()
     {
+        // used for making the rays shorter when starting to prevent accidental climbs
+        bool isAlreadyClimbing = stateMachine.CurrentState == this;
+        float detectionRange = isAlreadyClimbing ? CurrentClimbRange : CurrentClimbRange * CurrentStartClimbRangeMultiplier;
+        float detectionAngle = isAlreadyClimbing ? 90f : 0f;
+        
+        
         bool CheckNormalAngles(Vector3 normal)
         {
             return CheckNormalVertical(normal) && CheckNormalHorizontal(normal);
@@ -680,7 +688,7 @@ public class ClimbingState : MovementState
         ClimbDirections climbDirections = ClimbDirections.None;
         
         // Check if middle can find wall
-        RaycastCone mainCone = new RaycastCone(mainOrigin, direction, CurrentClimbRange, Settings.ClimbableLayer);
+        RaycastCone mainCone = new RaycastCone(mainOrigin, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
         bool foundWall = mainCone.CastRays(out IList<RaycastHit> hits, out Vector3 mainNormal);
         if (foundWall)
         { 
@@ -689,10 +697,10 @@ public class ClimbingState : MovementState
             climbDirections = ClimbDirections.Up | ClimbDirections.Down | ClimbDirections.Left | ClimbDirections.Right;
 
             // setting up cones
-            RaycastCone topCone = new RaycastCone(topOrigin, direction, CurrentClimbRange, Settings.ClimbableLayer);
-            RaycastCone bottomCone = new RaycastCone(bottomOrigin, direction, CurrentClimbRange, Settings.ClimbableLayer);
-            RaycastCone rightCone = new RaycastCone(mainOrigin + widthOffset, direction, CurrentClimbRange, Settings.ClimbableLayer);
-            RaycastCone leftCone = new RaycastCone(mainOrigin - widthOffset, direction, CurrentClimbRange, Settings.ClimbableLayer);
+            RaycastCone topCone = new RaycastCone(topOrigin, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
+            RaycastCone bottomCone = new RaycastCone(bottomOrigin, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
+            RaycastCone rightCone = new RaycastCone(mainOrigin + widthOffset, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
+            RaycastCone leftCone = new RaycastCone(mainOrigin - widthOffset, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
 
             // when moving left, the right cone looks left
             if (currentInput.x < 0)
