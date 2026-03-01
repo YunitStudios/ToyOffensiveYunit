@@ -15,10 +15,15 @@ public abstract class MovementState : State, IMovementState
     public virtual bool UseRootMotion => false;
     public virtual bool UseMouseRotatePlayer => true;
     public virtual bool ControlRotation => false;
+    public virtual bool UseCollision => true;
+    public virtual Vector2 CollisionScale => Vector2.one;
+    public virtual bool CanADS => true;
 
     public override void OnEnter()
     {
         stateMachine.PlayerAnimator.applyRootMotion = UseRootMotion;
+        stateMachine.ToggleCollision(UseCollision);
+        stateMachine.SetCollisionScale(CollisionScale, true);
     }
 
 
@@ -33,4 +38,7 @@ public interface IMovementState
     public bool UseRootMotion { get; }
     public bool UseMouseRotatePlayer { get; }
     public bool ControlRotation { get; }
+    public bool UseCollision { get; }
+    public Vector2 CollisionScale { get; }
+    public bool CanADS { get; }
 }

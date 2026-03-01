@@ -13,10 +13,11 @@ GameObject:
   - component: {fileID: 8609337210801193703}
   - component: {fileID: 4139844986772533176}
   - component: {fileID: 2115216171671767547}
-  - component: {fileID: 5173216120211466665}
   - component: {fileID: 2987020068191397963}
   - component: {fileID: 4040392277983441542}
   - component: {fileID: 5576340229021815528}
+  - component: {fileID: 3982826205419482273}
+  - component: {fileID: 6357758349644954081}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -54,7 +55,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0db66286ac96ace43bc9fc3451176862, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerAnimator: {fileID: 5173216120211466665}
+  playerAnimator: {fileID: 333144685495156007}
   thirdPersonTracker: {fileID: 5636812732384450702}
   playerCamera: {fileID: 7862692414108309895}
   rotationRoot: {fileID: 3353412084572693359}
@@ -68,7 +69,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   movementSettings:
-    maxSpeed: 2
+    maxSpeed: 4
     acceleration: 20
     maxAcceleration: 20
     turnSpeed: 1
@@ -81,8 +82,8 @@ MonoBehaviour:
     crouchingSpeedMultiplier: 0.5
     crouchingHeightMultiplier: 0.5
   slidingSettings:
-    slideForwardSpeed: 6
-    slideDuration: 1
+    slideForwardSpeed: 10
+    slideDuration: 1.5
     slideSpeedCurve:
       serializedVersion: 2
       m_Curve:
@@ -109,6 +110,7 @@ MonoBehaviour:
       m_RotationOrder: 4
     slideCooldown: 1
   climbingSettings:
+    <RandomField>k__BackingField: 0
     climbableLayer:
       serializedVersion: 2
       m_Bits: 64
@@ -117,15 +119,18 @@ MonoBehaviour:
     climbingHorizontalAngleLimits: {x: -40, y: 40}
     climbVerticalSpeed: 0
     climbHorizontalSpeed: 1
-    climbCameraRecentering:
-      Enabled: 0
-      Wait: 1
-      Time: 1
     climbingDelayAfterJump: 0.5
     climbingRetryDelay: 0.5
-    climbingStartLockIntoPlace: 0.25
-    climbDistanceFromWall: 0.33
+    climbDistanceFromWall: {x: -0.33, y: 1}
+    climbDistanceFromWallRange: {x: -40, y: 40}
+    climbWidth: 0.15
+    climbingMaxGapDistance: 0.5
+    climbingWallLockSpeed: 5
+    climbingStartWallLockTime: 0.25
+    mainRayNormalizedHeight: 0.6
+    climbingCollisionScale: {x: 0.5, y: 0.5}
     climbVaultDistance: 0.5
+    climbMaxVaultHeight: 1
     climbVaultDuration: 1
     climbVaultEasingVertical:
       serializedVersion: 2
@@ -175,16 +180,17 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
+    hangCheckVerticalOffset: 0.25
+    hangSurfaceMinAngle: 45
     unhangDelay: 0.4
-    rehangDelay: 0.2
+    rehangDelay: 0.66
     autoTriggerHangDistance: 1.66
-    sideWidthOffset: 0.5
     climbSprintLeapCooldown: 2
     climbSprintLeapStaminaPercentage: 0.2
     climbSprintLeapStaminaPadding: 0.1
     climbStaminaUI: {fileID: 5515616672219483051}
     climbStaminaBar: {fileID: 10641581326834246}
-    maxClimbStamina: 7
+    maxClimbStamina: 82.02
     climbStaminaDrainRate: 1
     climbStaminaRegenRate: 2
     climbStaminaFadeDuration: 0.5
@@ -219,8 +225,9 @@ MonoBehaviour:
       m_NumColorKeys: 3
       m_NumAlphaKeys: 2
     climbStartMinStamina: 0.2
+    showClimbingStateDebugLog: 0
   jumpingSettings:
-    jumpHeight: 4.25
+    jumpHeight: 5.3
     jumpLandDelay: 0.5
     rejumpDelay: 0.2
   fallingSettings:
@@ -251,6 +258,7 @@ MonoBehaviour:
     parachutingPlayerRadius: 0.66
   lookSensitivity: 1
   onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
+  onTeleportPlayer: {fileID: 11400000, guid: d19670ba62e52ec4da7a3f19fdda0c82, type: 2}
 --- !u!114 &8609337210801193703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,15 +291,16 @@ MonoBehaviour:
   onTakeDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onDamageTaken: {fileID: 11400000, guid: e70044af65091c545b2d38e97e6a0230, type: 2}
   onHealthChanged: {fileID: 11400000, guid: 012165d8166761545af3b264d54d7cb5, type: 2}
+  onHealthChangedDifference: {fileID: 11400000, guid: 7b7f991059942984ba680b0f33bc0f9a, type: 2}
   onDie: {fileID: 11400000, guid: 714073130b523f14ebdefe36c6f15884, type: 2}
   OnDieUnity:
     m_PersistentCalls:
       m_Calls: []
   debugDamage: 0
-  playerAnimator: {fileID: 5173216120211466665}
+  playerAnimator: {fileID: 333144685495156007}
   deathDelay: 2
   onMissionFail: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
-  onStopLevel: {fileID: 11400000, guid: 1ff5ec727636ee444a2097ecf4bbe0e4, type: 2}
+  playerMovement: {fileID: 386950647050592367}
 --- !u!143 &2115216171671767547
 CharacterController:
   m_ObjectHideFlags: 0
@@ -317,28 +326,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 1, z: 0}
---- !u!95 &5173216120211466665
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 479309541129405295}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 29b004a85dd7b44c687a2ffdb27fc716, type: 3}
-  m_Controller: {fileID: 9100000, guid: 5ec8c416c118bfd42a5f9d432397edc1, type: 2}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!136 &2987020068191397963
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -398,6 +385,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!114 &3982826205419482273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2678b221f410644b84dd1fec8d8edc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupHandler
+  pickupTag: Pickup
+--- !u!114 &6357758349644954081
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479309541129405295}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f154ff2bed4546444a29285068c4efcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GloryKill
+  maxDistance: 1
+  angleBehind: 80
+  cooldown: 3
+  playerAnimator: {fileID: 333144685495156007}
 --- !u!1 &3109495862477369271
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +514,8 @@ MonoBehaviour:
   onShowHitmarker: {fileID: 11400000, guid: 2bfcc4b2ae03dae43854f2d52d70e182, type: 2}
   onUpdateSpread: {fileID: 11400000, guid: 6e2e77c3c63300b4c9ec1e86f4fb61ca, type: 2}
   onUpdateReload: {fileID: 11400000, guid: 0aa7dcf917e652e42b8bdc0192c0f83b, type: 2}
+  onWeaponFired: {fileID: 11400000, guid: 108d26a63c535c9488289411aa622ba3, type: 2}
+  playerMovement: {fileID: 386950647050592367}
 --- !u!1 &5754689768074386340
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +557,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3353412084572693359}
+  - component: {fileID: 9148675543439987146}
+  - component: {fileID: 333144685495156007}
   m_Layer: 0
   m_Name: RotationRoot
   m_TagString: Untagged
@@ -564,6 +584,41 @@ Transform:
   - {fileID: 4237852279184953653}
   m_Father: {fileID: 1510906211435019109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9148675543439987146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575587763439869236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb47ceecb0857034da93410e21cce5e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAnimator
+  cc: {fileID: 2115216171671767547}
+--- !u!95 &333144685495156007
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575587763439869236}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 29b004a85dd7b44c687a2ffdb27fc716, type: 3}
+  m_Controller: {fileID: 9100000, guid: 5ec8c416c118bfd42a5f9d432397edc1, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &7669584702012679197
 GameObject:
   m_ObjectHideFlags: 0
@@ -675,33 +730,45 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0.42
       objectReference: {fileID: 0}
+    - target: {fileID: 4660429553844770702, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: volumeSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: ab9cf1474333ea24486a93d8e758d8f2, type: 2}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.0000000026819862
+      value: 55.9641
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.8642373
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.151636
+      value: 5.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9369574
+      value: 0.6625571
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.34944355
+      value: 0.24701773
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -5.839535e-10
+      value: -0.66255754
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 2.1778909e-10
+      value: 0.24701789
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: HorizontalAxis.Value
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: HorizontalAxis.Center
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6128150691619200766, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: Target.TrackingTarget
@@ -721,19 +788,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6426413191628261508, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9992175
+      value: 0.99921745
       objectReference: {fileID: 0}
     - target: {fileID: 6426413191628261508, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.039553918
+      value: -0.03955387
       objectReference: {fileID: 0}
     - target: {fileID: 6426413191628261508, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -9.217864e-16
+      value: 1.2002022e-12
       objectReference: {fileID: 0}
     - target: {fileID: 6426413191628261508, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -1.3612596e-16
+      value: 2.2471643e-13
       objectReference: {fileID: 0}
     - target: {fileID: 7172322961987163783, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.y

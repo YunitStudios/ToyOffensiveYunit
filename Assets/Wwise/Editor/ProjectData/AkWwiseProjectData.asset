@@ -305,6 +305,23 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584362008501168218
     List:
+    - name: Effects
+      guid: 7e73550907735e459db7d977d6650f42
+      id: 1942696649
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Effects
+        ObjectType: 2
+        guid: 7e73550907735e459db7d977d6650f42
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Effects
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
       id: 3803692087
@@ -361,6 +378,149 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584362008501199621
     List:
+    - name: DefaultFootstep
+      guid: 2114f389fc37954395925f909147e8e5
+      id: 4234202506
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Movement
+        ObjectType: 4
+        guid: 458451d19810e044aff056dee5776b88
+      - ElementName: DefaultFootstep
+        ObjectType: 3
+        guid: 2114f389fc37954395925f909147e8e5
+      Path: Events\Default Work Unit\Movement\DefaultFootstep
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: FabricFootstep
+      guid: e07f5add9e70224baca7c9e7bf45885b
+      id: 516981260
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Movement
+        ObjectType: 4
+        guid: 458451d19810e044aff056dee5776b88
+      - ElementName: FabricFootstep
+        ObjectType: 3
+        guid: e07f5add9e70224baca7c9e7bf45885b
+      Path: Events\Default Work Unit\Movement\FabricFootstep
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Gunshots
+      guid: 7e5e8ac06c170143be90b2763821a053
+      id: 3043617976
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Gunshots
+        ObjectType: 4
+        guid: 7e5e8ac06c170143be90b2763821a053
+      Path: Events\Default Work Unit\Weapons\Gunshots
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: MetalFootstep
+      guid: c71d3514050d5642a4b9b8800dcd42e6
+      id: 3138420520
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Movement
+        ObjectType: 4
+        guid: 458451d19810e044aff056dee5776b88
+      - ElementName: MetalFootstep
+        ObjectType: 3
+        guid: c71d3514050d5642a4b9b8800dcd42e6
+      Path: Events\Default Work Unit\Movement\MetalFootstep
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Movement
+      guid: 458451d19810e044aff056dee5776b88
+      id: 2129636626
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Movement
+        ObjectType: 4
+        guid: 458451d19810e044aff056dee5776b88
+      Path: Events\Default Work Unit\Movement
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: PistolReload
+      guid: 21a73f5d6db7da40b56fdbcd3bb59411
+      id: 1972462343
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Reloads
+        ObjectType: 4
+        guid: 86cad547ca94c04baa3ac472aa0b9d1f
+      - ElementName: PistolReload
+        ObjectType: 3
+        guid: 21a73f5d6db7da40b56fdbcd3bb59411
+      Path: Events\Default Work Unit\Weapons\Reloads\PistolReload
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: PistolShot
+      guid: d6e465af6652e74781769f1549b47030
+      id: 3835771680
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Gunshots
+        ObjectType: 4
+        guid: 7e5e8ac06c170143be90b2763821a053
+      - ElementName: PistolShot
+        ObjectType: 3
+        guid: d6e465af6652e74781769f1549b47030
+      Path: Events\Default Work Unit\Weapons\Gunshots\PistolShot
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: PlayTestSound
       guid: f5b39b5c07c16b4eb55bf6a1752bd31b
       id: 2260221316
@@ -378,6 +538,175 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0.28387755
       minDuration: 0.28387755
+    - name: Reloads
+      guid: 86cad547ca94c04baa3ac472aa0b9d1f
+      id: 1687968421
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Reloads
+        ObjectType: 4
+        guid: 86cad547ca94c04baa3ac472aa0b9d1f
+      Path: Events\Default Work Unit\Weapons\Reloads
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: RifleReload
+      guid: fa4dd71a3769c447badc97afdd90d461
+      id: 2259430554
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Reloads
+        ObjectType: 4
+        guid: 86cad547ca94c04baa3ac472aa0b9d1f
+      - ElementName: RifleReload
+        ObjectType: 3
+        guid: fa4dd71a3769c447badc97afdd90d461
+      Path: Events\Default Work Unit\Weapons\Reloads\RifleReload
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: RifleShot
+      guid: a749acd862f07b469b7d86ef0997ec9a
+      id: 1062449581
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Gunshots
+        ObjectType: 4
+        guid: 7e5e8ac06c170143be90b2763821a053
+      - ElementName: RifleShot
+        ObjectType: 3
+        guid: a749acd862f07b469b7d86ef0997ec9a
+      Path: Events\Default Work Unit\Weapons\Gunshots\RifleShot
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Rustle
+      guid: c81de24831aaf14b9cee37a1b0fce036
+      id: 1229223666
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Movement
+        ObjectType: 4
+        guid: 458451d19810e044aff056dee5776b88
+      - ElementName: Rustle
+        ObjectType: 3
+        guid: c81de24831aaf14b9cee37a1b0fce036
+      Path: Events\Default Work Unit\Movement\Rustle
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: SniperReload
+      guid: ca8f0195a95a9548b6a8f538188e6954
+      id: 1740152835
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Reloads
+        ObjectType: 4
+        guid: 86cad547ca94c04baa3ac472aa0b9d1f
+      - ElementName: SniperReload
+        ObjectType: 3
+        guid: ca8f0195a95a9548b6a8f538188e6954
+      Path: Events\Default Work Unit\Weapons\Reloads\SniperReload
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: SniperShot
+      guid: c52fa74a10b58647bcb6f194e8f9b380
+      id: 1104796412
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      - ElementName: Gunshots
+        ObjectType: 4
+        guid: 7e5e8ac06c170143be90b2763821a053
+      - ElementName: SniperShot
+        ObjectType: 3
+        guid: c52fa74a10b58647bcb6f194e8f9b380
+      Path: Events\Default Work Unit\Weapons\Gunshots\SniperShot
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Weapons
+      guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      id: 1467963052
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      Path: Events\Default Work Unit\Weapons
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: WoodFootstep
+      guid: 048017bf92f6a14483b1ea6e203ea261
+      id: 93359716
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Movement
+        ObjectType: 4
+        guid: 458451d19810e044aff056dee5776b88
+      - ElementName: WoodFootstep
+        ObjectType: 3
+        guid: 048017bf92f6a14483b1ea6e203ea261
+      Path: Events\Default Work Unit\Movement\WoodFootstep
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters/Default Work Unit.wwu
     PathAndIcons:

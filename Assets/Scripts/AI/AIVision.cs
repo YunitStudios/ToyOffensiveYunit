@@ -27,7 +27,7 @@ public class AIVision : MonoBehaviour
     [HideInInspector] public float lastSeenTime;
 
     [Tooltip("Time before switching to search state")]
-    [SerializeField] private float searchTimeout = 20f;
+    [SerializeField] private float searchTimeout = 5f;
     public float SearchTimeout => searchTimeout;
 
     private bool playerInsideVision = false;
@@ -136,5 +136,27 @@ public class AIVision : MonoBehaviour
         visionCollider.radius = defaultRange;
         visionCollider.enabled = false;
         visionCollider.enabled = true;
+    }
+
+    public bool CanSeeTarget(Transform target)
+    {
+        // Calculates direction to the target
+        Vector3 direction = (target.position - transform.position).normalized;
+        // Which is then used to calculate the angle between the AI forwards and the targets direction
+        float angle = Vector3.Angle(transform.forward, direction);
+        // If the angle calculated is larger than half the FOV, then the target is outside of its vision cone
+        if (angle > FOV * 0.5f)
+        {
+            return false;
+        }
+        // Does raycast to check if anything is blocking vision between enemy and target
+        if (Physics.Raycast(transform.position + Vector3.up * 1.8f, direction, out RaycastHit hit,  range,  visionMask))
+        {
+            if (hit.transform == target)
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

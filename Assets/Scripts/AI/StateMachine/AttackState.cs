@@ -5,8 +5,10 @@ public class AttackState : AIState
 {
     private Transform player;
     private AIWeaponSystem weaponSystem;
-    private float stoppingDistance = 10f;
+    private float stoppingDistance = 12f;
     private CoverPoint coverPoint;
+    float distanceToPlayer;
+    float distanceToCoverPoint;
 
 
     public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
@@ -24,19 +26,24 @@ public class AttackState : AIState
 
             if (coverPoint != null)
             {
-                coverPoint.TakeCoverPoint(controller);
-                controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
-                return;
+                distanceToCoverPoint = Vector3.Distance(controller.transform.position, coverPoint.transform.position);
             }
+        }
+        distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
+        if (coverPoint != null && distanceToCoverPoint < distanceToPlayer)
+        {
+            coverPoint.TakeCoverPoint(controller);
+            controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
+            return;
         }
         
         // needs changing 
         agent.SetDestination(player.position);
+        weaponSystem.Fire();
         if (agent.remainingDistance <= stoppingDistance)
         {
             agent.isStopped = true;
             weaponSystem.target = player;
-            weaponSystem.Fire();
         }
         else
         {

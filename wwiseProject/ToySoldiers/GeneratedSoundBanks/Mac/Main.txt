@@ -1,6 +1,77 @@
 Event	ID	Name			Wwise Object Path	Notes
+	93359716	WoodFootstep			\Default Work Unit\Movement\WoodFootstep	
+	516981260	FabricFootstep			\Default Work Unit\Movement\FabricFootstep	
+	1062449581	RifleShot			\Default Work Unit\Weapons\Gunshots\RifleShot	
+	1104796412	SniperShot			\Default Work Unit\Weapons\Gunshots\SniperShot	
+	1229223666	Rustle			\Default Work Unit\Movement\Rustle	
+	1740152835	SniperReload			\Default Work Unit\Weapons\Reloads\SniperReload	
+	1972462343	PistolReload			\Default Work Unit\Weapons\Reloads\PistolReload	
+	2259430554	RifleReload			\Default Work Unit\Weapons\Reloads\RifleReload	
 	2260221316	PlayTestSound			\Default Work Unit\PlayTestSound	
+	3138420520	MetalFootstep			\Default Work Unit\Movement\MetalFootstep	
+	3835771680	PistolShot			\Default Work Unit\Weapons\Gunshots\PistolShot	
+	4234202506	DefaultFootstep			\Default Work Unit\Movement\DefaultFootstep	
+
+Audio Bus	ID	Name			Wwise Object Path	Notes
+	1942696649	Effects			\Default Work Unit\Master Audio Bus\Effects	
+	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
+	3991942870	Music			\Default Work Unit\Master Audio Bus\Music	
 
 In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
+	1203098	Metal Impact 3	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\63\{6328B43F-4FE9-E331-9C18-92745CDDC5D7}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 3		57632
+	50853841	Clothes Rustle 2	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\D4\{D422E531-EF4A-5D29-7CA4-CFE13BFF2672}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 2		114332
+	52615458	Clothes Rustle 3	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\A3\{A361A761-30FB-0403-437F-B834C1D8A5AA}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 3		114332
+	64409487	Metal Impact 4	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\4E\{4EFABE6B-920D-C436-8C37-8598C9B09ACE}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 4		57632
+	74733817	Wood Impact 2	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\FD\{FDF2DB56-CF73-6573-C117-B6CFE00B1AF7}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 2		57632
+	97167775	Clothes Rustle 9	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\EE\{EEEEE701-2038-2FFA-0C07-7D77135EBC75}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 9		114332
+	109701843	Metal Impact 5	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\76\{769CBBE6-F774-7BA1-6A7C-A09F1B8F92FB}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 5		57632
+	137775757	Boot Impact 4	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\02\{02E49493-89E6-6230-18D7-F668A0909C69}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 4		58420
+	154622779	Clothes Rustle 1	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\14\{149ECD5B-EA64-6267-E3B7-C795D9A8355F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 1		114332
+	209679124	Boot Impact 8	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\4F\{4F357721-2833-C9B6-B189-21201981F475}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 8		57632
+	218639674	Fabric Impact 1	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\61\{61989079-F04F-BC8A-CC44-FC21E5444A26}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 1		76532
+	239629688	Wood Impact 1	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\AD\{AD744848-5CF7-5D1F-6826-9B4C3A95ED42}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 1		57632
+	254885842	Boot Impact 3	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\6B\{6BED3CBC-245E-B8D3-9D98-A7607B64A25B}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 3		57632
+	310677980	Metal Impact 6	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\05\{058051F2-F70F-8260-66AC-E7107380F184}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 6		57632
+	349955573	Clothes Rustle 8	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\D1\{D177E6B2-95A9-595B-399E-9C984CB9807E}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 8		114332
+	356079666	Clothes Rustle 7	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\F4\{F494B91D-926D-873B-7ABF-45020FE77C91}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 7		114332
 	367565313	TestSound	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\06\{065F0D5F-CA3B-61C4-0BCC-8C360FCD3F26}.wem		\Actor-Mixer Hierarchy\Default Work Unit\TestSound		50172
+	370163794	Fabric Impact 4	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\97\{977B0774-0B8C-DAF3-C0E2-8F9485856B26}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 4		76532
+	457415273	Clothes Rustle 10	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\E9\{E97F7743-2518-C932-8A00-2357EB703434}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 10		114332
+	469928495	Boot Impact 7	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\8C\{8C89AB0A-B4F6-2BCA-ACAE-4B0B958F40F6}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 7		57632
+	476285474	Wood Impact 9	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\68\{6848994A-A06B-AA5E-8E12-02124F62F36F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 9		57632
+	476553551	Boot Impact 5	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\5D\{5D956565-7925-E38F-BD2C-76CB9AFD3280}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 5		58420
+	511307076	Boot Impact 6	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\F2\{F21973DF-E837-268C-DFA9-2480344687CC}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 6		57632
+	513349558	Semi Auto Sniper Rifle Gunshot	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\0C\{0C338D95-E797-7281-9EDE-AD6D8D871C21}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Weapons\Gunshots\PistolShot\Semi Auto Sniper Rifle Gunshot		520680
+	516917315	Fabric Impact 7	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\15\{15D9A42B-EC54-7B36-DBAD-EC8CBB94E53E}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 7		76532
+	522702746	Clothes Rustle 4	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\4A\{4A1779CB-ACE4-6900-1292-A5035178FBFE}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 4		114332
+	557070781	Wood Impact 10	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\C2\{C21A2C72-24FC-8B65-F01A-93E9EEB69B0A}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 10		57632
+	573023811	Boot Impact 2	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\C8\{C8201A83-D8B0-00B6-FEA7-22BCE039ECF9}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 2		57632
+	619192519	Metal Impact 2	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\A1\{A1238DEF-8180-1176-8D0D-6C0FBFBC8D73}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 2		57632
+	630482078	Metal Impact 8	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\35\{35826E80-648C-4809-72EE-AAC7F136FEE6}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 8		57632
+	636919255	Boot Impact 9	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\6F\{6F3C1885-D3CA-BC92-156C-85920FCF7724}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 9		57632
+	663631390	Wood Impact 6	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\3A\{3A1DF693-8DBD-7646-3341-BC9F5DA29FB3}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 6		57632
+	706874115	Boot Impact 1	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\CF\{CF91737D-EF75-636C-21A0-9AC4122902BF}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 1		59992
+	713203438	Wood Impact 4	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\F0\{F01F020B-830F-936E-56D5-4DE571EFE999}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 4		57632
+	726878166	Boot Impact 10	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\48\{48C6D485-D9B7-C9F7-68FF-5819BA5C6511}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Default\Boot Impact 10		59992
+	727219759	Wood Impact 8	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\C1\{C138FB07-ACF0-2B11-3FC2-B2AE72E7304F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 8		57632
+	765877491	Wood Impact 7	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\E4\{E4E3FF30-291F-249C-44A3-82C115BB8F7E}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 7		57632
+	792215248	Metal Impact 9	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\36\{36716452-611E-9A95-67FA-74BF5489C6E7}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 9		57632
+	792224541	Fabric Impact 3	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\59\{5965B366-832F-DDF9-E3C5-631FC1117B2F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 3		76532
+	793854251	Assault Rifle Gunshot	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\83\{838E9F4D-0917-997E-D9B1-B5D9EF1F410C}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Weapons\Gunshots\RifleShot\Assault Rifle Gunshot		570296
+	799177281	Clothes Rustle 5	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\77\{773B8997-FB25-0911-02F1-EA8AE0C856E3}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 5		114332
+	814448464	Wood Impact 5	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\21\{218F139C-7EDA-832E-CC71-3216CADA252B}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 5		57632
+	831806217	Fabric Impact 5	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\71\{71D87046-1008-C1D4-486D-CC0460A530A1}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 5		76532
+	859068625	Fabric Impact 8	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\16\{16DF72F4-6B99-5249-32F8-F937F8923885}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 8		76532
+	908162495	Fabric Impact 2	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\B9\{B9F8D912-246E-9DC2-0D15-8C9FBB6573D6}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 2		76532
+	924019615	Fabric Impact 10	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\A0\{A0EE0678-D271-EE0D-7980-2A76ABDBA059}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 10		76532
+	927359038	Metal Impact 1	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\7B\{7B5567D1-91A9-C476-47EE-F849117C81E0}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 1		57632
+	936426500	Fabric Impact 9	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\37\{3723273C-018C-B100-FE0A-C26D0CFB521F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 9		76532
+	959266900	Wood Impact 3	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\6C\{6CC95DAE-BDB4-DF6B-00E5-4B0CAB719B52}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Wood\Wood Impact 3		57632
+	964379283	Metal Impact 10	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\55\{55BA2DD7-D3A5-C25D-02CA-2817AC8D8D39}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 10		57632
+	997725358	Shotgun Gunshot	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\38\{387D3B54-0068-8A54-534A-A51D0EFD8AF7}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Weapons\Gunshots\SniperShot\Shotgun Gunshot		500992
+	1000955467	Clothes Rustle 6	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\B6\{B6C79043-1EC8-E62E-1473-4139EE9AFBC8}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Rustles\Rustles\Clothes Rustle 6		114332
+	1008001666	Metal Impact 7	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\13\{13FB5CED-3737-66B4-A2B3-38C9A4AC9E42}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Metal\Metal Impact 7		57632
+	1020384434	Assault Rifle Reload Mag Empty	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\DE\{DE479C7A-0F25-7479-9E62-0A09BBB7AF2F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Weapons\Reloads\Assault Rifle Reload Mag Empty		530132
+	1039362063	Assault Rifle Reload Mag Half Empty	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\5B\{5B9C0424-3EE1-25C7-F8DC-4D21CA1675C8}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Weapons\Reloads\Assault Rifle Reload Mag Half Empty		362392
+	1053890865	Fabric Impact 6	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\0A\{0A70693E-FF63-3D7B-C01B-73B74ED462A8}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Movement\Footsteps\Fabric\Fabric Impact 6		76532
 

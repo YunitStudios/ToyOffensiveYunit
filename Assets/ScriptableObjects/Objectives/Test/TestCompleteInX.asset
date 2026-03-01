@@ -13,11 +13,10 @@ MonoBehaviour:
   m_Name: TestCompleteInX
   m_EditorClassIdentifier: Assembly-CSharp::TimerObjectiveSO
   <Active>k__BackingField: 1
-  <Completed>k__BackingField: 1
+  <Completed>k__BackingField: 0
   <Failed>k__BackingField: 0
   objectiveName: Test
   objectiveDesc: Complete the mission in {1}:{0}
-  isMainObjective: 0
-  maxTime: 10
+  maxTime: 30
   startTimerEvent: {fileID: 11400000, guid: fba2b82fd1998fc4a92bf73f0fabf322, type: 2}
-  endTimerEvent: {fileID: 11400000, guid: f353a3c6e7051e64c988305ea3ec4831, type: 2}
+  endTimerEvent: {fileID: 11400000, guid: 1348b5b234f1b564bbf860429d040b55, type: 2}

@@ -11,6 +11,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : StateMachine
 {
+    public static readonly Vector3 NULL_POSITION = new Vector3(0,-1000,0);
+
     private CharacterController cc;
     private CapsuleCollider col;
     
@@ -104,6 +106,7 @@ public class PlayerMovement : StateMachine
 
     [Header("Events")] 
     [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
+    [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
@@ -114,9 +117,12 @@ public class PlayerMovement : StateMachine
     
     private float defaultColliderHeight;
     private InputAxis.RecenteringSettings originalCameraRecentering;
+
+    private bool movementFrozen;
     
     // Public Properties
-    public bool IsGrounded => CheckOnGround(); 
+    public bool IsGrounded => CheckOnGround();
+    [HideInInspector] public bool CanAds => CanADS();
 
     private void Awake()
     {
@@ -137,7 +143,17 @@ public class PlayerMovement : StateMachine
         
         defaultColliderHeight = cc.height;
     }
-    
+
+    private void OnEnable()
+    {
+        onTeleportPlayer.OnEventRaised += SetPosition;
+    }
+
+    private void OnDisable()
+    {
+        onTeleportPlayer.OnEventRaised -= SetPosition;
+    }
+
     private void SetupStates()
     {
         walkingState = new WalkingState(this);
@@ -163,12 +179,20 @@ public class PlayerMovement : StateMachine
 
     protected override void Update()
     {
+        if (movementFrozen)
+        {
+            return;
+        }
+        
         base.Update();
         
         // Rotation when no rigidbody
         FrameLook();
         
         ApplyVelocity();
+        
+        if(GameManager.PlayerData)
+            GameManager.PlayerData.StorePosition(transform.position);
     }
     
 
@@ -190,17 +214,6 @@ public class PlayerMovement : StateMachine
         Vector3 finalVelocity = currentVelocity * Time.deltaTime;
         cc.Move(finalVelocity); 
     }
-
-    
-    private void OnAnimatorMove()
-    {
-        if (playerAnimator.applyRootMotion)
-        {
-            Vector3 animDeltaPosition = playerAnimator.deltaPosition;
-            cc.Move(animDeltaPosition);
-        }
-    }
-
     public void SetVelocity(Vector3 newVelocity)
     {
         currentVelocity = newVelocity;
@@ -211,6 +224,12 @@ public class PlayerMovement : StateMachine
     }
     public void SetPosition(Vector3 newPosition)
     {
+        if (newPosition == NULL_POSITION)
+        {
+            Debug.LogError("Attempted to teleport player to NULL_POSITION, ignoring.");
+            return;
+        }
+        
         cc.enabled = false;
         transform.position = newPosition;
         cc.enabled = true;
@@ -236,6 +255,27 @@ public class PlayerMovement : StateMachine
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
     }
     
+    public void ToggleCollision(bool enabled)
+    {
+        cc.excludeLayers = enabled ? 0 : ~0; // If enabled, collide with everything. If disabled, collide with nothing.
+        col.enabled = enabled;
+    }
+    public void SetCollisionScale(Vector2 newScale, bool dontMoveCenter)
+    {
+        cc.radius = playerRadius * newScale.x;
+        cc.height = playerHeight * newScale.y;
+        
+        col.radius = playerRadius * newScale.x;
+        col.height = playerHeight * newScale.y;
+
+        if (dontMoveCenter)
+            return;
+        Vector3 center = cc.center;
+        center.y = cc.height / 2f;
+        cc.center = center;
+        col.center = center;
+    }
+    
     public void ChangeHeight(float newHeight)
     {
         // Clamp height to double the radius minimum
@@ -257,6 +297,11 @@ public class PlayerMovement : StateMachine
     public void ChangeRadiusDefault()
     {
         ChangeRadius(playerRadius);
+    }
+
+    public void SetMovementFrozen(bool isFrozen)
+    {
+        movementFrozen = isFrozen;
     }
 
     private void FrameLook()
@@ -315,7 +360,6 @@ public class PlayerMovement : StateMachine
         bool isSliding = (angle > hit.controller.slopeLimit && angle < 85f);
         if (isSliding && !IsGrounded && currentVelocity.y <= 0f){
             {
-                print("slide");
                 var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitNormal);
                 // Calculate speed based on rotation from up
                 float slopeSpeed = (angle-45) / 45f; // Normalize between 0 and 1 from 45 to 90 degrees
@@ -359,10 +403,19 @@ public class PlayerMovement : StateMachine
         if (GetGroundDistance() < minGroundDistance)
         {
             CheckFallDamage();
+            climbingState.ResetStamina();
             return true;
         }
 
         return false;
+    }
+
+    private bool CanADS()
+    {
+        //return currentState is IMovementState { CanADS: false };
+        if (currentState is IMovementState state)
+            return state.CanADS;
+        return true;
     }
 
     private void CheckFallDamage()
