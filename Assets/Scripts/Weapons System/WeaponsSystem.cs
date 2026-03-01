@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
 using PrimeTween;
+using UnityEngine.Apple.ReplayKit;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -46,12 +47,19 @@ public class WeaponsSystem : MonoBehaviour
     private float ReloadProgress => (Time.time - lastReloadTime) / currentWeapon.WeaponData.ReloadTime;
 
     [SerializeField] private PlayerMovement playerMovement;
+    
+    [SerializeField] private Crosshair crosshair;
+    [SerializeField] private ReloadPromptUI reloadPromptUI;
+    private bool isReloading = false;
 
     private bool weaponFrozen;
 
     private void Start()
     {
         InputManager.Instance.OnReloadAction += Reload;
+        
+        crosshair = FindObjectOfType<Crosshair>();
+        reloadPromptUI =  FindObjectOfType<ReloadPromptUI>();
     }
 
     private void OnDisable()
@@ -81,6 +89,7 @@ public class WeaponsSystem : MonoBehaviour
                     playerCameraSystem.ResetCamera();
                 }
                 aiming = false;
+                crosshair.SetADS(false);
             }
         }
         
@@ -89,9 +98,22 @@ public class WeaponsSystem : MonoBehaviour
         //UI Crosshair update
         onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
+        // Show reload prompt if out of ammo and not reloading
+        if (currentWeapon.CurrentAmmoInMag <= 0 && !isReloading)
+        {
+            reloadPromptUI.ShowReloadPrompt();
+        }
+        
         // Reload update
-        if(ReloadProgress > 0)
+        if (ReloadProgress > 0)
+        {
             onUpdateReload?.Invoke(ReloadProgress);
+
+            if (ReloadProgress >= 1 && ReloadProgress <= 1.1f)
+            {
+                reloadPromptUI.Hide();
+            }
+        }
     }
 
     private void WeaponSwitching()
@@ -144,8 +166,10 @@ public class WeaponsSystem : MonoBehaviour
         {
             // play empty mag sound here
             // Debug.Log("No ammo in mag!");
+            reloadPromptUI.ShowReloadPrompt();
             return;
         }
+        reloadPromptUI.Hide();
 
         // limit it so you can only shoot up to the max fire rate
         float timeBetweenShots = 60f / currentWeapon.WeaponData.FireRateRPM;
@@ -190,6 +214,7 @@ public class WeaponsSystem : MonoBehaviour
             {
                 playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
                 aiming = true;
+                crosshair.SetADS(true);
             }
         }
     }
@@ -203,8 +228,11 @@ public class WeaponsSystem : MonoBehaviour
         
         if (ReloadProgress >= 1)
         {
+            isReloading = true;
             accumulatedShootingTime = 0f;
             lastReloadTime = Time.time;
+            
+            reloadPromptUI.ShowReloading();
 
             currentWeapon.Reload(PlayerData);
         }
