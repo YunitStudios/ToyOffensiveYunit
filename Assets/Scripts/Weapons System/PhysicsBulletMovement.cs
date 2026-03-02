@@ -15,6 +15,8 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     [SerializeField] private VoidEventChannelSO onBulletHitEnemy;
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     
+    private Vector3 bulletSpawnPoint; // This will hold the "Snapshot"
+    
     // constants
     private const float gravity = 9.81f; // m/s²
     
@@ -23,6 +25,7 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     void Start()
     {
         velocity = InitialDirection.normalized * InitialVelocity;
+        damageSourcePos = transform.position;
     }
 
     // Update is called once per frame
@@ -45,9 +48,9 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                 // TODO: This is a bit of a bodge? Really if the AI needed its own damage system it should be using events from the generic health system, not intercepting it and dealing its own damage
                 if (collider.gameObject.CompareTag("Player"))
                 {
-                    if (hit.transform.TryGetComponent<Health>(out Health playerHealth))
+                    if (hit.transform.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
                     {
-                        playerHealth.DealDamage(Damage);
+                        playerHealth.TakeDamage(this, Damage);
                         Debug.Log("Damage Dealt: " + Damage);
                         // onShowHitmarker.Invoke();
                     }
@@ -94,4 +97,5 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     {
         return ((mask.value & (1 << obj.layer)) != 0);
     }
+    public Vector3 damageSourcePos { get; set; }
 }

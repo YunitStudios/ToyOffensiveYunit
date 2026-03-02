@@ -377,6 +377,7 @@ public class WeaponsSystem : MonoBehaviour
     public class Bullet : IDamageSource
     {
         public Transform transform => null;
+        public Vector3 damageSourcePos { get; set; }
     }
 
     public void SetWeaponFrozen(bool isFrozen)

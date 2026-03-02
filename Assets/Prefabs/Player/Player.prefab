@@ -110,11 +110,11 @@ MonoBehaviour:
       m_RotationOrder: 4
     slideCooldown: 1
   climbingSettings:
-    <RandomField>k__BackingField: 0
     climbableLayer:
       serializedVersion: 2
       m_Bits: 64
     climbRange: 1.5
+    startClimbRangeMultiplier: 0.3
     climbingVerticalAngleLimits: {x: -40, y: 40}
     climbingHorizontalAngleLimits: {x: -40, y: 40}
     climbVerticalSpeed: 0
@@ -516,6 +516,8 @@ MonoBehaviour:
   onUpdateReload: {fileID: 11400000, guid: 0aa7dcf917e652e42b8bdc0192c0f83b, type: 2}
   onWeaponFired: {fileID: 11400000, guid: 108d26a63c535c9488289411aa622ba3, type: 2}
   playerMovement: {fileID: 386950647050592367}
+  crosshair: {fileID: 0}
+  reloadPromptUI: {fileID: 0}
 --- !u!1 &5754689768074386340
 GameObject:
   m_ObjectHideFlags: 0
