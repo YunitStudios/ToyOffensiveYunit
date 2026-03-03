@@ -31,7 +31,7 @@ public class AIInventory : MonoBehaviour
     {
         List<WeaponDataSO> weapons = aiData.StartingPrimaryWeapons;
         int index = Random.Range(0, weapons.Count);
-        primaryWeapon = new Weapon(weapons[index], null);
+        primaryWeapon = new Weapon(weapons[index]);
         normalAmmoCount = aiData.MaxNormalAmmo;
         secondaryAmmoCount = aiData.MaxSecondaryAmmo;
         throwableData = aiData.StartingThrowable;

@@ -88,14 +88,16 @@ public class PlayerDataSO : ScriptableObject
         OnWeaponChanged?.Invoke();
         weapon.OnAmmoChanged += OnAmmoCountChanged.Invoke;
     }
-    public void SetPrimaryAttachment(AttachmentDataSO value)
+    public void SetPrimaryAttachment(Weapon weapon, AttachmentDataSO value)
     {
         PrimaryAttachment = value;
+        weapon.LoadAttachments(value);
         OnAttachmentsChanged?.Invoke();
     }
-    public void SetSecondaryAttachment(AttachmentDataSO value)
+    public void SetSecondaryAttachment(Weapon weapon, AttachmentDataSO value)
     {
         SecondaryAttachment = value;
+        weapon.LoadAttachments(value);
         OnAttachmentsChanged?.Invoke();
     }
     public void SetThrowables(ThrowableDataSO value)
@@ -145,14 +147,15 @@ public class PlayerDataSO : ScriptableObject
     public void Start()
     {
         SetWeaponSlot(WeaponSlot.Primary);
-        SetPrimaryWeapon(new Weapon(StartingPrimaryWeapon, StartingPrimaryAttachment));
-        SetSecondaryWeapon(new Weapon(StartingSecondaryWeapon, StartingSecondaryAttachment));
-        SetPrimaryAttachment(StartingPrimaryAttachment);
-        SetSecondaryAttachment(StartingSecondaryAttachment);
+        SetPrimaryWeapon(new Weapon(StartingPrimaryWeapon));
+        SetSecondaryWeapon(new Weapon(StartingSecondaryWeapon));
         SetThrowables(startingThrowable);
         SetNormalAmmoCount(maxNormalAmmo);
         SetSecondaryAmmoCount(maxSecondaryAmmo);
         SetThrowableCount(maxThrowableAmount);
+        SetPrimaryAttachment(PrimaryWeapon, StartingPrimaryAttachment);
+        SetSecondaryAttachment(SecondaryWeapon, StartingSecondaryAttachment);
+        
         CameraType = PlayerCamera.CameraType.Main;
         CurrentHealth = MaxHealth;
     }

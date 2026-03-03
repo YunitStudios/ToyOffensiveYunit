@@ -61,7 +61,6 @@ public class Crosshair : MonoBehaviour
 
     private void UpdateSpread(float newSpread)
     {
-        Debug.Log(newSpread);
         targetSpread = newSpread;
         // Smoothly moves current spread to new spread
         currentSpread = Mathf.Lerp(currentSpread, newSpread * spreadMultiplier, Time.deltaTime * expandSpeed);

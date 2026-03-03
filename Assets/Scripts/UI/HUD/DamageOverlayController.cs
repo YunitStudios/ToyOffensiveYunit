@@ -22,7 +22,7 @@ public class DamageOverlayController : MonoBehaviour
         onHealthChanged.OnEventRaised -= UpdateDamage;
     }
     
-    private void Start()
+    private void Awake()
     {
         fader = gameObject.GetComponent<CanvasFader>();
     }
