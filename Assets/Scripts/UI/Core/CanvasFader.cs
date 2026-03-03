@@ -8,8 +8,8 @@ using EditorAttributes;
 public class CanvasFader : MonoBehaviour
 {
     [Header("General")]
-    [SerializeField, Range(0, 1)] private float minAlpha = 0.0f;
-    [SerializeField, Range(0, 1)] private float maxAlpha = 1.0f;
+    [SerializeField, Range(0, 1)] public float minAlpha = 0.0f;
+    [SerializeField, Range(0, 1)] public float maxAlpha = 1.0f;
     [SerializeField, Tooltip("How long to stay at max alpha during full play")] private float showTime = 2;
 
     [Header("Fade In")]
@@ -137,4 +137,9 @@ public class CanvasFader : MonoBehaviour
         fadeOutTime = fadeOut;
         showTime = show;
     }
+    
+    // these are here so unity ui can use them
+    public void PlayFull() => Play(FadeType.Full);
+    public void PlayIn() => Play(FadeType.In);
+    public void PlayOut() => Play(FadeType.Out);
 }

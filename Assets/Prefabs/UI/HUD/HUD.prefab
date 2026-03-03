@@ -402,7 +402,7 @@ GameObject:
   - component: {fileID: 394586782499715898}
   - component: {fileID: 3375653034061130012}
   - component: {fileID: 4556907789507509494}
-  - component: {fileID: 413392179514815334}
+  - component: {fileID: 6649138005989864999}
   m_Layer: 5
   m_Name: DamageTint
   m_TagString: Untagged
@@ -508,7 +508,7 @@ CanvasGroup:
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
---- !u!114 &413392179514815334
+--- !u!114 &6649138005989864999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -517,25 +517,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1085127420244440648}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de08b678de63dbf44ab342c8bdf88c7e, type: 3}
+  m_Script: {fileID: 11500000, guid: a5c9b8d17414a3444a32bf13fb2aa1cd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::VoidEventChannelListener
-  eventChannel: {fileID: 11400000, guid: e70044af65091c545b2d38e97e6a0230, type: 2}
-  onRaised:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3375653034061130012}
-        m_TargetAssemblyTypeName: CanvasFader, Assembly-CSharp
-        m_MethodName: PlayFull
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_EditorClassIdentifier: '::'
+  maxHealth: 100
+  maxOpacity: 0.75
+  minOpacity: 0.2
+  onHealthChanged: {fileID: 11400000, guid: 012165d8166761545af3b264d54d7cb5, type: 2}
 --- !u!1 &1615392241771236898
 GameObject:
   m_ObjectHideFlags: 0
