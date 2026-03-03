@@ -35,7 +35,6 @@ public class BehindCoverState : AIState
         // after time has passed switch to peek state
         if (weaponSystem.CanFire() && !weaponSystem.IsReloading())
         {
-            Debug.Log("hello");
             controller.ChangeState(new PeekShootState(controller, agent, coverPoint, player));
         }
     }
