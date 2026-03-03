@@ -39,15 +39,40 @@ public class AttackState : AIState
         
         // needs changing 
         agent.SetDestination(player.position);
+        weaponSystem.target = player;
         weaponSystem.Fire();
-        if (agent.remainingDistance <= stoppingDistance)
+        if (agent.remainingDistance <= stoppingDistance && HasLineOfSight())
         {
             agent.isStopped = true;
-            weaponSystem.target = player;
+            RotateTowardsPlayer();
         }
         else
         {
             agent.isStopped = false;
         }
     }
+
+    private bool HasLineOfSight()
+    {
+        Vector3 from = controller.transform.position + Vector3.up;
+        Vector3 to = player.position + Vector3.up;
+        Vector3 dir = to - from;
+        float dist = dir.magnitude * 2f;
+
+        // Raycast to check it can see player
+        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy", "Vision")))
+        {
+            return hit.transform == player;
+        }
+
+        return false;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 lookDirection = (player.position - controller.transform.position).normalized;
+        lookDirection.y = 0;
+        controller.transform.rotation = Quaternion.LookRotation(lookDirection);
+    }
+
 }
