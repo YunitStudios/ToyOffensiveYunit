@@ -89,7 +89,7 @@ public class WeaponsSystem : MonoBehaviour
                     playerCameraSystem.ResetCamera();
                 }
                 aiming = false;
-                crosshair.SetADS(false);
+                currentWeapon.WeaponSpread.IsAiming = aiming;
             }
         }
         
@@ -214,7 +214,7 @@ public class WeaponsSystem : MonoBehaviour
             {
                 playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
                 aiming = true;
-                crosshair.SetADS(true);
+                currentWeapon.WeaponSpread.IsAiming = aiming;
             }
         }
     }
@@ -386,6 +386,7 @@ public class WeaponsSystem : MonoBehaviour
         if (isFrozen)
         {
             aiming = false;
+            currentWeapon.WeaponSpread.IsAiming = aiming;
             playerCameraSystem.ResetCamera();
         }
     }
