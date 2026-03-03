@@ -73,8 +73,6 @@ public class WeaponSpread
             CurrentSpreadPosition = minSpread;
         }
         CalculateSpread();
-        
-        Debug.Log($"{CurrentSpreadPosition} / 1");
     }
 
     public void ResetSpread()
