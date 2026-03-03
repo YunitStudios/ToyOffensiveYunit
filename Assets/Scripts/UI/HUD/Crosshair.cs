@@ -16,10 +16,7 @@ public class Crosshair : MonoBehaviour
     private RectTransform[] crosshair;
     private Vector2[] originalCrosshairPositions;
     private float currentSpread;
-    private float spreadMultiplier;
-    private float nonADSspreadMultiplier = 25f;
-    private float adsSpreadMultiplier = 10f;
-    private bool isADS;
+    private float spreadMultiplier = 10f;
     private float targetSpread;
     private float crosshairScale;
 
@@ -38,16 +35,8 @@ public class Crosshair : MonoBehaviour
 
     private void Update()
     {
-        if (isADS)
-        {
-            spreadMultiplier = adsSpreadMultiplier;
-            crosshairScale = 0.2f;
-        }
-        else
-        {
-            spreadMultiplier = nonADSspreadMultiplier;
-            crosshairScale = 1f;
-        }
+        crosshairScale = 0.2f;
+        
         currentSpread = Mathf.Lerp(currentSpread, targetSpread * spreadMultiplier, Time.deltaTime * expandSpeed);
         
         // Move each crosshair piece outwards due to spread
@@ -72,16 +61,9 @@ public class Crosshair : MonoBehaviour
 
     private void UpdateSpread(float newSpread)
     {
+        Debug.Log(newSpread);
         targetSpread = newSpread;
         // Smoothly moves current spread to new spread
-        if (isADS)
-        {
-            spreadMultiplier = adsSpreadMultiplier;
-        }
-        else
-        {
-            spreadMultiplier = nonADSspreadMultiplier;
-        }
         currentSpread = Mathf.Lerp(currentSpread, newSpread * spreadMultiplier, Time.deltaTime * expandSpeed);
     }
     
@@ -103,10 +85,5 @@ public class Crosshair : MonoBehaviour
             hitmarker.color = new Color(hitmarker.color.r, hitmarker.color.g, hitmarker.color.b, alpha);
             yield return null;
         }
-    }
-
-    public void SetADS(bool isAiming)
-    {
-        isADS = isAiming;
     }
 }
