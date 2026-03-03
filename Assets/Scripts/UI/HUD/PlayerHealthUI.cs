@@ -1,13 +1,15 @@
 using System;
 using PrimeTween;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour
 {
     [Header("References")] 
-    [SerializeField] private Slider mainSlider;
-    [SerializeField] private Slider backgroundSlider;
+    [SerializeField] private Image foregroundImage;
+    [SerializeField] private Image backgroundImage;
+    [SerializeField] private TMP_Text valueText;
 
     [Header("Attributes")] 
     // I dont know how to link this value with the players health script
@@ -49,10 +51,11 @@ public class PlayerHealthUI : MonoBehaviour
         else
         {
             float percent = newValue / maxHealth;
-            mainSlider.value = percent;
-            backgroundSlider.value = percent;
+            foregroundImage.fillAmount = percent;
+            backgroundImage.fillAmount = percent;
         }
-
+        
+        valueText.text = newValue.ToString();
         currentValue = newValue;
     }
 
@@ -65,10 +68,10 @@ public class PlayerHealthUI : MonoBehaviour
         if(backgroundTween.isAlive)
             backgroundTween.Stop();
         
-        mainTween = Tween.UISliderValue(mainSlider, newPercent, animationLength, animationEase);
+        mainTween = Tween.UIFillAmount(foregroundImage, newPercent, animationLength, animationEase);
 
         backgroundTween = Tween.Delay(animationBackgroundDelay, () =>
-            backgroundTween = Tween.UISliderValue(backgroundSlider, newPercent, animationLength, animationEase)
+            backgroundTween = Tween.UIFillAmount(backgroundImage, newPercent, animationLength, animationEase)
         );
     }
 }
