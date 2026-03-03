@@ -14,6 +14,8 @@ public class MissionPOI : MonoBehaviour
     [SerializeField] private MissionSO[] missions;
     [SerializeField] private POIType poiType;
     public POIType GetPOIType => poiType;
+    [Tooltip("All start points will be manually ordered ascending based on this value")]
+    [SerializeField, ShowField(nameof(IsStartPoint))] private int startPointOrder;
     [Tooltip("How long it takes for the player to be extracted after entering the area")]
     [SerializeField, ShowField(nameof(IsExtractPoint))] private float extractDuration = 3;
     [SerializeField] private POIShape poiShape;
@@ -44,6 +46,8 @@ public class MissionPOI : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onLevelWin;
     
     private float ExtractProgress => currentExtractTime / extractDuration;
+
+    public int GetStartPointOrder => startPointOrder;
 
     private bool active;
     private bool extracted;

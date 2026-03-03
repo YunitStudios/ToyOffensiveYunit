@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using EditorAttributes;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Mission", fileName = "Mission")]
 public class MissionSO : ScriptableObject
@@ -27,6 +28,9 @@ public class MissionSO : ScriptableObject
             poi.SetupPOI();
         foreach(var poi in extractPoints)
             poi.SetupPOI();
+
+        // Order start points based on the set order
+        startPoints = startPoints.OrderBy(t => t.GetStartPointOrder).ToList();
     }
 
     public void Clear()
@@ -45,6 +49,8 @@ public class MissionSO : ScriptableObject
             return PlayerMovement.NULL_POSITION;
         
         StartPointIndex %= startPoints.Count;
+
+        Debug.Log(StartPointIndex);
         
         return startPoints[StartPointIndex].GetPosition();
     }
