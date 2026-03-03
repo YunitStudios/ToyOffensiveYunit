@@ -37,6 +37,8 @@ public class DamageOverlayController : MonoBehaviour
             float healthLostPercent = 1f - (clampedValue / maxHealth);
             float interpolatedValue = healthLostPercent * maxOpacity;
             
+            lastHealth = clampedValue;
+            
             fader.maxAlpha = Mathf.Clamp(interpolatedValue, minOpacity, maxHealth);
             fader.PlayFull();
         }
