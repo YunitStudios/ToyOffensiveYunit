@@ -5,16 +5,28 @@ using UnityEngine.Serialization;
 
 public class ObjectiveTarget : MonoBehaviour
 {
-    [SerializeField] private TargetObjectivesSO[] objectives;
-    [SerializeField] private SerializableInterface<IObjectiveTarget> target;
+    private TargetObjectivesSO[] objectives;
+    private SerializableInterface<IObjectiveTarget> target;
 
-    private void OnEnable()
+    private void Awake()
+    {
+        if(TryGetComponent<IObjectiveTarget>(out var newTarget))
+        {
+            SerializableInterface<IObjectiveTarget> serializedTarget = new();
+            serializedTarget.Instance = newTarget;
+            target = serializedTarget;
+        }
+    }
+
+    public void Setup(TargetObjectivesSO[] objectives)
     {
         if (target.Instance.Equals(null))
         {
             enabled = false;
             return;
         }
+
+        this.objectives = objectives;
 
         target.Instance.OnTargetComplete += CompleteTarget;
         foreach (var objective in objectives)
