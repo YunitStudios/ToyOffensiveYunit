@@ -76,8 +76,7 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                         
                         target.TakeDamage(this, Damage * dmgMultiplier);
 
-                        if (collider.gameObject.CompareTag("Enemy"))
-                            onShowHitmarker.Invoke();
+                        onShowHitmarker.Invoke();
                         
                         if(hitHead)
                             onBulletHeadshotEnemy?.Invoke();
