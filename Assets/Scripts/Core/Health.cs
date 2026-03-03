@@ -115,7 +115,6 @@ public class Health : MonoBehaviour, IObjectiveTarget
             onDie?.Invoke();
             OnDieUnity?.Invoke();
             
-            print("die");
             isDead = true;
             
             OnTargetComplete?.Invoke();

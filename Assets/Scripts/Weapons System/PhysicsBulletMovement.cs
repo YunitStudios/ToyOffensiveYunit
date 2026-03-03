@@ -51,7 +51,6 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                     if (hit.transform.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
                     {
                         playerHealth.TakeDamage(this, Damage);
-                        Debug.Log("Damage Dealt: " + Damage);
                         // onShowHitmarker.Invoke();
                     }
                 }
