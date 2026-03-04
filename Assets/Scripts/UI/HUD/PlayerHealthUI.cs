@@ -44,6 +44,8 @@ public class PlayerHealthUI : MonoBehaviour
 
     private void SetValue(float newValue)
     {
+        newValue = Mathf.Clamp(newValue, 0, maxHealth);
+        
         float difference = newValue - currentValue;
         
         if(difference < 0) 
@@ -55,7 +57,7 @@ public class PlayerHealthUI : MonoBehaviour
             backgroundImage.fillAmount = percent;
         }
         
-        valueText.text = newValue.ToString();
+        valueText.text = Mathf.RoundToInt(newValue).ToString();
         currentValue = newValue;
     }
 

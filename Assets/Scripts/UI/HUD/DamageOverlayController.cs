@@ -13,9 +13,11 @@ public class DamageOverlayController : MonoBehaviour
     [SerializeField] private FloatEventChannelSO onHealthChanged;
     
     private CanvasFader fader;
+    private float lastHealth;
     private void OnEnable()
     {
         onHealthChanged.OnEventRaised += UpdateDamage;
+        lastHealth = maxHealth;
     }
     private void OnDisable()
     {
@@ -28,12 +30,17 @@ public class DamageOverlayController : MonoBehaviour
     }
     void UpdateDamage(float value)
     {
-        // map damage between 0 and the max opacity
-        float clampedValue = Mathf.Clamp(value, 0f, maxHealth);
-        float healthLostPercent = 1f - (clampedValue / maxHealth);
-        float interpolatedValue = healthLostPercent * maxOpacity;
-        
-        fader.maxAlpha = Mathf.Clamp(interpolatedValue, minOpacity, maxHealth);
-        fader.PlayFull();
+        if (value < lastHealth)
+        {
+            // map damage between 0 and the max opacity
+            float clampedValue = Mathf.Clamp(value, 0f, maxHealth);
+            float healthLostPercent = 1f - (clampedValue / maxHealth);
+            float interpolatedValue = healthLostPercent * maxOpacity;
+            
+            lastHealth = clampedValue;
+            
+            fader.maxAlpha = Mathf.Clamp(interpolatedValue, minOpacity, maxHealth);
+            fader.PlayFull();
+        }
     }
 }
