@@ -100,6 +100,7 @@ public class PlayerMovement : StateMachine
     public Vector3 CurrentVelocity => currentVelocity;
     private Vector3 currentVelocity;
     public float CurrentRadius => cc.radius;
+    public float SlopeLimit => cc.slopeLimit;
     
     
     [Header("Looking")]
@@ -112,7 +113,7 @@ public class PlayerMovement : StateMachine
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
-
+    public bool IsSliding;
 
 
 
@@ -123,6 +124,8 @@ public class PlayerMovement : StateMachine
     private bool movementFrozen;
     private bool hasCachedGroundCheck;
     private bool cachedGroundCheck;
+    private Vector3 slopeSlideVelocity;
+
     
     // Public Properties
     public bool IsGrounded
@@ -228,7 +231,7 @@ public class PlayerMovement : StateMachine
             currentVelocity.y += Physics.gravity.y * Time.deltaTime;
             
             // Set velocity to small negative value when grounded to prevent floating
-            if (IsGrounded && currentVelocity.y < 0f)
+            if (IsGrounded && currentVelocity.y < 0f && IsSliding)
             {
                 currentVelocity.y = -1f; // Small negative value to keep grounded
             }
@@ -236,6 +239,28 @@ public class PlayerMovement : StateMachine
         
         // Apply velocity for frame
         Vector3 finalVelocity = currentVelocity * Time.deltaTime;
+        
+        // Slope logic
+        if(currentState is MovementState { UseSlopeSliding: true })
+        {
+            if(slopeSlideVelocity != Vector3.zero)
+                IsSliding = true;
+            
+            HandleSlopes();
+            if(IsSliding)
+                finalVelocity += slopeSlideVelocity * Time.deltaTime;
+
+            if (slopeSlideVelocity == Vector3.zero)
+                IsSliding = false;
+
+        }
+        else
+        {
+            IsSliding = false;
+            slopeSlideVelocity = Vector3.zero;
+        }
+
+        
         cc.Move(finalVelocity); 
     }
     public void SetVelocity(Vector3 newVelocity)
@@ -246,6 +271,7 @@ public class PlayerMovement : StateMachine
     {
         currentVelocity += addVelocity;
     }
+    
     public void SetPosition(Vector3 newPosition)
     {
         if (newPosition == NULL_POSITION)
@@ -411,7 +437,7 @@ public class PlayerMovement : StateMachine
     
     public float GetGroundDistance()
     {
-        float sphereRadius = cc.radius * 0.9f;
+        float sphereRadius = cc.radius;
         Vector3 sphereOrigin = transform.position + Vector3.up * (sphereRadius);
         float maxDistance = 100f;
         
@@ -458,8 +484,6 @@ public class PlayerMovement : StateMachine
 
         float fallDistance =  Mathf.Abs(transform.position.y - fallingState.FallingStartHeight);
         
-        print(fallDistance);
-
         if (fallDistance < FallingSettings.FallDistanceScale.x)
             return;
         
@@ -469,5 +493,31 @@ public class PlayerMovement : StateMachine
         print(damageScale);
         float damage = 100 * damageScale;
         OnDealPlayerDamage(damage);
+    }
+    
+    private void HandleSlopes()
+    {
+        if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hitInfo, 5))
+        {
+            float angle = Vector3.Angle(hitInfo.normal, Vector3.up);
+
+            if (angle >= SlopeLimit)
+            {
+                slopeSlideVelocity = Vector3.ProjectOnPlane(new Vector3(0, currentVelocity.y, 0), hitInfo.normal);
+                return;
+            }
+        }
+
+        if (IsSliding)
+        {
+            slopeSlideVelocity -= slopeSlideVelocity * (Time.deltaTime * 3);
+
+            if (slopeSlideVelocity.magnitude > 1)
+            {
+                return;
+            }
+        }
+
+        slopeSlideVelocity = Vector3.zero;
     }
 }

@@ -40,7 +40,8 @@ public abstract class InputMoveState : MovementState
     }
     
     public virtual bool CanJump => true;
-    
+    public override bool UseSlopeSliding => true;
+
     public abstract float GetSpeedMultiplier { get; }
 
     private float currentAirTime;
@@ -136,7 +137,7 @@ public abstract class InputMoveState : MovementState
         }
         
     }
-
+    
     public override void FixedTick()
     {
     }
@@ -147,7 +148,7 @@ public abstract class InputMoveState : MovementState
         {
             SwitchState(stateMachine.ClimbingState);
         }
-        if (CanJump && stateMachine.InputController.JumpHeld && currentAirTime <= Settings.CoyoteTime)
+        if (CanJump && !stateMachine.IsSliding && stateMachine.InputController.JumpHeld && currentAirTime <= Settings.CoyoteTime)
         {
             // Set jumping state multiplier to current speed multiplier
             stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier);
