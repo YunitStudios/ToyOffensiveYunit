@@ -250,9 +250,11 @@ MonoBehaviour:
     parachutingTiltEasing: 1
     parachutingTileDampening: 10
     parachutingDiveMaxAngle: 75
-    parachutingDiveSpeed: 2
+    parachutingDiveInSpeed: 0.1
+    parachutingDiveOutSpeed: 0.15
     parachutingDiveSpeedBoost: 1.2
-    parachutingDiveEasing: 2
+    parachutingDiveInEasing: 3
+    parachutingDiveOutEasing: 0
     parachutingGravity: -0.25
     parachutingStartBoost: 8
     minimumHeightToDeploy: 5
@@ -260,6 +262,7 @@ MonoBehaviour:
     minimumDeployDistanceFromWall: 3
     fovMultiplierAtMaxSpeed: 1.5
     parachutingPlayerRadius: 0.66
+    animBlendTime: 0.25
   lookSensitivity: 1
   onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onTeleportPlayer: {fileID: 11400000, guid: d19670ba62e52ec4da7a3f19fdda0c82, type: 2}
