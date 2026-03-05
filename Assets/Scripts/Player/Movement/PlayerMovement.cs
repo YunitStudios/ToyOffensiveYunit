@@ -360,7 +360,7 @@ public class PlayerMovement : StateMachine
         
     }
     
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    /*private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Vector3 hitNormal = hit.normal;
         #region Slope Sliding
@@ -382,7 +382,7 @@ public class PlayerMovement : StateMachine
         }
         #endregion
 
-    }
+    }*/
     
     public bool IsFacingWall(float distance = 1f)
     {

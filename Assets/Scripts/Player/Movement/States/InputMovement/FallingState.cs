@@ -24,6 +24,10 @@ public class FallingSettings : StateSettings
     [Tooltip("Minimum and maximum velocity to calculate damage amount. X triggers the minimum damage, Y deals max damage")]
     [SerializeField] private Vector2 fallVelocityScale = new(3f, 10f);
     public Vector2 FallVelocityScale => fallVelocityScale;
+    [SerializeField] private float animationBlendInTime = 0.5f;
+    public float AnimationBlendInTime => animationBlendInTime;
+    [SerializeField] private float animationBlendOutTime = 0.1f;
+    public float AnimationBlendOutTime => animationBlendOutTime;
 }
 
 public class FallingState : InputMoveState
@@ -50,13 +54,12 @@ public class FallingState : InputMoveState
         // Tween current multiple from previous to target
         Tween.Custom(previousSpeedMultiplier, taretSpeedMultiplier, Settings.SpeedTransitionTime, value => currentSpeedMultiplier = value, Settings.SpeedTransitionEase);
 
-        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Falling", 0.2f);
-        stateMachine.PlayerAnimator.SetBool(IsFalling, true);
+        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Falling", Settings.AnimationBlendInTime);
     }
 
     public override void OnExit()
     {
-        stateMachine.PlayerAnimator.SetBool(IsFalling, false);
+        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Moving", Settings.AnimationBlendOutTime);
     }
 
     public override void Tick()
