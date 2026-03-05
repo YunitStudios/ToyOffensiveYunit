@@ -75,6 +75,7 @@ MonoBehaviour:
     maxAcceleration: 20
     turnSpeed: 1
     forwardInputThreshold: 0.6
+    coyoteTime: 0.1
   walkingSettings:
     walkSpeedMultiplier: 1
   sprintingSettings:
@@ -233,11 +234,13 @@ MonoBehaviour:
     rejumpDelay: 0.2
   fallingSettings:
     fallingHorizontalSpeedMultiplier: 0.33
-    fallingVelocityThreshold: -3
-    speedTransitionTime: 0.5
+    fallingVelocityThreshold: -5
+    speedTransitionTime: 0.75
     speedTransitionEase: 6
     fallDamageScale: {x: 0.1, y: 1}
     fallVelocityScale: {x: 10, y: 25}
+    animationBlendInTime: 0.33
+    animationBlendOutTime: 0.2
   parachutingSettings:
     parachutingMaxSpeed: 3
     parachutingAcceleration: 15
@@ -253,7 +256,7 @@ MonoBehaviour:
     parachutingGravity: -0.25
     parachutingStartBoost: 8
     minimumHeightToDeploy: 5
-    groundCheckVelocityThreshold: -3
+    groundCheckVelocityThreshold: -5
     minimumDeployDistanceFromWall: 3
     fovMultiplierAtMaxSpeed: 1.5
     parachutingPlayerRadius: 0.66
