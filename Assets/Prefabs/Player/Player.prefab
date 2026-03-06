@@ -66,6 +66,8 @@ MonoBehaviour:
   playerHeadNormalizedHeight: 0.8
   minGroundDistance: 0.15
   slopeSlideSpeed: 6
+  cameraHeightOffset: 0.5
+  crouchedCameraHeightOffset: 0
   environmentLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -75,6 +77,7 @@ MonoBehaviour:
     maxAcceleration: 20
     turnSpeed: 1
     forwardInputThreshold: 0.6
+    coyoteTime: 0.1
   walkingSettings:
     walkSpeedMultiplier: 1
   sprintingSettings:
@@ -269,11 +272,13 @@ MonoBehaviour:
     rejumpDelay: 0.2
   fallingSettings:
     fallingHorizontalSpeedMultiplier: 0.33
-    fallingVelocityThreshold: -3
-    speedTransitionTime: 0.5
+    fallingVelocityThreshold: -5
+    speedTransitionTime: 0.75
     speedTransitionEase: 6
     fallDamageScale: {x: 0.1, y: 1}
     fallVelocityScale: {x: 10, y: 25}
+    animationBlendInTime: 0.33
+    animationBlendOutTime: 0.2
   parachutingSettings:
     parachutingMaxSpeed: 3
     parachutingAcceleration: 15
@@ -283,13 +288,15 @@ MonoBehaviour:
     parachutingTiltEasing: 1
     parachutingTileDampening: 10
     parachutingDiveMaxAngle: 75
-    parachutingDiveSpeed: 2
+    parachutingDiveInSpeed: 0.1
+    parachutingDiveOutSpeed: 0.15
     parachutingDiveSpeedBoost: 1.2
-    parachutingDiveEasing: 2
+    parachutingDiveInEasing: 3
+    parachutingDiveOutEasing: 0
     parachutingGravity: -0.25
     parachutingStartBoost: 8
     minimumHeightToDeploy: 5
-    groundCheckVelocityThreshold: -3
+    groundCheckVelocityThreshold: -5
     minimumDeployDistanceFromWall: 3
     fovMultiplierAtMaxSpeed: 1.5
     parachutingPlayerRadius: 0.66
@@ -301,6 +308,7 @@ MonoBehaviour:
     parachuteModelScaleOutDuration: 0.66
     parachuteModelScaleOutEase: 29
     landingDuration: 2
+    animBlendTime: 0.25
   lookSensitivity: 1
   onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onTeleportPlayer: {fileID: 11400000, guid: d19670ba62e52ec4da7a3f19fdda0c82, type: 2}
