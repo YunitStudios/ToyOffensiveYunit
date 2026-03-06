@@ -21,6 +21,7 @@ public class GloryKill : MonoBehaviour
     private Transform snapPoint;
     private AIController currentTargetController;
     [SerializeField] private GameObject gunMesh;
+    [SerializeField] private GameObject gloryKillCamera;
     
     
     void Awake()
@@ -102,8 +103,13 @@ public class GloryKill : MonoBehaviour
 
     void TriggerGloryKill()
     {
+<<<<<<< Updated upstream
         playerAnimator.SetBool("IsAiming", false);
+=======
+        DisableTargetColliders(true);
+>>>>>>> Stashed changes
         gunMesh.SetActive(false);
+        gloryKillCamera.SetActive(true);
         isGloryKilling = true;
         lastGloryTime = Time.time;
         AIStateMachine.OnFreezeAllAI?.Invoke(true);
@@ -133,6 +139,7 @@ public class GloryKill : MonoBehaviour
     // Will be called by end of glory kill animation
     public void OnGloryKillFinished()
     {
+        DisableTargetColliders(false);
         AIStateMachine.OnFreezeAllAI?.Invoke(false);
         PlayerMovement playerMovement = GetComponent<PlayerMovement>();
         WeaponsSystem weaponsSystem = GetComponentInChildren<WeaponsSystem>();
@@ -143,6 +150,7 @@ public class GloryKill : MonoBehaviour
         currentTarget = null;
         isGloryKilling = false;
         gunMesh.SetActive(true);
+        gloryKillCamera.SetActive(false);
     }
 
     private IEnumerator MovePlayerToPoint(Vector3 targetPosition, System.Action onComplete)
@@ -162,5 +170,14 @@ public class GloryKill : MonoBehaviour
         transform.position = targetPosition;
         playerAnimator.SetFloat("MoveSpeed", 0f);
         onComplete?.Invoke();
+    }
+
+    private void DisableTargetColliders(bool disable)
+    {
+        Collider[] colliders = currentTarget.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+        {
+            col.enabled = !disable;
+        }
     }
 }
