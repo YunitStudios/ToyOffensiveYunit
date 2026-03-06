@@ -429,7 +429,7 @@ public class ClimbingState : MovementState
         isHanging = true;
         
         stateMachine.PlayerAnimator.SetBool(AnimIsHanging, true);
-        //stateMachine.PlayerAnimator.applyRootMotion = false;
+        stateMachine.PlayerAnimator.applyRootMotion = false;
         
         // If in the sprint leap animation, crossfade to hanging
         if (stateMachine.PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClimbingSprint"))
@@ -445,7 +445,7 @@ public class ClimbingState : MovementState
         isHanging = false;
         
         stateMachine.PlayerAnimator.SetBool(AnimIsHanging, false);
-        //stateMachine.PlayerAnimator.applyRootMotion = true;
+        stateMachine.PlayerAnimator.applyRootMotion = true;
  
         rehangDelayTween = Tween.Delay(Settings.RehangDelay);
     }
@@ -518,8 +518,8 @@ public class ClimbingState : MovementState
             // Lerp separately
             Vector3 verticalPosition = Vector3.Lerp(startPosition, new Vector3(startPosition.x, targetPosition.y, startPosition.z), verticalT);
             Vector3 horizontalPosition = Vector3.Lerp(startPosition, new Vector3(targetPosition.x, startPosition.y, targetPosition.z), horizontalT);
-            Vector3 newPosition = new Vector3(horizontalPosition.x, verticalPosition.y, horizontalPosition.z);
-            //stateMachine.SetPosition(newPosition);
+            Vector3 newPosition = new Vector3(horizontalPosition.x, verticalPosition.y, horizontalPosition.z); 
+            stateMachine.SetPosition(newPosition);
             
             // Lerp X rotation back to 0
             Quaternion targetRotation = Quaternion.Euler(0f, startRotation.y, startRotation.z);
