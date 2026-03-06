@@ -20,6 +20,7 @@ public class GloryKill : MonoBehaviour
     private bool isGloryKilling = false;
     private Transform snapPoint;
     private AIController currentTargetController;
+    [SerializeField] private GameObject gunMesh;
     
     
     void Awake()
@@ -101,6 +102,7 @@ public class GloryKill : MonoBehaviour
 
     void TriggerGloryKill()
     {
+        gunMesh.SetActive(false);
         isGloryKilling = true;
         lastGloryTime = Time.time;
         AIStateMachine.OnFreezeAllAI?.Invoke(true);
@@ -139,6 +141,7 @@ public class GloryKill : MonoBehaviour
         currentTargetController.TakeDamage(null, 100f);
         currentTarget = null;
         isGloryKilling = false;
+        gunMesh.SetActive(true);
     }
 
     private IEnumerator MovePlayerToPoint(Vector3 targetPosition, System.Action onComplete)
