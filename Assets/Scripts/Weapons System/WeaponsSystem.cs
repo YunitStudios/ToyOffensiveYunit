@@ -9,6 +9,8 @@ using Random = UnityEngine.Random;
 
 public class WeaponsSystem : MonoBehaviour
 {
+    private static readonly int IsAiming = Animator.StringToHash("IsAiming");
+
     [Header("References")]
     [Tooltip("Player camera used for the obstruction check")]
     [SerializeField] private Camera playerCamera;   // player camera used for the obstruction check
@@ -79,17 +81,11 @@ public class WeaponsSystem : MonoBehaviour
                 Fire();
     
             if (InputManager.Instance.AimHeld && !aiming)
-                Aim();
+                AimStart();
     
             if (!InputManager.Instance.AimHeld && aiming)
             {
-                // ensures camera doesn't reset if player can not ads (fixed camera reset when climbing)
-                if (playerMovement.CanAds)
-                {
-                    playerCameraSystem.ResetCamera();
-                }
-                aiming = false;
-                currentWeapon.WeaponSpread.IsAiming = aiming;
+                AimStop();
             }
         }
         
@@ -206,7 +202,7 @@ public class WeaponsSystem : MonoBehaviour
         onWeaponFired?.Invoke();
     }
 
-    private void Aim()
+    private void AimStart()
     {
         if (playerMovement.CanAds)
         {
@@ -217,6 +213,20 @@ public class WeaponsSystem : MonoBehaviour
                 currentWeapon.WeaponSpread.IsAiming = aiming;
             }
         }
+        
+        playerMovement.PlayerAnimator.SetBool(IsAiming, true);
+    }
+
+    private void AimStop()
+    {
+        // ensures camera doesn't reset if player can not ads (fixed camera reset when climbing)
+        if (playerMovement.CanAds)
+        {
+            playerCameraSystem.ResetCamera();
+        }
+        aiming = false;
+        currentWeapon.WeaponSpread.IsAiming = aiming;
+        playerMovement.PlayerAnimator.SetBool(IsAiming, false);
     }
 
     private void Reload()
