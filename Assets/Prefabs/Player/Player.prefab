@@ -66,6 +66,8 @@ MonoBehaviour:
   playerHeadNormalizedHeight: 0.8
   minGroundDistance: 0.15
   slopeSlideSpeed: 6
+  cameraHeightOffset: 0.5
+  crouchedCameraHeightOffset: 0
   environmentLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -257,7 +259,7 @@ MonoBehaviour:
     minimumDeployDistanceFromWall: 3
     fovMultiplierAtMaxSpeed: 1.5
     parachutingPlayerRadius: 0.66
-  lookSensitivity: 1
+  lookSensitivity: 0.01
   onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onTeleportPlayer: {fileID: 11400000, guid: d19670ba62e52ec4da7a3f19fdda0c82, type: 2}
 --- !u!114 &8609337210801193703

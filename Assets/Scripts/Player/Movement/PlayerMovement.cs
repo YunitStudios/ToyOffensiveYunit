@@ -54,6 +54,18 @@ public class PlayerMovement : StateMachine
     [Tooltip("Speed that gravity will push you down a slope")]
     [SerializeField] private float slopeSlideSpeed = 2;
     public float SlopeSlideSpeed => slopeSlideSpeed;
+    [Tooltip("How much to offset the cameras look target from the players pivot")]
+    [SerializeField] private float cameraHeightOffset = 0.5f;
+
+    [Tooltip("How much to offset the cameras look target from the players pivot when crouched")]
+    [SerializeField] private float crouchedCameraHeightOffset = 0f;
+    
+    public float GetCurrentCameraHeightOffset => currentState switch
+    {
+        global::CrouchingState => crouchedCameraHeightOffset,
+        global::SlidingState => crouchedCameraHeightOffset,
+        _ => cameraHeightOffset
+    };
 
     [SerializeField] private LayerMask environmentLayer;
     public LayerMask EnvironmentLayer => environmentLayer;
@@ -188,7 +200,6 @@ public class PlayerMovement : StateMachine
         
         base.Update();
         
-        // Rotation when no rigidbody
         FrameLook();
         
         ApplyVelocity();
@@ -357,6 +368,12 @@ public class PlayerMovement : StateMachine
         
         // Copy yaw
         yawTracker.localEulerAngles = new Vector3(0, trackerEuler.y, 0);
+        
+        
+        // Set trackers Y position
+        Vector3 trackerPos = thirdPersonTracker.localPosition;
+        trackerPos.y = GetCurrentCameraHeightOffset;
+        thirdPersonTracker.localPosition = trackerPos;
         
     }
     
