@@ -108,10 +108,10 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Cooldown before being able to sprint leap again")]
     [SerializeField] private float climbSprintLeapCooldown = 2f;
     public float ClimbSprintLeapCooldown => climbSprintLeapCooldown;
-    [Tooltip("Percentage of stamina to use when performing a sprint leap")]
+    [Tooltip("Percentage of stamina to use when performing a sprint leap"), Range(0,1)]
     [SerializeField] private float climbSprintLeapStaminaPercentage = 0.2f;
     public float ClimbSprintLeapStaminaPercentage => climbSprintLeapStaminaPercentage;
-    [Tooltip("Padding of extra stamina needed to be able to sprint leap, prevents sprint leaping and then immediately falling because you have no stamina")]
+    [Tooltip("Padding percentage of extra stamina needed to be able to sprint leap, prevents sprint leaping and then immediately falling because you have no stamina"), Range(0,1)]
     [SerializeField] private float climbSprintLeapStaminaPadding = 0.1f;
     public float ClimbSprintLeapStaminaPadding => climbSprintLeapStaminaPadding;
     

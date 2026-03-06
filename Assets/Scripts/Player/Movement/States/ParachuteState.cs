@@ -23,12 +23,16 @@ public class ParachutingSettings : StateSettings
     public float ParachuteTileDampening => parachutingTileDampening;
     [SerializeField] private float parachutingDiveMaxAngle = 45f;
     public float ParachuteDiveMaxAngle => parachutingDiveMaxAngle;
-    [SerializeField] private float parachutingDiveSpeed = 3;
-    public float ParachuteDiveSpeed => parachutingDiveSpeed;
+    [SerializeField] private float parachutingDiveInSpeed = 0.1f;
+    public float ParachuteDiveInSpeed => parachutingDiveInSpeed;
+    [SerializeField] private float parachutingDiveOutSpeed = 0.15f;
+    public float ParachuteDiveOutSpeed => parachutingDiveOutSpeed;
     [SerializeField] private float parachutingDiveSpeedBoost = 3;
     public float ParachuteDiveSpeedBoost => parachutingDiveSpeedBoost;
-    [SerializeField] private Easing.EaseType parachutingDiveEasing = Easing.EaseType.InOutSine;
-    public Easing.EaseType ParachuteDiveEasing => parachutingDiveEasing;
+    [SerializeField] private Easing.EaseType parachutingDiveInEasing = Easing.EaseType.InSine;
+    public Easing.EaseType ParachuteDiveInEasing => parachutingDiveInEasing;
+    [SerializeField] private Easing.EaseType parachutingDiveOutEasing = Easing.EaseType.OutSine;
+    public Easing.EaseType ParachuteDiveOutEasing => parachutingDiveOutEasing;
     [SerializeField] private float parachutingGravity = -3f;
     public float ParachuteGravity => parachutingGravity;
     [SerializeField] private float parachutingStartBoost;
@@ -47,6 +51,8 @@ public class ParachutingSettings : StateSettings
     public float FovMultiplierAtMaxSpeed => fovMultiplierAtMaxSpeed;
     [SerializeField] private float parachutingPlayerRadius;
     public float ParachutingPlayerRadius => parachutingPlayerRadius;
+    [SerializeField] private float animBlendTime = 0.25f;
+    public float AnimBlendTime => animBlendTime;
 }
 
 public class ParachuteState : MovementState
@@ -61,9 +67,11 @@ public class ParachuteState : MovementState
     public override bool UseMouseRotatePlayer => false;
     public override bool ControlRotation => true;
 
+    private bool wasDiving;
     private float currentTurnValue = 0.0f;
     private float smoothedTiltAngle = 0.0f;
-    private float currentDiveValue = 0.0f;
+    private float diveEaseProgress = 0.0f;
+    private float currentDive = 0.0f;
 
 
     protected override void SetEnterConditions()
@@ -80,9 +88,9 @@ public class ParachuteState : MovementState
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Parachute);
         
         stateMachine.PlayerAnimator.SetBool(IsParachuting, true);
-        stateMachine.PlayerAnimator.CrossFade("Parachuting", 0.1f);
+        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Parachuting", Settings.AnimBlendTime);
         
-        currentDiveValue = 0.0f;
+        currentDive = 0.0f;
 
         stateMachine.ChangeRadius(Settings.ParachutingPlayerRadius);
 
@@ -131,27 +139,43 @@ public class ParachuteState : MovementState
         currentTurnValue = Mathf.MoveTowards(currentTurnValue, targetTurnValue, Settings.ParachuteTurnAcceleration * Time.deltaTime);
         float finalTurnAngle = stateMachine.RotationEuler.y + currentTurnValue;
 
-        // Dive
-        if (Mathf.Abs(input.y) > 0.1f)
-            currentDiveValue += input.y * Time.deltaTime;
-        else
-            // Reset dive
-            currentDiveValue = Mathf.MoveTowards(currentDiveValue, 0, Time.deltaTime);
-        currentDiveValue = Mathf.Clamp(currentDiveValue, 0, Settings.ParachuteDiveSpeed);
         
-        float diveProgress = Mathf.Clamp01(currentDiveValue / Settings.ParachuteDiveSpeed);
-        float easedDive = Easing.FindEaseType(Settings.ParachuteDiveEasing)(diveProgress);
-        float finalDiveAngle = easedDive * Settings.ParachuteDiveMaxAngle;
+        
+        // Dive
+        bool diving = Mathf.Abs(input.y) > 0.1f;
+
+        if (diving != wasDiving)
+        {
+            diveEaseProgress = 0f;
+            wasDiving = diving;
+        }
+
+        float currentDiveSpeed = diving ? Settings.ParachuteDiveInSpeed : Settings.ParachuteDiveOutSpeed;
+        diveEaseProgress = Mathf.Clamp01(diveEaseProgress + Time.deltaTime * currentDiveSpeed);
+
+        var ease = Easing.FindEaseType(diving 
+            ? Settings.ParachuteDiveInEasing
+            : Settings.ParachuteDiveOutEasing);
+
+        float eased = ease.Invoke(diveEaseProgress);
+
+        float target = diving ? 1f : 0f;
+        currentDive = Mathf.Lerp(currentDive, target, eased);
+        
+        
+        float finalDiveAngle = currentDive * Settings.ParachuteDiveMaxAngle;
         
         // Set rotation
         Quaternion finalRotation = Quaternion.Euler(finalDiveAngle, finalTurnAngle, 0);
         stateMachine.SetRotation(finalRotation);
         
+        wasDiving = diving;
+        
         
         
         // Velocity
         // Speed boost while diving
-        float diveBoost = 1f + (diveProgress * Settings.ParachuteDiveSpeedBoost);
+        float diveBoost = 1f + (currentDive * Settings.ParachuteDiveSpeedBoost);
         
         Vector3 startVelocity = stateMachine.CurrentVelocity;
         Vector3 targetVelocity = stateMachine.Forward * (Settings.ParachuteMaxSpeed * diveBoost);

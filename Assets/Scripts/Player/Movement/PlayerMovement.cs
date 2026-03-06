@@ -133,9 +133,20 @@ public class PlayerMovement : StateMachine
     private InputAxis.RecenteringSettings originalCameraRecentering;
 
     private bool movementFrozen;
+    private bool hasCachedGroundCheck;
+    private bool cachedGroundCheck;
     
     // Public Properties
-    public bool IsGrounded => CheckOnGround();
+    public bool IsGrounded
+    {
+        get
+        {
+            cachedGroundCheck = CheckOnGround();
+            hasCachedGroundCheck = true;
+            return cachedGroundCheck;
+        }
+    }
+
     [HideInInspector] public bool CanAds => CanADS();
 
     private void Awake()
@@ -211,7 +222,14 @@ public class PlayerMovement : StateMachine
         }
            
     }
-    
+
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
+
+        hasCachedGroundCheck = false;
+    }
+
 
     private void ApplyVelocity()
     {
@@ -377,7 +395,7 @@ public class PlayerMovement : StateMachine
         
     }
     
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+    /*private void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Vector3 hitNormal = hit.normal;
         #region Slope Sliding
@@ -399,7 +417,7 @@ public class PlayerMovement : StateMachine
         }
         #endregion
 
-    }
+    }*/
     
     public bool IsFacingWall(float distance = 1f)
     {
@@ -427,10 +445,14 @@ public class PlayerMovement : StateMachine
     // Spherecast to check if on ground
     private bool CheckOnGround()
     {
+        if(hasCachedGroundCheck)
+            return cachedGroundCheck;
+        
         if (GetGroundDistance() < minGroundDistance)
         {
             CheckFallDamage();
             climbingState.ResetStamina();
+            
             return true;
         }
 
@@ -447,12 +469,21 @@ public class PlayerMovement : StateMachine
 
     private void CheckFallDamage()
     {
-        if (!(currentVelocity.y < -FallingSettings.FallVelocityScale.x) || currentState is not global::FallingState) 
+        if (currentState is not global::FallingState) 
+            return;
+
+
+        float fallDistance =  Mathf.Abs(transform.position.y - fallingState.FallingStartHeight);
+        
+        print(fallDistance);
+
+        if (fallDistance < FallingSettings.FallDistanceScale.x)
             return;
         
-        float fallSpeed = Mathf.Abs(currentVelocity.y);
-        float t = Mathf.InverseLerp(FallingSettings.FallVelocityScale.x, FallingSettings.FallVelocityScale.y, fallSpeed);
+        float t = Mathf.InverseLerp(FallingSettings.FallDistanceScale.x, FallingSettings.FallDistanceScale.y, fallDistance);
+        print(t);
         float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
+        print(damageScale);
         float damage = 100 * damageScale;
         OnDealPlayerDamage(damage);
     }

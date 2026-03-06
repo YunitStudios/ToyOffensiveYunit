@@ -43,6 +43,8 @@ public class JumpingState : InputMoveState
 
         stateMachine.PlayerAnimator.SetBool(IsJumping, true);
         
+        // Reset vertical velocity and add jump velocity
+        stateMachine.SetVelocity(new Vector3(stateMachine.CurrentVelocity.x, 0, stateMachine.CurrentVelocity.z));
         Vector3 jumpVelocity = Vector3.zero;
         jumpVelocity.y = Settings.JumpHeight;
         stateMachine.AddVelocity(jumpVelocity);

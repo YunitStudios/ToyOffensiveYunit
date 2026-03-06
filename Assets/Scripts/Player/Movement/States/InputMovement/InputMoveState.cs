@@ -20,6 +20,11 @@ public class MovementSettings : StateSettings
     [Tooltip("Minimum forward input required to be considered moving forward (used in sprinting check for example)")]
     [SerializeField] private float forwardInputThreshold = 0.6f;
     public float ForwardInputThreshold => forwardInputThreshold;
+    
+    [Header("Coyote Time")]
+    [Tooltip("Time after leaving ground that player can still jump")]
+    [SerializeField] private float coyoteTime = 0.2f;
+    public float CoyoteTime => coyoteTime;
 }
 
 public abstract class InputMoveState : MovementState
@@ -37,6 +42,8 @@ public abstract class InputMoveState : MovementState
     public virtual bool CanJump => true;
     
     public abstract float GetSpeedMultiplier { get; }
+
+    private float currentAirTime;
 
     public void ApplyInputMovement()
     {
@@ -117,6 +124,17 @@ public abstract class InputMoveState : MovementState
     public override void Tick()
     {
         ApplyInputMovement();
+        
+        // Coyote Time
+        if (!stateMachine.IsGrounded)
+        {
+            currentAirTime += Time.deltaTime;
+        }
+        else
+        {
+            currentAirTime = 0f;
+        }
+        
     }
 
     public override void FixedTick()
@@ -129,8 +147,7 @@ public abstract class InputMoveState : MovementState
         {
             SwitchState(stateMachine.ClimbingState);
         }
-
-        if (CanJump && stateMachine.IsGrounded && stateMachine.InputController.JumpHeld)
+        if (CanJump && stateMachine.InputController.JumpHeld && currentAirTime <= Settings.CoyoteTime)
         {
             // Set jumping state multiplier to current speed multiplier
             stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier);
