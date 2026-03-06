@@ -102,6 +102,7 @@ public class GloryKill : MonoBehaviour
 
     void TriggerGloryKill()
     {
+        playerAnimator.SetBool("IsAiming", false);
         gunMesh.SetActive(false);
         isGloryKilling = true;
         lastGloryTime = Time.time;
