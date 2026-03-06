@@ -15,6 +15,11 @@ MonoBehaviour:
   ClassName: extended_mag
   DisplayName: Extended Mag
   Modifiers:
+  - WeaponClassName: pistol
+    ResinCost: 10
+    Stat: 2
+    Operation: 0
+    Value: 10
   - WeaponClassName: shotgun
     ResinCost: 10
     Stat: 2
@@ -30,3 +35,8 @@ MonoBehaviour:
     Stat: 2
     Operation: 0
     Value: 3
+  - WeaponClassName: smg
+    ResinCost: 10
+    Stat: 2
+    Operation: 0
+    Value: 10

@@ -83,14 +83,17 @@ public class AIStateMachine : MonoBehaviour
     public bool IsFrozen => isFrozen;
 
     // Sets starting states for AI 
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<AIVision>();
         detection = GetComponent<AIDetection>();
         aiController = GetComponent<AIController>();
         health =  GetComponent<Health>();
+    }
 
+    private void Start()
+    {
         // Sets station point to enemies start location
         if (enemyType == EnemyType.Stationary)
         {
@@ -381,9 +384,12 @@ public class AIStateMachine : MonoBehaviour
         enemyType = EnemyType.Patrol;
     }
     
-    public void SetTypeToTarget()
+    public void SetTypeToTarget(TargetObjectivesSO[] objectives)
     {
-        enemyType = EnemyType.Target; 
+
+        enemyType = EnemyType.Target;
+        var targetScript = gameObject.AddComponent<ObjectiveTarget>();
+        targetScript.Setup(objectives);
     }
     
     public void SetTypeToGuard()

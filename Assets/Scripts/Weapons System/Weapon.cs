@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using EditorAttributes;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [System.Serializable]
 public class Weapon
@@ -28,18 +29,14 @@ public class Weapon
     public Action OnAmmoChanged;
     
     // Constructor
-    public Weapon(WeaponDataSO weaponData, AttachmentDataSO attachment)
+    public Weapon(WeaponDataSO weaponData)
     {
-        Initialize(weaponData, attachment);
+        Initialize(weaponData);
     }
     
-    public void Initialize(WeaponDataSO weaponData, AttachmentDataSO attachment)
+    public void Initialize(WeaponDataSO weaponData)
     {
-        
-        // load attachments
-        LoadAttachments(weaponData, attachment);
-        
-        WeaponData = weaponData;
+        WeaponData = Object.Instantiate(weaponData);;
         FirePoint = LocateFirePoint(weaponData.WeaponPrefab);
         CurrentAmmoInMag = weaponData.MagSize;
         
@@ -52,24 +49,35 @@ public class Weapon
         );
     }
 
-    private void LoadAttachments(WeaponDataSO weaponData, AttachmentDataSO attachment)
+    public void LoadAttachments(AttachmentDataSO attachment)
     {
-        if (weaponData == null || attachment == null) return;
+        if (WeaponData == null || attachment == null) return;
+        
+        Debug.Log("Loading Attachments");
 
         foreach (StatModifier mod in attachment.Modifiers)
         {
             // skip if modifier is for a different weapon
             if (!string.IsNullOrEmpty(mod.WeaponClassName) &&
-                mod.WeaponClassName != weaponData.ClassName)
+                mod.WeaponClassName != WeaponData.ClassName)
                 continue;
 
-            ApplyModifier(weaponData, mod);
+            ApplyModifier(WeaponData, mod);
         }
 
-        if (!weaponData.AttachmentSOs.Contains(attachment))
-            weaponData.AttachmentSOs.Add(attachment);
+        if (!WeaponData.AttachmentSOs.Contains(attachment))
+            WeaponData.AttachmentSOs.Add(attachment);
         
         AttachmentSO = attachment;
+        
+        CurrentAmmoInMag = WeaponData.MagSize;
+        WeaponSpread = new WeaponSpread(
+            WeaponData.BaseSpread,
+            WeaponData.HalfSpread,
+            WeaponData.MaxSpread,
+            WeaponData.MagSize,
+            WeaponData.FireRateRPM
+        );
     }
 
     private void ApplyModifier(WeaponDataSO weaponData, StatModifier mod)

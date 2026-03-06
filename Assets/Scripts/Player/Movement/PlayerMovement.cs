@@ -21,6 +21,8 @@ public class PlayerMovement : StateMachine
     public Animator PlayerAnimator => playerAnimator;
     [SerializeField] private Transform thirdPersonTracker;
     public Transform ThirdPersonTracker => thirdPersonTracker;
+    [SerializeField] private Transform yawTracker;
+    public Transform YawTracker => yawTracker;
     [FormerlySerializedAs("playerCamera")] [FormerlySerializedAs("playerCameras")] [SerializeField] private PlayerCamera playerCamera;
     public PlayerCamera PlayerCamera => playerCamera;
     [SerializeField] private Transform rotationRoot;
@@ -323,6 +325,7 @@ public class PlayerMovement : StateMachine
 
             // Rotate third person tracker vertically
             thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(-finalInput.y, Vector3.right);
+            
         }
         // If theyre dead, only rotate the third person tracker
         else
@@ -351,6 +354,9 @@ public class PlayerMovement : StateMachine
         else if (angle is < 180f and > 40f) angle = 40f;
         trackerEuler.x = angle;
         thirdPersonTracker.localEulerAngles = trackerEuler;
+        
+        // Copy yaw
+        yawTracker.localEulerAngles = new Vector3(0, trackerEuler.y, 0);
         
     }
     

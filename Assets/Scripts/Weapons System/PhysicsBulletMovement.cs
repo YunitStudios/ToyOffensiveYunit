@@ -10,9 +10,11 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     [HideInInspector] public float Damage = 1f;
     [HideInInspector] public float MassKG;
     [HideInInspector] public LayerMask Shootable;
+    [SerializeField] private float HeadshotMultiplier = 1.5f;
 
     [Header("Output Events")] 
     [SerializeField] private VoidEventChannelSO onBulletHitEnemy;
+    [SerializeField] private VoidEventChannelSO onBulletHeadshotEnemy;
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     
     private Vector3 bulletSpawnPoint; // This will hold the "Snapshot"
@@ -45,28 +47,39 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
             // if hit something
             if (IsInLayerMask(collider.gameObject, Shootable))
             {
-                // TODO: This is a bit of a bodge? Really if the AI needed its own damage system it should be using events from the generic health system, not intercepting it and dealing its own damage
-                if (collider.gameObject.CompareTag("Player"))
+                if (hit.transform.TryGetComponentInParent<PlayerHealth>(out PlayerHealth playerHealth))
                 {
-                    if (hit.transform.TryGetComponent<PlayerHealth>(out PlayerHealth playerHealth))
-                    {
-                        playerHealth.TakeDamage(this, Damage);
-                        Debug.Log("Damage Dealt: " + Damage);
-                        // onShowHitmarker.Invoke();
-                    }
+                    Debug.Log("Player health hit");
+
+                    float dmgMultiplier = 1f;
+                    
+                    // TODO: I dont know if designers want the headshot multiplier on the player so ill just ignore it here
+                    // if(collider.gameObject.CompareTag("Head"))
+                    //     dmgMultiplier = HeadshotMultiplier;
+                    
+                    playerHealth.TakeDamage(this, Damage * dmgMultiplier);
+                    // onShowHitmarker.Invoke();
                 }
                 else
                 {
-                    if (hit.transform.TryGetComponent<IDamageable>(out IDamageable target))
+                    if (hit.transform.TryGetComponentInParent<IDamageable>(out IDamageable target))
                     {
-                        target.TakeDamage(this, Damage);
-                        // TODO: THIS CAUSES ISSUES MMAKING IT REGISTER THE PLAYERS HITMARKER WHEN THE ENEMIES SHOOT
-
-                        if (collider.gameObject.CompareTag("Enemy"))
+                        bool hitHead = false;
+                        Debug.Log("Enemy health hit");
+                        
+                        float dmgMultiplier = 1f;
+                        if (collider.gameObject.CompareTag("Head"))
                         {
-                            onShowHitmarker.Invoke();
+                            hitHead = true;
+                            dmgMultiplier = HeadshotMultiplier;
                         }
-                        // onShowHitmarker.Invoke();
+                        
+                        target.TakeDamage(this, Damage * dmgMultiplier);
+
+                        onShowHitmarker.Invoke();
+                        
+                        if(hitHead)
+                            onBulletHeadshotEnemy?.Invoke();
                         
                         onBulletHitEnemy?.Invoke();
                     }
@@ -99,3 +112,13 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     }
     public Vector3 damageSourcePos { get; set; }
 }
+
+// unity doesent have this so i just made one
+public static class TransformExtensions
+{
+    public static bool TryGetComponentInParent<T>(this Transform transform, out T component) where T : class
+    {
+        component = transform.GetComponentInParent<T>();
+        return component != null;
+    }
+}    
