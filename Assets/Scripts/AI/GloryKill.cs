@@ -103,11 +103,8 @@ public class GloryKill : MonoBehaviour
 
     void TriggerGloryKill()
     {
-<<<<<<< Updated upstream
         playerAnimator.SetBool("IsAiming", false);
-=======
         DisableTargetColliders(true);
->>>>>>> Stashed changes
         gunMesh.SetActive(false);
         gloryKillCamera.SetActive(true);
         isGloryKilling = true;
