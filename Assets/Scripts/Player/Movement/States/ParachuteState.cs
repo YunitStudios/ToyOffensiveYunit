@@ -1,4 +1,5 @@
 using System;
+using PrimeTween;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -47,6 +48,26 @@ public class ParachutingSettings : StateSettings
     public float FovMultiplierAtMaxSpeed => fovMultiplierAtMaxSpeed;
     [SerializeField] private float parachutingPlayerRadius;
     public float ParachutingPlayerRadius => parachutingPlayerRadius;
+
+    [Header("Parachute Model")] 
+    [SerializeField] private Transform parachuteModelTransform;
+    public Transform ParachuteModelTransform => parachuteModelTransform;
+    [SerializeField] private float parachuteModelScaleInDelay = 0.33f;
+    public float ParachuteModelScaleInDelay => parachuteModelScaleInDelay;
+    [SerializeField] private float parachuteModelScaleInDuration = 0.5f;
+    public float ParachuteModelScaleInDuration => parachuteModelScaleInDuration;
+    [SerializeField] private Ease parachuteModelScaleInEase = Ease.OutCirc;
+    public Ease ParachuteModelScaleInEase => parachuteModelScaleInEase;
+    [SerializeField] private float parachuteModelScaleOutDelay = 0.33f;
+    public float ParachuteModelScaleOutDelay => parachuteModelScaleOutDelay;
+    [SerializeField] private float parachuteModelScaleOutDuration = 0.5f;
+    public float ParachuteModelScaleOutDuration => parachuteModelScaleOutDuration;
+    [SerializeField] private Ease parachuteModelScaleOutEase = Ease.OutCirc;
+    public Ease ParachuteModelScaleOutEase => parachuteModelScaleOutEase;
+
+    [Header("Landing")] 
+    [SerializeField] private float landingDuration = 2f;
+    public float LandingDuration => landingDuration;
 }
 
 public class ParachuteState : MovementState
@@ -58,12 +79,14 @@ public class ParachuteState : MovementState
     }
     
     public ParachutingSettings Settings => stateMachine.ParachutingSettings;
-    public override bool UseMouseRotatePlayer => false;
-    public override bool ControlRotation => true;
+    public override bool UseMouseRotatePlayer => !isParachuting;
+    public override bool ControlRotation => isParachuting;
 
     private float currentTurnValue = 0.0f;
     private float smoothedTiltAngle = 0.0f;
     private float currentDiveValue = 0.0f;
+    private bool isParachuting;
+    private Sequence parachuteScaleSequence;
 
 
     protected override void SetEnterConditions()
@@ -86,6 +109,16 @@ public class ParachuteState : MovementState
 
         stateMachine.ChangeRadius(Settings.ParachutingPlayerRadius);
 
+        isParachuting = true;
+        
+        if(Settings.ParachuteModelTransform)
+        {
+            Settings.ParachuteModelTransform.localScale = Vector3.zero;
+            parachuteScaleSequence = Sequence.Create()
+                .ChainDelay(Settings.ParachuteModelScaleInDelay)
+                .Chain(Tween.Scale(Settings.ParachuteModelTransform, Vector3.one, Settings.ParachuteModelScaleInDuration,Settings.ParachuteModelScaleInEase));
+        }
+
     }
 
     public override void LateTick()
@@ -98,32 +131,38 @@ public class ParachuteState : MovementState
         // Cancel state
         if (stateMachine.InputController.CrouchDown)
             SwitchState(stateMachine.FallingState);
-
-        // Landed
-        if (stateMachine.IsGrounded)
-            SwitchState(stateMachine.WalkingState);
         
         // If they hit a wall
         if (stateMachine.IsFacingWall() && stateMachine.ClimbingState.CanClimb())
         {
             SwitchState(stateMachine.ClimbingState);
         }
+        
+        // If they fall after landing
+        if(!isParachuting && !stateMachine.IsGrounded)
+            SwitchState(stateMachine.FallingState);
     }
 
     public override void OnExit()
     {
-        stateMachine.PlayerAnimator.SetBool(IsParachuting, false);
-        
-        stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
-        
-        // Reset visual rotation
-        stateMachine.SetVisualRotation(Quaternion.identity);
+        EndParachute();
 
-        stateMachine.ChangeRadiusDefault();
     }
 
     public override void Tick()
     {
+        Parachuting();
+        
+        // Landed
+        if (isParachuting && stateMachine.IsGrounded)
+            OnLanded();
+    }
+
+    private void Parachuting()
+    {
+        if (!isParachuting)
+            return;
+        
         Vector2 input = stateMachine.InputController.FrameMove;
         
         // Turn
@@ -179,7 +218,6 @@ public class ParachuteState : MovementState
         
         Quaternion tiltRotation = Quaternion.Euler(0, 0, -smoothedTiltAngle);
         stateMachine.SetVisualRotation(tiltRotation);
-
     }
 
     public override void FixedTick()
@@ -205,6 +243,53 @@ public class ParachuteState : MovementState
             return false;
 
         return true;
+    }
+
+    private void OnLanded()
+    {
+        EndParachute();
+        
+        stateMachine.SetVelocity(Vector3.zero);
+        
+        stateMachine.PlayerAnimator.applyRootMotion = true;
+        
+        Tween.Delay(Settings.LandingDuration, OnLandedFinished);
+        
+    }
+
+    private void EndParachute()
+    {
+        if (!isParachuting)
+            return;
+        
+        isParachuting = false;
+
+        
+        stateMachine.PlayerAnimator.SetBool(IsParachuting, false);
+        
+        stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
+        
+        // Reset visual rotation
+        stateMachine.SetVisualRotation(Quaternion.identity);
+
+        stateMachine.ChangeRadiusDefault();
+        
+
+        if(Settings.ParachuteModelTransform)
+        {
+            if(parachuteScaleSequence.isAlive)
+                parachuteScaleSequence.Stop();
+            
+            parachuteScaleSequence = Sequence.Create()
+                .ChainDelay(Settings.ParachuteModelScaleOutDelay)
+                .Chain(Tween.Scale(Settings.ParachuteModelTransform, Vector3.zero, Settings.ParachuteModelScaleOutDuration,Settings.ParachuteModelScaleOutEase));
+        }
+    }
+
+    private void OnLandedFinished()
+    {
+        stateMachine.PlayerAnimator.applyRootMotion = false;
+        SwitchState(stateMachine.WalkingState);
     }
 
 }
