@@ -276,7 +276,7 @@ MonoBehaviour:
     speedTransitionTime: 0.75
     speedTransitionEase: 6
     fallDamageScale: {x: 0.1, y: 1}
-    fallVelocityScale: {x: 10, y: 25}
+    fallDistanceScale: {x: 3, y: 10}
     animationBlendInTime: 0.33
     animationBlendOutTime: 0.2
   parachutingSettings:
@@ -615,6 +615,7 @@ GameObject:
   - component: {fileID: 3353412084572693359}
   - component: {fileID: 9148675543439987146}
   - component: {fileID: 333144685495156007}
+  - component: {fileID: 3107692770457289402}
   m_Layer: 0
   m_Name: RotationRoot
   m_TagString: Untagged
@@ -675,6 +676,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3107692770457289402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575587763439869236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a85e1dfa3080e2f4c92eceb1eb2629af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GloryKillAnimationReceiver
+  gloryKill: {fileID: 6357758349644954081}
 --- !u!1 &7669584702012679197
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,39 +774,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.00000047683716
+      value: 55.9641
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4999995
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3.4641004
+      value: 5.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9369608
+      value: 0.6625571
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.3494345
+      value: 0.24701773
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.00000004214685
+      value: -0.66255754
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.000000021073426
+      value: 0.24701789
       objectReference: {fileID: 0}
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Value
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Center
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6128150691619200766, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: Target.TrackingTarget
