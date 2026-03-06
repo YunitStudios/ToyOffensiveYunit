@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class GloryKill : MonoBehaviour
@@ -17,6 +18,8 @@ public class GloryKill : MonoBehaviour
     private Animator targetAnimator;
     private GloryKillPromptUI gloryKillPromptUI;
     private bool isGloryKilling = false;
+    private Transform snapPoint;
+    private AIController currentTargetController;
     
     
     void Awake()
@@ -73,7 +76,9 @@ public class GloryKill : MonoBehaviour
             if (angle < angleBehind)
             {
                 currentTarget = aiStateMachine;
-                targetAnimator = currentTarget.GetComponent<Animator>();
+                currentTargetController =currentTarget.GetComponent<AIController>(); 
+                targetAnimator = currentTarget.GetComponentInChildren<Animator>();
+                snapPoint = currentTarget.transform.Find("GloryKillPoint");
                 return;
             }
         }
@@ -104,8 +109,20 @@ public class GloryKill : MonoBehaviour
         WeaponsSystem weaponsSystem = GetComponentInChildren<WeaponsSystem>();
         playerMovement.SetMovementFrozen(true);
         weaponsSystem.SetWeaponFrozen(true);
-        playerAnimator.SetTrigger("GloryKill1");
-        targetAnimator.SetTrigger("GloryKill2");
+        Vector3 snapPosition = snapPoint.position;
+        snapPosition.y = transform.position.y;
+        //playerMovement.SetPosition(snapPosition);
+        StartCoroutine(MovePlayerToPoint(snapPosition, () =>
+        {
+            playerAnimator.applyRootMotion = true; 
+            playerMovement.SetRotation(snapPoint.rotation);
+            playerAnimator.CrossFade("GloryKill1", 0f);
+            targetAnimator.CrossFade("GloryKill2", 0f);
+        }));
+        //playerMovement.SetRotation(snapPoint.rotation);
+        //playerAnimator.applyRootMotion = true;
+        //playerAnimator.CrossFade("GloryKill1", 0f);
+        //targetAnimator.CrossFade("GloryKill2", 0f);
        
        // play animation on the target ai and the player, freeze player movement somewhere too, maybe change camera for the glory kill
     }
@@ -118,8 +135,28 @@ public class GloryKill : MonoBehaviour
         WeaponsSystem weaponsSystem = GetComponentInChildren<WeaponsSystem>();
         playerMovement.SetMovementFrozen(false);
         weaponsSystem.SetWeaponFrozen(false);
-        currentTarget.health.DealDamage(100f);
+        playerAnimator.applyRootMotion = false;
+        currentTargetController.TakeDamage(null, 100f);
         currentTarget = null;
         isGloryKilling = false;
+    }
+
+    private IEnumerator MovePlayerToPoint(Vector3 targetPosition, System.Action onComplete)
+    {
+        playerAnimator.SetFloat("MoveSpeed", 1f);
+        float duration = 0.5f;
+        float timeElapsed = 0f;
+        Vector3 startPosition = transform.position;
+        targetPosition.y = startPosition.y;
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            float t = timeElapsed / duration;
+            transform.position = Vector3.Lerp(startPosition, targetPosition, t);
+            yield return null;
+        }
+        transform.position = targetPosition;
+        playerAnimator.SetFloat("MoveSpeed", 0f);
+        onComplete?.Invoke();
     }
 }
