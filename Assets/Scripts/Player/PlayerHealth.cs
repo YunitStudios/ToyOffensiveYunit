@@ -35,7 +35,7 @@ public class PlayerHealth : Health, IDamageable
     public void TakeDamage(IDamageSource source, float damage)
     {
         if(source is PhysicsBulletMovement)
-            DirectionalDamageUI.SpawnMarker?.Invoke(source.damageSourcePos);
+            RadialHUDDisplay.SpawnMarker?.Invoke(source.damageSourcePos, MarkerTypes.Damage);
         DealDamage(damage);
     }
 
