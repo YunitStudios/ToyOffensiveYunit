@@ -21,6 +21,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private float FormationSpacing = 2f;
     [Tooltip("Assign the base enemy prefab here")]
     [SerializeField] private GameObject enemyPrefab;
+    [Tooltip("Assign the target marker prefab here")]
+    [SerializeField] private GameObject targetMarkerPrefab;
     [Tooltip("Objective SOs to link to the target spawned in the script")]
     [SerializeField, ShowField(nameof(IsTargetSpawner))] private TargetObjectivesSO[] linkedObjectives; 
 
@@ -128,6 +130,8 @@ public class EnemySpawner : MonoBehaviour
                 commanderController.Waypoints = waypoints;
                 AIInventory targetInventory = squadMembers[0].GetComponentInChildren<AIInventory>();
                 targetInventory.SetAIData(targetData);
+                // Instantiates marker for target
+                Instantiate(targetMarkerPrefab, squadMembers[0].transform);
                 // register spawned target
                 AIStateMachine.TargetsAndGuards.Add(commanderController);
                 // remaining enemies become guards
