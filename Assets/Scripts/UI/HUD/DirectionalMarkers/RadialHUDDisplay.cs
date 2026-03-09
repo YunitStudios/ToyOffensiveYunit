@@ -22,7 +22,7 @@ public class RadialHUDDisplay : MonoBehaviour
     // Tracks active markers by their sector index
     private readonly Dictionary<int, DirectionalMarker> activeMarkers = new();
 
-    private void OnEnable()
+    private void Start()
     {
         SpawnMarker -= SpawnMarkerUI;
         SpawnMarker += SpawnMarkerUI;
