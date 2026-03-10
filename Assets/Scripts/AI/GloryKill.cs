@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class GloryKill : MonoBehaviour
+public class GloryKill : MonoBehaviour, IDamageSource
 {
     [Header("Settings")] 
     [SerializeField] private float maxDistance = 1f;
@@ -22,7 +22,7 @@ public class GloryKill : MonoBehaviour
     private AIController currentTargetController;
     [SerializeField] private GameObject gunMesh;
     [SerializeField] private GameObject gloryKillCamera; 
-    private GameObject hud;
+    private CanvasGroup hud;
     
     
     void Awake()
@@ -33,7 +33,7 @@ public class GloryKill : MonoBehaviour
     void Start()
     {
         gloryKillPromptUI = FindObjectOfType<GloryKillPromptUI>(true);
-        hud = GameObject.Find("HUD");
+        hud = GameObject.Find("HUD").GetComponent<CanvasGroup>();
         if (InputManager.Instance != null)
         {
             InputManager.Instance.OnGloryKillAction += OnGloryKillTriggered;
@@ -109,7 +109,7 @@ public class GloryKill : MonoBehaviour
         DisableTargetColliders(true);
         gunMesh.SetActive(false);
         gloryKillCamera.SetActive(true);
-        hud.SetActive(false);
+        hud.alpha = 0.0f;
         isGloryKilling = true;
         lastGloryTime = Time.time;
         AIStateMachine.OnFreezeAllAI?.Invoke(true);
@@ -146,12 +146,13 @@ public class GloryKill : MonoBehaviour
         playerMovement.SetMovementFrozen(false);
         weaponsSystem.SetWeaponFrozen(false);
         playerAnimator.applyRootMotion = false;
-        currentTargetController.TakeDamage(null, 100f);
+        damageSourcePos = currentTargetController.transform.position;
+        currentTargetController.TakeDamage(this, 100f);
         currentTarget = null;
         isGloryKilling = false;
         gunMesh.SetActive(true);
         gloryKillCamera.SetActive(false);
-        hud.SetActive(true);
+        hud.alpha = 1.0f;
     }
 
     private IEnumerator MovePlayerToPoint(Vector3 targetPosition, System.Action onComplete)
@@ -181,4 +182,6 @@ public class GloryKill : MonoBehaviour
             col.enabled = !disable;
         }
     }
+
+    public Vector3 damageSourcePos { get; set; }
 }
