@@ -31,7 +31,10 @@ public class SlidingState : MovementState
 
     private float slideTime;
     private Tween durationTween;
-    
+
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
+
 
     public override void OnEnter()
     {

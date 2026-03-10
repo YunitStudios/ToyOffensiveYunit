@@ -151,7 +151,8 @@ public class ClimbingState : MovementState
     private static readonly int AnimClimbSpeed = Animator.StringToHash("ClimbSpeed");
     private static readonly int AnimIsHanging = Animator.StringToHash("IsHanging");
     
-    public override bool CanADS => false;
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
 
     private ClimbingSettings Settings => stateMachine.ClimbingSettings;
     

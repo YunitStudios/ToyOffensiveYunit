@@ -23,6 +23,8 @@ public class JumpingState : InputMoveState
     private new JumpingSettings Settings => stateMachine.JumpingSettings;
 
     public override bool CanJump => false;
+    public override bool CanShoot => true;
+    public override bool CanAim => false;
 
     public JumpingState(StateMachine stateMachine) : base(stateMachine)
     {

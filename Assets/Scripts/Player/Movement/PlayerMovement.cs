@@ -123,10 +123,12 @@ public class PlayerMovement : StateMachine
     [Tooltip("Multiplier to adjust look sensitivity")]
     [SerializeField] private float lookSensitivity = 0.1f;
 
-    [Header("Events")] 
+    [Header("Input Events")] 
     [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
     [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     [SerializeField] private VoidEventChannelSO onTryUnstuck;
+    [SerializeField] private VoidEventChannelSO onPlayerAimStart;
+    [SerializeField] private VoidEventChannelSO onPlayerAimStop;
     
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
@@ -154,7 +156,8 @@ public class PlayerMovement : StateMachine
         }
     }
 
-    [HideInInspector] public bool CanAds => CanADS();
+    public bool CanShoot => CheckCanShoot();
+    public bool CanAim => CheckCanAim();
 
     private void Awake()
     {
@@ -476,11 +479,18 @@ public class PlayerMovement : StateMachine
         return false;
     }
 
-    private bool CanADS()
+    private bool CheckCanShoot()
     {
         //return currentState is IMovementState { CanADS: false };
         if (currentState is IMovementState state)
-            return state.CanADS;
+            return state.CanShoot;
+        return true;
+    }
+    private bool CheckCanAim()
+    {
+        //return currentState is IMovementState { CanADS: false };
+        if (currentState is IMovementState state)
+            return state.CanAim;
         return true;
     }
 
@@ -522,6 +532,11 @@ public class PlayerMovement : StateMachine
     {
         MovementMultiplier += multiplier;
         Tween.Delay(duration, () => MovementMultiplier -= multiplier);
+    }
+
+    public void ManualMovementModifier(float multiplier)
+    {
+        MovementMultiplier += multiplier;
     }
     public void TemporaryVelocityBoost(float duration, Vector3 localVelocity, AnimationCurve curve)
     {

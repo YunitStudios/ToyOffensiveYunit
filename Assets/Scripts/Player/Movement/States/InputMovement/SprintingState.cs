@@ -18,7 +18,10 @@ public class SprintingState : InputMoveState
     }
     
     private new SprintingSettings Settings => stateMachine.SprintingSettings;
-    
+
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
+
     protected override void SetEnterConditions()
     {
         base.SetEnterConditions();
