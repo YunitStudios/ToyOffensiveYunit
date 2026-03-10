@@ -273,6 +273,7 @@ public class PlayerMovement : StateMachine
         }
 
         Vector3 finalVelocity = (currentVelocity + frameVelocity) * Time.deltaTime;
+        
         cc.Move(finalVelocity);
         frameVelocity = Vector3.zero;
     }
