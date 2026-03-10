@@ -67,6 +67,9 @@ public class FallingState : InputMoveState
 
     public override void OnExit()
     {
+        if (!stateMachine.IsAlive)
+            return;
+        
         stateMachine.PlayerAnimator.CrossFadeInFixedTime("Moving", Settings.AnimationBlendOutTime);
     }
 

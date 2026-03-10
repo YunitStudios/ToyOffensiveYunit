@@ -16,6 +16,8 @@ public class PlayerMovement : StateMachine
 
     private CharacterController cc;
     private CapsuleCollider col;
+    private PlayerHealth playerHealth;
+    public bool IsAlive => playerHealth.IsAlive;
     
     [Header("Components")]
     [SerializeField] private Animator playerAnimator;
@@ -160,6 +162,7 @@ public class PlayerMovement : StateMachine
         
         cc = GetComponent<CharacterController>();
         col = GetComponent<CapsuleCollider>();
+        playerHealth = GetComponent<PlayerHealth>();
         // Copy character controller collider data to capsule collider
         cc.radius = playerRadius;
         cc.height = playerHeight;
@@ -213,7 +216,7 @@ public class PlayerMovement : StateMachine
 
     protected override void Update()
     {
-        if (movementFrozen)
+        if (movementFrozen || !playerHealth.IsAlive)
         {
             return;
         }
