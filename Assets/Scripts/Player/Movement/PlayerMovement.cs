@@ -3,6 +3,7 @@ using PrimeTween;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -121,6 +122,8 @@ public class PlayerMovement : StateMachine
     [Header("Events")] 
     [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
     [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
+    [SerializeField] private VoidEventChannelSO onTryUnstuck;
+    
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
@@ -172,11 +175,13 @@ public class PlayerMovement : StateMachine
     private void OnEnable()
     {
         onTeleportPlayer.OnEventRaised += SetPosition;
+        onTryUnstuck.OnEventRaised += OnTryUnstuck;
     }
 
     private void OnDisable()
     {
         onTeleportPlayer.OnEventRaised -= SetPosition;
+        onTryUnstuck.OnEventRaised -= OnTryUnstuck;
     }
 
     private void SetupStates()
@@ -486,5 +491,18 @@ public class PlayerMovement : StateMachine
         print(damageScale);
         float damage = 100 * damageScale;
         OnDealPlayerDamage(damage);
+    }
+    
+    private void OnTryUnstuck()
+    {
+        // Check for nearest nav mesh position
+        if (NavMesh.SamplePosition(transform.position, out var hit, float.MaxValue, NavMesh.AllAreas))
+        {
+            // Dont move if the player is already on the nav mesh
+            if (hit.position == transform.position)
+                return;
+            
+            SetPosition(hit.position);
+        }
     }
 }
