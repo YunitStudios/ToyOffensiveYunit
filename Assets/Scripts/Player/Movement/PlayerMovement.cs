@@ -159,6 +159,7 @@ public class PlayerMovement : StateMachine
     public bool CanShoot => CheckCanShoot();
     public bool CanAim => CheckCanAim();
     public bool DisableSprinting { get; private set; }
+    public bool IsSlopeSliding { get; private set; }
 
     private void Awake()
     {
@@ -243,29 +244,39 @@ public class PlayerMovement : StateMachine
     {
         base.LateUpdate();
 
-        frameVelocity = Vector3.zero;
         hasCachedGroundCheck = false;
     }
 
 
     private void ApplyVelocity()
     {
-        // Apply gravity
         if (currentState is IMovementState { UseGravity: true })
         {
             currentVelocity.y += Physics.gravity.y * Time.deltaTime;
-            
-            // Set velocity to small negative value when grounded to prevent floating
-            if (IsGrounded && currentVelocity.y < 0f)
+
+            // https://discussions.unity.com/t/character-controller-slide-down-slope/188130
+            // Thanks claude for once you were actually helpful
+            bool onSteepSlope = Vector3.Angle(Vector3.up, hitNormal) > cc.slopeLimit;
+            bool nearGround = GetGroundDistance() < minGroundDistance*2;
+            if (nearGround && onSteepSlope)
             {
-                currentVelocity.y = -1f; // Small negative value to keep grounded
+                float slideFriction = 1f - slopeSlideSpeed / 10f;
+                currentVelocity.x += (1f - hitNormal.y) * hitNormal.x * (1f - slideFriction);
+                currentVelocity.z += (1f - hitNormal.y) * hitNormal.z * (1f - slideFriction);
+                IsSlopeSliding = true;
+            }
+            else if (IsGrounded && currentVelocity.y < 0f)
+            {
+                currentVelocity.y = -1f;
+                IsSlopeSliding = false;
             }
         }
-        
-        // Apply velocity for frame
+
         Vector3 finalVelocity = (currentVelocity + frameVelocity) * Time.deltaTime;
-        cc.Move(finalVelocity); 
+        cc.Move(finalVelocity);
+        frameVelocity = Vector3.zero;
     }
+    
     public void SetVelocity(Vector3 newVelocity)
     {
         currentVelocity = newVelocity;
@@ -416,30 +427,6 @@ public class PlayerMovement : StateMachine
         
     }
     
-    /*private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Vector3 hitNormal = hit.normal;
-        #region Slope Sliding
-        // Source: https://discussions.unity.com/t/character-controller-slide-down-slope/188130/2
-        // Check if we are sliding
-        var angle = Vector3.Angle(Vector3.up, hitNormal);
-        bool isSliding = (angle > hit.controller.slopeLimit && angle < 85f);
-        if (isSliding && !IsGrounded && currentVelocity.y <= 0f){
-            {
-                var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitNormal);
-                // Calculate speed based on rotation from up
-                float slopeSpeed = (angle-45) / 45f; // Normalize between 0 and 1 from 45 to 90 degrees
-                slopeSpeed++;
-                
-                var slopeVelocity = slopeRotation * new Vector3(hitNormal.x, 0f, hitNormal.z) * slopeSlideSpeed * slopeSpeed;
-                currentVelocity = slopeVelocity;
-            }
-
-        }
-        #endregion
-
-    }*/
-    
     public bool IsFacingWall(float distance = 1f)
     {
         Vector3 origin = Position + Vector3.up * PlayerHeight/2;
@@ -449,15 +436,13 @@ public class PlayerMovement : StateMachine
     
     public float GetGroundDistance()
     {
-        float sphereRadius = cc.radius * 0.9f;
+        float sphereRadius = cc.radius;
         Vector3 sphereOrigin = transform.position + Vector3.up * (sphereRadius);
         float maxDistance = 100f;
         
         if(Physics.SphereCast(sphereOrigin, sphereRadius, Vector3.down, out var hitInfo, maxDistance, environmentLayer))
         {
-            // // Make sure surface is flat
-            if(Vector3.SignedAngle(hitInfo.normal, Vector3.up, Vector3.right) <= cc.slopeLimit)
-                return hitInfo.distance;
+            return hitInfo.distance;
         }
         return maxDistance;
         
@@ -587,6 +572,17 @@ public class PlayerMovement : StateMachine
             Vector3 worldVelocity = target.rotationRoot.TransformDirection(localVelocity);
             AddFrameVelocity(worldVelocity * curve.Evaluate(tween.progress));
         });
+    }
+    
+    
+    
+    
+    
+    private Vector3 hitNormal = Vector3.up;
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
     }
     
 }

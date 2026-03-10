@@ -36,7 +36,7 @@ public class JumpingState : InputMoveState
     protected override void SetEnterConditions()
     {
         base.SetEnterConditions();
-        AddCanEnterCondition(() => !rejumpDelayTween.isAlive);
+        AddCanEnterCondition(CanPlayerJump);
     }
 
     public override void OnEnter()
@@ -94,5 +94,10 @@ public class JumpingState : InputMoveState
 
     public override void FixedTick()
     {
+    }
+    
+    private bool CanPlayerJump()
+    {
+        return !rejumpDelayTween.isAlive && !stateMachine.IsSlopeSliding;
     }
 }
