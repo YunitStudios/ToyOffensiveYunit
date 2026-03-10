@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using AYellowpaper.SerializedCollections;
 using PrimeTween;
+using Throwable_System.ThrowableTypes;
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/ScoreTracker", fileName = "ScoreTracker")]
@@ -40,6 +41,7 @@ public class ScoreTrackerSO : ScriptableObject
     [SerializeField] private VoidEventChannelSO OnTargetKillBelow;
     [SerializeField] private VoidEventChannelSO OnMultiKillWithHazard;
     [SerializeField] private VoidEventChannelSO OnMultiKillWithGadget;
+    [SerializeField] private VoidEventChannelSO On3KillsWithGrenade;
     
 
     public static Action<List<ScoreTypes>, float> OnScoreAdded;
@@ -155,6 +157,11 @@ public class ScoreTrackerSO : ScriptableObject
             
             if(multiKillScore > 0)
                 scoreTypes.Add(ScoreTypes.MultiKill);
+            
+            // Hardcoded trigger events
+            if(multiKillCount >= 2 && source is ExplosiveGrenade)
+                On3KillsWithGrenade?.Invoke();
+                
         }
 
         if (wasTarget)
