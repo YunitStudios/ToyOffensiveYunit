@@ -65,7 +65,7 @@ public class SprintingState : InputMoveState
     
     private bool CanSprint()
     {
-        return stateMachine.InputController.FrameMove.y > base.Settings.ForwardInputThreshold;
+        return stateMachine.InputController.FrameMove.y > base.Settings.ForwardInputThreshold && !stateMachine.DisableSprinting;
     }
 
     public override float GetSpeedMultiplier => Settings.SprintSpeedMultiplier;

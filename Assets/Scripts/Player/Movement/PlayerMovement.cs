@@ -158,6 +158,7 @@ public class PlayerMovement : StateMachine
 
     public bool CanShoot => CheckCanShoot();
     public bool CanAim => CheckCanAim();
+    public bool DisableSprinting { get; private set; }
 
     private void Awake()
     {
@@ -528,10 +529,37 @@ public class PlayerMovement : StateMachine
         }
     }
 
-    public void TemporaryMovementModifier(float duration, float multiplier)
+    public void TemporaryMovementModifier(float duration, float multiplier, bool disableSprinting = false, float transitionTime = 0.0f)
     {
+        DisableSprinting = disableSprinting;
         MovementMultiplier += multiplier;
-        Tween.Delay(duration, () => MovementMultiplier -= multiplier);
+        Tween.Delay(duration - transitionTime, () =>
+        {
+            if (transitionTime == 0)
+            {
+                MovementMultiplier -= multiplier;
+                if(disableSprinting)
+                    DisableSprinting = false;
+            }
+            else
+            {
+                // TODO
+                // This actually breaks if anything else touches movement multiplier
+                // Uh lets just ignore that for now
+                
+                float startValue = MovementMultiplier;
+                float endValue = MovementMultiplier - multiplier;
+
+                Tween.Custom(startValue, endValue, transitionTime, v =>
+                {
+                    MovementMultiplier = v;
+                }).OnComplete(() =>
+                {
+                    if(disableSprinting)
+                        DisableSprinting = false;
+                });
+            }
+        });
     }
 
     public void ManualMovementModifier(float multiplier)

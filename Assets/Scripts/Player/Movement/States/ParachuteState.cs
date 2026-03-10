@@ -76,6 +76,9 @@ public class ParachutingSettings : StateSettings
     public float AnimBlendTime => animBlendTime;
     [SerializeField] private float landingMovementMuiltiplier = -0.5f;
     public float LandingMovementMuiltiplier => landingMovementMuiltiplier;
+    [Tooltip("How long it takes the player to return back to their normal movement speed. Behaves so that the multiplier resets right as the landing duration ends")]
+    [SerializeField] private float landingMovementMultiplierTransitionTime = 0.25f;
+    public float LandingMovementMultiplierTransitionTime => landingMovementMultiplierTransitionTime;
     [SerializeField] private float landingForwardMovementSpeed = 5;
     public float LandingForwardMovementSpeed => landingForwardMovementSpeed;
     [SerializeField] private AnimationCurve landingForwardCurve;
@@ -285,7 +288,7 @@ public class ParachuteState : MovementState
 
         OnLandedFinished();
         
-        stateMachine.TemporaryMovementModifier(Settings.LandingDuration, Settings.LandingMovementMuiltiplier);
+        stateMachine.TemporaryMovementModifier(Settings.LandingDuration, Settings.LandingMovementMuiltiplier, true, Settings.LandingMovementMultiplierTransitionTime);
         stateMachine.TemporaryVelocityBoost(Settings.LandingDuration, Vector3.forward * Settings.LandingForwardMovementSpeed, Settings.LandingForwardCurve);
         
         //Tween.Delay(Settings.LandingDuration, OnLandedFinished);
