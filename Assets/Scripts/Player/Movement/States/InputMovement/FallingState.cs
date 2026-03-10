@@ -29,6 +29,8 @@ public class FallingSettings : StateSettings
     public float AnimationBlendInTime => animationBlendInTime;
     [SerializeField] private float animationBlendOutTime = 0.1f;
     public float AnimationBlendOutTime => animationBlendOutTime;
+    [SerializeField] private float animationLethalBlendInTime = 0.5f;
+    public float AnimationLethalBlendInTime => animationLethalBlendInTime;
 }
 
 public class FallingState : InputMoveState
@@ -78,6 +80,11 @@ public class FallingState : InputMoveState
     public override void Tick()
     {
         base.Tick();
+        
+        // Transition to falling death if lethal damage
+        if(stateMachine.IsFallingLethal())
+            stateMachine.PlayerAnimator.CrossFadeInFixedTime("FallingLethal", Settings.AnimationLethalBlendInTime);
+ 
     }
     public override void FixedTick()
     {

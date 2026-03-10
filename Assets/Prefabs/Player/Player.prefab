@@ -283,9 +283,10 @@ MonoBehaviour:
     speedTransitionTime: 0.75
     speedTransitionEase: 6
     fallDamageScale: {x: 0.1, y: 1}
-    fallDistanceScale: {x: 3, y: 10}
+    fallDistanceScale: {x: 3, y: 8}
     animationBlendInTime: 0.33
     animationBlendOutTime: 0.2
+    animationLethalBlendInTime: 0.25
   parachutingSettings:
     parachutingMaxSpeed: 3
     parachutingAcceleration: 15

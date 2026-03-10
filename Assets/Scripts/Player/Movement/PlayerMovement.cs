@@ -469,15 +469,47 @@ public class PlayerMovement : StateMachine
         if(hasCachedGroundCheck)
             return cachedGroundCheck;
         
+        // Landed
         if (GetGroundDistance() < minGroundDistance)
         {
-            CheckFallDamage();
+            ApplyFallDamage();
             climbingState.ResetStamina();
             
             return true;
         }
 
         return false;
+    }
+    
+    public bool IsFallingLethal()
+    {
+        float fallDamage = CheckFallDamage();
+        
+        return fallDamage >= playerHealth.CurrentHealth;
+    }
+    
+    private float CheckFallDamage()
+    {
+        if (currentState is not global::FallingState) 
+            return 0;
+
+
+        float fallDistance =  Mathf.Abs(transform.position.y - fallingState.FallingStartHeight);
+        
+        if (fallDistance < FallingSettings.FallDistanceScale.x)
+            return 0;
+        
+        float t = Mathf.InverseLerp(FallingSettings.FallDistanceScale.x, FallingSettings.FallDistanceScale.y, fallDistance);
+        print(t);
+        float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
+        print(damageScale);
+        return 100 * damageScale;
+    }
+
+    private void ApplyFallDamage()
+    {
+        float fallDamage = CheckFallDamage();
+        OnDealPlayerDamage(fallDamage);
     }
 
     private bool CheckCanShoot()
@@ -495,26 +527,7 @@ public class PlayerMovement : StateMachine
         return true;
     }
 
-    private void CheckFallDamage()
-    {
-        if (currentState is not global::FallingState) 
-            return;
 
-
-        float fallDistance =  Mathf.Abs(transform.position.y - fallingState.FallingStartHeight);
-        
-        print(fallDistance);
-
-        if (fallDistance < FallingSettings.FallDistanceScale.x)
-            return;
-        
-        float t = Mathf.InverseLerp(FallingSettings.FallDistanceScale.x, FallingSettings.FallDistanceScale.y, fallDistance);
-        print(t);
-        float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
-        print(damageScale);
-        float damage = 100 * damageScale;
-        OnDealPlayerDamage(damage);
-    }
     
     private void OnTryUnstuck()
     {
