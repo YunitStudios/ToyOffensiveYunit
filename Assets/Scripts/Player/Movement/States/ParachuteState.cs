@@ -88,6 +88,7 @@ public class ParachutingSettings : StateSettings
 public class ParachuteState : MovementState
 {
     private static readonly int IsParachuting = Animator.StringToHash("IsParachuting");
+    private static readonly int IsParachuteLanded = Animator.StringToHash("IsParachuteLanded");
     
     public ParachuteState(StateMachine stateMachine) : base(stateMachine)
     {
@@ -120,6 +121,7 @@ public class ParachuteState : MovementState
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Parachute);
         
         stateMachine.PlayerAnimator.SetBool(IsParachuting, true);
+        stateMachine.PlayerAnimator.SetBool(IsParachuteLanded, false);
         stateMachine.PlayerAnimator.CrossFadeInFixedTime("Parachuting", Settings.AnimBlendTime);
         
         currentDive = 0.0f;
@@ -280,19 +282,16 @@ public class ParachuteState : MovementState
 
     private void OnLanded()
     {
+        
+        stateMachine.PlayerAnimator.SetBool(IsParachuteLanded, true);
         EndParachute();
-        
-        stateMachine.SetVelocity(Vector3.zero);
-        
-        stateMachine.PlayerAnimator.applyRootMotion = true;
 
-        OnLandedFinished();
+        stateMachine.SetVelocity(Vector3.zero);
         
         stateMachine.TemporaryMovementModifier(Settings.LandingDuration, Settings.LandingMovementMuiltiplier, true, Settings.LandingMovementMultiplierTransitionTime);
         stateMachine.TemporaryVelocityBoost(Settings.LandingDuration, Vector3.forward * Settings.LandingForwardMovementSpeed, Settings.LandingForwardCurve);
         
-        //Tween.Delay(Settings.LandingDuration, OnLandedFinished);
-        
+        SwitchState(stateMachine.WalkingState);
     }
 
     private void EndParachute()
@@ -304,7 +303,7 @@ public class ParachuteState : MovementState
 
         
         stateMachine.PlayerAnimator.SetBool(IsParachuting, false);
-        
+
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
         
         // Reset visual rotation
@@ -322,12 +321,6 @@ public class ParachuteState : MovementState
                 .ChainDelay(Settings.ParachuteModelScaleOutDelay)
                 .Chain(Tween.Scale(Settings.ParachuteModelTransform, Vector3.zero, Settings.ParachuteModelScaleOutDuration,Settings.ParachuteModelScaleOutEase));
         }
-    }
-
-    private void OnLandedFinished()
-    {
-        stateMachine.PlayerAnimator.applyRootMotion = false;
-        SwitchState(stateMachine.WalkingState);
     }
 
 }

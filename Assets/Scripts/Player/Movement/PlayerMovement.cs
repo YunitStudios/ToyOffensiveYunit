@@ -444,7 +444,7 @@ public class PlayerMovement : StateMachine
     {
         Vector3 origin = Position + Vector3.up * PlayerHeight/2;
         Vector3 direction = Forward;
-        return Physics.Raycast(origin, Forward, distance, EnvironmentLayer);
+        return Physics.Raycast(origin, direction, distance, EnvironmentLayer);
     }
     
     public float GetGroundDistance()

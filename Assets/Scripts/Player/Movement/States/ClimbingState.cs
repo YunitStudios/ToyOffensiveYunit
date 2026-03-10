@@ -632,7 +632,7 @@ public class ClimbingState : MovementState
     public ClimbDirections GetClimbState()
     {
         // used for making the rays shorter when starting to prevent accidental climbs
-        bool isAlreadyClimbing = stateMachine.CurrentState == this;
+        bool isAlreadyClimbing = stateMachine.CurrentState is ClimbingState or ParachuteState;
         float detectionRange = isAlreadyClimbing ? CurrentClimbRange : CurrentClimbRange * CurrentStartClimbRangeMultiplier;
         float detectionAngle = isAlreadyClimbing ? 90f : 0f;
         
