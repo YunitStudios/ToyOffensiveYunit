@@ -309,6 +309,32 @@ MonoBehaviour:
     parachuteModelScaleOutEase: 29
     landingDuration: 2
     animBlendTime: 0.25
+    landingMovementMuiltiplier: -0.5
+    landingForwardMovementSpeed: 4
+    landingForwardCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: -0.0015296936
+        value: 0.9966202
+        inSlope: -2.900591
+        outSlope: -2.900591
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.13761468
+      - serializedVersion: 3
+        time: 1
+        value: 0
+        inSlope: -0.83596915
+        outSlope: -0.83596915
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.10807606
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
   lookSensitivity: 1
   onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onTeleportPlayer: {fileID: 11400000, guid: d19670ba62e52ec4da7a3f19fdda0c82, type: 2}
