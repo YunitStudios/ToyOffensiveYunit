@@ -47,7 +47,7 @@ public class JumpingState : InputMoveState
         stateMachine.SetVelocity(new Vector3(stateMachine.CurrentVelocity.x, 0, stateMachine.CurrentVelocity.z));
         Vector3 jumpVelocity = Vector3.zero;
         jumpVelocity.y = Settings.JumpHeight;
-        stateMachine.AddVelocity(jumpVelocity);
+        stateMachine.ImpulseVelocity(jumpVelocity);
         
         landDelayTween = Tween.Delay(Settings.JumpLandDelay);
     }

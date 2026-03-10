@@ -112,6 +112,8 @@ public class PlayerMovement : StateMachine
     
     public Vector3 CurrentVelocity => currentVelocity;
     private Vector3 currentVelocity;
+    public Vector3 FrameVelocity => frameVelocity;
+    private Vector3 frameVelocity;
     public float CurrentRadius => cc.radius;
     
     
@@ -129,7 +131,7 @@ public class PlayerMovement : StateMachine
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
 
 
-
+    public float MovementMultiplier { get; private set; }
 
     
     private float defaultColliderHeight;
@@ -170,6 +172,8 @@ public class PlayerMovement : StateMachine
         SetupStates();
         
         defaultColliderHeight = cc.height;
+
+        MovementMultiplier = 1;
     }
 
     private void OnEnable()
@@ -232,6 +236,7 @@ public class PlayerMovement : StateMachine
     {
         base.LateUpdate();
 
+        frameVelocity = Vector3.zero;
         hasCachedGroundCheck = false;
     }
 
@@ -251,16 +256,20 @@ public class PlayerMovement : StateMachine
         }
         
         // Apply velocity for frame
-        Vector3 finalVelocity = currentVelocity * Time.deltaTime;
+        Vector3 finalVelocity = (currentVelocity + frameVelocity) * Time.deltaTime;
         cc.Move(finalVelocity); 
     }
     public void SetVelocity(Vector3 newVelocity)
     {
         currentVelocity = newVelocity;
     }
-    public void AddVelocity(Vector3 addVelocity)
+    public void ImpulseVelocity(Vector3 addVelocity)
     {
         currentVelocity += addVelocity;
+    }
+    public void AddFrameVelocity(Vector3 addVelocity)
+    {
+        frameVelocity += addVelocity;
     }
     public void SetPosition(Vector3 newPosition)
     {
@@ -505,4 +514,20 @@ public class PlayerMovement : StateMachine
             SetPosition(hit.position);
         }
     }
+
+    public void TemporaryMovementModifier(float duration, float multiplier)
+    {
+        MovementMultiplier += multiplier;
+        Tween.Delay(duration, () => MovementMultiplier -= multiplier);
+    }
+    public void TemporaryVelocityBoost(float duration, Vector3 localVelocity, AnimationCurve curve)
+    {
+        // Set frame velocity over time based on curve
+        Tween.Delay(duration).OnUpdate(target: this, (target, tween) =>
+        {
+            Vector3 worldVelocity = target.rotationRoot.TransformDirection(localVelocity);
+            AddFrameVelocity(worldVelocity * curve.Evaluate(tween.progress));
+        });
+    }
+    
 }

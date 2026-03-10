@@ -81,7 +81,7 @@ public abstract class InputMoveState : MovementState
 
         float speedFactor = 1f;
         
-        speedFactor *= GetSpeedMultiplier;
+        speedFactor *= GetSpeedMultiplier * stateMachine.MovementMultiplier;
         
         
         

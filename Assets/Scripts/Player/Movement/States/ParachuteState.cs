@@ -74,6 +74,12 @@ public class ParachutingSettings : StateSettings
     public float LandingDuration => landingDuration;
     [SerializeField] private float animBlendTime = 0.25f;
     public float AnimBlendTime => animBlendTime;
+    [SerializeField] private float landingMovementMuiltiplier = -0.5f;
+    public float LandingMovementMuiltiplier => landingMovementMuiltiplier;
+    [SerializeField] private float landingForwardMovementSpeed = 5;
+    public float LandingForwardMovementSpeed => landingForwardMovementSpeed;
+    [SerializeField] private AnimationCurve landingForwardCurve;
+    public AnimationCurve LandingForwardCurve => landingForwardCurve;
 }
 
 public class ParachuteState : MovementState
@@ -276,8 +282,13 @@ public class ParachuteState : MovementState
         stateMachine.SetVelocity(Vector3.zero);
         
         stateMachine.PlayerAnimator.applyRootMotion = true;
+
+        OnLandedFinished();
         
-        Tween.Delay(Settings.LandingDuration, OnLandedFinished);
+        stateMachine.TemporaryMovementModifier(Settings.LandingDuration, Settings.LandingMovementMuiltiplier);
+        stateMachine.TemporaryVelocityBoost(Settings.LandingDuration, Vector3.forward * Settings.LandingForwardMovementSpeed, Settings.LandingForwardCurve);
+        
+        //Tween.Delay(Settings.LandingDuration, OnLandedFinished);
         
     }
 
