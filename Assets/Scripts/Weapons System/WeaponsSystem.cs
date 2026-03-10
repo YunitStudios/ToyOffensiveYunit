@@ -36,8 +36,6 @@ public class WeaponsSystem : MonoBehaviour
     [SerializeField] private FloatEventChannelSO onUpdateSpread;
     [SerializeField] private FloatEventChannelSO onUpdateReload;
     [SerializeField] private VoidEventChannelSO onWeaponFired;
-    [SerializeField] private VoidEventChannelSO onAimStarted;
-    [SerializeField] private VoidEventChannelSO onAimStopped;
 
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
@@ -218,7 +216,7 @@ public class WeaponsSystem : MonoBehaviour
                 playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
                 aiming = true;
                 currentWeapon.WeaponSpread.IsAiming = aiming;
-                onAimStarted?.Invoke();
+                PlayerData.ToggleAiming(aiming);
                 playerMovement.PlayerAnimator.SetBool(IsAiming, true);
 
             }
@@ -230,7 +228,7 @@ public class WeaponsSystem : MonoBehaviour
         aiming = false;
         currentWeapon.WeaponSpread.IsAiming = aiming;
         playerMovement.PlayerAnimator.SetBool(IsAiming, false);
-        onAimStopped?.Invoke();
+        PlayerData.ToggleAiming(aiming);
         
         // Only reset the camera if current camera is ADS
         if (playerCameraSystem.CurrentCameraType == currentWeapon.WeaponData.AimCameraType)

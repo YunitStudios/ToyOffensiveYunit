@@ -22,6 +22,10 @@ public class MovementSettings : StateSettings
     public float ForwardInputThreshold => forwardInputThreshold;
     [SerializeField] private DirectionalSpeedMultiplier directionalSpeed;
     public DirectionalSpeedMultiplier DirectionalSpeed => directionalSpeed;
+    [Tooltip("% of movement speed while aiming down sight")]
+    [SerializeField] private float aimingMovementPercentage = 0.5f;
+    public float AimingMovementPercentage => aimingMovementPercentage;
+    
     
     [Header("Jumping")]
     [Tooltip("Time after leaving ground that player can still jump")]
@@ -35,11 +39,18 @@ public class MovementSettings : StateSettings
         public float backward;
         public float strafe;
     }
+
+    [Header("Animation")] 
+    [Tooltip("Min and Max speed the moving animation can be, the speed is based on their current speed compared to the max speed")]
+    [SerializeField] private Vector2 moveAnimSpeedRange = new(0f, 1f);
+    public Vector2 MoveAnimSpeedRange => moveAnimSpeedRange;
+    
 }
 
 public abstract class InputMoveState : MovementState
 {
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
+    private static readonly int AnimMoveSpeedModified = Animator.StringToHash("MoveSpeedModified");
     private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
     private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
     
@@ -91,8 +102,10 @@ public abstract class InputMoveState : MovementState
             cameraForward * scaledInput.y;
         
         float speedFactor = 1f;
-        
-        speedFactor *= GetSpeedMultiplier * stateMachine.MovementMultiplier;
+
+        speedFactor *= GetSpeedMultiplier;
+        speedFactor *= stateMachine.MovementMultiplier;
+        speedFactor *= stateMachine.PlayerData.IsAiming ? Settings.AimingMovementPercentage : 1;
         
         
         
@@ -129,6 +142,10 @@ public abstract class InputMoveState : MovementState
         }
         
         stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed, 0.1f, Time.deltaTime);
+        float modifiedSpeed = horizontalSpeed * 2f;
+        // Keep in range
+        modifiedSpeed = Mathf.Lerp(Settings.MoveAnimSpeedRange.x, Settings.MoveAnimSpeedRange.y, modifiedSpeed);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeedModified, modifiedSpeed, 0.1f, Time.deltaTime);
         stateMachine.PlayerAnimator.SetFloat(AnimMoveX, input.x, 0.1f, Time.deltaTime);
         stateMachine.PlayerAnimator.SetFloat(AnimMoveY, input.y, 0.1f, Time.deltaTime);
     }

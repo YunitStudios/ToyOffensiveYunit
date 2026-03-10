@@ -28,6 +28,8 @@ public class PlayerMovement : StateMachine
     public Transform YawTracker => yawTracker;
     [FormerlySerializedAs("playerCamera")] [FormerlySerializedAs("playerCameras")] [SerializeField] private PlayerCamera playerCamera;
     public PlayerCamera PlayerCamera => playerCamera;
+    [SerializeField] private PlayerDataSO playerData;
+    public PlayerDataSO PlayerData => playerData;
     [SerializeField] private Transform rotationRoot;
     [SerializeField] private Transform visualRoot;
     public Transform VisualRoot => visualRoot;
@@ -127,8 +129,6 @@ public class PlayerMovement : StateMachine
     [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
     [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     [SerializeField] private VoidEventChannelSO onTryUnstuck;
-    [SerializeField] private VoidEventChannelSO onPlayerAimStart;
-    [SerializeField] private VoidEventChannelSO onPlayerAimStop;
     
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     

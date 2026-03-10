@@ -59,6 +59,7 @@ MonoBehaviour:
   thirdPersonTracker: {fileID: 5636812732384450702}
   yawTracker: {fileID: 8957599536819606543}
   playerCamera: {fileID: 7862692414108309895}
+  playerData: {fileID: 11400000, guid: 32c01d06c06e50e4a9703f8738b15180, type: 2}
   rotationRoot: {fileID: 3353412084572693359}
   visualRoot: {fileID: 5347825268981630668}
   playerHeight: 2
@@ -81,7 +82,9 @@ MonoBehaviour:
       forward: 1
       backward: 0.5
       strafe: 0.5
+    aimingMovementPercentage: 0.5
     coyoteTime: 0.1
+    moveAnimSpeedRange: {x: 0.5, y: 1}
   walkingSettings:
     walkSpeedMultiplier: 1
   sprintingSettings:
@@ -344,8 +347,6 @@ MonoBehaviour:
   onDealPlayerDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onTeleportPlayer: {fileID: 11400000, guid: d19670ba62e52ec4da7a3f19fdda0c82, type: 2}
   onTryUnstuck: {fileID: 11400000, guid: 3b8dce3bf20516643b7a61a3bd42e8f7, type: 2}
-  onPlayerAimStart: {fileID: 0}
-  onPlayerAimStop: {fileID: 0}
 --- !u!114 &8609337210801193703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,8 +605,6 @@ MonoBehaviour:
   onUpdateSpread: {fileID: 11400000, guid: 6e2e77c3c63300b4c9ec1e86f4fb61ca, type: 2}
   onUpdateReload: {fileID: 11400000, guid: 0aa7dcf917e652e42b8bdc0192c0f83b, type: 2}
   onWeaponFired: {fileID: 11400000, guid: 108d26a63c535c9488289411aa622ba3, type: 2}
-  onAimStarted: {fileID: 0}
-  onAimStopped: {fileID: 0}
   playerMovement: {fileID: 386950647050592367}
   crosshair: {fileID: 0}
   reloadPromptUI: {fileID: 0}
