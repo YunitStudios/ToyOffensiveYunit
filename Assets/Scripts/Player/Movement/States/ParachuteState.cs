@@ -52,6 +52,16 @@ public class ParachutingSettings : StateSettings
     public float FovMultiplierAtMaxSpeed => fovMultiplierAtMaxSpeed;
     [SerializeField] private float parachutingPlayerRadius;
     public float ParachutingPlayerRadius => parachutingPlayerRadius;
+    [SerializeField] private float animBlendTime = 0.25f;
+    public float AnimBlendTime => animBlendTime;
+
+    [Header("Aiming")] 
+    [Tooltip("Time to move the camera back to the center when you stop aiming")]
+    [SerializeField] private float aimRecenterSpeed = 3f;
+    public float AimRecenterSpeed => aimRecenterSpeed;
+    [Tooltip("Maximum angle to rotate horizontally while aiming")]
+    [SerializeField] private float aimMaxYawAngle = 60f;
+    public float AimMaxYawAngle => aimMaxYawAngle;
 
     [Header("Parachute Model")] 
     [SerializeField] private Transform parachuteModelTransform;
@@ -68,24 +78,20 @@ public class ParachutingSettings : StateSettings
     public float ParachuteModelScaleOutDuration => parachuteModelScaleOutDuration;
     [SerializeField] private Ease parachuteModelScaleOutEase = Ease.OutCirc;
     public Ease ParachuteModelScaleOutEase => parachuteModelScaleOutEase;
-
-    [Header("Landing")] 
-    [SerializeField] private float landingDuration = 2f;
-    public float LandingDuration => landingDuration;
-    [SerializeField] private float animBlendTime = 0.25f;
-    public float AnimBlendTime => animBlendTime;
 }
 
 public class ParachuteState : MovementState
 {
     private static readonly int IsParachuting = Animator.StringToHash("IsParachuting");
+    private static readonly int IsParachuteLanded = Animator.StringToHash("IsParachuteLanded");
     
     public ParachuteState(StateMachine stateMachine) : base(stateMachine)
     {
     }
     
     public ParachutingSettings Settings => stateMachine.ParachutingSettings;
-    public override bool UseMouseRotatePlayer => !isParachuting;
+    public override bool UseMouseRotatePlayer => false;
+    public override bool UseMouseRotateVisuals => stateMachine.PlayerData.IsAiming;
     public override bool ControlRotation => isParachuting;
 
     private bool wasDiving;
@@ -111,6 +117,7 @@ public class ParachuteState : MovementState
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Parachute);
         
         stateMachine.PlayerAnimator.SetBool(IsParachuting, true);
+        stateMachine.PlayerAnimator.SetBool(IsParachuteLanded, false);
         stateMachine.PlayerAnimator.CrossFadeInFixedTime("Parachuting", Settings.AnimBlendTime);
         
         currentDive = 0.0f;
@@ -160,6 +167,19 @@ public class ParachuteState : MovementState
     public override void Tick()
     {
         Parachuting();
+        
+        if (!stateMachine.PlayerData.IsAiming)
+        {
+            stateMachine.ClampCameraYaw(0);
+            // Slerp third person tracker to normal rotation
+            stateMachine.SetCameraRotation(Quaternion.Slerp(
+                stateMachine.GetCameraRotation(),
+                stateMachine.Rotation,
+                Time.deltaTime * Settings.AimRecenterSpeed
+            ));
+        }
+        else 
+            stateMachine.ClampCameraYaw(Settings.AimMaxYawAngle);
         
         // Landed
         if (isParachuting && stateMachine.IsGrounded)
@@ -246,12 +266,6 @@ public class ParachuteState : MovementState
 
     public override void FixedTick()
     {
-        
-
-        
-
-
-
 
     }
 
@@ -271,14 +285,13 @@ public class ParachuteState : MovementState
 
     private void OnLanded()
     {
+        
         EndParachute();
         
-        stateMachine.SetVelocity(Vector3.zero);
+        // stateMachine.TemporaryMovementModifier(Settings.LandingDuration, Settings.LandingMovementMuiltiplier, true, true, Settings.LandingMovementMultiplierTransitionTime);
+        // stateMachine.TemporaryVelocityBoost(Settings.LandingDuration, Vector3.forward * Settings.LandingForwardMovementSpeed, Settings.LandingForwardCurve);
         
-        stateMachine.PlayerAnimator.applyRootMotion = true;
-        
-        Tween.Delay(Settings.LandingDuration, OnLandedFinished);
-        
+        SwitchState(stateMachine.ParachuteLandingState);
     }
 
     private void EndParachute()
@@ -290,13 +303,15 @@ public class ParachuteState : MovementState
 
         
         stateMachine.PlayerAnimator.SetBool(IsParachuting, false);
-        
+
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
         
         // Reset visual rotation
         stateMachine.SetVisualRotation(Quaternion.identity);
 
         stateMachine.ChangeRadiusDefault();
+        
+        stateMachine.ClampCameraYaw(0);
         
 
         if(Settings.ParachuteModelTransform)
@@ -308,12 +323,6 @@ public class ParachuteState : MovementState
                 .ChainDelay(Settings.ParachuteModelScaleOutDelay)
                 .Chain(Tween.Scale(Settings.ParachuteModelTransform, Vector3.zero, Settings.ParachuteModelScaleOutDuration,Settings.ParachuteModelScaleOutEase));
         }
-    }
-
-    private void OnLandedFinished()
-    {
-        stateMachine.PlayerAnimator.applyRootMotion = false;
-        SwitchState(stateMachine.WalkingState);
     }
 
 }

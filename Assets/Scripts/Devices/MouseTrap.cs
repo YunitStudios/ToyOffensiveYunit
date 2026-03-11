@@ -11,7 +11,7 @@ public class MouseTrap : MonoBehaviour
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
             Vector3 launchVelocity = new Vector3(xAxisLaunchForce, yAxisLaunchForce, zAxisLaunchForce);
-            player.AddVelocity(launchVelocity);
+            player.ImpulseVelocity(launchVelocity);
         }
     }
 }

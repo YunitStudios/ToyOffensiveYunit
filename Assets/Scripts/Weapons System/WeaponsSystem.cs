@@ -81,8 +81,9 @@ public class WeaponsSystem : MonoBehaviour
     
             if (InputManager.Instance.AimHeld && !aiming)
                 AimStart();
-    
-            if (!InputManager.Instance.AimHeld && aiming)
+            
+            // Exit state if not holding input OR if they can no longer aun in this state
+            if ((!InputManager.Instance.AimHeld || !playerMovement.CanAim) && aiming)
             {
                 AimStop();
             }
@@ -149,6 +150,11 @@ public class WeaponsSystem : MonoBehaviour
     // called when for example the player clicks, or called every frame if holding down for full auto
     private void Fire()
     {
+        
+        // Cant shoot in some states
+        if (!playerMovement.CanShoot)
+            return;
+        
         // check we arent still reloading
         if(ReloadProgress < 1)
         {
@@ -203,29 +209,37 @@ public class WeaponsSystem : MonoBehaviour
 
     private void AimStart()
     {
-        if (playerMovement.CanAds)
+        if (playerMovement.CanAim)
         {
             if (playerCameraSystem.CurrentCameraType != currentWeapon.WeaponData.AimCameraType)
             {
                 playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
                 aiming = true;
                 currentWeapon.WeaponSpread.IsAiming = aiming;
+                PlayerData.ToggleAiming(aiming);
+                playerMovement.PlayerAnimator.SetBool(IsAiming, true);
+
             }
         }
-        
-        playerMovement.PlayerAnimator.SetBool(IsAiming, true);
     }
 
     private void AimStop()
     {
-        // ensures camera doesn't reset if player can not ads (fixed camera reset when climbing)
-        if (playerMovement.CanAds)
-        {
-            playerCameraSystem.ResetCamera();
-        }
         aiming = false;
         currentWeapon.WeaponSpread.IsAiming = aiming;
         playerMovement.PlayerAnimator.SetBool(IsAiming, false);
+        PlayerData.ToggleAiming(aiming);
+        
+        // Only reset the camera if current camera is ADS
+        if (playerCameraSystem.CurrentCameraType == currentWeapon.WeaponData.AimCameraType)
+        {
+            // Cba to make a proper system
+            if(playerMovement.CurrentState is ParachuteState)
+                playerCameraSystem.ChangeCamera(PlayerCamera.CameraType.Parachute);
+            else
+                playerCameraSystem.ResetCamera();
+        }
+
     }
 
     private void Reload()

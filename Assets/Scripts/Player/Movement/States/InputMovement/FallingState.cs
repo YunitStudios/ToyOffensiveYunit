@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.ComTypes;
 using PrimeTween;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -29,6 +30,8 @@ public class FallingSettings : StateSettings
     public float AnimationBlendInTime => animationBlendInTime;
     [SerializeField] private float animationBlendOutTime = 0.1f;
     public float AnimationBlendOutTime => animationBlendOutTime;
+    [SerializeField] private float animationLethalBlendInTime = 0.5f;
+    public float AnimationLethalBlendInTime => animationLethalBlendInTime;
 }
 
 public class FallingState : InputMoveState
@@ -45,6 +48,8 @@ public class FallingState : InputMoveState
 
     
     public override bool CanJump => false;
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
 
     public FallingState(StateMachine stateMachine) : base(stateMachine)
     {
@@ -67,12 +72,20 @@ public class FallingState : InputMoveState
 
     public override void OnExit()
     {
+        if (!stateMachine.IsAlive)
+            return;
+        
         stateMachine.PlayerAnimator.CrossFadeInFixedTime("Moving", Settings.AnimationBlendOutTime);
     }
 
     public override void Tick()
     {
         base.Tick();
+        
+        // Transition to falling death if lethal damage
+        if(stateMachine.IsFallingLethal())
+            stateMachine.PlayerAnimator.CrossFadeInFixedTime("FallingLethal", Settings.AnimationLethalBlendInTime);
+ 
     }
     public override void FixedTick()
     {
@@ -87,8 +100,10 @@ public class FallingState : InputMoveState
     {
         base.CheckTransitions();
         // Wait until character controller detects ground
-        if(stateMachine.IsGrounded)
+        if (stateMachine.IsGrounded)
+        {
             SwitchState(stateMachine.WalkingState);
+        }
 
         if (stateMachine.InputController.JumpDown)
             SwitchState(stateMachine.ParachuteState);
