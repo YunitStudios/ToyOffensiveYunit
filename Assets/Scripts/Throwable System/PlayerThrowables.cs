@@ -8,6 +8,7 @@ public class PlayerThrowables : MonoBehaviour
     private ThrowableDataSO currentThrowable;
     private InputManager playerInputManager => InputManager.Instance;
     private PlayerDataSO PlayerData => GameManager.PlayerData;
+    [SerializeField] private VoidEventChannelSO onThrowableUsed;
 
 
     void OnDisable()
@@ -27,6 +28,8 @@ public class PlayerThrowables : MonoBehaviour
         {
             spawner.ThrowObject(currentThrowable);
             PlayerData.AdjustThrowableCount(-1);
+            
+            onThrowableUsed?.Invoke();
         }
     }
 }

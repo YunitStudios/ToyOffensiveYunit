@@ -48,7 +48,7 @@ public class WeaponDisplay : MonoBehaviour
         onAmmoChanged.OnEventRaised += UpdateAmmo;
         onCurrentWeaponChanged.OnEventRaised += UpdateWeapon;
         onCurrentWeaponChanged.OnEventRaised += UpdateAmmo;
-        //onThrowableUsed.OnEventRaised += UpdateThrowable;
+        onThrowableUsed.OnEventRaised += UpdateThrowable;
     }
 
     private void OnDisable()
@@ -56,7 +56,7 @@ public class WeaponDisplay : MonoBehaviour
         onAmmoChanged.OnEventRaised -= UpdateAmmo;
         onCurrentWeaponChanged.OnEventRaised -= UpdateWeapon;
         onCurrentWeaponChanged.OnEventRaised -= UpdateAmmo;
-        //onThrowableUsed.OnEventRaised -= UpdateThrowable;
+        onThrowableUsed.OnEventRaised -= UpdateThrowable;
 
     }
 
