@@ -41,8 +41,10 @@ public class PlayerDataSO : ScriptableObject
     public AttachmentDataSO SecondaryAttachment { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int NormalAmmoCount { get; private set; }
+    public int TotalNormalAmmoCount => NormalAmmoCount + PrimaryWeapon.CurrentAmmoInMag;
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int SecondaryAmmoCount { get; private set; }
+    public int TotalSecondaryAmmoCount => SecondaryAmmoCount + SecondaryWeapon.CurrentAmmoInMag;
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int ThrowableCount { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]

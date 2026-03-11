@@ -14,6 +14,7 @@ public class WeaponDataSO : ScriptableObject, ILoadout
     public string DisplayName;
 
     public Sprite WeaponSprite;
+    public Sprite WeaponSpriteWhite;
 
 
     [Header("Core stats")]
