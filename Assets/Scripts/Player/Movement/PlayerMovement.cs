@@ -44,6 +44,8 @@ public class PlayerMovement : StateMachine
 
 
     [Header("Attributes")] 
+    [SerializeField] private float gravity = 15;
+    public float Gravity => gravity;
     [Tooltip("Height of the player character, used in things like climbing checks")]
     [SerializeField] private float playerHeight = 2f;
     public float PlayerHeight => playerHeight;
@@ -258,7 +260,7 @@ public class PlayerMovement : StateMachine
     {
         if (currentState is IMovementState { UseGravity: true })
         {
-            currentVelocity.y += Physics.gravity.y * Time.deltaTime;
+            currentVelocity.y += gravity * Time.deltaTime;
 
             // https://discussions.unity.com/t/character-controller-slide-down-slope/188130
             // Thanks claude for once you were actually helpful

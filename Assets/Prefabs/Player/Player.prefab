@@ -62,6 +62,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: 32c01d06c06e50e4a9703f8738b15180, type: 2}
   rotationRoot: {fileID: 3353412084572693359}
   visualRoot: {fileID: 5347825268981630668}
+  gravity: -15
   playerHeight: 2
   playerRadius: 0.25
   playerHeadNormalizedHeight: 0.8
@@ -120,6 +121,7 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
     slideCooldown: 1
+    slideGravity: 5
   climbingSettings:
     climbableLayer:
       serializedVersion: 2
@@ -308,6 +310,7 @@ MonoBehaviour:
     minimumDeployDistanceFromWall: 3
     fovMultiplierAtMaxSpeed: 1.5
     parachutingPlayerRadius: 0.66
+    animBlendTime: 0.25
     parachuteModelTransform: {fileID: 4684514900363490352}
     parachuteModelScaleInDelay: 0.33
     parachuteModelScaleInDuration: 0.5
@@ -315,9 +318,10 @@ MonoBehaviour:
     parachuteModelScaleOutDelay: 0
     parachuteModelScaleOutDuration: 0.66
     parachuteModelScaleOutEase: 29
+  parachuteLandingSettings:
     landingDuration: 2
     animBlendTime: 0.25
-    landingMovementMuiltiplier: -0.5
+    landingMovementMuiltiplier: 0.5
     landingMovementMultiplierTransitionTime: 0.5
     landingForwardMovementSpeed: 4
     landingForwardCurve:
