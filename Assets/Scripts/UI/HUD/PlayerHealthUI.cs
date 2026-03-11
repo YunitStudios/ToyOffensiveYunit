@@ -8,7 +8,6 @@ public class PlayerHealthUI : MonoBehaviour
 {
     [Header("References")] 
     [SerializeField] private Image foregroundImage;
-    [SerializeField] private Image backgroundImage;
     [SerializeField] private TMP_Text valueText;
 
     [Header("Attributes")] 
@@ -57,7 +56,6 @@ public class PlayerHealthUI : MonoBehaviour
         {
             float percent = newValue / maxHealth;
             foregroundImage.fillAmount = percent;
-            backgroundImage.fillAmount = percent;
         }
         
         valueText.text = Mathf.RoundToInt(newValue).ToString();
