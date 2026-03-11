@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices.ComTypes;
 using PrimeTween;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -99,8 +100,10 @@ public class FallingState : InputMoveState
     {
         base.CheckTransitions();
         // Wait until character controller detects ground
-        if(stateMachine.IsGrounded)
+        if (stateMachine.IsGrounded)
+        {
             SwitchState(stateMachine.WalkingState);
+        }
 
         if (stateMachine.InputController.JumpDown)
             SwitchState(stateMachine.ParachuteState);
