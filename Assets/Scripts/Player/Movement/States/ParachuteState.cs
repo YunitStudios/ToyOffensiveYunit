@@ -52,6 +52,8 @@ public class ParachutingSettings : StateSettings
     public float FovMultiplierAtMaxSpeed => fovMultiplierAtMaxSpeed;
     [SerializeField] private float parachutingPlayerRadius;
     public float ParachutingPlayerRadius => parachutingPlayerRadius;
+    [SerializeField] private float animBlendTime = 0.25f;
+    public float AnimBlendTime => animBlendTime;
 
     [Header("Parachute Model")] 
     [SerializeField] private Transform parachuteModelTransform;
@@ -68,21 +70,6 @@ public class ParachutingSettings : StateSettings
     public float ParachuteModelScaleOutDuration => parachuteModelScaleOutDuration;
     [SerializeField] private Ease parachuteModelScaleOutEase = Ease.OutCirc;
     public Ease ParachuteModelScaleOutEase => parachuteModelScaleOutEase;
-
-    [Header("Landing")] 
-    [SerializeField] private float landingDuration = 2f;
-    public float LandingDuration => landingDuration;
-    [SerializeField] private float animBlendTime = 0.25f;
-    public float AnimBlendTime => animBlendTime;
-    [SerializeField] private float landingMovementMuiltiplier = -0.5f;
-    public float LandingMovementMuiltiplier => landingMovementMuiltiplier;
-    [Tooltip("How long it takes the player to return back to their normal movement speed. Behaves so that the multiplier resets right as the landing duration ends")]
-    [SerializeField] private float landingMovementMultiplierTransitionTime = 0.25f;
-    public float LandingMovementMultiplierTransitionTime => landingMovementMultiplierTransitionTime;
-    [SerializeField] private float landingForwardMovementSpeed = 5;
-    public float LandingForwardMovementSpeed => landingForwardMovementSpeed;
-    [SerializeField] private AnimationCurve landingForwardCurve;
-    public AnimationCurve LandingForwardCurve => landingForwardCurve;
 }
 
 public class ParachuteState : MovementState
@@ -257,12 +244,6 @@ public class ParachuteState : MovementState
 
     public override void FixedTick()
     {
-        
-
-        
-
-
-
 
     }
 
@@ -283,15 +264,12 @@ public class ParachuteState : MovementState
     private void OnLanded()
     {
         
-        stateMachine.PlayerAnimator.SetBool(IsParachuteLanded, true);
         EndParachute();
-
-        stateMachine.SetVelocity(Vector3.zero);
         
-        stateMachine.TemporaryMovementModifier(Settings.LandingDuration, Settings.LandingMovementMuiltiplier, true, Settings.LandingMovementMultiplierTransitionTime);
-        stateMachine.TemporaryVelocityBoost(Settings.LandingDuration, Vector3.forward * Settings.LandingForwardMovementSpeed, Settings.LandingForwardCurve);
+        // stateMachine.TemporaryMovementModifier(Settings.LandingDuration, Settings.LandingMovementMuiltiplier, true, true, Settings.LandingMovementMultiplierTransitionTime);
+        // stateMachine.TemporaryVelocityBoost(Settings.LandingDuration, Vector3.forward * Settings.LandingForwardMovementSpeed, Settings.LandingForwardCurve);
         
-        SwitchState(stateMachine.WalkingState);
+        SwitchState(stateMachine.ParachuteLandingState);
     }
 
     private void EndParachute()

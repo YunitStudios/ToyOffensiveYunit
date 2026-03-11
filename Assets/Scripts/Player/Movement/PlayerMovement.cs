@@ -94,6 +94,8 @@ public class PlayerMovement : StateMachine
     public FallingSettings FallingSettings => fallingSettings;
     [SerializeField] private ParachutingSettings parachutingSettings = new ParachutingSettings();
     public ParachutingSettings ParachutingSettings => parachutingSettings;
+    [SerializeField] private ParachuteLandingSettings parachuteLandingSettings = new ParachuteLandingSettings();
+    public ParachuteLandingSettings ParachuteLandingSettings => parachuteLandingSettings;
     
     private WalkingState walkingState; 
     public WalkingState WalkingState => walkingState;
@@ -111,6 +113,8 @@ public class PlayerMovement : StateMachine
     public FallingState FallingState => fallingState;
     private ParachuteState parachuteState;
     public ParachuteState ParachuteState => parachuteState;
+    private ParachuteLanding parachuteLandingState;
+    public ParachuteLanding ParachuteLandingState => parachuteLandingState;
     
 
     
@@ -214,6 +218,8 @@ public class PlayerMovement : StateMachine
         fallingState.Initialize();
         parachuteState = new ParachuteState(this);
         parachuteState.Initialize();
+        parachuteLandingState = new ParachuteLanding(this);
+        parachuteLandingState.Initialize();
         
         
         SwitchState(walkingState, null);
@@ -528,7 +534,7 @@ public class PlayerMovement : StateMachine
         }
     }
 
-    public void TemporaryMovementModifier(float duration, float multiplier, bool disableSprinting = false, float transitionTime = 0.0f)
+    public void TemporaryMovementModifier(float duration, float multiplier, bool disableSprinting = false, bool disableJumping = false, float transitionTime = 0.0f)
     {
         DisableSprinting = disableSprinting;
         MovementMultiplier += multiplier;
