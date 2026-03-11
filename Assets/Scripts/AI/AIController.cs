@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Throwable_System.ThrowableTypes;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,6 +11,12 @@ public class AIController : MonoBehaviour, IDamageable
     [SerializeField] private Animator aiAnimator;
     public Animator AIAnimator => aiAnimator;
     private NavMeshAgent navMeshAgent;
+
+    [Header("Output Events")] 
+    [SerializeField] private VoidEventChannelSO onEnemyKilledWithGrenade;
+    [SerializeField] private VoidEventChannelSO onEnemyKilledWithGloryKill;
+    
+    
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
 
@@ -74,6 +81,11 @@ public class AIController : MonoBehaviour, IDamageable
             
             GameManager.ScoreTracker.RegisterKill(ScoreTrackerSO.KillTypes.Generic, RecentDamageSource, isTarget);
             OnEnemyKilled?.Invoke(enemyHealth);
+            
+            if(source is ExplosiveGrenade)
+                onEnemyKilledWithGrenade?.Invoke();
+            if(source is GloryKill)
+                onEnemyKilledWithGloryKill?.Invoke();
         }
     }
 
