@@ -16,6 +16,9 @@ public class SlidingSettings : StateSettings
     public AnimationCurve SlideSpeedCurve => slideSpeedCurve;
     [SerializeField] private float slideCooldown = 1f;
     public float SlideCooldown => slideCooldown;
+    [Tooltip("Downwards velocity to apply while sliding. Prevents slopes from breaking")]
+    [SerializeField] private float slideGravity = 5;
+    public float SlideGravity => slideGravity;
 }
 
 public class SlidingState : MovementState
@@ -31,7 +34,11 @@ public class SlidingState : MovementState
 
     private float slideTime;
     private Tween durationTween;
-    
+
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
+    public override bool UseGravity => false;
+
 
     public override void OnEnter()
     {
@@ -54,6 +61,9 @@ public class SlidingState : MovementState
 
         if(durationTween.isAlive)
             durationTween.Stop();
+        
+        // Reset Y velocity on exit
+        stateMachine.SetVelocity(new Vector3(stateMachine.CurrentVelocity.x, 0, stateMachine.CurrentVelocity.z));
     }
 
     public override void Tick()
@@ -63,6 +73,8 @@ public class SlidingState : MovementState
         float speedMultiplier = Settings.SlideSpeedCurve.Evaluate(1-progress);
         
         Vector3 slideVelocity = direction * (Settings.SlideForwardSpeed * speedMultiplier);
+        // Add downwards motion for slopes
+        slideVelocity += Vector3.down * Settings.SlideGravity;
         stateMachine.SetVelocity(slideVelocity);
         
         slideTime += Time.deltaTime;

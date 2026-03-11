@@ -151,7 +151,8 @@ public class ClimbingState : MovementState
     private static readonly int AnimClimbSpeed = Animator.StringToHash("ClimbSpeed");
     private static readonly int AnimIsHanging = Animator.StringToHash("IsHanging");
     
-    public override bool CanADS => false;
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
 
     private ClimbingSettings Settings => stateMachine.ClimbingSettings;
     
@@ -631,7 +632,7 @@ public class ClimbingState : MovementState
     public ClimbDirections GetClimbState()
     {
         // used for making the rays shorter when starting to prevent accidental climbs
-        bool isAlreadyClimbing = stateMachine.CurrentState == this;
+        bool isAlreadyClimbing = stateMachine.CurrentState is ClimbingState or ParachuteState;
         float detectionRange = isAlreadyClimbing ? CurrentClimbRange : CurrentClimbRange * CurrentStartClimbRangeMultiplier;
         float detectionAngle = isAlreadyClimbing ? 90f : 0f;
         

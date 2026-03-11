@@ -49,6 +49,8 @@ public class Health : MonoBehaviour, IObjectiveTarget
 
     private float regenWait;
     
+    public bool IsAlive => CurrentHealth > 0;
+    
 
     private void OnEnable()
     {
