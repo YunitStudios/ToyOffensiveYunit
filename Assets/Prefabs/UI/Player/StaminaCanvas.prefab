@@ -85,7 +85,6 @@ GameObject:
   - component: {fileID: 7570728453301847115}
   - component: {fileID: 3797615966032555867}
   - component: {fileID: 5591692975149241278}
-  - component: {fileID: 3972999879969585447}
   m_Layer: 0
   m_Name: StaminaCanvas
   m_TagString: Untagged
@@ -188,20 +187,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3972999879969585447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6774249357393914399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd0d2e9f5dea46c4faa04305e4f21320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  yaw: 1
-  pitch: 0
 --- !u!1 &7666291843813239902
 GameObject:
   m_ObjectHideFlags: 0
