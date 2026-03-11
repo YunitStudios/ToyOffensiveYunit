@@ -20,16 +20,37 @@ public class MovementSettings : StateSettings
     [Tooltip("Minimum forward input required to be considered moving forward (used in sprinting check for example)")]
     [SerializeField] private float forwardInputThreshold = 0.6f;
     public float ForwardInputThreshold => forwardInputThreshold;
+    [SerializeField] private DirectionalSpeedMultiplier directionalSpeed;
+    public DirectionalSpeedMultiplier DirectionalSpeed => directionalSpeed;
+    [Tooltip("% of movement speed while aiming down sight")]
+    [SerializeField] private float aimingMovementPercentage = 0.5f;
+    public float AimingMovementPercentage => aimingMovementPercentage;
     
-    [Header("Coyote Time")]
+    
+    [Header("Jumping")]
     [Tooltip("Time after leaving ground that player can still jump")]
     [SerializeField] private float coyoteTime = 0.2f;
     public float CoyoteTime => coyoteTime;
+    
+    [Serializable]
+    public struct DirectionalSpeedMultiplier
+    {
+        public float forward;
+        public float backward;
+        public float strafe;
+    }
+
+    [Header("Animation")] 
+    [Tooltip("Min and Max speed the moving animation can be, the speed is based on their current speed compared to the max speed")]
+    [SerializeField] private Vector2 moveAnimSpeedRange = new(0f, 1f);
+    public Vector2 MoveAnimSpeedRange => moveAnimSpeedRange;
+    
 }
 
 public abstract class InputMoveState : MovementState
 {
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
+    private static readonly int AnimMoveSpeedModified = Animator.StringToHash("MoveSpeedModified");
     private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
     private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
     
@@ -57,6 +78,15 @@ public abstract class InputMoveState : MovementState
         
         Vector3 input = stateMachine.InputController.FrameMove;
         
+        float forwardMultiplier = input.y > 0 ? Settings.DirectionalSpeed.forward : Settings.DirectionalSpeed.backward;
+        float strafeMultiplier = Settings.DirectionalSpeed.strafe;
+
+        // Apply directional multipliers
+        Vector2 scaledInput = new Vector2(
+            input.x * strafeMultiplier,
+            input.y * forwardMultiplier
+        );
+        
         // Calculate movement direction relative to camera
         Vector3 cameraForward = stateMachine.PlayerCamera.CameraTransform.forward;
         cameraForward.y = 0;
@@ -65,23 +95,17 @@ public abstract class InputMoveState : MovementState
         Vector3 cameraRight = stateMachine.PlayerCamera.CameraTransform.transform.right;
         cameraRight.y = 0;
         cameraRight.Normalize();
-        
-        Vector3 moveDirection = (cameraForward * input.y + cameraRight * input.x).normalized;
-        
-        //// Face movement direction
-        //if(moveDirection.magnitude > 0.1f)
-        //{
-        //    //// Only if direction is forwards
-        //    //if (Vector3.Dot(moveDirection, transform.forward) > 0f)
-        //    //{
-        //        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-        //        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, turnSpeed * Time.deltaTime);
-        //    //}
-        //}
 
-        float speedFactor = 1f;
+        // Convert input to world space
+        Vector3 moveDirection =
+            cameraRight * scaledInput.x +
+            cameraForward * scaledInput.y;
         
+        float speedFactor = 1f;
+
         speedFactor *= GetSpeedMultiplier;
+        speedFactor *= stateMachine.MovementMultiplier;
+        speedFactor *= stateMachine.PlayerData.IsAiming ? Settings.AimingMovementPercentage : 1;
         
         
         
@@ -101,6 +125,9 @@ public abstract class InputMoveState : MovementState
         
         horizontalVelocity = Vector3.ClampMagnitude(horizontalVelocity, Settings.MaxAcceleration);
         
+        stateMachine.SetVelocity(new Vector3(horizontalVelocity.x, verticalVelocity, horizontalVelocity.z));
+        
+        
         // Walking animation based on current speed
         float horizontalSpeed = horizontalVelocity.magnitude;
         // Divide by max speed to get 0-1 range
@@ -115,10 +142,12 @@ public abstract class InputMoveState : MovementState
         }
         
         stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed, 0.1f, Time.deltaTime);
+        float modifiedSpeed = horizontalSpeed * 2f;
+        // Keep in range
+        modifiedSpeed = Mathf.Lerp(Settings.MoveAnimSpeedRange.x, Settings.MoveAnimSpeedRange.y, modifiedSpeed);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeedModified, modifiedSpeed, 0.1f, Time.deltaTime);
         stateMachine.PlayerAnimator.SetFloat(AnimMoveX, input.x, 0.1f, Time.deltaTime);
         stateMachine.PlayerAnimator.SetFloat(AnimMoveY, input.y, 0.1f, Time.deltaTime);
-        
-        stateMachine.SetVelocity(new Vector3(horizontalVelocity.x, verticalVelocity, horizontalVelocity.z));
     }
 
     public override void Tick()

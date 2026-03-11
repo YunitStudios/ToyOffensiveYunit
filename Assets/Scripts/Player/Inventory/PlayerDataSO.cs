@@ -52,6 +52,7 @@ public class PlayerDataSO : ScriptableObject
     
     public Vector3 PlayerPosition { get; private set;}
     public Transform RotationRootTransform { get; private set;}
+    public bool IsAiming { get; private set; }
     public float HealthPercentage => CurrentHealth / MaxHealth;
     
     public void SetStartingPrimaryWeapon(WeaponDataSO weaponData)
@@ -176,6 +177,10 @@ public class PlayerDataSO : ScriptableObject
     public void StoreRotationRootTransform(Transform newRotation)
     {
         RotationRootTransform = newRotation;
+    }
+    public void ToggleAiming(bool value)
+    {
+        IsAiming = value;
     }
 
     public enum WeaponSlot

@@ -18,7 +18,10 @@ public class SprintingState : InputMoveState
     }
     
     private new SprintingSettings Settings => stateMachine.SprintingSettings;
-    
+
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
+
     protected override void SetEnterConditions()
     {
         base.SetEnterConditions();
@@ -62,7 +65,7 @@ public class SprintingState : InputMoveState
     
     private bool CanSprint()
     {
-        return stateMachine.InputController.FrameMove.y > base.Settings.ForwardInputThreshold;
+        return stateMachine.InputController.FrameMove.y > base.Settings.ForwardInputThreshold && !stateMachine.DisableSprinting;
     }
 
     public override float GetSpeedMultiplier => Settings.SprintSpeedMultiplier;
