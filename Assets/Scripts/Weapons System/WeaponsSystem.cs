@@ -232,7 +232,13 @@ public class WeaponsSystem : MonoBehaviour
         
         // Only reset the camera if current camera is ADS
         if (playerCameraSystem.CurrentCameraType == currentWeapon.WeaponData.AimCameraType)
-            playerCameraSystem.ResetCamera();
+        {
+            // Cba to make a proper system
+            if(playerMovement.CurrentState is ParachuteState)
+                playerCameraSystem.ChangeCamera(PlayerCamera.CameraType.Parachute);
+            else
+                playerCameraSystem.ResetCamera();
+        }
 
     }
 

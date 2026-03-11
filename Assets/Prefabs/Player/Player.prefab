@@ -88,6 +88,7 @@ MonoBehaviour:
     moveAnimSpeedRange: {x: 0.5, y: 1}
   walkingSettings:
     walkSpeedMultiplier: 1
+    aimDelay: 0.1
   sprintingSettings:
     sprintSpeedMultiplier: 1.5
   crouchingSettings:
@@ -278,7 +279,7 @@ MonoBehaviour:
   jumpingSettings:
     jumpHeight: 5.3
     jumpLandDelay: 0.02
-    rejumpDelay: 0.2
+    rejumpDelay: 0.05
   fallingSettings:
     fallingHorizontalSpeedMultiplier: 0.33
     fallingVelocityThreshold: -5
@@ -311,6 +312,8 @@ MonoBehaviour:
     fovMultiplierAtMaxSpeed: 1.5
     parachutingPlayerRadius: 0.66
     animBlendTime: 0.25
+    aimRecenterSpeed: 3
+    aimMaxYawAngle: 60
     parachuteModelTransform: {fileID: 4684514900363490352}
     parachuteModelScaleInDelay: 0.33
     parachuteModelScaleInDuration: 0.5

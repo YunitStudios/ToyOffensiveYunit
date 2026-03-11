@@ -55,6 +55,14 @@ public class ParachutingSettings : StateSettings
     [SerializeField] private float animBlendTime = 0.25f;
     public float AnimBlendTime => animBlendTime;
 
+    [Header("Aiming")] 
+    [Tooltip("Time to move the camera back to the center when you stop aiming")]
+    [SerializeField] private float aimRecenterSpeed = 3f;
+    public float AimRecenterSpeed => aimRecenterSpeed;
+    [Tooltip("Maximum angle to rotate horizontally while aiming")]
+    [SerializeField] private float aimMaxYawAngle = 60f;
+    public float AimMaxYawAngle => aimMaxYawAngle;
+
     [Header("Parachute Model")] 
     [SerializeField] private Transform parachuteModelTransform;
     public Transform ParachuteModelTransform => parachuteModelTransform;
@@ -82,7 +90,8 @@ public class ParachuteState : MovementState
     }
     
     public ParachutingSettings Settings => stateMachine.ParachutingSettings;
-    public override bool UseMouseRotatePlayer => !isParachuting;
+    public override bool UseMouseRotatePlayer => false;
+    public override bool UseMouseRotateVisuals => stateMachine.PlayerData.IsAiming;
     public override bool ControlRotation => isParachuting;
 
     private bool wasDiving;
@@ -158,6 +167,19 @@ public class ParachuteState : MovementState
     public override void Tick()
     {
         Parachuting();
+        
+        if (!stateMachine.PlayerData.IsAiming)
+        {
+            stateMachine.ClampCameraYaw(0);
+            // Slerp third person tracker to normal rotation
+            stateMachine.SetCameraRotation(Quaternion.Slerp(
+                stateMachine.GetCameraRotation(),
+                stateMachine.Rotation,
+                Time.deltaTime * Settings.AimRecenterSpeed
+            ));
+        }
+        else 
+            stateMachine.ClampCameraYaw(Settings.AimMaxYawAngle);
         
         // Landed
         if (isParachuting && stateMachine.IsGrounded)
@@ -288,6 +310,8 @@ public class ParachuteState : MovementState
         stateMachine.SetVisualRotation(Quaternion.identity);
 
         stateMachine.ChangeRadiusDefault();
+        
+        stateMachine.ClampCameraYaw(0);
         
 
         if(Settings.ParachuteModelTransform)

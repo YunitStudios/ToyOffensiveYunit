@@ -14,6 +14,7 @@ public abstract class MovementState : State, IMovementState
     public virtual bool UseGravity => true;
     public virtual bool UseRootMotion => false;
     public virtual bool UseMouseRotatePlayer => true;
+    public virtual bool UseMouseRotateVisuals => false;
     public virtual bool ControlRotation => false;
     public virtual bool UseCollision => true;
     public virtual Vector2 CollisionScale => Vector2.one;
@@ -38,6 +39,8 @@ public interface IMovementState
     public bool UseGravity { get; }
     public bool UseRootMotion { get; }
     public bool UseMouseRotatePlayer { get; }
+    public bool UseMouseRotateVisuals { get; }
+    
     public bool ControlRotation { get; }
     public bool UseCollision { get; }
     public Vector2 CollisionScale { get; }

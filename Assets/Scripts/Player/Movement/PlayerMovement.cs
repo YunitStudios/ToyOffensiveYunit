@@ -139,9 +139,11 @@ public class PlayerMovement : StateMachine
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
+    public bool ShouldMouseRotateVisuals => currentState is IMovementState { UseMouseRotateVisuals: true };
 
 
     public float MovementMultiplier { get; private set; }
+    public float ClampedCameraYaw { get; private set; }
 
     
     private float defaultColliderHeight;
@@ -330,6 +332,33 @@ public class PlayerMovement : StateMachine
     {
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
     }
+
+    public Quaternion GetCameraRotation()
+    {
+        return thirdPersonTracker.rotation;
+    }
+    public void SetCameraRotation(Quaternion newRotation)
+    {
+        if (ClampedCameraYaw != 0)
+        {
+            float currentYaw = Rotation.eulerAngles.y;
+            float targetYaw = newRotation.eulerAngles.y;
+
+            float delta = Mathf.DeltaAngle(currentYaw, targetYaw);
+            delta = Mathf.Clamp(delta, -ClampedCameraYaw, ClampedCameraYaw);
+
+            float finalYaw = currentYaw + delta;
+
+            Vector3 newEuler = newRotation.eulerAngles;
+            newRotation = Quaternion.Euler(newEuler.x, finalYaw, newEuler.z);
+        }
+
+        thirdPersonTracker.rotation = newRotation;
+    }
+    public void ClampCameraYaw(float yaw)
+    {
+        ClampedCameraYaw = yaw;
+    }
     
     public void ToggleCollision(bool enabled)
     {
@@ -395,6 +424,12 @@ public class PlayerMovement : StateMachine
 
             // Rotate third person tracker vertically
             thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(-finalInput.y, Vector3.right);
+            // Rotate tracker horizontally if visuals are affected
+            if(ShouldMouseRotateVisuals)
+                thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(finalInput.x, Vector3.up);
+            
+            SetCameraRotation(thirdPersonTracker.transform.rotation);
+                
             
         }
         // If theyre dead, only rotate the third person tracker
