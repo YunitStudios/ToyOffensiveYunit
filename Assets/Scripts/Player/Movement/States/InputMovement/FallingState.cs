@@ -75,7 +75,7 @@ public class FallingState : InputMoveState
         if (!stateMachine.IsAlive)
             return;
         
-        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Moving", Settings.AnimationBlendOutTime);
+        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Walking", Settings.AnimationBlendOutTime);
     }
 
     public override void Tick()

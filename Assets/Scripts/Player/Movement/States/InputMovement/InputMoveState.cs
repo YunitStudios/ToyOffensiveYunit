@@ -141,7 +141,7 @@ public abstract class InputMoveState : MovementState
             horizontalSpeed *= 2f;
         }
         
-        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed, 0.1f, Time.deltaTime);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed);
         float modifiedSpeed = horizontalSpeed * 2f;
         // Keep in range
         modifiedSpeed = Mathf.Lerp(Settings.MoveAnimSpeedRange.x, Settings.MoveAnimSpeedRange.y, modifiedSpeed);
