@@ -19,6 +19,7 @@ public class AIController : MonoBehaviour, IDamageable
     
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
+    private static readonly int IsAiming = Animator.StringToHash("IsAiming");
 
     private CapsuleCollider capCollider;
     private float standHeight = 2f;
@@ -58,7 +59,7 @@ public class AIController : MonoBehaviour, IDamageable
     
     public void TakeDamage(IDamageSource source, float damage)
     {
-        // prevents squad being alerted during glory kill
+        // prevents squad taking damage during glory kill
         if (stateMachine.IsFrozen)
         {
             return;
@@ -67,10 +68,13 @@ public class AIController : MonoBehaviour, IDamageable
         if(source != null)
             RecentDamageSource = source;
         
-        // Alert squad when damaged 
-        stateMachine.AlertSquad(playerTransform);
         
         enemyHealth.DealDamage(damage, out bool didDie);
+        if (!didDie)
+        {
+            // Alert squad when damaged 
+            stateMachine.AlertSquad(playerTransform);
+        }
         if (didDie)
         {
             stateMachine.Die();
@@ -110,5 +114,17 @@ public class AIController : MonoBehaviour, IDamageable
         }
         capCollider.height = targetHeight;
         navMeshAgent.height = targetHeight;
+    }
+
+    public void SetAiming(bool isAiming)
+    {
+        if (isAiming)
+        {
+            aiAnimator.SetBool(IsAiming, true);
+        }
+        else
+        {
+            aiAnimator.SetBool(IsAiming, false);
+        }
     }
 }

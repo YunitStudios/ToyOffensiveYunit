@@ -9,12 +9,14 @@ public class AttackState : AIState
     private CoverPoint coverPoint;
     float distanceToPlayer;
     float distanceToCoverPoint;
+    private AIController aiController;
 
 
     public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
     {
         this.player = player;
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
+        aiController = controller.GetComponent<AIController>();
     }
 
     // Moves towards player at them moment, will update with actual enemy logic eventually
@@ -22,7 +24,7 @@ public class AttackState : AIState
     {
         if (coverPoint == null)
         {
-            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player);
+            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
 
             if (coverPoint != null)
             {
@@ -30,18 +32,18 @@ public class AttackState : AIState
             }
         }
         distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
-        if (coverPoint != null && distanceToCoverPoint < distanceToPlayer)
+        if (coverPoint != null && controller.AttackRange < distanceToPlayer)
         {
             coverPoint.TakeCoverPoint(controller);
             controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
             return;
         }
         
-        // needs changing 
         agent.SetDestination(player.position);
         weaponSystem.target = player;
+        aiController.SetAiming(true);
         weaponSystem.Fire();
-        if (agent.remainingDistance <= stoppingDistance && HasLineOfSight())
+        if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
         {
             agent.isStopped = true;
             RotateTowardsPlayer();

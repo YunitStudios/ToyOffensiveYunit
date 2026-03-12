@@ -37,6 +37,7 @@ public class PeekShootState : AIState
         agent.isStopped = false;
         if (!weaponSystem.IsInShootPeriod() || weaponSystem.IsReloading())
         {
+            aiController.SetAiming(false);
             controller.ChangeState(new BehindCoverState(controller, agent, coverPoint, player));
             return;
         }
@@ -55,6 +56,7 @@ public class PeekShootState : AIState
             {
                 RotateTowardsPlayer();
                 weaponSystem.target = player;
+                aiController.SetAiming(true);
                 weaponSystem.Fire();
             }
             return;
@@ -91,6 +93,7 @@ public class PeekShootState : AIState
                 agent.isStopped = true;
                 RotateTowardsPlayer();
                 weaponSystem.target = player;
+                aiController.SetAiming(true);
                 weaponSystem.Fire();
             }
         }
