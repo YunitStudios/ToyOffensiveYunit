@@ -9,6 +9,7 @@ using Random = UnityEngine.Random;
 public class WeaponsSystem : MonoBehaviour
 {
     private static readonly int IsAiming = Animator.StringToHash("IsAiming");
+    private static readonly int IsShooting = Animator.StringToHash("IsShooting");
 
     [Header("References")]
     [Tooltip("Player camera used for the obstruction check")]
@@ -76,8 +77,11 @@ public class WeaponsSystem : MonoBehaviour
             WeaponSwitching();
             
             // TODO: use events this is temp due to it not working for unknown reason
+            playerMovement.PlayerAnimator.SetBool(IsShooting, false);
             if (InputManager.Instance.IsShooting)
+            {
                 Fire();
+            }
     
             if (InputManager.Instance.AimHeld && !aiming)
                 AimStart();
@@ -172,6 +176,8 @@ public class WeaponsSystem : MonoBehaviour
         }
         reloadPromptUI.Hide();
 
+        playerMovement.PlayerAnimator.SetBool(IsShooting, true);
+        
         // limit it so you can only shoot up to the max fire rate
         float timeBetweenShots = 60f / currentWeapon.WeaponData.FireRateRPM;
         if(Time.time - lastShotTime < timeBetweenShots)
