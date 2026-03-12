@@ -50,6 +50,7 @@ public class FallingState : InputMoveState
     public override bool CanJump => false;
     public override bool CanShoot => false;
     public override bool CanAim => false;
+    public override bool ShouldDisplayGun => false;
 
     public FallingState(StateMachine stateMachine) : base(stateMachine)
     {

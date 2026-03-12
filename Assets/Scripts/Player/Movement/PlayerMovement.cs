@@ -242,8 +242,6 @@ public class PlayerMovement : StateMachine
     protected override void OnStateSwitched()
     {
         base.OnStateSwitched();
-        
-        gunRoot.gameObject.SetActive(currentState is IMovementState {ShouldDisplayGun:true});
     }
 
     protected override void Update()
@@ -444,6 +442,13 @@ public class PlayerMovement : StateMachine
             // Rotate tracker horizontally if visuals are affected
             if(ShouldMouseRotateVisuals)
                 thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(finalInput.x, Vector3.up);
+            // If not, rotate back to default
+            // UNLESS its parachuting, cos im lazy
+            else if(currentState is not global::ParachuteState)
+            {
+                Quaternion target = Quaternion.Euler(thirdPersonTracker.transform.rotation.eulerAngles.x, rotationRoot.rotation.eulerAngles.y, thirdPersonTracker.transform.rotation.eulerAngles.z);
+                thirdPersonTracker.transform.rotation = Quaternion.Slerp(thirdPersonTracker.transform.rotation, target, 0.2f);
+            }
             
             SetCameraRotation(thirdPersonTracker.transform.rotation);
                 
@@ -511,6 +516,8 @@ public class PlayerMovement : StateMachine
         }
         else
             aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 0.0f, Time.deltaTime * aimingShoulderSpeed);
+        
+        gunRoot.gameObject.SetActive(currentState is IMovementState {ShouldDisplayGun:true});
 
     }
     
