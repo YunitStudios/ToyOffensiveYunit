@@ -260,11 +260,14 @@
 										<Reference Name="Conversion">
 											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 										</Reference>
+										<Reference Name="DefaultSwitchOrState">
+											<ObjectRef Name="Ground_Material_Wood" ID="{9F753397-14C1-4C78-B37A-0CF5CA6C3D0D}" WorkUnitID="{E3C1BD7F-110C-4AE0-93D3-0014B13151C1}"/>
+										</Reference>
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 										</Reference>
 										<Reference Name="SwitchGroupOrStateGroup">
-											<ObjectRef Name="Footstep_Ground_Material" ID="{31BA19BB-6E97-4BCD-AC6F-C3F5EB0F3D2C}" WorkUnitID="{E3C1BD7F-110C-4AE0-93D3-0014B13151C1}"/>
+											<ObjectRef Name="Ground_Material" ID="{31BA19BB-6E97-4BCD-AC6F-C3F5EB0F3D2C}" WorkUnitID="{E3C1BD7F-110C-4AE0-93D3-0014B13151C1}"/>
 										</Reference>
 									</ReferenceList>
 									<ChildrenList>
@@ -1212,6 +1215,32 @@
 												<ItemRef Name="Metal_Random_Container" ID="{40702AE6-03C5-46E2-B372-31D59712840C}"/>
 											</GroupingBehavior>
 										</GroupingBehaviorList>
+										<GroupingList>
+											<Grouping>
+												<SwitchRef Name="Ground_Material_Metal" ID="{AFAC6419-BD55-4E0B-BC55-A59D08AC5934}"/>
+												<ItemList>
+													<ItemRef Name="Metal_Random_Container" ID="{40702AE6-03C5-46E2-B372-31D59712840C}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Ground_Material_Fabric" ID="{9524014B-174B-4A52-8A98-40066306B90C}"/>
+												<ItemList>
+													<ItemRef Name="Fabric_Random_Container" ID="{70E86E20-4E45-4AC1-8FCA-654E23E4CD14}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Ground_Material_Dirt" ID="{C7592B4B-019C-4140-95C5-636846D0486B}"/>
+												<ItemList>
+													<ItemRef Name="Dirt_Random_Container" ID="{457C68D1-82EA-4656-AE1F-6B00C799D3A5}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Ground_Material_Wood" ID="{9F753397-14C1-4C78-B37A-0CF5CA6C3D0D}"/>
+												<ItemList>
+													<ItemRef Name="Wood_Random_Container" ID="{9B14B366-E61B-4FFA-8016-C3916E22B320}"/>
+												</ItemList>
+											</Grouping>
+										</GroupingList>
 									</GroupingInfo>
 								</SwitchContainer>
 							</ChildrenList>
@@ -1716,6 +1745,9 @@
 										<Reference Name="OutputBus">
 											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 										</Reference>
+										<Reference Name="SwitchGroupOrStateGroup">
+											<ObjectRef Name="Ground_Material" ID="{31BA19BB-6E97-4BCD-AC6F-C3F5EB0F3D2C}" WorkUnitID="{E3C1BD7F-110C-4AE0-93D3-0014B13151C1}"/>
+										</Reference>
 									</ReferenceList>
 									<ChildrenList>
 										<Sound Name="Sliding_Impact_Wood" ID="{A3BF4F4B-42AD-4039-BA93-F8584CBEA126}" ShortID="772815519">
@@ -1797,6 +1829,26 @@
 												<ItemRef Name="Sliding_Impact_Wood" ID="{A3BF4F4B-42AD-4039-BA93-F8584CBEA126}"/>
 											</GroupingBehavior>
 										</GroupingBehaviorList>
+										<GroupingList>
+											<Grouping>
+												<SwitchRef Name="Ground_Material_Metal" ID="{AFAC6419-BD55-4E0B-BC55-A59D08AC5934}"/>
+												<ItemList>
+													<ItemRef Name="Sliding_Impact_Metal" ID="{3D4DBB4A-B5DB-43DA-83E5-0A3F88018D6F}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Ground_Material_Fabric" ID="{9524014B-174B-4A52-8A98-40066306B90C}"/>
+												<ItemList>
+													<ItemRef Name="Sliding_Impact_Fabric" ID="{1C09CD43-C5F6-4D21-8A6C-4F39E77E5B79}"/>
+												</ItemList>
+											</Grouping>
+											<Grouping>
+												<SwitchRef Name="Ground_Material_Wood" ID="{9F753397-14C1-4C78-B37A-0CF5CA6C3D0D}"/>
+												<ItemList>
+													<ItemRef Name="Sliding_Impact_Wood" ID="{A3BF4F4B-42AD-4039-BA93-F8584CBEA126}"/>
+												</ItemList>
+											</Grouping>
+										</GroupingList>
 									</GroupingInfo>
 								</SwitchContainer>
 							</ChildrenList>

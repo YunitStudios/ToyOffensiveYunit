@@ -10,8 +10,30 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<Bus Name="Effects" ID="{0955737E-7307-455E-9DB7-D977D6650F42}"/>
-						<Bus Name="Music" ID="{4FA3C533-3E97-4511-9FCC-80770F906F2C}"/>
+						<Bus Name="Effects" ID="{0955737E-7307-455E-9DB7-D977D6650F42}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="8"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+						</Bus>
+						<Bus Name="Music" ID="{4FA3C533-3E97-4511-9FCC-80770F906F2C}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="14"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+						</Bus>
+						<Bus Name="Sound_Effects" ID="{6210C36B-654B-49FB-BE7C-9AC102604970}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="24"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<AuxBus Name="Player" ID="{8C0F63FF-9FD2-4902-B49B-D021606AE4E4}"/>
+								<AuxBus Name="UI" ID="{4ACE517C-A1D6-492A-9855-28DDC66D21E0}"/>
+								<AuxBus Name="Environment" ID="{865FE0AF-549B-4AFC-A5C7-C557D5D120C2}"/>
+								<AuxBus Name="Enemies" ID="{8AE3E08C-B9C3-49F1-B657-82147C3F5B83}"/>
+							</ChildrenList>
+						</Bus>
 					</ChildrenList>
 				</Bus>
 			</ChildrenList>
