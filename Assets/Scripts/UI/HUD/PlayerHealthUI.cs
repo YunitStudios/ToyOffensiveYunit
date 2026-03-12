@@ -8,7 +8,6 @@ public class PlayerHealthUI : MonoBehaviour
 {
     [Header("References")] 
     [SerializeField] private Image foregroundImage;
-    [SerializeField] private Image backgroundImage;
     [SerializeField] private TMP_Text valueText;
 
     [Header("Attributes")] 
@@ -17,15 +16,17 @@ public class PlayerHealthUI : MonoBehaviour
     [SerializeField] private float animationLength;
     [SerializeField] private Ease animationEase;
     [SerializeField] private float animationBackgroundDelay;
+    [SerializeField] private Color damageFlashColor;
+    [SerializeField] private TweenSettings damageFlashInSettings;
+    [SerializeField] private TweenSettings damageFlashOutSettings;
     
     [Header("Events")] 
     [SerializeField] private FloatEventChannelSO onHealthChanged;
 
     private float currentValue;
-    private float mainAnimValue;
-    private float backgroundAnimValue;
     private Tween mainTween;
-    private Tween backgroundTween;
+    private Sequence flashSequence;
+    private Color defaultColor;
 
     private void OnEnable()
     {
@@ -40,6 +41,7 @@ public class PlayerHealthUI : MonoBehaviour
     private void Awake()
     {
         currentValue = maxHealth;
+        defaultColor = foregroundImage.color;
     }
 
     private void SetValue(float newValue)
@@ -54,7 +56,6 @@ public class PlayerHealthUI : MonoBehaviour
         {
             float percent = newValue / maxHealth;
             foregroundImage.fillAmount = percent;
-            backgroundImage.fillAmount = percent;
         }
         
         valueText.text = Mathf.RoundToInt(newValue).ToString();
@@ -67,13 +68,14 @@ public class PlayerHealthUI : MonoBehaviour
         
         if(mainTween.isAlive)
             mainTween.Stop();
-        if(backgroundTween.isAlive)
-            backgroundTween.Stop();
+        if(flashSequence.isAlive)
+            flashSequence.Stop();
         
         mainTween = Tween.UIFillAmount(foregroundImage, newPercent, animationLength, animationEase);
+        
+        flashSequence = Sequence.Create().
+            Group(Tween.Color(foregroundImage, damageFlashColor, damageFlashInSettings))
+            .Chain(Tween.Color(foregroundImage, defaultColor, damageFlashOutSettings));
 
-        backgroundTween = Tween.Delay(animationBackgroundDelay, () =>
-            backgroundTween = Tween.UIFillAmount(backgroundImage, newPercent, animationLength, animationEase)
-        );
     }
 }

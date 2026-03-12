@@ -6,12 +6,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "ScriptableObjects/Weapon")]
 public class WeaponDataSO : ScriptableObject, ILoadout
 {
-    [Header("Name")]
+    [Header("Visuals")]
     [Tooltip("How the weapon will be referred to in code")]
     public string ClassName;
 
     [Tooltip("How the weapon is shown in UI")]
     public string DisplayName;
+
+    public Sprite WeaponSprite;
+    public Sprite WeaponSpriteWhite;
 
 
     [Header("Core stats")]

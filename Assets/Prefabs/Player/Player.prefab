@@ -39,7 +39,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3353412084572693359}
-  - {fileID: 2052817930402926990}
   - {fileID: 1026038049874292585}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -373,6 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerThrowables
   spawner: {fileID: 983668213398953145}
+  onThrowableUsed: {fileID: 11400000, guid: 6f5239f8e9656ee4993656cec94f7dbb, type: 2}
 --- !u!114 &4139844986772533176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -754,6 +754,7 @@ Transform:
   - {fileID: 5347825268981630668}
   - {fileID: 2496528507952065907}
   - {fileID: 4237852279184953653}
+  - {fileID: 2052817930402926990}
   m_Father: {fileID: 1510906211435019109}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9148675543439987146
@@ -1829,7 +1830,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 1510906211435019109}
+    m_TransformParent: {fileID: 3353412084572693359}
     m_Modifications:
     - target: {fileID: 6774249357393914399, guid: f700e5179852a52449235648cb2ba205, type: 3}
       propertyPath: m_Name
@@ -1885,15 +1886,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8151886453429105480, guid: f700e5179852a52449235648cb2ba205, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8151886453429105480, guid: f700e5179852a52449235648cb2ba205, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8151886453429105480, guid: f700e5179852a52449235648cb2ba205, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 8151886453429105480, guid: f700e5179852a52449235648cb2ba205, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -1901,7 +1902,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8151886453429105480, guid: f700e5179852a52449235648cb2ba205, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1.5
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8151886453429105480, guid: f700e5179852a52449235648cb2ba205, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 [CreateAssetMenu(fileName = "NewThrowable", menuName = "ScriptableObjects/Throwable")]
 public class ThrowableDataSO : ScriptableObject
@@ -8,6 +9,9 @@ public class ThrowableDataSO : ScriptableObject
     public string ClassName;
     [Tooltip("How the weapon is shown in UI")]
     public string DisplayName;
+
+    public Sprite icon;
+    public Sprite iconWhite;
 
     [Header("Fuse")] 
     [Tooltip("How long the throwable takes to go off")]
