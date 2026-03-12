@@ -21,6 +21,7 @@ public abstract class MovementState : State, IMovementState
     public virtual Vector2 CollisionScale => Vector2.one;
     public virtual bool CanAim => true;
     public virtual bool CanShoot => true;
+    public virtual bool ShouldDisplayGun => true;
 
     public override void OnEnter()
     {
@@ -48,4 +49,5 @@ public interface IMovementState
     public Vector2 CollisionScale { get; }
     public bool CanAim { get; }
     public bool CanShoot { get; }
+    public bool ShouldDisplayGun { get; }
 }

@@ -35,6 +35,7 @@ public class PlayerMovement : StateMachine
     [SerializeField] private Transform visualRoot;
     [SerializeField] private Transform aimingTarget;
     [SerializeField] private Rig aimingRig;
+    [SerializeField] private Transform gunRoot;
     public Transform VisualRoot => visualRoot;
     public Vector3 Position => transform.position;
     public Quaternion Rotation => rotationRoot.rotation;
@@ -236,6 +237,13 @@ public class PlayerMovement : StateMachine
         
         
         SwitchState(walkingState, null);
+    }
+
+    protected override void OnStateSwitched()
+    {
+        base.OnStateSwitched();
+        
+        gunRoot.gameObject.SetActive(currentState is IMovementState {ShouldDisplayGun:true});
     }
 
     protected override void Update()
