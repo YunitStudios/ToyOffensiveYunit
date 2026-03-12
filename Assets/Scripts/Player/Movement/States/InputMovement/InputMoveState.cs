@@ -61,7 +61,8 @@ public abstract class InputMoveState : MovementState
     }
     
     public virtual bool CanJump => true;
-    
+    public override bool RotatePlayerVertically => true;
+
     public abstract float GetSpeedMultiplier { get; }
 
     private float currentAirTime;

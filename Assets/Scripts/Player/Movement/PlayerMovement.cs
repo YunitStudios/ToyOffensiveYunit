@@ -478,23 +478,32 @@ public class PlayerMovement : StateMachine
         trackerPos.y = GetCurrentCameraHeightOffset;
         thirdPersonTracker.localPosition = trackerPos;
         
-        // Face player fowards
-        Vector3 targetPosition = transform.position + Vector3.up * PlayerHeadHeight;
         
-        // Only offset the shoulder while aiming
-        if(playerData.IsAiming && currentShoulderOffset != aimingShoulderOffset)
-            currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, aimingShoulderOffset, aimingShoulderSpeed * Time.deltaTime);
-        else if (!playerData.IsAiming && currentShoulderOffset != Vector2.zero)
-            currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, Vector2.zero, aimingShoulderSpeed * Time.deltaTime);
-        
-        // Offset the aim target to be around the shoulder
-        targetPosition += rotationRoot.right * currentShoulderOffset.x + rotationRoot.up * currentShoulderOffset.y;
-        
-        
-        // Move forwards to smoothen the rotation
-        targetPosition += thirdPersonTracker.transform.forward * 10;;
-        aimingTarget.transform.position = targetPosition;
-        
+        // Face player vertically based on camera direction
+        if (currentState is IMovementState { RotatePlayerVertically: true })
+        {
+            aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 1.0f, Time.deltaTime * aimingShoulderSpeed);
+            
+            Vector3 targetPosition = transform.position + Vector3.up * PlayerHeadHeight;
+            // Only offset the shoulder while aiming
+            if (playerData.IsAiming && currentShoulderOffset != aimingShoulderOffset)
+                currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, aimingShoulderOffset,
+                    aimingShoulderSpeed * Time.deltaTime);
+            else if (!playerData.IsAiming && currentShoulderOffset != Vector2.zero)
+                currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, Vector2.zero,
+                    aimingShoulderSpeed * Time.deltaTime);
+
+            // Offset the aim target to be around the shoulder
+            targetPosition += rotationRoot.right * currentShoulderOffset.x + rotationRoot.up * currentShoulderOffset.y;
+
+            // Move forwards to smoothen the rotation
+            targetPosition += thirdPersonTracker.transform.forward * 10;
+            ;
+            aimingTarget.transform.position = targetPosition;
+        }
+        else
+            aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 0.0f, Time.deltaTime * aimingShoulderSpeed);
+
     }
     
     public bool IsFacingWall(float distance = 1f)
