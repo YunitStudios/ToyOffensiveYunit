@@ -9,12 +9,14 @@ public class AttackState : AIState
     private CoverPoint coverPoint;
     float distanceToPlayer;
     float distanceToCoverPoint;
+    private AIController aiController;
 
 
     public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
     {
         this.player = player;
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
+        aiController = controller.GetComponent<AIController>();
     }
 
     // Moves towards player at them moment, will update with actual enemy logic eventually
@@ -37,9 +39,9 @@ public class AttackState : AIState
             return;
         }
         
-        // needs changing 
         agent.SetDestination(player.position);
         weaponSystem.target = player;
+        aiController.SetAiming(true);
         weaponSystem.Fire();
         if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
         {

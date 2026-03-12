@@ -19,6 +19,7 @@ public class AIController : MonoBehaviour, IDamageable
     
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
+    private static readonly int IsAiming = Animator.StringToHash("IsAiming");
 
     private CapsuleCollider capCollider;
     private float standHeight = 2f;
@@ -113,5 +114,17 @@ public class AIController : MonoBehaviour, IDamageable
         }
         capCollider.height = targetHeight;
         navMeshAgent.height = targetHeight;
+    }
+
+    public void SetAiming(bool isAiming)
+    {
+        if (isAiming)
+        {
+            aiAnimator.SetBool(IsAiming, true);
+        }
+        else
+        {
+            aiAnimator.SetBool(IsAiming, false);
+        }
     }
 }
