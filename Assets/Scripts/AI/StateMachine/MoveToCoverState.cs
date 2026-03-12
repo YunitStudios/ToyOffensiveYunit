@@ -17,6 +17,15 @@ public class MoveToCoverState : AIState
 
     public override void Execute()
     {
+        if (coverPoint.aiStateMachine != controller)
+        {
+            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
+            if (coverPoint == null)
+            {
+                controller.ChangeState(new AttackState(controller, agent, player));
+                return;
+            }
+        }
         // Sets enemy destination to the cover point and increases enemy speed until it reaches destination
         agent.SetDestination(coverPoint.transform.position);
         agent.speed = moveToCoverSpeed;

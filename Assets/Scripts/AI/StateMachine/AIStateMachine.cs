@@ -200,7 +200,7 @@ public class AIStateMachine : MonoBehaviour
             {
                 if (point.aiStateMachine == this)
                 {
-                    point.LeaveCoverPoint();
+                    point.LeaveCoverPoint(this);
                 }
             }
         }
@@ -240,7 +240,7 @@ public class AIStateMachine : MonoBehaviour
         {
             if (point.aiStateMachine == this)
             {
-                point.LeaveCoverPoint();
+                point.LeaveCoverPoint(this);
             }
         }
 

@@ -24,7 +24,7 @@ public class CoverPointManager : MonoBehaviour
     }
 
     // finds closest cover point from the enemy
-    public CoverPoint GetNearestCoverPoint(Vector3 fromPosition, Transform player)
+    public CoverPoint GetNearestCoverPoint(Vector3 fromPosition, Transform player, AIStateMachine aiStateMachine)
     {
         CoverPoint best = null;
         float bestDistance = Mathf.Infinity;
@@ -51,8 +51,11 @@ public class CoverPointManager : MonoBehaviour
                 if (NavMesh.CalculatePath(fromPosition, coverPoint.transform.position, NavMesh.AllAreas, path) &&
                     path.status == NavMeshPathStatus.PathComplete)
                 {
-                    bestDistance = distance;
-                    best = coverPoint;
+                    if (coverPoint.TakeCoverPoint(aiStateMachine))
+                    {
+                        bestDistance = distance;
+                        best = coverPoint;
+                    }
                 }
             }
         }

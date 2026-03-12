@@ -22,7 +22,7 @@ public class AttackState : AIState
     {
         if (coverPoint == null)
         {
-            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player);
+            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
 
             if (coverPoint != null)
             {
