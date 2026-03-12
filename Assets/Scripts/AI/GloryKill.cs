@@ -128,11 +128,6 @@ public class GloryKill : MonoBehaviour, IDamageSource
             playerAnimator.CrossFade("GloryKill1", 0f);
             targetAnimator.CrossFade("GloryKill2", 0f);
         }));
-        //playerMovement.SetRotation(snapPoint.rotation);
-        //playerAnimator.applyRootMotion = true;
-        //playerAnimator.CrossFade("GloryKill1", 0f);
-        //targetAnimator.CrossFade("GloryKill2", 0f);
-       
        // play animation on the target ai and the player, freeze player movement somewhere too, maybe change camera for the glory kill
     }
 

@@ -58,7 +58,7 @@ public class AIController : MonoBehaviour, IDamageable
     
     public void TakeDamage(IDamageSource source, float damage)
     {
-        // prevents squad being alerted during glory kill
+        // prevents squad taking damage during glory kill
         if (stateMachine.IsFrozen)
         {
             return;
@@ -67,10 +67,13 @@ public class AIController : MonoBehaviour, IDamageable
         if(source != null)
             RecentDamageSource = source;
         
-        // Alert squad when damaged 
-        stateMachine.AlertSquad(playerTransform);
         
         enemyHealth.DealDamage(damage, out bool didDie);
+        if (!didDie)
+        {
+            // Alert squad when damaged 
+            stateMachine.AlertSquad(playerTransform);
+        }
         if (didDie)
         {
             stateMachine.Die();

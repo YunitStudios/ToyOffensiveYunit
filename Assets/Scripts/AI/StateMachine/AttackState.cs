@@ -30,7 +30,7 @@ public class AttackState : AIState
             }
         }
         distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
-        if (coverPoint != null && distanceToCoverPoint < distanceToPlayer)
+        if (coverPoint != null && controller.AttackRange < distanceToPlayer)
         {
             coverPoint.TakeCoverPoint(controller);
             controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
@@ -41,7 +41,7 @@ public class AttackState : AIState
         agent.SetDestination(player.position);
         weaponSystem.target = player;
         weaponSystem.Fire();
-        if (agent.remainingDistance <= stoppingDistance && HasLineOfSight())
+        if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
         {
             agent.isStopped = true;
             RotateTowardsPlayer();
