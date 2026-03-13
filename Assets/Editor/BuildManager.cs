@@ -234,12 +234,12 @@ namespace RIGPR.Editor {
 
             BuildReport report = BuildPipeline.BuildPlayer(buildPlayerOptions);
             if (report.summary.result != BuildResult.Succeeded) {
-                Debug.LogError($"Build failed: {report.summary.result}");
-                EditorApplication.Exit(1);
+                Debug.LogError($"Build failed with result: {report.summary.result}");
+                EditorApplication.delayCall += () => EditorApplication.Exit(1);
             }
             else {
-                Debug.Log("Build succeeded");
-                EditorApplication.Exit(0);
+                Debug.Log("Build completed successfully.");
+                EditorApplication.delayCall += () => EditorApplication.Exit(0);
             }
         }
     }
