@@ -11,6 +11,9 @@ public class AIController : MonoBehaviour, IDamageable
     [SerializeField] private Animator aiAnimator;
     public Animator AIAnimator => aiAnimator;
     private NavMeshAgent navMeshAgent;
+    [Tooltip("Min and Max speed the moving animation can be, the speed is based on their current speed compared to the max speed")]
+    [SerializeField] private Vector2 moveAnimSpeedRange = new(0f, 1f);
+    public Vector2 MoveAnimSpeedRange => moveAnimSpeedRange;
 
     [Header("Output Events")] 
     [SerializeField] private VoidEventChannelSO onEnemyKilledWithGrenade;
@@ -43,18 +46,15 @@ public class AIController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        // Walking animation based on current speed
-        float horizontalSpeed = navMeshAgent.velocity.magnitude;
-        // Divide by max speed to get 0-1 range
-        horizontalSpeed /= navMeshAgent.speed;
-        // Half to fit walking blend tree
-        horizontalSpeed /= 2f;
-        // If sprinting, remove multiplier and instead double to get full speed
-        if (navMeshAgent.speed > 2)
-        {
-            horizontalSpeed *= 2f;
-        }
-        aiAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed , 0.2f, Time.deltaTime);
+        
+        Vector3 localDirection = transform.InverseTransformDirection(navMeshAgent.velocity.normalized);
+        InputMoveState.SetAnimatorMovement(aiAnimator, 
+            navMeshAgent.speed, 
+            navMeshAgent.velocity.magnitude, 
+            localDirection,
+            navMeshAgent.speed > 2,
+            1.5f,
+            MoveAnimSpeedRange);
     }
     
     public void TakeDamage(IDamageSource source, float damage)
