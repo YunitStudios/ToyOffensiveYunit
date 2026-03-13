@@ -71,4 +71,4 @@ if __name__ == "__main__":
         output = REPO_ROOT / "Builds" / platform_dir / f"ToySoldiers.{ext}"
 
     unity_path = get_unity_path(args.unity_path)
-    build_game(args.target, str(output), project_path, args.build_number, version_path, unity_path)
+    build_project(args.target, str(output), project_path, args.build_number, version_path, unity_path)
