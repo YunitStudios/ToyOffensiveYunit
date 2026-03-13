@@ -3,6 +3,8 @@ using PrimeTween;
 using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.Animations.Rigging;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -11,18 +13,29 @@ using UnityEngine.UI;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : StateMachine
 {
+    public static readonly Vector3 NULL_POSITION = new Vector3(0,-1000,0);
+
     private CharacterController cc;
     private CapsuleCollider col;
+    private PlayerHealth playerHealth;
+    public bool IsAlive => playerHealth.IsAlive;
     
     [Header("Components")]
     [SerializeField] private Animator playerAnimator;
     public Animator PlayerAnimator => playerAnimator;
     [SerializeField] private Transform thirdPersonTracker;
     public Transform ThirdPersonTracker => thirdPersonTracker;
+    [SerializeField] private Transform yawTracker;
+    public Transform YawTracker => yawTracker;
     [FormerlySerializedAs("playerCamera")] [FormerlySerializedAs("playerCameras")] [SerializeField] private PlayerCamera playerCamera;
     public PlayerCamera PlayerCamera => playerCamera;
+    [SerializeField] private PlayerDataSO playerData;
+    public PlayerDataSO PlayerData => playerData;
     [SerializeField] private Transform rotationRoot;
     [SerializeField] private Transform visualRoot;
+    [SerializeField] private Transform aimingTarget;
+    [SerializeField] private Rig aimingRig;
+    [SerializeField] private Transform gunRoot;
     public Transform VisualRoot => visualRoot;
     public Vector3 Position => transform.position;
     public Quaternion Rotation => rotationRoot.rotation;
@@ -35,6 +48,8 @@ public class PlayerMovement : StateMachine
 
 
     [Header("Attributes")] 
+    [SerializeField] private float gravity = 15;
+    public float Gravity => gravity;
     [Tooltip("Height of the player character, used in things like climbing checks")]
     [SerializeField] private float playerHeight = 2f;
     public float PlayerHeight => playerHeight;
@@ -50,6 +65,23 @@ public class PlayerMovement : StateMachine
     [Tooltip("Speed that gravity will push you down a slope")]
     [SerializeField] private float slopeSlideSpeed = 2;
     public float SlopeSlideSpeed => slopeSlideSpeed;
+    [Tooltip("How much to offset the cameras look target from the players pivot")]
+    [SerializeField] private float cameraHeightOffset = 0.5f;
+
+    [Tooltip("How much to offset the cameras look target from the players pivot when crouched")]
+    [SerializeField] private float crouchedCameraHeightOffset = 0f;
+
+    [Tooltip("How much to move the aiming target so that the player looks slightly to the right and up to match what the camera sees")]
+    [SerializeField] private Vector2 aimingShoulderOffset = new Vector2(3,1);
+
+    [Tooltip("Speed to move the aiming target when you start aiming")] [SerializeField] private float aimingShoulderSpeed = 0.1f;
+
+    public float GetCurrentCameraHeightOffset => currentState switch
+    {
+        global::CrouchingState => crouchedCameraHeightOffset,
+        global::SlidingState => crouchedCameraHeightOffset,
+        _ => cameraHeightOffset
+    };
 
     [SerializeField] private LayerMask environmentLayer;
     public LayerMask EnvironmentLayer => environmentLayer;
@@ -73,6 +105,8 @@ public class PlayerMovement : StateMachine
     public FallingSettings FallingSettings => fallingSettings;
     [SerializeField] private ParachutingSettings parachutingSettings = new ParachutingSettings();
     public ParachutingSettings ParachutingSettings => parachutingSettings;
+    [SerializeField] private ParachuteLandingSettings parachuteLandingSettings = new ParachuteLandingSettings();
+    public ParachuteLandingSettings ParachuteLandingSettings => parachuteLandingSettings;
     
     private WalkingState walkingState; 
     public WalkingState WalkingState => walkingState;
@@ -90,11 +124,15 @@ public class PlayerMovement : StateMachine
     public FallingState FallingState => fallingState;
     private ParachuteState parachuteState;
     public ParachuteState ParachuteState => parachuteState;
+    private ParachuteLanding parachuteLandingState;
+    public ParachuteLanding ParachuteLandingState => parachuteLandingState;
     
 
     
     public Vector3 CurrentVelocity => currentVelocity;
     private Vector3 currentVelocity;
+    public Vector3 FrameVelocity => frameVelocity;
+    private Vector3 frameVelocity;
     public float CurrentRadius => cc.radius;
     
     
@@ -102,22 +140,44 @@ public class PlayerMovement : StateMachine
     [Tooltip("Multiplier to adjust look sensitivity")]
     [SerializeField] private float lookSensitivity = 0.1f;
 
-    [Header("Events")] 
+    [Header("Input Events")] 
     [SerializeField] private FloatEventChannelSO onDealPlayerDamage;
+    [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
+    [SerializeField] private VoidEventChannelSO onTryUnstuck;
+    
     public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
+    public bool ShouldMouseRotateVisuals => currentState is IMovementState { UseMouseRotateVisuals: true };
 
 
-
+    public float MovementMultiplier { get; private set; }
+    public float ClampedCameraYaw { get; private set; }
 
     
     private float defaultColliderHeight;
     private InputAxis.RecenteringSettings originalCameraRecentering;
+
+    private bool movementFrozen;
+    private bool hasCachedGroundCheck;
+    private bool cachedGroundCheck;
+    private Vector2 currentShoulderOffset;
     
     // Public Properties
-    public bool IsGrounded => CheckOnGround();
-    [HideInInspector] public bool CanAds => CanADS();
+    public bool IsGrounded
+    {
+        get
+        {
+            cachedGroundCheck = CheckOnGround();
+            hasCachedGroundCheck = true;
+            return cachedGroundCheck;
+        }
+    }
+
+    public bool CanShoot => CheckCanShoot();
+    public bool CanAim => CheckCanAim();
+    public bool DisableSprinting { get; private set; }
+    public bool IsSlopeSliding { get; private set; }
 
     private void Awake()
     {
@@ -125,6 +185,7 @@ public class PlayerMovement : StateMachine
         
         cc = GetComponent<CharacterController>();
         col = GetComponent<CapsuleCollider>();
+        playerHealth = GetComponent<PlayerHealth>();
         // Copy character controller collider data to capsule collider
         cc.radius = playerRadius;
         cc.height = playerHeight;
@@ -137,8 +198,22 @@ public class PlayerMovement : StateMachine
         SetupStates();
         
         defaultColliderHeight = cc.height;
+
+        MovementMultiplier = 1;
     }
-    
+
+    private void OnEnable()
+    {
+        onTeleportPlayer.OnEventRaised += SetPosition;
+        onTryUnstuck.OnEventRaised += OnTryUnstuck;
+    }
+
+    private void OnDisable()
+    {
+        onTeleportPlayer.OnEventRaised -= SetPosition;
+        onTryUnstuck.OnEventRaised -= OnTryUnstuck;
+    }
+
     private void SetupStates()
     {
         walkingState = new WalkingState(this);
@@ -157,53 +232,97 @@ public class PlayerMovement : StateMachine
         fallingState.Initialize();
         parachuteState = new ParachuteState(this);
         parachuteState.Initialize();
+        parachuteLandingState = new ParachuteLanding(this);
+        parachuteLandingState.Initialize();
         
         
         SwitchState(walkingState, null);
     }
 
+    protected override void OnStateSwitched()
+    {
+        base.OnStateSwitched();
+    }
+
     protected override void Update()
     {
+        if (movementFrozen || !playerHealth.IsAlive)
+        {
+            return;
+        }
+        
         base.Update();
         
-        // Rotation when no rigidbody
         FrameLook();
         
         ApplyVelocity();
-        
-        if(GameManager.PlayerData)
-            GameManager.PlayerData.SetPosition(transform.position);
+
+        if (GameManager.PlayerData)
+        {
+            GameManager.PlayerData.StorePosition(transform.position);
+            GameManager.PlayerData.StoreRotationRootTransform(rotationRoot);
+        }
+           
     }
-    
+
+    protected override void LateUpdate()
+    {
+        base.LateUpdate();
+
+        hasCachedGroundCheck = false;
+    }
+
 
     private void ApplyVelocity()
     {
-        // Apply gravity
         if (currentState is IMovementState { UseGravity: true })
         {
-            currentVelocity.y += Physics.gravity.y * Time.deltaTime;
-            
-            // Set velocity to small negative value when grounded to prevent floating
-            if (IsGrounded && currentVelocity.y < 0f)
+            currentVelocity.y += gravity * Time.deltaTime;
+
+            // https://discussions.unity.com/t/character-controller-slide-down-slope/188130
+            // Thanks claude for once you were actually helpful
+            bool onSteepSlope = Vector3.Angle(Vector3.up, hitNormal) > cc.slopeLimit;
+            bool nearGround = GetGroundDistance() < minGroundDistance*2;
+            if (nearGround && onSteepSlope)
             {
-                currentVelocity.y = -1f; // Small negative value to keep grounded
+                float slideFriction = 1f - slopeSlideSpeed / 10f;
+                currentVelocity.x += (1f - hitNormal.y) * hitNormal.x * (1f - slideFriction);
+                currentVelocity.z += (1f - hitNormal.y) * hitNormal.z * (1f - slideFriction);
+                IsSlopeSliding = true;
+            }
+            else if (IsGrounded && currentVelocity.y < 0f)
+            {
+                currentVelocity.y = -1f;
+                IsSlopeSliding = false;
             }
         }
+
+        Vector3 finalVelocity = (currentVelocity + frameVelocity) * Time.deltaTime;
         
-        // Apply velocity for frame
-        Vector3 finalVelocity = currentVelocity * Time.deltaTime;
-        cc.Move(finalVelocity); 
+        cc.Move(finalVelocity);
+        frameVelocity = Vector3.zero;
     }
+    
     public void SetVelocity(Vector3 newVelocity)
     {
         currentVelocity = newVelocity;
     }
-    public void AddVelocity(Vector3 addVelocity)
+    public void ImpulseVelocity(Vector3 addVelocity)
     {
         currentVelocity += addVelocity;
     }
+    public void AddFrameVelocity(Vector3 addVelocity)
+    {
+        frameVelocity += addVelocity;
+    }
     public void SetPosition(Vector3 newPosition)
     {
+        if (newPosition == NULL_POSITION)
+        {
+            Debug.LogError("Attempted to teleport player to NULL_POSITION, ignoring.");
+            return;
+        }
+        
         cc.enabled = false;
         transform.position = newPosition;
         cc.enabled = true;
@@ -227,6 +346,33 @@ public class PlayerMovement : StateMachine
     public void SetVisualRotation(Vector3 eulerAngles)
     {
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
+    }
+
+    public Quaternion GetCameraRotation()
+    {
+        return thirdPersonTracker.rotation;
+    }
+    public void SetCameraRotation(Quaternion newRotation)
+    {
+        if (ClampedCameraYaw != 0)
+        {
+            float currentYaw = Rotation.eulerAngles.y;
+            float targetYaw = newRotation.eulerAngles.y;
+
+            float delta = Mathf.DeltaAngle(currentYaw, targetYaw);
+            delta = Mathf.Clamp(delta, -ClampedCameraYaw, ClampedCameraYaw);
+
+            float finalYaw = currentYaw + delta;
+
+            Vector3 newEuler = newRotation.eulerAngles;
+            newRotation = Quaternion.Euler(newEuler.x, finalYaw, newEuler.z);
+        }
+
+        thirdPersonTracker.rotation = newRotation;
+    }
+    public void ClampCameraYaw(float yaw)
+    {
+        ClampedCameraYaw = yaw;
     }
     
     public void ToggleCollision(bool enabled)
@@ -273,6 +419,11 @@ public class PlayerMovement : StateMachine
         ChangeRadius(playerRadius);
     }
 
+    public void SetMovementFrozen(bool isFrozen)
+    {
+        movementFrozen = isFrozen;
+    }
+
     private void FrameLook()
     {
         Vector2 input = InputManager.Instance.FrameLook;
@@ -288,6 +439,20 @@ public class PlayerMovement : StateMachine
 
             // Rotate third person tracker vertically
             thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(-finalInput.y, Vector3.right);
+            // Rotate tracker horizontally if visuals are affected
+            if(ShouldMouseRotateVisuals)
+                thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(finalInput.x, Vector3.up);
+            // If not, rotate back to default
+            // UNLESS its parachuting, cos im lazy
+            else if(currentState is not global::ParachuteState)
+            {
+                Quaternion target = Quaternion.Euler(thirdPersonTracker.transform.rotation.eulerAngles.x, rotationRoot.rotation.eulerAngles.y, thirdPersonTracker.transform.rotation.eulerAngles.z);
+                thirdPersonTracker.transform.rotation = Quaternion.Slerp(thirdPersonTracker.transform.rotation, target, 0.2f);
+            }
+            
+            SetCameraRotation(thirdPersonTracker.transform.rotation);
+                
+            
         }
         // If theyre dead, only rotate the third person tracker
         else
@@ -317,29 +482,42 @@ public class PlayerMovement : StateMachine
         trackerEuler.x = angle;
         thirdPersonTracker.localEulerAngles = trackerEuler;
         
-    }
-    
-    private void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-        Vector3 hitNormal = hit.normal;
-        #region Slope Sliding
-        // Source: https://discussions.unity.com/t/character-controller-slide-down-slope/188130/2
-        // Check if we are sliding
-        var angle = Vector3.Angle(Vector3.up, hitNormal);
-        bool isSliding = (angle > hit.controller.slopeLimit && angle < 85f);
-        if (isSliding && !IsGrounded && currentVelocity.y <= 0f){
-            {
-                var slopeRotation = Quaternion.FromToRotation(Vector3.up, hitNormal);
-                // Calculate speed based on rotation from up
-                float slopeSpeed = (angle-45) / 45f; // Normalize between 0 and 1 from 45 to 90 degrees
-                slopeSpeed++;
-                
-                var slopeVelocity = slopeRotation * new Vector3(hitNormal.x, 0f, hitNormal.z) * slopeSlideSpeed * slopeSpeed;
-                currentVelocity = slopeVelocity;
-            }
+        // Copy yaw
+        yawTracker.localEulerAngles = new Vector3(0, trackerEuler.y, 0);
+        
+        
+        // Set trackers Y position
+        Vector3 trackerPos = thirdPersonTracker.localPosition;
+        trackerPos.y = GetCurrentCameraHeightOffset;
+        thirdPersonTracker.localPosition = trackerPos;
+        
+        
+        // Face player vertically based on camera direction
+        if (currentState is IMovementState { RotatePlayerVertically: true })
+        {
+            aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 1.0f, Time.deltaTime * aimingShoulderSpeed);
+            
+            Vector3 targetPosition = transform.position + Vector3.up * PlayerHeadHeight;
+            // Only offset the shoulder while aiming
+            if (playerData.IsAiming && currentShoulderOffset != aimingShoulderOffset)
+                currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, aimingShoulderOffset,
+                    aimingShoulderSpeed * Time.deltaTime);
+            else if (!playerData.IsAiming && currentShoulderOffset != Vector2.zero)
+                currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, Vector2.zero,
+                    aimingShoulderSpeed * Time.deltaTime);
 
+            // Offset the aim target to be around the shoulder
+            targetPosition += rotationRoot.right * currentShoulderOffset.x + rotationRoot.up * currentShoulderOffset.y;
+
+            // Move forwards to smoothen the rotation
+            targetPosition += thirdPersonTracker.transform.forward * 10;
+            ;
+            aimingTarget.transform.position = targetPosition;
         }
-        #endregion
+        else
+            aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 0.0f, Time.deltaTime * aimingShoulderSpeed);
+        
+        gunRoot.gameObject.SetActive(currentState is IMovementState {ShouldDisplayGun:true});
 
     }
     
@@ -347,20 +525,18 @@ public class PlayerMovement : StateMachine
     {
         Vector3 origin = Position + Vector3.up * PlayerHeight/2;
         Vector3 direction = Forward;
-        return Physics.Raycast(origin, Forward, distance, EnvironmentLayer);
+        return Physics.Raycast(origin, direction, distance, EnvironmentLayer);
     }
     
     public float GetGroundDistance()
     {
-        float sphereRadius = cc.radius * 0.9f;
+        float sphereRadius = cc.radius;
         Vector3 sphereOrigin = transform.position + Vector3.up * (sphereRadius);
         float maxDistance = 100f;
         
         if(Physics.SphereCast(sphereOrigin, sphereRadius, Vector3.down, out var hitInfo, maxDistance, environmentLayer))
         {
-            // // Make sure surface is flat
-            if(Vector3.SignedAngle(hitInfo.normal, Vector3.up, Vector3.right) <= cc.slopeLimit)
-                return hitInfo.distance;
+            return hitInfo.distance;
         }
         return maxDistance;
         
@@ -369,33 +545,138 @@ public class PlayerMovement : StateMachine
     // Spherecast to check if on ground
     private bool CheckOnGround()
     {
+        if(hasCachedGroundCheck)
+            return cachedGroundCheck;
+        
+        // Landed
         if (GetGroundDistance() < minGroundDistance)
         {
-            CheckFallDamage();
+            ApplyFallDamage();
             climbingState.ResetStamina();
+            
             return true;
         }
 
         return false;
     }
+    
+    public bool IsFallingLethal()
+    {
+        float fallDamage = CheckFallDamage();
+        
+        return fallDamage >= playerHealth.CurrentHealth;
+    }
+    
+    private float CheckFallDamage()
+    {
+        if (currentState is not global::FallingState) 
+            return 0;
 
-    private bool CanADS()
+
+        float fallDistance =  Mathf.Abs(transform.position.y - fallingState.FallingStartHeight);
+        
+        if (fallDistance < FallingSettings.FallDistanceScale.x)
+            return 0;
+        
+        float t = Mathf.InverseLerp(FallingSettings.FallDistanceScale.x, FallingSettings.FallDistanceScale.y, fallDistance);
+        print(t);
+        float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
+        print(damageScale);
+        return 100 * damageScale;
+    }
+
+    private void ApplyFallDamage()
+    {
+        float fallDamage = CheckFallDamage();
+        OnDealPlayerDamage(fallDamage);
+    }
+
+    private bool CheckCanShoot()
     {
         //return currentState is IMovementState { CanADS: false };
         if (currentState is IMovementState state)
-            return state.CanADS;
+            return state.CanShoot;
+        return true;
+    }
+    private bool CheckCanAim()
+    {
+        //return currentState is IMovementState { CanADS: false };
+        if (currentState is IMovementState state)
+            return state.CanAim;
         return true;
     }
 
-    private void CheckFallDamage()
+
+    
+    private void OnTryUnstuck()
     {
-        if (!(currentVelocity.y < -FallingSettings.FallVelocityScale.x) || currentState is not global::FallingState) 
-            return;
-        
-        float fallSpeed = Mathf.Abs(currentVelocity.y);
-        float t = Mathf.InverseLerp(FallingSettings.FallVelocityScale.x, FallingSettings.FallVelocityScale.y, fallSpeed);
-        float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
-        float damage = 100 * damageScale;
-        OnDealPlayerDamage(damage);
+        // Check for nearest nav mesh position
+        if (NavMesh.SamplePosition(transform.position, out var hit, float.MaxValue, NavMesh.AllAreas))
+        {
+            // Dont move if the player is already on the nav mesh
+            if (hit.position == transform.position)
+                return;
+            
+            SetPosition(hit.position);
+        }
     }
+
+    public void TemporaryMovementModifier(float duration, float multiplier, bool disableSprinting = false, bool disableJumping = false, float transitionTime = 0.0f)
+    {
+        DisableSprinting = disableSprinting;
+        MovementMultiplier += multiplier;
+        Tween.Delay(duration - transitionTime, () =>
+        {
+            if (transitionTime == 0)
+            {
+                MovementMultiplier -= multiplier;
+                if(disableSprinting)
+                    DisableSprinting = false;
+            }
+            else
+            {
+                // TODO
+                // This actually breaks if anything else touches movement multiplier
+                // Uh lets just ignore that for now
+                
+                float startValue = MovementMultiplier;
+                float endValue = MovementMultiplier - multiplier;
+
+                Tween.Custom(startValue, endValue, transitionTime, v =>
+                {
+                    MovementMultiplier = v;
+                }).OnComplete(() =>
+                {
+                    if(disableSprinting)
+                        DisableSprinting = false;
+                });
+            }
+        });
+    }
+
+    public void ManualMovementModifier(float multiplier)
+    {
+        MovementMultiplier += multiplier;
+    }
+    public void TemporaryVelocityBoost(float duration, Vector3 localVelocity, AnimationCurve curve)
+    {
+        // Set frame velocity over time based on curve
+        Tween.Delay(duration).OnUpdate(target: this, (target, tween) =>
+        {
+            Vector3 worldVelocity = target.rotationRoot.TransformDirection(localVelocity);
+            AddFrameVelocity(worldVelocity * curve.Evaluate(tween.progress));
+        });
+    }
+    
+    
+    
+    
+    
+    private Vector3 hitNormal = Vector3.up;
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
+    }
+    
 }

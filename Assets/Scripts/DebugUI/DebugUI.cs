@@ -36,7 +36,7 @@ public class DebugUI : MonoBehaviour
         Application.targetFrameRate = fpsOptions[selectedFPSIndex];
 
         // set vsync
-        QualitySettings.vSyncCount = vSyncOn ? 1 : 0;
+        UnityEngine.QualitySettings.vSyncCount = vSyncOn ? 1 : 0;
     }
 
     void OnGUI()

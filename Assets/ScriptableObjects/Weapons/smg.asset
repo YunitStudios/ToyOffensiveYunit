@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1aaded003aadb42a84bfb74b5e87cf, type: 3}
+  m_Name: smg
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
+  ClassName: smg
+  DisplayName: SMG
+  WeaponSprite: {fileID: 21300000, guid: 5eb481327f8724c4980ebf445dbad545, type: 3}
+  WeaponSpriteWhite: {fileID: 21300000, guid: bf83291566096f64dab65f33ee68e31d, type: 3}
+  FireRateRPM: 360
+  Damage: 20
+  SupportedFireModes: 0000000001000000
+  CurrentFireMode: 0
+  MagSize: 30
+  SecondaryAmmo: 0
+  ReloadTime: 2.5
+  BaseSpread: 0
+  HalfSpread: 2
+  MaxSpread: 3
+  ShotQuantity: 1
+  ShotSpread: 0
+  IsPhysicsBased: 1
+  InitialVelocityMS: 335
+  MassKG: 0.025
+  Attachments:
+  - Silencer
+  - ' Laser'
+  WeaponPrefab: {fileID: 0}
+  AimCameraType: 1
+  AttachmentSOs: []

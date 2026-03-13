@@ -5,16 +5,18 @@ public class AttackState : AIState
 {
     private Transform player;
     private AIWeaponSystem weaponSystem;
-    private float stoppingDistance = 30f;
+    private float stoppingDistance = 12f;
     private CoverPoint coverPoint;
     float distanceToPlayer;
     float distanceToCoverPoint;
+    private AIController aiController;
 
 
     public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
     {
         this.player = player;
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
+        aiController = controller.GetComponent<AIController>();
     }
 
     // Moves towards player at them moment, will update with actual enemy logic eventually
@@ -22,7 +24,7 @@ public class AttackState : AIState
     {
         if (coverPoint == null)
         {
-            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player);
+            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
 
             if (coverPoint != null)
             {
@@ -30,24 +32,49 @@ public class AttackState : AIState
             }
         }
         distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
-        if (coverPoint != null && distanceToCoverPoint < distanceToPlayer)
+        if (coverPoint != null && controller.AttackRange < distanceToPlayer)
         {
             coverPoint.TakeCoverPoint(controller);
             controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
             return;
         }
         
-        // needs changing 
         agent.SetDestination(player.position);
-        if (agent.remainingDistance <= stoppingDistance)
+        weaponSystem.target = player;
+        aiController.SetAiming(true);
+        weaponSystem.Fire();
+        if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
         {
             agent.isStopped = true;
-            weaponSystem.target = player;
-            weaponSystem.Fire();
+            RotateTowardsPlayer();
         }
         else
         {
             agent.isStopped = false;
         }
     }
+
+    private bool HasLineOfSight()
+    {
+        Vector3 from = controller.transform.position + Vector3.up;
+        Vector3 to = player.position + Vector3.up;
+        Vector3 dir = to - from;
+        float dist = dir.magnitude * 2f;
+
+        // Raycast to check it can see player
+        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy", "Vision")))
+        {
+            return hit.transform == player;
+        }
+
+        return false;
+    }
+
+    private void RotateTowardsPlayer()
+    {
+        Vector3 lookDirection = (player.position - controller.transform.position).normalized;
+        lookDirection.y = 0;
+        controller.transform.rotation = Quaternion.LookRotation(lookDirection);
+    }
+
 }

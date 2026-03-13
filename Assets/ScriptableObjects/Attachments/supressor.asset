@@ -15,6 +15,16 @@ MonoBehaviour:
   ClassName: supressor
   DisplayName: Supressor
   Modifiers:
+  - WeaponClassName: pistol
+    ResinCost: 10
+    Stat: 1
+    Operation: 0
+    Value: -2
+  - WeaponClassName: pistol
+    ResinCost: 10
+    Stat: 11
+    Operation: 1
+    Value: 0.7
   - WeaponClassName: shotgun
     ResinCost: 10
     Stat: 1
@@ -41,6 +51,16 @@ MonoBehaviour:
     Operation: 0
     Value: -2
   - WeaponClassName: sniper_rifle
+    ResinCost: 10
+    Stat: 11
+    Operation: 1
+    Value: 0.7
+  - WeaponClassName: smg
+    ResinCost: 10
+    Stat: 1
+    Operation: 0
+    Value: -2
+  - WeaponClassName: smg
     ResinCost: 10
     Stat: 11
     Operation: 1

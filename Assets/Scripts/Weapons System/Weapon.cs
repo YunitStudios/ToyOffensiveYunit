@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using EditorAttributes;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 [System.Serializable]
 public class Weapon
@@ -22,24 +23,20 @@ public class Weapon
     public WeaponSpread WeaponSpread;
     public Transform FirePoint;
 
-    public List<AttachmentDataSO> AttachmentSOs;
+    public AttachmentDataSO AttachmentSO;
 
 
     public Action OnAmmoChanged;
     
     // Constructor
-    public Weapon(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    public Weapon(WeaponDataSO weaponData)
     {
-        Initialize(weaponData, attachments);
+        Initialize(weaponData);
     }
     
-    public void Initialize(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    public void Initialize(WeaponDataSO weaponData)
     {
-        
-        // load attachments
-        LoadAttachments(weaponData, attachments);
-        
-        WeaponData = weaponData;
+        WeaponData = Object.Instantiate(weaponData);;
         FirePoint = LocateFirePoint(weaponData.WeaponPrefab);
         CurrentAmmoInMag = weaponData.MagSize;
         
@@ -52,29 +49,35 @@ public class Weapon
         );
     }
 
-    private void LoadAttachments(WeaponDataSO weaponData, List<AttachmentDataSO> attachments)
+    public void LoadAttachments(AttachmentDataSO attachment)
     {
-        if (weaponData == null || attachments == null) return;
-
-        foreach (AttachmentDataSO attachment in attachments)
-        {
-            if (attachment == null) continue;
-
-            foreach (StatModifier mod in attachment.Modifiers)
-            {
-                // skip if modifier is for a different weapon
-                if (!string.IsNullOrEmpty(mod.WeaponClassName) &&
-                    mod.WeaponClassName != weaponData.ClassName)
-                    continue;
-
-                ApplyModifier(weaponData, mod);
-            }
-
-            if (!weaponData.AttachmentSOs.Contains(attachment))
-                weaponData.AttachmentSOs.Add(attachment);
-        }
+        if (WeaponData == null || attachment == null) return;
         
-        AttachmentSOs = new List<AttachmentDataSO>(attachments);
+        Debug.Log("Loading Attachments");
+
+        foreach (StatModifier mod in attachment.Modifiers)
+        {
+            // skip if modifier is for a different weapon
+            if (!string.IsNullOrEmpty(mod.WeaponClassName) &&
+                mod.WeaponClassName != WeaponData.ClassName)
+                continue;
+
+            ApplyModifier(WeaponData, mod);
+        }
+
+        if (!WeaponData.AttachmentSOs.Contains(attachment))
+            WeaponData.AttachmentSOs.Add(attachment);
+        
+        AttachmentSO = attachment;
+        
+        CurrentAmmoInMag = WeaponData.MagSize;
+        WeaponSpread = new WeaponSpread(
+            WeaponData.BaseSpread,
+            WeaponData.HalfSpread,
+            WeaponData.MaxSpread,
+            WeaponData.MagSize,
+            WeaponData.FireRateRPM
+        );
     }
 
     private void ApplyModifier(WeaponDataSO weaponData, StatModifier mod)
@@ -168,9 +171,9 @@ public class Weapon
         // determine which ammo to use
         int availableAmmo;
 
-        if (WeaponData.SpecialAmmo)
+        if (WeaponData.SecondaryAmmo)
         {
-            availableAmmo = playerData.SpecialAmmoCount;
+            availableAmmo = playerData.SecondaryAmmoCount;
         }
         else
         {
@@ -190,9 +193,9 @@ public class Weapon
             
             CurrentAmmoInMag = WeaponData.MagSize;
             
-            if (WeaponData.SpecialAmmo)
+            if (WeaponData.SecondaryAmmo)
             {
-                playerData.AdjustSpecialAmmoCount(-ammoNeeded);;
+                playerData.AdjustSecondaryAmmoCount(-ammoNeeded);;
             }
             else
             {
@@ -204,9 +207,9 @@ public class Weapon
         {
             CurrentAmmoInMag = availableAmmo;
 
-            if (WeaponData.SpecialAmmo)
+            if (WeaponData.SecondaryAmmo)
             {
-                playerData.SetSpecialAmmoCount(0);
+                playerData.SetSecondaryAmmoCount(0);
             }
             else
             {
@@ -225,9 +228,9 @@ public class Weapon
         // determine which ammo to use
         int availableAmmo;
 
-        if (WeaponData.SpecialAmmo)
+        if (WeaponData.SecondaryAmmo)
         {
-            availableAmmo = aiInventory.GetSpecialAmmoCount();
+            availableAmmo = aiInventory.GetSecondaryAmmoCount();
         }
         else
         {

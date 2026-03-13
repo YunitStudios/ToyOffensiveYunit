@@ -20,7 +20,7 @@
                     "type": "Value",
                     "id": "1cf86a22-90d8-4d5f-972a-823199a32dd2",
                     "expectedControlType": "Vector2",
-                    "processors": "",
+                    "processors": "InvertVector2(invertX=false,invertY=false),ScaleVector2",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -295,6 +295,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "GloryKill",
+                    "type": "Value",
+                    "id": "847230b5-5825-45c6-b459-f57778d0ecc5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -376,26 +385,15 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "4e40b60a-c0d9-4bf1-8ee6-f63f28368f97",
-                    "path": "1DAxis",
+                    "name": "",
+                    "id": "36d32ffc-c8a1-47ab-8757-9f4cbce40dbe",
+                    "path": "<Gamepad>/dpad/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Throw",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "negative",
-                    "id": "4609a9db-a906-441d-83b9-252e20808b54",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Throw",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -449,6 +447,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "SecondaryWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dde7f8ef-ad3b-4d14-a9a4-53bb2fb9f3d7",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "GloryKill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "196141e2-3f71-43c5-8c9e-4b34fee3c3d5",
+                    "path": "<Gamepad>/rightStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "GloryKill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

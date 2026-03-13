@@ -4,14 +4,17 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "ScriptableObjects/Weapon")]
-public class WeaponDataSO : ScriptableObject
+public class WeaponDataSO : ScriptableObject, ILoadout
 {
-    [Header("Name")]
+    [Header("Visuals")]
     [Tooltip("How the weapon will be referred to in code")]
     public string ClassName;
 
     [Tooltip("How the weapon is shown in UI")]
     public string DisplayName;
+
+    public Sprite WeaponSprite;
+    public Sprite WeaponSpriteWhite;
 
 
     [Header("Core stats")]
@@ -26,8 +29,8 @@ public class WeaponDataSO : ScriptableObject
 
     [Header("Reloading")]
     public int MagSize;
-    [Tooltip("True or false if it uses special ammo type")]
-    public bool SpecialAmmo;
+    [Tooltip("True or false if it uses secondary ammo type")]
+    public bool SecondaryAmmo;
     [Tooltip("Time taken to reload the weapon in seconds, needs to be the same length as the animation")]
     public float ReloadTime;
 
@@ -63,7 +66,7 @@ public class WeaponDataSO : ScriptableObject
     [Tooltip("Type of aiming used (scope or aim or whatever)")]
     public PlayerCamera.CameraType AimCameraType;
     
-    public List<AttachmentDataSO> AttachmentSOs = new List<AttachmentDataSO>();
+    public List<AttachmentDataSO> AttachmentSOs = new();
 
     public enum FireModes
     {
@@ -81,7 +84,7 @@ public class WeaponDataSO : ScriptableObject
         SupportedFireModes = other.SupportedFireModes;
         CurrentFireMode = other.CurrentFireMode;
         MagSize = other.MagSize;
-        SpecialAmmo = other.SpecialAmmo;
+        SecondaryAmmo = other.SecondaryAmmo;
         ReloadTime = other.ReloadTime;
         BaseSpread = other.BaseSpread;
         HalfSpread = other.HalfSpread;
@@ -96,4 +99,6 @@ public class WeaponDataSO : ScriptableObject
         AimCameraType = other.AimCameraType;
         AttachmentSOs = other.AttachmentSOs;
     }
+
+    public string GetDisplayName => DisplayName;
 }

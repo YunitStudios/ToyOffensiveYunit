@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Runtime.InteropServices.ComTypes;
 using PrimeTween;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [Serializable]
 public class FallingSettings : StateSettings
@@ -21,9 +23,15 @@ public class FallingSettings : StateSettings
     [SerializeField] private Vector2 fallDamageScale = new(0.1f, 1f);
     public Vector2 FallDamageScale => fallDamageScale;
 
-    [Tooltip("Minimum and maximum velocity to calculate damage amount. X triggers the minimum damage, Y deals max damage")]
-    [SerializeField] private Vector2 fallVelocityScale = new(3f, 10f);
-    public Vector2 FallVelocityScale => fallVelocityScale;
+    [Tooltip("Minimum and maximum distance to calculate damage amount. X and below triggers the minimum damage, Y and above deals max damage")]
+    [SerializeField] private Vector2 fallDistanceScale = new(3f, 10f);
+    public Vector2 FallDistanceScale => fallDistanceScale;
+    [SerializeField] private float animationBlendInTime = 0.5f;
+    public float AnimationBlendInTime => animationBlendInTime;
+    [SerializeField] private float animationBlendOutTime = 0.1f;
+    public float AnimationBlendOutTime => animationBlendOutTime;
+    [SerializeField] private float animationLethalBlendInTime = 0.5f;
+    public float AnimationLethalBlendInTime => animationLethalBlendInTime;
 }
 
 public class FallingState : InputMoveState
@@ -35,11 +43,19 @@ public class FallingState : InputMoveState
     private float currentSpeedMultiplier = 1f;
     private float taretSpeedMultiplier = 1f;
     private float previousSpeedMultiplier = 1f;
+    private float fallingStartHeight;
+    public float FallingStartHeight => fallingStartHeight;
+
+    
     public override bool CanJump => false;
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
+    public override bool ShouldDisplayGun => false;
 
     public FallingState(StateMachine stateMachine) : base(stateMachine)
     {
     }
+    
 
     public override void OnEnter()
     {
@@ -50,18 +66,27 @@ public class FallingState : InputMoveState
         // Tween current multiple from previous to target
         Tween.Custom(previousSpeedMultiplier, taretSpeedMultiplier, Settings.SpeedTransitionTime, value => currentSpeedMultiplier = value, Settings.SpeedTransitionEase);
 
-        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Falling", 0.2f);
-        stateMachine.PlayerAnimator.SetBool(IsFalling, true);
+        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Falling", Settings.AnimationBlendInTime);
+        
+        fallingStartHeight = stateMachine.transform.position.y;
     }
 
     public override void OnExit()
     {
-        stateMachine.PlayerAnimator.SetBool(IsFalling, false);
+        if (!stateMachine.IsAlive)
+            return;
+        
+        stateMachine.PlayerAnimator.CrossFadeInFixedTime("Walking", Settings.AnimationBlendOutTime);
     }
 
     public override void Tick()
     {
         base.Tick();
+        
+        // Transition to falling death if lethal damage
+        if(stateMachine.IsFallingLethal())
+            stateMachine.PlayerAnimator.CrossFadeInFixedTime("FallingLethal", Settings.AnimationLethalBlendInTime);
+ 
     }
     public override void FixedTick()
     {
@@ -76,8 +101,10 @@ public class FallingState : InputMoveState
     {
         base.CheckTransitions();
         // Wait until character controller detects ground
-        if(stateMachine.IsGrounded)
+        if (stateMachine.IsGrounded)
+        {
             SwitchState(stateMachine.WalkingState);
+        }
 
         if (stateMachine.InputController.JumpDown)
             SwitchState(stateMachine.ParachuteState);

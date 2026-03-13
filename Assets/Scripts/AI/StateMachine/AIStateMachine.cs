@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
+using Player.Inventory.PickupSystem;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 
 public class AIStateMachine : MonoBehaviour
 {
@@ -43,6 +44,14 @@ public class AIStateMachine : MonoBehaviour
     
     [HideInInspector] public Vector3 stationPosition;
 
+    [Header("Combat Settings")]
+    [Tooltip("Distance enemy stops moving from player and starts shooting")]
+    [SerializeField] private float stoppingDistance = 10f;
+    public float StoppingDistance => stoppingDistance;
+    [Tooltip("Distance where enemy will choose to attack rather than move to cover")] 
+    [SerializeField] private float attackRange = 15f;
+    public float AttackRange => attackRange;
+    
     [Header("Weapon Settings")]
     [Tooltip("Damage multiplier for enemy weapons")]
     [SerializeField] private float damageMultiplier = 0.5f;
@@ -77,15 +86,22 @@ public class AIStateMachine : MonoBehaviour
     
     [HideInInspector] public static List<AIStateMachine> TargetsAndGuards = new List<AIStateMachine>();
 
+    public static Action<bool> OnFreezeAllAI;
+    private bool isFrozen;
+    public bool IsFrozen => isFrozen;
+
     // Sets starting states for AI 
-    void Start()
+    void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         vision = GetComponentInChildren<AIVision>();
         detection = GetComponent<AIDetection>();
         aiController = GetComponent<AIController>();
         health =  GetComponent<Health>();
+    }
 
+    private void Start()
+    {
         // Sets station point to enemies start location
         if (enemyType == EnemyType.Stationary)
         {
@@ -97,6 +113,12 @@ public class AIStateMachine : MonoBehaviour
     void Update()
     {
         debugState = currentState.GetType().Name;
+        
+        if (isFrozen)
+        {
+            return;
+        }
+        
         CheckForThreats();
         
         currentState?.Execute();
@@ -178,7 +200,7 @@ public class AIStateMachine : MonoBehaviour
             {
                 if (point.aiStateMachine == this)
                 {
-                    point.LeaveCoverPoint();
+                    point.LeaveCoverPoint(this);
                 }
             }
         }
@@ -218,10 +240,15 @@ public class AIStateMachine : MonoBehaviour
         {
             if (point.aiStateMachine == this)
             {
-                point.LeaveCoverPoint();
+                point.LeaveCoverPoint(this);
             }
         }
 
+        if (GetComponent<PickupSpawner>() is not null)
+        {
+            PickupSpawner spawner = GetComponent<PickupSpawner>();
+            spawner.SpawnPickup(spawner.database.GetRandomPickup(), transform.position);
+        }
         Destroy(gameObject, DeathDelay);
     }
 
@@ -234,6 +261,10 @@ public class AIStateMachine : MonoBehaviour
         else if (commander != null)
         {
             ChangeState(new FollowCommanderState(this, agent, commander, formationOffset));
+        }
+        else
+        {
+            ChangeState(new StationaryState(this, agent));
         }
     }
     
@@ -361,9 +392,12 @@ public class AIStateMachine : MonoBehaviour
         enemyType = EnemyType.Patrol;
     }
     
-    public void SetTypeToTarget()
+    public void SetTypeToTarget(TargetObjectivesSO[] objectives)
     {
+
         enemyType = EnemyType.Target;
+        var targetScript = gameObject.AddComponent<ObjectiveTarget>();
+        targetScript.Setup(objectives);
     }
     
     public void SetTypeToGuard()
@@ -388,6 +422,7 @@ public class AIStateMachine : MonoBehaviour
 
     void OnEnable()
     {
+        OnFreezeAllAI += HandleFreeze;
         if (Type == EnemyType.Guard || Type == EnemyType.Target)
         {
             TargetsAndGuards.Add(this);
@@ -396,9 +431,16 @@ public class AIStateMachine : MonoBehaviour
 
     void OnDisable()
     {
+        OnFreezeAllAI -= HandleFreeze;
         if (TargetsAndGuards.Contains(this))
         {
             TargetsAndGuards.Remove(this);
         }
+    }
+
+    void HandleFreeze(bool frozen)
+    {
+        isFrozen = frozen;
+        agent.isStopped = frozen;
     }
 }

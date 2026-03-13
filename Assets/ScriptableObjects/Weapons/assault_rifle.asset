@@ -19,7 +19,7 @@ MonoBehaviour:
   SupportedFireModes: 0000000001000000
   CurrentFireMode: 0
   MagSize: 30
-  SpecialAmmo: 0
+  SecondaryAmmo: 0
   ReloadTime: 2.5
   BaseSpread: 0
   HalfSpread: 2
@@ -34,4 +34,5 @@ MonoBehaviour:
   - ' Laser'
   WeaponPrefab: {fileID: 0}
   AimCameraType: 1
-  AttachmentSOs: []
+  AttachmentSOs:
+  - {fileID: 11400000, guid: 023594a328ff7dd42aca784c8ab6ada5, type: 2}

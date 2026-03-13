@@ -1,13 +1,14 @@
 using System;
 using PrimeTween;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerHealthUI : MonoBehaviour
 {
     [Header("References")] 
-    [SerializeField] private Slider mainSlider;
-    [SerializeField] private Slider backgroundSlider;
+    [SerializeField] private Image foregroundImage;
+    [SerializeField] private TMP_Text valueText;
 
     [Header("Attributes")] 
     // I dont know how to link this value with the players health script
@@ -15,15 +16,17 @@ public class PlayerHealthUI : MonoBehaviour
     [SerializeField] private float animationLength;
     [SerializeField] private Ease animationEase;
     [SerializeField] private float animationBackgroundDelay;
+    [SerializeField] private Color damageFlashColor;
+    [SerializeField] private TweenSettings damageFlashInSettings;
+    [SerializeField] private TweenSettings damageFlashOutSettings;
     
     [Header("Events")] 
     [SerializeField] private FloatEventChannelSO onHealthChanged;
 
     private float currentValue;
-    private float mainAnimValue;
-    private float backgroundAnimValue;
     private Tween mainTween;
-    private Tween backgroundTween;
+    private Sequence flashSequence;
+    private Color defaultColor;
 
     private void OnEnable()
     {
@@ -38,10 +41,13 @@ public class PlayerHealthUI : MonoBehaviour
     private void Awake()
     {
         currentValue = maxHealth;
+        defaultColor = foregroundImage.color;
     }
 
     private void SetValue(float newValue)
     {
+        newValue = Mathf.Clamp(newValue, 0, maxHealth);
+        
         float difference = newValue - currentValue;
         
         if(difference < 0) 
@@ -49,10 +55,10 @@ public class PlayerHealthUI : MonoBehaviour
         else
         {
             float percent = newValue / maxHealth;
-            mainSlider.value = percent;
-            backgroundSlider.value = percent;
+            foregroundImage.fillAmount = percent;
         }
-
+        
+        valueText.text = Mathf.RoundToInt(newValue).ToString();
         currentValue = newValue;
     }
 
@@ -62,13 +68,14 @@ public class PlayerHealthUI : MonoBehaviour
         
         if(mainTween.isAlive)
             mainTween.Stop();
-        if(backgroundTween.isAlive)
-            backgroundTween.Stop();
+        if(flashSequence.isAlive)
+            flashSequence.Stop();
         
-        mainTween = Tween.UISliderValue(mainSlider, newPercent, animationLength, animationEase);
+        mainTween = Tween.UIFillAmount(foregroundImage, newPercent, animationLength, animationEase);
+        
+        flashSequence = Sequence.Create().
+            Group(Tween.Color(foregroundImage, damageFlashColor, damageFlashInSettings))
+            .Chain(Tween.Color(foregroundImage, defaultColor, damageFlashOutSettings));
 
-        backgroundTween = Tween.Delay(animationBackgroundDelay, () =>
-            backgroundTween = Tween.UISliderValue(backgroundSlider, newPercent, animationLength, animationEase)
-        );
     }
 }

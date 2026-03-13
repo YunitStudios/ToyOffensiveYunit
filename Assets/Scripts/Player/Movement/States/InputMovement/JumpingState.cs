@@ -23,6 +23,8 @@ public class JumpingState : InputMoveState
     private new JumpingSettings Settings => stateMachine.JumpingSettings;
 
     public override bool CanJump => false;
+    public override bool CanShoot => true;
+    public override bool CanAim => false;
 
     public JumpingState(StateMachine stateMachine) : base(stateMachine)
     {
@@ -34,7 +36,7 @@ public class JumpingState : InputMoveState
     protected override void SetEnterConditions()
     {
         base.SetEnterConditions();
-        AddCanEnterCondition(() => !rejumpDelayTween.isAlive);
+        AddCanEnterCondition(CanPlayerJump);
     }
 
     public override void OnEnter()
@@ -43,9 +45,11 @@ public class JumpingState : InputMoveState
 
         stateMachine.PlayerAnimator.SetBool(IsJumping, true);
         
+        // Reset vertical velocity and add jump velocity
+        stateMachine.SetVelocity(new Vector3(stateMachine.CurrentVelocity.x, 0, stateMachine.CurrentVelocity.z));
         Vector3 jumpVelocity = Vector3.zero;
         jumpVelocity.y = Settings.JumpHeight;
-        stateMachine.AddVelocity(jumpVelocity);
+        stateMachine.ImpulseVelocity(jumpVelocity);
         
         landDelayTween = Tween.Delay(Settings.JumpLandDelay);
     }
@@ -90,5 +94,10 @@ public class JumpingState : InputMoveState
 
     public override void FixedTick()
     {
+    }
+    
+    private bool CanPlayerJump()
+    {
+        return !rejumpDelayTween.isAlive && !stateMachine.IsSlopeSliding;
     }
 }

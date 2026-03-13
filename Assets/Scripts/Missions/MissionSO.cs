@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using EditorAttributes;
 using UnityEngine;
+using System.Linq;
 
 [CreateAssetMenu(menuName = "ScriptableObjects/Mission", fileName = "Mission")]
 public class MissionSO : ScriptableObject
@@ -11,12 +12,25 @@ public class MissionSO : ScriptableObject
     [SerializeField] private List<CoreObjectiveSO> bonusObjectives;
     public List<CoreObjectiveSO> BonusObjectives => bonusObjectives;
 
+    [HideInEditMode, DisableInPlayMode] public List<MissionPOI> startPoints = new();
+    [HideInEditMode, DisableInPlayMode] public List<MissionPOI> extractPoints = new();
+    
+    [Header("Runtime")] [DisableInEditMode] 
+    [field: SerializeField] public int StartPointIndex = 0;
 
     public void Init()
     {
         mainObjective.SetupObjective();
         foreach(var obj in bonusObjectives)
             obj.SetupObjective();
+        
+        foreach(var poi in startPoints)
+            poi.SetupPOI();
+        foreach(var poi in extractPoints)
+            poi.SetupPOI();
+
+        // Order start points based on the set order
+        startPoints = startPoints.OrderBy(t => t.GetStartPointOrder).ToList();
     }
 
     public void Clear()
@@ -24,5 +38,20 @@ public class MissionSO : ScriptableObject
         mainObjective.ResetObjective();
         foreach(var obj in bonusObjectives)
             obj.ResetObjective();
+        
+        startPoints = new();
+        extractPoints = new();
+    }
+
+    public Vector3 GetStartPosition()
+    {
+        if (startPoints == null || startPoints.Count == 0)
+            return PlayerMovement.NULL_POSITION;
+        
+        StartPointIndex %= startPoints.Count;
+
+        Debug.Log(StartPointIndex);
+        
+        return startPoints[StartPointIndex].GetPosition();
     }
 }

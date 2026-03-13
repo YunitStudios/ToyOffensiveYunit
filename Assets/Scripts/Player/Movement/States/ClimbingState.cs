@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections;
-using System.Numerics;
-using System.Runtime.InteropServices.ComTypes;
+using System.Collections.Generic;
+using System.Linq;
 using EditorAttributes;
 using PrimeTween;
-using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
-using UnityEngine.Windows.WebCam;
-using Plane = UnityEngine.Plane;
+using Utility;
 using Quaternion = UnityEngine.Quaternion;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
@@ -22,6 +21,8 @@ public class ClimbingSettings : StateSettings
     public LayerMask ClimbableLayer => climbableLayer;
     [SerializeField, Tooltip("Distance to wall before starting climb. Multiplier by players radius")] private float climbRange = 1f;
     public float ClimbRange => climbRange;
+    [SerializeField, Tooltip("Multiplier on the climb range to make it so you have to be close to a wall to climb")] private float startClimbRangeMultiplier = 0.1f;
+    public float StartClimbRangeMultiplier => startClimbRangeMultiplier;
     [FormerlySerializedAs("climbingAngleLimits")] [SerializeField] private Vector2 climbingVerticalAngleLimits = new(-40f, 40f);
     public Vector2 ClimbingVerticalAngleLimits => climbingVerticalAngleLimits;
     [SerializeField] private Vector2 climbingHorizontalAngleLimits = new(-40f, 40f);
@@ -107,10 +108,10 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Cooldown before being able to sprint leap again")]
     [SerializeField] private float climbSprintLeapCooldown = 2f;
     public float ClimbSprintLeapCooldown => climbSprintLeapCooldown;
-    [Tooltip("Percentage of stamina to use when performing a sprint leap")]
+    [Tooltip("Percentage of stamina to use when performing a sprint leap"), Range(0,1)]
     [SerializeField] private float climbSprintLeapStaminaPercentage = 0.2f;
     public float ClimbSprintLeapStaminaPercentage => climbSprintLeapStaminaPercentage;
-    [Tooltip("Padding of extra stamina needed to be able to sprint leap, prevents sprint leaping and then immediately falling because you have no stamina")]
+    [Tooltip("Padding percentage of extra stamina needed to be able to sprint leap, prevents sprint leaping and then immediately falling because you have no stamina"), Range(0,1)]
     [SerializeField] private float climbSprintLeapStaminaPadding = 0.1f;
     public float ClimbSprintLeapStaminaPadding => climbSprintLeapStaminaPadding;
     
@@ -150,7 +151,8 @@ public class ClimbingState : MovementState
     private static readonly int AnimClimbSpeed = Animator.StringToHash("ClimbSpeed");
     private static readonly int AnimIsHanging = Animator.StringToHash("IsHanging");
     
-    public override bool CanADS => false;
+    public override bool CanShoot => false;
+    public override bool CanAim => false;
 
     private ClimbingSettings Settings => stateMachine.ClimbingSettings;
     
@@ -162,6 +164,8 @@ public class ClimbingState : MovementState
     public override bool UseRootMotion => true;
     public override bool UseMouseRotatePlayer => false;
     public override bool ControlRotation => true;
+    public override bool ShouldDisplayGun => false;
+
     public override Vector2 CollisionScale => Settings.ClimbingCollisionScale;
 
     private Tween unhangDelayTween;
@@ -191,6 +195,7 @@ public class ClimbingState : MovementState
     private Vector3 lastClimbDirection;
     
     private float CurrentClimbRange => Settings.ClimbRange;
+    private float CurrentStartClimbRangeMultiplier => Settings.StartClimbRangeMultiplier;
     private bool IsStartingClimb => climbTimer < Settings.ClimbingStartLockIntoPlace;
     
     private float GetClimbingDistance() => GetClimbingDistance(Vector3.Angle(currentWallNormal, Vector3.up));
@@ -359,7 +364,6 @@ public class ClimbingState : MovementState
             // Face wall
             Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal);
             stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, Settings.ClimbingWallLockSpeed * Time.deltaTime));
-            
         }
         
         // If they cant climb up
@@ -378,7 +382,7 @@ public class ClimbingState : MovementState
                 VaultOverLedge();
             
         }
-        else if(isHanging && !unhangDelayTween.isAlive)
+        else if(isHanging && !unhangDelayTween.isAlive && !IsStartingClimb)
         {
             StopHanging();
         }
@@ -517,7 +521,7 @@ public class ClimbingState : MovementState
             // Lerp separately
             Vector3 verticalPosition = Vector3.Lerp(startPosition, new Vector3(startPosition.x, targetPosition.y, startPosition.z), verticalT);
             Vector3 horizontalPosition = Vector3.Lerp(startPosition, new Vector3(targetPosition.x, startPosition.y, targetPosition.z), horizontalT);
-            Vector3 newPosition = new Vector3(horizontalPosition.x, verticalPosition.y, horizontalPosition.z);
+            Vector3 newPosition = new Vector3(horizontalPosition.x, verticalPosition.y, horizontalPosition.z); 
             stateMachine.SetPosition(newPosition);
             
             // Lerp X rotation back to 0
@@ -629,48 +633,54 @@ public class ClimbingState : MovementState
     
     public ClimbDirections GetClimbState()
     {
-            
-            bool CheckNormalAngles(Vector3 normal)
-            {
-                return CheckNormalVertical(normal) && CheckNormalHorizontal(normal);
-            }
+        // used for making the rays shorter when starting to prevent accidental climbs
+        bool isAlreadyClimbing = stateMachine.CurrentState is ClimbingState or ParachuteState;
+        float detectionRange = isAlreadyClimbing ? CurrentClimbRange : CurrentClimbRange * CurrentStartClimbRangeMultiplier;
+        float detectionAngle = isAlreadyClimbing ? 90f : 0f;
+        
+        
+        bool CheckNormalAngles(Vector3 normal)
+        {
+            return CheckNormalVertical(normal) && CheckNormalHorizontal(normal);
+        }
 
-            bool CheckNormalVertical(Vector3 normal)
-            {
-                // Calculate vertical angle between normal and world up
-                float verticalAngle = Vector3.Angle(-normal, Vector3.up) - 90f;
-                // Check if angle is within limits
-                if (verticalAngle < Settings.ClimbingVerticalAngleLimits.x || verticalAngle > Settings.ClimbingVerticalAngleLimits.y)
-                    return false;
-                
-                return true;
-            }
-            bool CheckNormalHorizontal(Vector3 normal)
-            {
-                // Calculate horizontal angle between normal and player forward
-                float horizontalAngle = Vector3.SignedAngle(-normal, CurrentForwardDirection, CurrentUpDirection);
-                // Check if angle is within limits
-                if (horizontalAngle < Settings.ClimbingHorizontalAngleLimits.x || horizontalAngle > Settings.ClimbingHorizontalAngleLimits.y)
-                    return false;
-                
-                return true;
-            }
+        bool CheckNormalVertical(Vector3 normal)
+        {
+            // Calculate vertical angle between normal and world up
+            float verticalAngle = Vector3.Angle(-normal, Vector3.up) - 90f;
+            // Check if angle is within limits
+            if (verticalAngle < Settings.ClimbingVerticalAngleLimits.x || verticalAngle > Settings.ClimbingVerticalAngleLimits.y)
+                return false;
+            
+            return true;
+        }
+        bool CheckNormalHorizontal(Vector3 normal)
+        {
+            // Calculate horizontal angle between normal and player forward
+            float horizontalAngle = Vector3.SignedAngle(-normal, CurrentForwardDirection, CurrentUpDirection);
+            // Check if angle is within limits
+            if (horizontalAngle < Settings.ClimbingHorizontalAngleLimits.x || horizontalAngle > Settings.ClimbingHorizontalAngleLimits.y)
+                return false;
+            
+            return true;
+        }
         
         Vector3 playerPosition = stateMachine.Position;
+        Vector3 currentInput = new Vector3(InputManager.Instance.FrameMove.x, 0, InputManager.Instance.FrameMove.y);
         Vector3 direction = CurrentForwardDirection;
         Vector3 playerUp = CurrentUpDirection;
         Vector3 bottomOrigin = playerPosition;
         Vector3 topOrigin = playerPosition + playerUp * stateMachine.PlayerHeight;
         Vector3 mainOrigin = playerPosition + playerUp * (stateMachine.PlayerHeight*Settings.MainRayNormalizedHeight);
+        
+        // use these if you want the top and bottom origins to be at the top and bottom of the climbing collider
+        //Vector3 bottomOrigin = mainOrigin - (Vector3.up *(stateMachine.PlayerHeight*Settings.ClimbingCollisionScale.y)/2);
+        //Vector3 topOrigin = mainOrigin + (Vector3.up *(stateMachine.PlayerHeight*Settings.ClimbingCollisionScale.y)/2);
+        
         Vector3 sideDirection = stateMachine.Right;
         Vector3 widthOffset = sideDirection * Settings.ClimbWidth;
         
         // Create rays for each direction
-        Ray mainRay = new Ray(mainOrigin, direction);
-        Ray leftRay = new Ray(mainOrigin - widthOffset, direction);
-        Ray rightRay = new Ray(mainOrigin + widthOffset, direction);
-        Ray downRay = new Ray(bottomOrigin, direction);
-        Ray upRay = new Ray(topOrigin, direction);
         Ray ceilingRay = new Ray(topOrigin, playerUp);
         
         // Set wallnormal to be player backwards by default
@@ -678,52 +688,52 @@ public class ClimbingState : MovementState
         // Set wallpos to be middle pos by default
         Vector3 wallPos = mainOrigin;
         
-        
         ClimbDirections climbDirections = ClimbDirections.None;
         
-        RaycastHit mainHitInfo;
         // Check if middle can find wall
-        bool foundWall = Physics.Raycast(mainRay, out mainHitInfo, CurrentClimbRange, Settings.ClimbableLayer);
-        
-
+        RaycastCone mainCone = new RaycastCone(mainOrigin, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
+        bool foundWall = mainCone.CastRays(out IList<RaycastHit> hits, out Vector3 mainNormal);
         if (foundWall)
         { 
-            // If hit position is too far, ignore
-            if (Vector3.Distance(mainHitInfo.point, mainOrigin) > CurrentClimbRange)
-            {
-                // Dont end check if the down ray hit an obj instead
-                if(!Physics.Raycast(downRay, out var bottomHit, CurrentClimbRange, Settings.ClimbableLayer))
-                {
-                    TryDebugLog("Head and down ray did not hit close surface");
-                    return climbDirections;
-                }
-                
-                // Make sure head and down ray hit the same object
-                if (bottomHit.collider != mainHitInfo.collider)
-                {
-                    TryDebugLog("Feet hit surface but it was the same collider as head");
-                    return climbDirections;
-                }
-                
-            }
             
             // Assume can climb in all directions initially
             climbDirections = ClimbDirections.Up | ClimbDirections.Down | ClimbDirections.Left | ClimbDirections.Right;
-            
-            // If some ray don't hit, remove from result
-            
-            RaycastHit upHit, downHit, leftHit, rightHit;
 
-            bool canUp = Physics.Raycast(upRay, out upHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalVertical(upHit.normal);
-            bool canDown = Physics.Raycast(downRay, out downHit, CurrentClimbRange, Settings.ClimbableLayer) && CheckNormalVertical(downHit.normal);
-            bool canLeft = Physics.Raycast(leftRay, out leftHit, CurrentClimbRange, Settings.ClimbableLayer);
-            bool canRight = Physics.Raycast(rightRay, out rightHit, CurrentClimbRange, Settings.ClimbableLayer);
-            
-            Debug.DrawRay(upRay.origin, upRay.direction * CurrentClimbRange, canUp ? Color.green : Color.red);
-            Debug.DrawRay(downRay.origin, downRay.direction * CurrentClimbRange, canDown ? Color.green : Color.red);
-            Debug.DrawRay(leftRay.origin, leftRay.direction * CurrentClimbRange, canLeft ? Color.green : Color.red);
-            Debug.DrawRay(rightRay.origin, rightRay.direction * CurrentClimbRange, canRight ? Color.green : Color.red);
+            // setting up cones
+            RaycastCone topCone = new RaycastCone(topOrigin, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
+            RaycastCone bottomCone = new RaycastCone(bottomOrigin, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
+            RaycastCone rightCone = new RaycastCone(mainOrigin + widthOffset, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
+            RaycastCone leftCone = new RaycastCone(mainOrigin - widthOffset, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
 
+            // when moving left, the right cone looks left
+            if (currentInput.x < 0)
+            {
+                rightCone.LookLeft();
+            }
+            // when moving right, the left cone looks right
+            else if (currentInput.x > 0)
+            {
+                leftCone.LookRight();
+            }
+            // when moving down, the top cone looks down
+            if (currentInput.z < 0)
+            {
+                topCone.LookDown();
+            }
+            // when moving up, the bottom cone looks up
+            // this is the only one of these that is strictly necessary, it stops the character from returning to the floor when starting to climb
+            else if (currentInput.z > 0)
+            {
+                bottomCone.LookUp();
+            }
+            
+            // casting cone rays
+            
+            bool canUp = topCone.CastRays(out Vector3 topNormal);
+            bool canDown = bottomCone.CastRays(out Vector3 bottomNormal);
+            bool canRight = rightCone.CastRays(out Vector3 rightNormal);
+            bool canLeft = leftCone.CastRays(out Vector3 leftNormal);
+            
             if (!canUp)
                 climbDirections &= ~ClimbDirections.Up;
             else if (Physics.Raycast(ceilingRay, 0.1f, Settings.ClimbableLayer))
@@ -738,66 +748,48 @@ public class ClimbingState : MovementState
             if (!canRight)
                 climbDirections &= ~ClimbDirections.Right;
 
-            Vector3 surfaceNormal = Vector3.zero;
+            Vector3 surfaceNormal = topNormal + bottomNormal + rightNormal + leftNormal;
 
             // Find average surface normal
-            int normalCount = 0;
-            if (canUp)
-            {
-                surfaceNormal += upHit.normal;
-                normalCount++;
-            }
-            if (canDown)
-            {
-                surfaceNormal += downHit.normal;
-                normalCount++;
-            }
-            if (canLeft)
-            {
-                surfaceNormal += leftHit.normal;
-                normalCount++;
-            }
-            if (canRight)
-            {
-                surfaceNormal += rightHit.normal;
-                normalCount++;
-            }
+            // now using normals generated by cones instead of single raycasts
+            int normalCount = (canUp ? 1 : 0) + (canDown ? 1 : 0) + (canRight ? 1 : 0) + (canLeft ? 1 : 0);
 
             if (normalCount > 0)
                 surfaceNormal /= normalCount;
             else
-                surfaceNormal = mainHitInfo.normal;
+                //surfaceNormal = mainHitInfo.normal;
+                surfaceNormal = mainNormal;
+            
             
             // If surface normal is outside angle range, stick to main normal
             if (!CheckNormalAngles(surfaceNormal))
             {
-                surfaceNormal = mainHitInfo.normal;
+                //surfaceNormal = mainHitInfo.normal;
+                surfaceNormal = mainNormal;
             }
 
             wallNormal = surfaceNormal;
-            wallPos = mainHitInfo.point;
+            wallPos = hits[0].point;
             
             // Set the start data if they aren't currently climbing
             if (stateMachine.CurrentState != this)
             {
-                Vector3 startPosition = mainHitInfo.point;
-                Vector3 startNormal = mainHitInfo.normal;
-                
                 void HorizontalOffsetStartPosition(bool isLeft)
                 {
                     float directionSign = isLeft ? -1f : 1f;
-                    Vector3 horizontalDirection = Vector3.Cross(startNormal, playerUp).normalized * directionSign;
+                    Vector3 horizontalDirection = Vector3.Cross(wallNormal, playerUp).normalized * directionSign;
                     Vector3 horizontalOffset = horizontalDirection * Settings.ClimbWidth;
                 
                     // Draw line from side ray into wall
                     Vector3 rayOrigin = mainOrigin + horizontalOffset;
                     // Offset forward by ray distance
-                    rayOrigin += -mainHitInfo.normal * (mainHitInfo.distance+0.1f);
+                    float averageDistance = hits.Select(hit => hit.distance).Sum() / hits.Count;
+                    rayOrigin += -mainNormal * (averageDistance+0.1f);
                     Ray horizontalRay = new Ray(rayOrigin, -horizontalDirection);
                     if (Physics.Raycast(horizontalRay, out var horizontalHit, Settings.ClimbWidth, Settings.ClimbableLayer))
                     {
                         // Shift start position by the distance hit
-                        startPosition -= horizontalDirection * horizontalHit.distance;
+                        wallPos -= horizontalDirection * horizontalHit.distance;
                     }
                 }
                 
@@ -818,7 +810,7 @@ public class ClimbingState : MovementState
         }
         return climbDirections;
     }
-    
+
     private bool CantClimb(ClimbDirections climbDirections) => climbDirections == ClimbDirections.None;
     public bool CantClimb() => CantClimb(GetClimbState());
     private bool CanClimb(ClimbDirections climbDirections) => climbDirections.HasFlag(ClimbDirections.Up) || 

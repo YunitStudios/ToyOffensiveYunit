@@ -12,32 +12,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4182940fe1f42f4cae2bdd659cda9d3, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataSO
+  PlayerName: 
   maxHealth: 100
-  startingPrimaryWeapon: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
-  startingSecondaryWeapon: {fileID: 11400000, guid: c8cb7fec281bd414aa048ef0ac78d249, type: 2}
+  <StartingPrimaryWeapon>k__BackingField: {fileID: 11400000, guid: 051123a3c846672438a6bedfc06cf76a, type: 2}
+  <StartingSecondaryWeapon>k__BackingField: {fileID: 11400000, guid: 93c592b48545bb348929b784514e959a, type: 2}
+  StartingPrimaryAttachment: {fileID: 0}
+  StartingSecondaryAttachment: {fileID: 0}
   maxNormalAmmo: 300
-  maxSpecialAmmo: 100
-  primaryAttachments: []
-  secondaryAttachments: []
+  maxSecondaryAmmo: 100
   weaponSwapTime: 0.5
   startingThrowable: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
   maxThrowableAmount: 1
   <CurrentWeaponSlot>k__BackingField: 0
   <PrimaryWeapon>k__BackingField:
-    WeaponData: {fileID: 11400000, guid: 340033ea70afb0541b34f1a952174869, type: 2}
+    WeaponData: {fileID: 0}
     currentAmmoInMag: 30
     FirePoint: {fileID: 0}
-    AttachmentSOs: []
+    AttachmentSO: {fileID: 0}
   <SecondaryWeapon>k__BackingField:
-    WeaponData: {fileID: 11400000, guid: c8cb7fec281bd414aa048ef0ac78d249, type: 2}
-    currentAmmoInMag: 30
+    WeaponData: {fileID: 0}
+    currentAmmoInMag: 15
     FirePoint: {fileID: 0}
-    AttachmentSOs: []
+    AttachmentSO: {fileID: 0}
   <StartingThrowable>k__BackingField: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
-  <PrimaryAttachments>k__BackingField: []
-  <SecondaryAttachments>k__BackingField: []
-  <NormalAmmoCount>k__BackingField: 270
-  <SpecialAmmoCount>k__BackingField: 100
+  <PrimaryAttachment>k__BackingField: {fileID: 0}
+  <SecondaryAttachment>k__BackingField: {fileID: 0}
+  <NormalAmmoCount>k__BackingField: 290
+  <SecondaryAmmoCount>k__BackingField: 100
   <ThrowableCount>k__BackingField: 1
   <CurrentHealth>k__BackingField: 100
   OnCurrentWeaponChanged: {fileID: 11400000, guid: 5f5748b5433deab42807016fae083840, type: 2}

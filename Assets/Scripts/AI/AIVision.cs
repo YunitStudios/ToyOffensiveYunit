@@ -18,21 +18,17 @@ public class AIVision : MonoBehaviour
     [Tooltip("Everything the enemy cant see through")]
     [SerializeField] private LayerMask visionMask;
     
-    [Tooltip("Time before the player is seen inside vision")]
-    [SerializeField] private float aggressionTime = 1.0f;
-    private float visibleTimer = 0f;
-    
     [HideInInspector] public Vector3 lastSeenPosition;
 
     [HideInInspector] public float lastSeenTime;
 
     [Tooltip("Time before switching to search state")]
-    [SerializeField] private float searchTimeout = 20f;
+    [SerializeField] private float searchTimeout = 5f;
     public float SearchTimeout => searchTimeout;
 
     private bool playerInsideVision = false;
     [Tooltip("Detection drop per second, when out of sight")]
-    [SerializeField] private float detectionDrop = 10f;
+    //[SerializeField] private float detectionDrop = 10f;
     
     private bool hasAlertedSquad = false;
     private AIStateMachine aiStateMachine;
@@ -46,30 +42,6 @@ public class AIVision : MonoBehaviour
         defaultRange = range;
         // Finds the player object using Tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-
-    private void Update()
-    {
-        // increases timer if inside vision, or decrease timer if out of vision
-        if (playerInsideVision)
-        {
-            visibleTimer += Time.deltaTime;
-        }
-        else
-        {
-            visibleTimer = Mathf.Clamp(visibleTimer -= Time.deltaTime * detectionDrop, 0, aggressionTime);
-        }
-
-        // Alert the enemies squad
-        if (canSeePlayer)
-        {
-            if (!hasAlertedSquad)
-            { 
-                aiStateMachine = GetComponentInParent<AIStateMachine>();
-                aiStateMachine.AlertSquad(player);
-                hasAlertedSquad = true;
-            }
-        }
     }
 
     // Will activate when player is inside the trigger collider
@@ -88,7 +60,6 @@ public class AIVision : MonoBehaviour
         // If the angle calculated is larger than half the FOV, then the player is outside of its vision cone
         if (angle > FOV * 0.5f)
         {
-            playerInsideVision = false;
             canSeePlayer = false;
             return;
         }
@@ -97,19 +68,13 @@ public class AIVision : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                // When player has been inside vision for the aggression time, AI can see the player.
-                playerInsideVision = true;
-                if (visibleTimer >= aggressionTime)
-                {
-                    canSeePlayer = true;
-                    lastSeenPosition = player.position;
-                    lastSeenTime = Time.time;
-                }
+                canSeePlayer = true;
+                lastSeenPosition = player.position;
+                lastSeenTime = Time.time;
                 return;
             }
         }
         canSeePlayer = false;
-        playerInsideVision = false;
     }
 
     // Will activate when player Leaves the trigger collider
@@ -117,7 +82,6 @@ public class AIVision : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            playerInsideVision = false;
             canSeePlayer = false;
         }
     }

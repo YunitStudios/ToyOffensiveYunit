@@ -8,6 +8,9 @@ using Random = UnityEngine.Random;
 
 public class WeaponsSystem : MonoBehaviour
 {
+    private static readonly int IsAiming = Animator.StringToHash("IsAiming");
+    private static readonly int IsShooting = Animator.StringToHash("IsShooting");
+
     [Header("References")]
     [Tooltip("Player camera used for the obstruction check")]
     [SerializeField] private Camera playerCamera;   // player camera used for the obstruction check
@@ -33,6 +36,7 @@ public class WeaponsSystem : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     [SerializeField] private FloatEventChannelSO onUpdateSpread;
     [SerializeField] private FloatEventChannelSO onUpdateReload;
+    [SerializeField] private VoidEventChannelSO onWeaponFired;
 
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
@@ -45,10 +49,19 @@ public class WeaponsSystem : MonoBehaviour
     private float ReloadProgress => (Time.time - lastReloadTime) / currentWeapon.WeaponData.ReloadTime;
 
     [SerializeField] private PlayerMovement playerMovement;
+    
+    [SerializeField] private Crosshair crosshair;
+    [SerializeField] private ReloadPromptUI reloadPromptUI;
+    private bool isReloading = false;
+
+    private bool weaponFrozen;
 
     private void Start()
     {
         InputManager.Instance.OnReloadAction += Reload;
+        
+        crosshair = FindObjectOfType<Crosshair>();
+        reloadPromptUI =  FindObjectOfType<ReloadPromptUI>();
     }
 
     private void OnDisable()
@@ -58,22 +71,25 @@ public class WeaponsSystem : MonoBehaviour
 
     private void Update()
     {
-        if (GameManager.PlayerData.IsAlive)
+        if (GameManager.PlayerData.IsAlive && !weaponFrozen)
         {
             // Check for weapon switch
             WeaponSwitching();
             
             // TODO: use events this is temp due to it not working for unknown reason
+            playerMovement.PlayerAnimator.SetBool(IsShooting, false);
             if (InputManager.Instance.IsShooting)
-                Fire();
-    
-            if (InputManager.Instance.IsAiming && !aiming)
-                Aim();
-    
-            if (!InputManager.Instance.IsAiming && aiming)
             {
-                playerCameraSystem.ResetCamera(); 
-                aiming = false;
+                Fire();
+            }
+    
+            if (InputManager.Instance.AimHeld && !aiming)
+                AimStart();
+            
+            // Exit state if not holding input OR if they can no longer aun in this state
+            if ((!InputManager.Instance.AimHeld || !playerMovement.CanAim) && aiming)
+            {
+                AimStop();
             }
         }
         
@@ -82,9 +98,22 @@ public class WeaponsSystem : MonoBehaviour
         //UI Crosshair update
         onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
+        // Show reload prompt if out of ammo and not reloading
+        if (currentWeapon.CurrentAmmoInMag <= 0 && !isReloading)
+        {
+            reloadPromptUI.ShowReloadPrompt();
+        }
+        
         // Reload update
-        if(ReloadProgress > 0)
+        if (ReloadProgress > 0)
+        {
             onUpdateReload?.Invoke(ReloadProgress);
+
+            if (ReloadProgress >= 1 && ReloadProgress <= 1.1f)
+            {
+                reloadPromptUI.Hide();
+            }
+        }
     }
 
     private void WeaponSwitching()
@@ -125,6 +154,11 @@ public class WeaponsSystem : MonoBehaviour
     // called when for example the player clicks, or called every frame if holding down for full auto
     private void Fire()
     {
+        
+        // Cant shoot in some states
+        if (!playerMovement.CanShoot)
+            return;
+        
         // check we arent still reloading
         if(ReloadProgress < 1)
         {
@@ -137,9 +171,13 @@ public class WeaponsSystem : MonoBehaviour
         {
             // play empty mag sound here
             // Debug.Log("No ammo in mag!");
+            reloadPromptUI.ShowReloadPrompt();
             return;
         }
+        reloadPromptUI.Hide();
 
+        playerMovement.PlayerAnimator.SetBool(IsShooting, true);
+        
         // limit it so you can only shoot up to the max fire rate
         float timeBetweenShots = 60f / currentWeapon.WeaponData.FireRateRPM;
         if(Time.time - lastShotTime < timeBetweenShots)
@@ -171,26 +209,59 @@ public class WeaponsSystem : MonoBehaviour
         lastShotTime = Time.time;
         
         currentWeapon.Fire();
+        
+        onWeaponFired?.Invoke();
     }
 
-    private void Aim()
+    private void AimStart()
     {
-        if (playerMovement.CanAds)
+        if (playerMovement.CanAim)
         {
             if (playerCameraSystem.CurrentCameraType != currentWeapon.WeaponData.AimCameraType)
             {
                 playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
                 aiming = true;
+                currentWeapon.WeaponSpread.IsAiming = aiming;
+                PlayerData.ToggleAiming(aiming);
+                playerMovement.PlayerAnimator.SetBool(IsAiming, true);
+
             }
         }
     }
 
+    private void AimStop()
+    {
+        aiming = false;
+        currentWeapon.WeaponSpread.IsAiming = aiming;
+        playerMovement.PlayerAnimator.SetBool(IsAiming, false);
+        PlayerData.ToggleAiming(aiming);
+        
+        // Only reset the camera if current camera is ADS
+        if (playerCameraSystem.CurrentCameraType == currentWeapon.WeaponData.AimCameraType)
+        {
+            // Cba to make a proper system
+            if(playerMovement.CurrentState is ParachuteState)
+                playerCameraSystem.ChangeCamera(PlayerCamera.CameraType.Parachute);
+            else
+                playerCameraSystem.ResetCamera();
+        }
+
+    }
+
     private void Reload()
     {
+        if (weaponFrozen)
+        {
+            return;
+        }
+        
         if (ReloadProgress >= 1)
         {
+            isReloading = true;
             accumulatedShootingTime = 0f;
             lastReloadTime = Time.time;
+            
+            reloadPromptUI.ShowReloading();
 
             currentWeapon.Reload(PlayerData);
         }
@@ -335,5 +406,17 @@ public class WeaponsSystem : MonoBehaviour
     public class Bullet : IDamageSource
     {
         public Transform transform => null;
+        public Vector3 damageSourcePos { get; set; }
+    }
+
+    public void SetWeaponFrozen(bool isFrozen)
+    {
+        weaponFrozen =  isFrozen;
+        if (isFrozen)
+        {
+            aiming = false;
+            currentWeapon.WeaponSpread.IsAiming = aiming;
+            playerCameraSystem.ResetCamera();
+        }
     }
 }

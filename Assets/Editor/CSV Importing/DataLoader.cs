@@ -47,7 +47,7 @@ public class DataLoader
                 .ToArray();
             
             weaponData.MagSize = int.Parse(columns[5]);
-            weaponData.SpecialAmmo = bool.Parse(columns[6]);
+            weaponData.SecondaryAmmo = bool.Parse(columns[6]);
             weaponData.ReloadTime = float.Parse(columns[7]);
             weaponData.BaseSpread = float.Parse(columns[8]);
             weaponData.HalfSpread = float.Parse(columns[9]);

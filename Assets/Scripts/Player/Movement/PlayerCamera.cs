@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
-using AYellowpaper.SerializedCollections;
 using PrimeTween;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 
 public class PlayerCamera : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class PlayerCamera : MonoBehaviour
     public Camera MainCamera => mainCamera;
     [SerializeField] private CinemachineBrain cinemachineBrain;
     public CinemachineBrain CinemachineBrain => cinemachineBrain;
-    [SerializeField] private SerializedDictionary<CameraType, CinemachineCamera> cameras = new();
+    [SerializeField] private AYellowpaper.SerializedCollections.SerializedDictionary<CameraType, CameraData> cameras = new();
+    [SerializeField] private GameSettings playerSettings;
+    [SerializeField] private VolumeProfile volumeSettings;
     
     [Header("Attributes")]
     [SerializeField] private CameraType defaultCamera = CameraType.Main;
@@ -33,13 +36,46 @@ public class PlayerCamera : MonoBehaviour
         set => SetFov(currentCamera, currentBaseFov * value, fovSetDuration);
     }
 
+    private void OnEnable()
+    {
+        SettingsManager.OnSettingsChanged += ApplySettings;
+    }
+
+    private void OnDisable()
+    {
+        SettingsManager.OnSettingsChanged -= ApplySettings;
+    }
+
+    private void ApplySettings()
+    {
+        SetFov();
+
+        volumeSettings.TryGet<MotionBlur>(out var motBlur);
+        if (motBlur)
+        {
+            motBlur.active = playerSettings.motionBlur;
+        }
+        volumeSettings.TryGet<LiftGammaGain>(out var liftGammaGain);
+        if (liftGammaGain)
+        {
+            liftGammaGain.gamma.value = new Vector4(1,1,1,1-SettingsManager.Instance.GetBrightnessValue);
+        }
+
+    }
+
+    private void SetFov()
+    {
+        
+        currentBaseFov = playerSettings.fov + cameras[CurrentCameraType].fovOffset;
+        if(currentCamera)
+            currentCamera.Lens.FieldOfView = currentBaseFov;
+    }
+
     private void Start()
     {
-        foreach (CinemachineCamera cam in cameras.Values)
-            cam.Priority = 0;
+        foreach (var camData in cameras.Values)
+            camData.camera.Priority = 0;
         
-        print("start");
-
         ResetCamera();
     }
 
@@ -51,10 +87,10 @@ public class PlayerCamera : MonoBehaviour
     public void ChangeCamera(CameraType cameraType)
     {
         // If this camera type isn't set
-        if (!cameras.TryGetValue(cameraType, out CinemachineCamera newCamera)) return;
+        if (!cameras.TryGetValue(cameraType, out var newCamData)) return;
         
         // Make sure not changing to current camera
-        if (currentCamera && cameras.TryGetValue(cameraType, out CinemachineCamera cam) && currentCamera == cam)
+        if (currentCamera && cameras.TryGetValue(cameraType, out var checkCam) && currentCamera == checkCam.camera)
             return;
         
         // If the current camera has orbital follow
@@ -68,14 +104,14 @@ public class PlayerCamera : MonoBehaviour
         // Switch priorities
         if (currentCamera)
             currentCamera.Priority = 0;
-        newCamera.Priority = 1;
+        newCamData.camera.Priority = 1;
 
         if (currentCamera)
             ResetFov(currentCamera, currentBaseFov, fovResetDuration);
         
-        currentCamera = newCamera;
-        currentBaseFov = currentCamera.Lens.FieldOfView;
+        currentCamera = newCamData.camera;
         CurrentCameraType = cameraType;
+        SetFov();
     }
 
     private void ResetFov(CinemachineCamera cam, float targetFov, float duration)
@@ -107,5 +143,13 @@ public class PlayerCamera : MonoBehaviour
         AimScope,
         Climbing,
         Parachute
+    }
+
+
+    [Serializable]
+    public struct CameraData
+    {
+        public CinemachineCamera camera;
+        public int fovOffset;
     }
 }

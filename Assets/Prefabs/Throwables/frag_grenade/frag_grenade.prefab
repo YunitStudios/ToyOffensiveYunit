@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6259384064377873147}
   - component: {fileID: 923824243792988689}
   - component: {fileID: 8515347694884642712}
-  - component: {fileID: 1847535942819959183}
+  - component: {fileID: 1907667334188817200}
   m_Layer: 0
   m_Name: frag_grenade
   m_TagString: Untagged
@@ -112,7 +112,7 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1847535942819959183
+--- !u!114 &1907667334188817200
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,5 +126,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Throwable_System.ThrowableTypes.ExplosiveGrenade
   FuseTime: 3
   IsImpactFuse: 0
-  Damage: 35
+  Damage: 125
   Radius: 10

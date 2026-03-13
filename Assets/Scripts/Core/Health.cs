@@ -21,8 +21,10 @@ public class Health : MonoBehaviour, IObjectiveTarget
     [Header("Output Events")] 
     [Tooltip("Invoked if the damage dealing is successful")]
     [SerializeField] private VoidEventChannelSO onDamageTaken;
-    [Tooltip("Invoked if the damage dealing is successful and passes new health value")]
+    [Tooltip("Invoked if the health changes, is successful and passes new health value")]
     [SerializeField] private FloatEventChannelSO onHealthChanged;
+    [Tooltip("Invoked if the health changes, passing the change in health rather than the total value")]
+    [SerializeField] private FloatEventChannelSO onHealthChangedDifference;
     [SerializeField] private VoidEventChannelSO onDie;
     public UnityEvent OnDieUnity;
 
@@ -35,6 +37,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
         get => currentHealth;
         protected set
         {
+            onHealthChangedDifference?.Invoke(value - currentHealth);
             currentHealth = value;
             HealthChanged();
             onHealthChanged?.Invoke(CurrentHealth);
@@ -45,6 +48,8 @@ public class Health : MonoBehaviour, IObjectiveTarget
     public event Action OnTargetComplete;
 
     private float regenWait;
+    
+    public bool IsAlive => CurrentHealth > 0;
     
 
     private void OnEnable()
@@ -112,7 +117,6 @@ public class Health : MonoBehaviour, IObjectiveTarget
             onDie?.Invoke();
             OnDieUnity?.Invoke();
             
-            print("die");
             isDead = true;
             
             OnTargetComplete?.Invoke();

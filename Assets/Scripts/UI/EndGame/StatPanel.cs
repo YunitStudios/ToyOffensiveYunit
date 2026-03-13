@@ -16,7 +16,10 @@ public class StatPanel : MonoBehaviour
     [Title("\n<b><color=#ffd180>Attributes", 15, 5, false)] 
     [SerializeField] private string statName;
     [SerializeField] private Color dividerColor;
-
+    [SerializeField] private string targetString;
+    [SerializeField] private string formatString;
+    [SerializeField] private float scale = 1;
+    
     private PropertyInfo property;
 
 
@@ -42,15 +45,34 @@ public class StatPanel : MonoBehaviour
 
     private void UpdatePanel()
     {
-        // If value is float, round to 2 DP
-        if (property.PropertyType == typeof(float))
+        if (property == null) return;
+
+        object value = property.GetValue(stats);
+        
+        // Scale the value
+        if (value is float fValue)
         {
-            float value = (float)(property.GetValue(stats) ?? 0f);
-            statValue.text = value.ToString("F2");
+            value = fValue * scale;
+        }
+
+        string formattedValue;
+
+        if (!string.IsNullOrEmpty(formatString) && value is IFormattable formattableValue)
+        {
+            formattedValue = formattableValue.ToString(formatString, null);
         }
         else
         {
-            statValue.text = property.GetValue(stats)?.ToString() ?? "N/A";
+            formattedValue = value.ToString();
+        }
+
+        if (!string.IsNullOrEmpty(targetString))
+        {
+            statValue.text = string.Format(targetString, formattedValue);
+        }
+        else
+        {
+            statValue.text = formattedValue;
         }
         
     }

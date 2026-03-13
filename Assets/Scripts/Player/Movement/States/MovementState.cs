@@ -14,10 +14,14 @@ public abstract class MovementState : State, IMovementState
     public virtual bool UseGravity => true;
     public virtual bool UseRootMotion => false;
     public virtual bool UseMouseRotatePlayer => true;
+    public virtual bool UseMouseRotateVisuals => false;
+    public virtual bool RotatePlayerVertically => false;
     public virtual bool ControlRotation => false;
     public virtual bool UseCollision => true;
     public virtual Vector2 CollisionScale => Vector2.one;
-    public virtual bool CanADS => true;
+    public virtual bool CanAim => true;
+    public virtual bool CanShoot => true;
+    public virtual bool ShouldDisplayGun => true;
 
     public override void OnEnter()
     {
@@ -37,8 +41,13 @@ public interface IMovementState
     public bool UseGravity { get; }
     public bool UseRootMotion { get; }
     public bool UseMouseRotatePlayer { get; }
+    public bool UseMouseRotateVisuals { get; }
+    public bool RotatePlayerVertically { get; }
+    
     public bool ControlRotation { get; }
     public bool UseCollision { get; }
     public Vector2 CollisionScale { get; }
-    public bool CanADS { get; }
+    public bool CanAim { get; }
+    public bool CanShoot { get; }
+    public bool ShouldDisplayGun { get; }
 }
