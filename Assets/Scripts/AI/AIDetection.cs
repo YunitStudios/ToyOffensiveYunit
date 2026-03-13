@@ -47,6 +47,7 @@ public class AIDetection : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Detection: " + detectionPercent);
         VisionDetection();
         HeardRecently();
         DetectionDrop();
@@ -121,6 +122,8 @@ public class AIDetection : MonoBehaviour
         if (detectionPercent >= engageThreshold && aiVision.canSeePlayer)
         {
             isDetected = true;
+            AIStateMachine ai = GetComponent<AIStateMachine>();
+            ai.AlertSquad(aiVision.player);
         }
 
         if (isDetected && detectionPercent < disengageThreshold)
