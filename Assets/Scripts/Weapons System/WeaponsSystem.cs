@@ -333,7 +333,10 @@ public class WeaponsSystem : MonoBehaviour
     {
         // do the actual physics based shoot for rockets, arrows etc
         Vector3 camForward = playerCamera.transform.forward;
-        Vector3 shootDir;
+
+        // Ray straight forward from camera 500f in the distance
+        Vector3 shotDestination = playerCamera.transform.position + camForward.normalized * 200;
+        Vector3 shootDir = shotDestination - firePoint.position;
 
         // multi shot support
         if (!isMultiShot)
@@ -344,7 +347,7 @@ public class WeaponsSystem : MonoBehaviour
                 GetSpreadRotation()
             );
 
-            shootDir = spreadRot * camForward;
+            shootDir = spreadRot * shootDir;
         }
         else
         {
