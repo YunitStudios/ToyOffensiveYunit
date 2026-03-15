@@ -123,4 +123,23 @@ public class AIVision : MonoBehaviour
         }
         return false;
     }
+
+    public bool CanSeePosition(Vector3 position)
+    {
+        // Calculates direction to the target position
+        Vector3 direction = (position - transform.position).normalized;
+        // Which is then used to calculate the angle between the AI forwards and the targets direction
+        float angle = Vector3.Angle(transform.forward, direction);
+        // If the angle calculated is larger than half the FOV, then the target is outside of its vision cone
+        if (angle > FOV * 0.5f)
+        {
+            return false;
+        }
+        // Does raycast to check if anything is blocking vision between enemy and target
+        if (Physics.Raycast(transform.position + Vector3.up * 1.8f, direction, out RaycastHit hit, Vector3.Distance(transform.position, position),  visionMask))
+        {
+            return false;
+        }
+        return true;
+    }
 }

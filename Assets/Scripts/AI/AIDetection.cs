@@ -158,4 +158,30 @@ public class AIDetection : MonoBehaviour
             alertText.color = Color.white;
         }
     }
+
+    void OnEnable()
+    {
+        AIController.OnEnemyKilled += OnEnemyKilledNearby;
+    }
+
+    void OnDisable()
+    {
+        AIController.OnEnemyKilled -= OnEnemyKilledNearby;
+    }
+
+    private void OnEnemyKilledNearby(IObjectiveTarget target)
+    {
+        Component Target = target as Component;
+        if (Target == null)
+        {
+            return;
+        }
+        
+        Vector3 deathPosition = Target.transform.position;
+
+        if (aiVision.CanSeePosition(deathPosition))
+        {
+            aiStateMachine.AlertSquad(aiVision.player);
+        }
+    }
 }
