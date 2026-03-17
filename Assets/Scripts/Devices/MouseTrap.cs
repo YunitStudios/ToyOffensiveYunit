@@ -61,7 +61,6 @@ public class MouseTrap : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(progress);
         if (activated)
         {
             progress += Time.deltaTime / activationTime;
