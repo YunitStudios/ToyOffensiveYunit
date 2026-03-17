@@ -2,12 +2,14 @@ using UnityEngine;
 
 public class MouseTrap : MonoBehaviour
 {
+    [Header("Launch Forces")]
     [SerializeField] private float yAxisLaunchForce;
     [SerializeField] private float xAxisLaunchForce;
     [SerializeField] private float zAxisLaunchForce;
 
     [SerializeField] private Animator animator;
     private string Activate = "Activate";
+    private string animProgress = "Progress";
     [SerializeField] private bool canRecharge = true;
     private bool isRecharging = false;
     [SerializeField] private float timeToRecharge = 5f;
@@ -15,11 +17,14 @@ public class MouseTrap : MonoBehaviour
     private float rechargeTimer;
     private float animationTimer;
     private bool activated = false;
+    private float progress;
+    private float activationTime = 0.15f;
 
-    private void Start()
+    void Start()
     {
-        //animator.runtimeAnimatorController.
+        animator.Play(Activate,0,0);
     }
+    
     private void OnTriggerEnter(Collider other)
     {
         if (isRecharging)
@@ -30,14 +35,17 @@ public class MouseTrap : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerMovement player = other.GetComponent<PlayerMovement>();
-            Vector3 launchVelocity = new Vector3(xAxisLaunchForce, yAxisLaunchForce, zAxisLaunchForce);
+            Vector3 launchVelocity = xAxisLaunchForce * transform.right + yAxisLaunchForce * transform.up + zAxisLaunchForce * transform.forward;
             player.ImpulseVelocity(launchVelocity);
 
-            animator.speed = 1f;
-            animator.Play(Activate, 0, 0);
-            activated = true;
-            animationTimer = 1f;
+            ActivateTrap();
         }
+    }
+
+    private void ActivateTrap()
+    {
+        progress = 0f;
+        activated = true;
     }
 
     public void StartRecharging()
@@ -46,24 +54,26 @@ public class MouseTrap : MonoBehaviour
         {
             return;
         }
-
-        rechargeSpeed = 1 / timeToRecharge;
-        animator.speed = -rechargeSpeed;
-        animator.Play(Activate, 0, 1);
+        
         rechargeTimer = timeToRecharge;
         isRecharging = true;
     }
 
     private void Update()
     {
+        Debug.Log(progress);
         if (activated)
         {
-            animationTimer -= Time.deltaTime;
-            if (animationTimer <= 0f)
+            progress += Time.deltaTime / activationTime;
+            progress = Mathf.Clamp01(progress);
+            animator.SetFloat(animProgress, progress);
+            if (progress >= 1f)
             {
                 activated = false;
                 StartRecharging();
             }
+
+            return;
         }
 
         if (!isRecharging)
@@ -71,10 +81,14 @@ public class MouseTrap : MonoBehaviour
             return;
         }
         rechargeTimer -= Time.deltaTime;
+        progress = Mathf.Clamp01(rechargeTimer / timeToRecharge);
+        animator.SetFloat(animProgress, progress);
 
         if (rechargeTimer <= 0f)
         {
             isRecharging = false;
+            progress = 0f;
+            animator.SetFloat(animProgress, progress);
         }
     }
 }
