@@ -44,6 +44,14 @@ public class AIStateMachine : MonoBehaviour
     
     [HideInInspector] public Vector3 stationPosition;
 
+    [Header("Combat Settings")]
+    [Tooltip("Distance enemy stops moving from player and starts shooting")]
+    [SerializeField] private float stoppingDistance = 10f;
+    public float StoppingDistance => stoppingDistance;
+    [Tooltip("Distance where enemy will choose to attack rather than move to cover")] 
+    [SerializeField] private float attackRange = 15f;
+    public float AttackRange => attackRange;
+    
     [Header("Weapon Settings")]
     [Tooltip("Damage multiplier for enemy weapons")]
     [SerializeField] private float damageMultiplier = 0.5f;
@@ -192,7 +200,7 @@ public class AIStateMachine : MonoBehaviour
             {
                 if (point.aiStateMachine == this)
                 {
-                    point.LeaveCoverPoint();
+                    point.LeaveCoverPoint(this);
                 }
             }
         }
@@ -232,7 +240,7 @@ public class AIStateMachine : MonoBehaviour
         {
             if (point.aiStateMachine == this)
             {
-                point.LeaveCoverPoint();
+                point.LeaveCoverPoint(this);
             }
         }
 

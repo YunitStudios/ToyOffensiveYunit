@@ -47,6 +47,7 @@ public class AIDetection : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("Detection: " + detectionPercent);
         VisionDetection();
         HeardRecently();
         DetectionDrop();
@@ -121,6 +122,8 @@ public class AIDetection : MonoBehaviour
         if (detectionPercent >= engageThreshold && aiVision.canSeePlayer)
         {
             isDetected = true;
+            AIStateMachine ai = GetComponent<AIStateMachine>();
+            ai.AlertSquad(aiVision.player);
         }
 
         if (isDetected && detectionPercent < disengageThreshold)
@@ -153,6 +156,32 @@ public class AIDetection : MonoBehaviour
         {
             alertText.text = "";
             alertText.color = Color.white;
+        }
+    }
+
+    void OnEnable()
+    {
+        AIController.OnEnemyKilled += OnEnemyKilledNearby;
+    }
+
+    void OnDisable()
+    {
+        AIController.OnEnemyKilled -= OnEnemyKilledNearby;
+    }
+
+    private void OnEnemyKilledNearby(IObjectiveTarget target)
+    {
+        Component Target = target as Component;
+        if (Target == null)
+        {
+            return;
+        }
+        
+        Vector3 deathPosition = Target.transform.position;
+
+        if (aiVision.CanSeePosition(deathPosition))
+        {
+            aiStateMachine.AlertSquad(aiVision.player);
         }
     }
 }

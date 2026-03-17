@@ -517,6 +517,7 @@ MonoBehaviour:
   playerAnimator: {fileID: 333144685495156007}
   gunMesh: {fileID: 1555708780457285075}
   gloryKillCamera: {fileID: 4073174337373686177}
+  cinemachineDollyCart: {fileID: 7588967460046329048}
 --- !u!1 &2853140985793824719
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,9 +1080,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2496528507952065907}
     m_Modifications:
+    - target: {fileID: 1487672923090352777, guid: 0b32212e8007204478753a466df2b2b4, type: 3}
+      propertyPath: Target.TrackingTarget
+      value: 
+      objectReference: {fileID: 720034617659719225}
     - target: {fileID: 2241511633132119901, guid: 0b32212e8007204478753a466df2b2b4, type: 3}
       propertyPath: m_Name
       value: DollyCircle
+      objectReference: {fileID: 0}
+    - target: {fileID: 2241511633132119901, guid: 0b32212e8007204478753a466df2b2b4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5674946369649857235, guid: 0b32212e8007204478753a466df2b2b4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1133,6 +1142,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2241511633132119901, guid: 0b32212e8007204478753a466df2b2b4, type: 3}
   m_PrefabInstance: {fileID: 2854614274391387900}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7588967460046329048 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5678138890067966500, guid: 0b32212e8007204478753a466df2b2b4, type: 3}
+  m_PrefabInstance: {fileID: 2854614274391387900}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 450f466b666a79a4698f2b19a5c87c03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineSplineCart
 --- !u!4 &7592177444204117039 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5674946369649857235, guid: 0b32212e8007204478753a466df2b2b4, type: 3}
@@ -1185,6 +1205,10 @@ PrefabInstance:
     - target: {fileID: 1086983347502949242, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1341385769374030456, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: field of view
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 2093325402627320462, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_Name
@@ -1453,6 +1477,11 @@ Transform:
 --- !u!4 &327517837758815452 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3650961349975996406, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
+  m_PrefabInstance: {fileID: 3900471036189616938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &720034617659719225 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4602487601111192851, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
   m_PrefabInstance: {fileID: 3900471036189616938}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &745672023547513284 stripped
