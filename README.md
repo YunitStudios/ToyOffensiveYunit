@@ -5,6 +5,7 @@
 ### Prerequisites
     - Unity Version: 6000.2.10f1
     - IDE: Rider (Recommended) / VS Code
+    - Audio Middleware: Wwise 2024.1.9.8920, only if working with wwise
 
 ### Installation
     1. Clone this repository
