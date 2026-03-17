@@ -74,6 +74,8 @@ MonoBehaviour:
   crouchedCameraHeightOffset: 0
   aimingShoulderOffset: {x: 3, y: 1.5}
   aimingShoulderSpeed: 10
+  verticalMaxAngle: 65
+  verticalMinAngle: -40
   environmentLayer:
     serializedVersion: 2
     m_Bits: 64
@@ -283,7 +285,7 @@ MonoBehaviour:
   jumpingSettings:
     jumpHeight: 5
     jumpLandDelay: 0.02
-    rejumpDelay: 0.05
+    rejumpDelay: 0.15
   fallingSettings:
     fallingHorizontalSpeedMultiplier: 0.33
     fallingVelocityThreshold: -5
