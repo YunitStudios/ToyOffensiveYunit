@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 7905670851690623010}
   - component: {fileID: 4542035484309648727}
   - component: {fileID: 6473023366251467684}
+  - component: {fileID: 214599998640704681}
+  - component: {fileID: 7671099967083649649}
   m_Layer: 0
   m_Name: InputManager
   m_TagString: Untagged
@@ -48,9 +50,7 @@ MonoBehaviour:
   inputActions: {fileID: -944628639613478452, guid: 38175887ad7fc6842a3398173db22a58, type: 3}
   settings: {fileID: 11400000, guid: 1bcebef797f1a7a4ea8830bfadac30c6, type: 2}
   lookAction: {fileID: 5363579364645643714, guid: 38175887ad7fc6842a3398173db22a58, type: 3}
-  aimAction: {fileID: 0}
   playerSettings: {fileID: 11400000, guid: 382d08ead9134394ab8207e6a171bd29, type: 2}
-  sensitivityRange: {x: 0.1, y: 1}
 --- !u!114 &6473023366251467684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,3 +81,59 @@ MonoBehaviour:
   m_DefaultActionMap: UI
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &214599998640704681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004062422069000554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de08b678de63dbf44ab342c8bdf88c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VoidEventChannelListener
+  eventChannel: {fileID: 11400000, guid: 7aa11af1616560f47ae9e430f91ba2de, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4542035484309648727}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ToggleInputs
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7671099967083649649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004062422069000554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de08b678de63dbf44ab342c8bdf88c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VoidEventChannelListener
+  eventChannel: {fileID: 11400000, guid: 8bb1f99b9983bdd46b12d8ab78b79780, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4542035484309648727}
+        m_TargetAssemblyTypeName: InputManager, Assembly-CSharp
+        m_MethodName: ToggleInputs
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
