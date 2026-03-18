@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
+using AYellowpaper.SerializedCollections;
 using PrimeTween;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
@@ -34,6 +35,8 @@ public class WeaponsSystem : MonoBehaviour
     // physics projectile
     [SerializeField] private GameObject physicsProjectilePrefab;
 
+    [SerializeField] private SerializedDictionary<WeaponDataSO, GameObject> weaponModels;
+
     [Header("Output Events")]
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
     [SerializeField] private FloatEventChannelSO onUpdateSpread;
@@ -58,12 +61,16 @@ public class WeaponsSystem : MonoBehaviour
 
     private bool weaponFrozen;
 
-    private void Start()
+    private IEnumerator Start()
     {
         InputManager.Instance.OnReloadAction += Reload;
         
         crosshair = FindObjectOfType<Crosshair>();
         reloadPromptUI =  FindObjectOfType<ReloadPromptUI>();
+
+        yield return null;
+        
+        SetWeaponVisual();
     }
 
     private void OnDisable()
@@ -151,6 +158,18 @@ public class WeaponsSystem : MonoBehaviour
         
         GameManager.PlayerData.SetWeaponSlot(newSlot);
         weaponSwapTimer = Tween.Delay(GameManager.PlayerData.WeaponSwapTime);
+        SetWeaponVisual();
+    }
+    private void SetWeaponVisual()
+    {
+        playerMovement.PlayerAnimator.runtimeAnimatorController = PlayerData.CurrentWeapon.WeaponData.animationController;
+        // Disable all gun models and disable current
+        foreach (var model in weaponModels)
+        {
+            model.Value.SetActive(false);
+        }
+        if(weaponModels.TryGetValue(PlayerData.CurrentWeapon.WeaponData, out var newModel))
+            newModel.SetActive(true);
     }
 
     // called when for example the player clicks, or called every frame if holding down for full auto
