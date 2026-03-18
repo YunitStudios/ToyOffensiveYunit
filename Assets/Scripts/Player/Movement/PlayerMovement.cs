@@ -181,6 +181,13 @@ public class PlayerMovement : StateMachine
     public bool DisableSprinting { get; private set; }
     public bool IsSlopeSliding { get; private set; }
 
+    private bool shouldDisplayGun = true;
+    public bool ShouldDisplayGun
+    {
+        get => currentState is IMovementState { ShouldDisplayGun: true } && shouldDisplayGun;
+        set => shouldDisplayGun = value;
+    }
+
     private void Awake()
     {
         PrimeTweenConfig.warnEndValueEqualsCurrent = false;
@@ -522,7 +529,7 @@ public class PlayerMovement : StateMachine
         else
             aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 0.0f, Time.deltaTime * aimingShoulderSpeed);
         
-        gunRoot.gameObject.SetActive(currentState is IMovementState {ShouldDisplayGun:true});
+        gunRoot.gameObject.SetActive(ShouldDisplayGun);
 
     }
     
