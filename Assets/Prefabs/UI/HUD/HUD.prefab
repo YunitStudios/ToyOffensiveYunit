@@ -1611,7 +1611,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 515, y: 200}
+  m_SizeDelta: {x: 548.0819, y: 200}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &2825067253730567497
 GameObject:
@@ -3437,8 +3437,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 150, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_SizeDelta: {x: 159.55, y: 0}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!1 &5234677915333661825
 GameObject:
@@ -3965,7 +3965,7 @@ MonoBehaviour:
   m_ChildAlignment: 3
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 4.8333335, y: 10}
+  m_CellSize: {x: 6.1176505, y: 10}
   m_Spacing: {x: 5, y: 0}
   m_Constraint: 1
   m_ConstraintCount: 30
@@ -4557,7 +4557,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 0}
+  m_SizeDelta: {x: 388.5295, y: 0}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &6621894667465258257
 MonoBehaviour:
@@ -4572,9 +4572,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponDisplay
   primaryAmmoObj: {fileID: 5790448888718285510}
+  primaryCurrentAmmoObj: {fileID: 7598262520627405859}
   primaryImageObj: {fileID: 6049528791581797404}
   primaryCanvas: {fileID: 2985268375825255524}
   secondaryAmmoObj: {fileID: 6265302635700237107}
+  secondaryCurrentAmmoObj: {fileID: 8060157564757331414}
   secondaryImageObj: {fileID: 6151111676400485865}
   secondaryCanvas: {fileID: 3442105667008423313}
   ammoCountLayout: {fileID: 1057875640862857633}
@@ -5009,9 +5011,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AmmoDisplay
   primaryAmmoObj: {fileID: 0}
+  primaryCurrentAmmoObj: {fileID: 0}
   primaryImageObj: {fileID: 0}
   primaryCanvas: {fileID: 0}
   secondaryAmmoObj: {fileID: 0}
+  secondaryCurrentAmmoObj: {fileID: 0}
   secondaryImageObj: {fileID: 0}
   secondaryCanvas: {fileID: 0}
   ammoCountLayout: {fileID: 0}
@@ -5211,7 +5215,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 350, y: 225}
+  m_SizeDelta: {x: 388.6, y: 225}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &7423801296674791500
 GameObject:
@@ -7130,6 +7134,14 @@ PrefabInstance:
 
 '
       objectReference: {fileID: 0}
+    - target: {fileID: 5854323064704314524, guid: edc2696a508b377419258dbec26ce2fd, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -120.42
+      objectReference: {fileID: 0}
+    - target: {fileID: 5854323064704314524, guid: edc2696a508b377419258dbec26ce2fd, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -11.119911
+      objectReference: {fileID: 0}
     - target: {fileID: 6106361057686085349, guid: edc2696a508b377419258dbec26ce2fd, type: 3}
       propertyPath: m_Name
       value: Secondary
@@ -7271,6 +7283,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
+--- !u!114 &8060157564757331414 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4602207797885970334, guid: edc2696a508b377419258dbec26ce2fd, type: 3}
+  m_PrefabInstance: {fileID: 5766081976961296968}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &6245402081909244861
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7404,6 +7427,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!114 &7598262520627405859 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4602207797885970334, guid: edc2696a508b377419258dbec26ce2fd, type: 3}
+  m_PrefabInstance: {fileID: 6245402081909244861}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &6695002502063246052
 PrefabInstance:
   m_ObjectHideFlags: 0
