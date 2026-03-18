@@ -57,9 +57,11 @@ public class WeaponsSystem : MonoBehaviour
     
     [SerializeField] private Crosshair crosshair;
     [SerializeField] private ReloadPromptUI reloadPromptUI;
-    private bool isReloading = false;
 
     private bool weaponFrozen;
+
+    private bool IsReloading => ReloadProgress is > 0 and < 1;
+    private bool CanSwitchWeapon =>  !aiming;
 
     private IEnumerator Start()
     {
@@ -108,7 +110,7 @@ public class WeaponsSystem : MonoBehaviour
         onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
         // Show reload prompt if out of ammo and not reloading
-        if (currentWeapon.CurrentAmmoInMag <= 0 && !isReloading)
+        if (currentWeapon.CurrentAmmoInMag <= 0 && !IsReloading)
         {
             reloadPromptUI.ShowReloadPrompt();
         }
@@ -127,7 +129,7 @@ public class WeaponsSystem : MonoBehaviour
 
     private void WeaponSwitching()
     {
-        if (weaponSwapTimer.isAlive)
+        if (!CanSwitchWeapon || weaponSwapTimer.isAlive)
             return;
         
         PlayerDataSO.WeaponSlot currentSlot = GameManager.PlayerData.CurrentWeaponSlot;
@@ -278,7 +280,6 @@ public class WeaponsSystem : MonoBehaviour
         
         if (ReloadProgress >= 1)
         {
-            isReloading = true;
             accumulatedShootingTime = 0f;
             lastReloadTime = Time.time;
             
