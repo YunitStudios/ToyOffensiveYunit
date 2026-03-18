@@ -18,6 +18,7 @@ public class AttackState : AIState
         this.player = player;
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
         aiController = controller.GetComponent<AIController>();
+        weaponSystem.target = player;
     }
 
     // Moves towards player at them moment, will update with actual enemy logic eventually
@@ -43,16 +44,17 @@ public class AttackState : AIState
             if (coverPoint != null && controller.AttackRange < distanceToPlayer)
             {
                 coverPoint.TakeCoverPoint(controller);
+                aiController.SetAiming(false);
                 controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
                 return;
             }
+            
+            agent.SetDestination(player.position);
+            aiController.SetAiming(true);
         }
-        
-        agent.SetDestination(player.position);
-        weaponSystem.target = player;
-        aiController.SetAiming(true);
+
         weaponSystem.Fire();
-        if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
+        if (aiController.isEnemyAiming && agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
         {
             agent.isStopped = true;
             RotateTowardsPlayer();

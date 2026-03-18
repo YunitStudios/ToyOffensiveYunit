@@ -31,6 +31,7 @@ public class AIController : MonoBehaviour, IDamageable
     private float targetHeight;
     private Transform playerTransform;
     private float animUpdateTime;
+    [HideInInspector] public bool isEnemyAiming;
     
     public IDamageSource RecentDamageSource { get; set; }
 
@@ -129,10 +130,12 @@ public class AIController : MonoBehaviour, IDamageable
         if (isAiming)
         {
             aiAnimator.SetBool(IsAiming, true);
+            isEnemyAiming = true;
         }
         else
         {
             aiAnimator.SetBool(IsAiming, false);
+            isEnemyAiming = false;
         }
     }
 }
