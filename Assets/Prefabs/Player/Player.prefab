@@ -405,6 +405,8 @@ MonoBehaviour:
       m_Calls: []
   debugDamage: 0
   playerAnimator: {fileID: 333144685495156007}
+  rigBuilder: {fileID: 760652052866937090}
+  playerCamera: {fileID: 7862692414108309895}
   deathDelay: 2
   onMissionFail: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
   playerMovement: {fileID: 386950647050592367}
@@ -1247,31 +1249,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000008139068
+      value: 55.9641
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3642373
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.151636
+      value: 5.0000005
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9369574
+      value: 0.6625571
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.34944355
+      value: 0.24701773
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000017721311
+      value: -0.66255754
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 6.609274e-10
+      value: 0.24701789
       objectReference: {fileID: 0}
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Value

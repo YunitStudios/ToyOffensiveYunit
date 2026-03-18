@@ -3,12 +3,15 @@ using EditorAttributes;
 using PrimeTween;
 using UI.HUD;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 public class PlayerHealth : Health, IDamageable
 {
 
     [Title("\n<b><color=#ff8080>References", 15, 5, false)]
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private RigBuilder rigBuilder;
+    [SerializeField] private PlayerCamera playerCamera;
 
     [Title("\n<b><color=#ffd180>Attributes", 15, 5, false)] 
     [SerializeField] private float deathDelay = 2f;
@@ -47,7 +50,12 @@ public class PlayerHealth : Health, IDamageable
             base.Die();
                     
             playerAnimator.CrossFadeInFixedTime("Die", 0.2f);
-    
+            
+            playerAnimator.SetLayerWeight(1, 0);
+            rigBuilder.enabled = false;
+            
+            playerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
+            
             deathTween = Tween.Delay(deathDelay, DieFinish);
         }
     }
