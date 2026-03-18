@@ -191,7 +191,7 @@ public class ParachuteState : MovementState
 
     private void Parachuting()
     {
-        if (!isParachuting)
+        if (!isParachuting || Time.timeScale == 0f)
             return;
         
         Vector2 input = stateMachine.InputController.FrameMove;
@@ -200,7 +200,7 @@ public class ParachuteState : MovementState
         float targetTurnValue = input.x * Settings.ParachuteTurnMaxSpeed;
         currentTurnValue = Mathf.MoveTowards(currentTurnValue, targetTurnValue, Settings.ParachuteTurnAcceleration * Time.deltaTime);
         float finalTurnAngle = stateMachine.RotationEuler.y + currentTurnValue;
-
+        
         
         
         // Dive

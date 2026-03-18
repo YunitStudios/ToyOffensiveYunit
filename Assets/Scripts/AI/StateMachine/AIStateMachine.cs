@@ -51,6 +51,9 @@ public class AIStateMachine : MonoBehaviour
     [Tooltip("Distance where enemy will choose to attack rather than move to cover")] 
     [SerializeField] private float attackRange = 15f;
     public float AttackRange => attackRange;
+    [SerializeField] private float coverCheckDelay = 0.1f;
+    public float CoverCheckDelay => coverCheckDelay;
+
     
     [Header("Weapon Settings")]
     [Tooltip("Damage multiplier for enemy weapons")]
@@ -69,6 +72,7 @@ public class AIStateMachine : MonoBehaviour
     [Tooltip("Amount of health to heal")] 
     [SerializeField] private float healAmount = 50f;
     public float HealAmount => healAmount;
+
 
     [Header("Guard Settings")]
     [Tooltip("The Target to guard")]
@@ -118,8 +122,6 @@ public class AIStateMachine : MonoBehaviour
         {
             return;
         }
-        
-        CheckForThreats();
         
         currentState?.Execute();
         
@@ -368,23 +370,9 @@ public class AIStateMachine : MonoBehaviour
         }
     }
     
-    private void CheckForThreats()
-    {
-        float threatCheckRadius = 8f;
-        Collider[] hits = Physics.OverlapSphere(transform.position, threatCheckRadius);
-        foreach (Collider hit in hits)
-        {
-            ThrowableTemplate grenade = hit.GetComponent<ThrowableTemplate>();
-            if (grenade != null && grenade.Damage > 0f)
-            {
-                if (!(currentState is EvadeState))
-                {
-                    ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
-                }
-
-                return;
-            }
-        }
+    public void ThreatFound(ThrowableTemplate grenade)
+    { 
+        ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
     }
 
     public void SetTypeToPatrol()

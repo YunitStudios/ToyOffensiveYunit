@@ -283,8 +283,8 @@ RectTransform:
   m_GameObject: {fileID: 3851673053854071535}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7617426875131972019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -323,8 +323,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 478a6574b4f8da747a35704cebd9c2d5, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 478a6574b4f8da747a35704cebd9c2d5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -466,9 +466,6 @@ MonoBehaviour:
   visionMask:
     serializedVersion: 2
     m_Bits: 215
-  visionMaskEnemy:
-    serializedVersion: 2
-    m_Bits: 256
   lastSeenPosition: {x: 0, y: 0, z: 0}
   lastSeenTime: 0
   searchTimeout: 20
@@ -504,6 +501,73 @@ Transform:
   - {fileID: 4527647213497192859}
   m_Father: {fileID: 6719155828821681532}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6502430235942628277
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2303524675929844354}
+  - component: {fileID: 5226053338643489396}
+  - component: {fileID: 4121788488505790335}
+  m_Layer: 9
+  m_Name: ThreatDetector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2303524675929844354
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502430235942628277}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 544508514229558239}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &5226053338643489396
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502430235942628277}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 8
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4121788488505790335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6502430235942628277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7738356fa50654845aa53b0021583b67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ThreatDetector
+  stateMachine: {fileID: 6338152666241435799}
 --- !u!1 &6760784240567653024
 GameObject:
   m_ObjectHideFlags: 0
@@ -515,8 +579,6 @@ GameObject:
   - component: {fileID: 7617426875131972019}
   - component: {fileID: 1611490595107682129}
   - component: {fileID: 6730281793799492972}
-  - component: {fileID: 8809590181599915966}
-  - component: {fileID: 6696188834681919115}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -590,37 +652,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &8809590181599915966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6760784240567653024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
-  m_BlockingObjects: 0
-  m_BlockingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
---- !u!114 &6696188834681919115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6760784240567653024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd0d2e9f5dea46c4faa04305e4f21320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BillboardCanvas
-  yaw: 1
-  pitch: 1
 --- !u!1 &7081199409497347268
 GameObject:
   m_ObjectHideFlags: 0
@@ -663,6 +694,7 @@ Transform:
   - {fileID: 1251724712224603352}
   - {fileID: 4097771974661805681}
   - {fileID: 5641210126858707400}
+  - {fileID: 2303524675929844354}
   - {fileID: 2574531401879000316}
   - {fileID: 7617426875131972019}
   m_Father: {fileID: 0}

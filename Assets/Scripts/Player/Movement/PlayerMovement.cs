@@ -147,7 +147,13 @@ public class PlayerMovement : StateMachine
     [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     [SerializeField] private VoidEventChannelSO onTryUnstuck;
     
-    public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
+    public void OnDealPlayerDamage(float damage)
+    {
+        if (damage <= 0)
+            return;
+        
+        onDealPlayerDamage?.Invoke(damage);
+    }
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
     public bool ShouldMouseRotateVisuals => currentState is IMovementState { UseMouseRotateVisuals: true };
@@ -180,6 +186,13 @@ public class PlayerMovement : StateMachine
     public bool CanAim => CheckCanAim();
     public bool DisableSprinting { get; private set; }
     public bool IsSlopeSliding { get; private set; }
+
+    private bool shouldDisplayGun = true;
+    public bool ShouldDisplayGun
+    {
+        get => currentState is IMovementState { ShouldDisplayGun: true } && shouldDisplayGun;
+        set => shouldDisplayGun = value;
+    }
 
     private void Awake()
     {
@@ -215,7 +228,6 @@ public class PlayerMovement : StateMachine
         onTeleportPlayer.OnEventRaised -= SetPosition;
         onTryUnstuck.OnEventRaised -= OnTryUnstuck;
     }
-
     private void SetupStates()
     {
         walkingState = new WalkingState(this);
@@ -245,6 +257,8 @@ public class PlayerMovement : StateMachine
     {
         base.OnStateSwitched();
     }
+    
+
 
     protected override void Update()
     {
@@ -521,7 +535,7 @@ public class PlayerMovement : StateMachine
         else
             aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 0.0f, Time.deltaTime * aimingShoulderSpeed);
         
-        gunRoot.gameObject.SetActive(currentState is IMovementState {ShouldDisplayGun:true});
+        gunRoot.gameObject.SetActive(ShouldDisplayGun);
 
     }
     
