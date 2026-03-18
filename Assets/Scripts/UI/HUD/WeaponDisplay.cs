@@ -12,11 +12,9 @@ public class WeaponDisplay : MonoBehaviour
 {
     [Title("\n<b><color=#ff8080>References", 15, 5, false)]
     [SerializeField] private TMP_Text primaryAmmoObj;
-    [SerializeField] private TMP_Text primaryCurrentAmmoObj;
     [SerializeField] private Image primaryImageObj;
     [SerializeField] private CanvasGroup primaryCanvas;
     [SerializeField] private TMP_Text secondaryAmmoObj;
-    [SerializeField] private TMP_Text secondaryCurrentAmmoObj;
     [SerializeField] private Image secondaryImageObj;
     [SerializeField] private CanvasGroup secondaryCanvas;
     [SerializeField] private FlexibleGridLayoutGroup ammoCountLayout;
@@ -83,9 +81,6 @@ public class WeaponDisplay : MonoBehaviour
     {
         primaryAmmoObj.text = GetAmmoString(PlayerData.TotalNormalAmmoCount.ToString("D3"));
         secondaryAmmoObj.text = GetAmmoString(PlayerData.TotalSecondaryAmmoCount.ToString("D3"));
-
-        primaryCurrentAmmoObj.text = GetAmmoString(PlayerData.PrimaryWeapon.CurrentAmmoInMag.ToString("D2"));
-        secondaryCurrentAmmoObj.text = GetAmmoString(PlayerData.SecondaryWeapon.CurrentAmmoInMag.ToString("D2"));
         UpdateVisualAmmo();
     }
 
