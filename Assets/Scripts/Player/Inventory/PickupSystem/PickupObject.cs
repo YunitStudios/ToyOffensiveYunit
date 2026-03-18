@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using EditorAttributes;
+using UnityEngine;
 
 namespace Player.Inventory.PickupSystem
 {
@@ -15,9 +16,11 @@ namespace Player.Inventory.PickupSystem
 
     public class PickupObject : MonoBehaviour
     {
-        public PickupObjectType type;
-        public AmmoType ammoType;   // only relevant if type == Ammo
+        public PickupObjectType type; 
+        [ShowField(nameof(IsAmmo))] public AmmoType ammoType;
         public int value;
+        
+        private bool IsAmmo => type == PickupObjectType.Ammo;
 
         public void ConsumeObject()
         {

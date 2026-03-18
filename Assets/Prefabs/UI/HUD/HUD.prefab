@@ -7570,6 +7570,50 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashColor.b
+      value: 0.26274514
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashColor.r
+      value: 0.31869292
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashInSettings.ease
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashOutSettings.ease
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashInSettings.cycles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashOutSettings.cycles
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashInSettings.duration
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: healFlashOutSettings.duration
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4023146200424085981, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
+      propertyPath: damageFlashInSettings.duration
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 4238402790178008730, guid: a10e21d2c8b117c4b8682511096fae8a, type: 3}
       propertyPath: m_Name
       value: HealthBar

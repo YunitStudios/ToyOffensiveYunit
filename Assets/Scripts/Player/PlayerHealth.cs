@@ -32,7 +32,7 @@ public class PlayerHealth : Health, IDamageable
     protected override void HealthChanged()
     {
         if(GameManager.PlayerData)
-            GameManager.PlayerData.SetCurrentHealth(CurrentHealth);
+            GameManager.PlayerData.StoreCurrentHealth(CurrentHealth);
     }
 
     public void TakeDamage(IDamageSource source, float damage)

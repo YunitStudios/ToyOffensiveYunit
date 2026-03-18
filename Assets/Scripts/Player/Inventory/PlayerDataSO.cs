@@ -129,7 +129,10 @@ public class PlayerDataSO : ScriptableObject
     // Player Movement
     public PlayerCamera.CameraType CameraType { get; private set; }
     // Player General
-    public void SetCurrentHealth(float value) => CurrentHealth = value;
+    public void StoreCurrentHealth(float value)
+    {
+        CurrentHealth = value;
+    }
 
     [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)]
     public VoidEventChannelSO OnCurrentWeaponChanged;
