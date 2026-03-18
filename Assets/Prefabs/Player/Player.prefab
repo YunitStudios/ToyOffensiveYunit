@@ -521,7 +521,7 @@ MonoBehaviour:
   angleBehind: 80
   cooldown: 3
   playerAnimator: {fileID: 333144685495156007}
-  gunMesh: {fileID: 0}
+  gunRoot: {fileID: 865671607220868652}
   gloryKillCamera: {fileID: 4073174337373686177}
   cinemachineDollyCart: {fileID: 7588967460046329048}
 --- !u!1 &2853140985793824719
@@ -601,6 +601,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrowableSpawner
   baseRotation: {fileID: 5636812732384450702}
+  throwForce: 10
+  throwUpForce: 0.2
 --- !u!1 &5207910790990521309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,11 +1276,9 @@ PrefabInstance:
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Value
       value: -0
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Center
-      value: -0
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6128150691619200766, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
@@ -1509,6 +1509,11 @@ Transform:
 --- !u!4 &745672023547513284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4357348624447251182, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
+  m_PrefabInstance: {fileID: 3900471036189616938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &865671607220868652 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4188974376831597830, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
   m_PrefabInstance: {fileID: 3900471036189616938}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &995014664878222441 stripped
