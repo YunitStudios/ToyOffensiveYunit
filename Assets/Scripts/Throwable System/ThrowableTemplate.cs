@@ -7,7 +7,9 @@ public class ThrowableTemplate : MonoBehaviour, IDamageSource
     
     public float Damage;
     public float Radius;
-    
+
+    public ParticleSystem DetonateParticles;  
+
     private bool detonated;
 
     private void Update()
