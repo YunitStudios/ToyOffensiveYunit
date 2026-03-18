@@ -395,7 +395,7 @@ MonoBehaviour:
   shouldRegen: 1
   regenRate: 5
   regenMaxWait: 8
-  onTakeDamage: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
+  onHealthAdjust: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
   onDamageTaken: {fileID: 11400000, guid: e70044af65091c545b2d38e97e6a0230, type: 2}
   onHealthChanged: {fileID: 11400000, guid: 012165d8166761545af3b264d54d7cb5, type: 2}
   onHealthChangedDifference: {fileID: 11400000, guid: 7b7f991059942984ba680b0f33bc0f9a, type: 2}
@@ -405,6 +405,8 @@ MonoBehaviour:
       m_Calls: []
   debugDamage: 0
   playerAnimator: {fileID: 333144685495156007}
+  rigBuilder: {fileID: 760652052866937090}
+  playerCamera: {fileID: 7862692414108309895}
   deathDelay: 2
   onMissionFail: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
   playerMovement: {fileID: 386950647050592367}
@@ -505,6 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupHandler
   pickupTag: Pickup
+  adjustPlayerHealth: {fileID: 11400000, guid: b031b40135466cf4e852664b633df1a6, type: 2}
 --- !u!114 &6357758349644954081
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -521,7 +524,7 @@ MonoBehaviour:
   angleBehind: 80
   cooldown: 3
   playerAnimator: {fileID: 333144685495156007}
-  gunMesh: {fileID: 0}
+  gunRoot: {fileID: 865671607220868652}
   gloryKillCamera: {fileID: 4073174337373686177}
   cinemachineDollyCart: {fileID: 7588967460046329048}
 --- !u!1 &2853140985793824719
@@ -601,6 +604,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ThrowableSpawner
   baseRotation: {fileID: 5636812732384450702}
+  throwForce: 10
+  throwUpForce: 0.2
 --- !u!1 &5207910790990521309
 GameObject:
   m_ObjectHideFlags: 0
@@ -1274,11 +1279,9 @@ PrefabInstance:
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Value
       value: -0
-      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Center
-      value: -0
       value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6128150691619200766, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
@@ -1509,6 +1512,11 @@ Transform:
 --- !u!4 &745672023547513284 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4357348624447251182, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
+  m_PrefabInstance: {fileID: 3900471036189616938}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &865671607220868652 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4188974376831597830, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
   m_PrefabInstance: {fileID: 3900471036189616938}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &995014664878222441 stripped
