@@ -16,16 +16,16 @@ MonoBehaviour:
   DisplayName: Sniper Rifle
   WeaponSprite: {fileID: 21300000, guid: 917303217e415564ab13fc7952bb8ee2, type: 3}
   WeaponSpriteWhite: {fileID: 21300000, guid: c96c9cb7937792649840627fe42c1da4, type: 3}
-  FireRateRPM: 30
-  Damage: 100
+  FireRateRPM: 60
+  Damage: 80
   SupportedFireModes: 01000000
   CurrentFireMode: 0
-  MagSize: 5
+  MagSize: 1
   SecondaryAmmo: 0
-  ReloadTime: 3
+  ReloadTime: 2
   BaseSpread: 0
-  HalfSpread: 0.5
-  MaxSpread: 1
+  HalfSpread: 5
+  MaxSpread: 7
   ShotQuantity: 1
   ShotSpread: 0
   IsPhysicsBased: 1

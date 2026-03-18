@@ -8,6 +8,7 @@ public class FollowCommanderState : AIState
     private float catchupDistance = 2f;
     private float catchupSpeed = 3f;
     private float regularSpeed = 2f;
+    private float updateTimer;
     
     public FollowCommanderState(AIStateMachine controller, NavMeshAgent agent, Transform commander, Vector2 offset) : base(controller, agent)
     {
@@ -21,7 +22,14 @@ public class FollowCommanderState : AIState
     {
         Vector3 Offset = commander.right * offset.x + commander.forward * offset.y;
         Vector3 target = commander.position + Offset;
-        agent.SetDestination(target);
+        
+        // delay so it's not called every frame
+        updateTimer -= Time.deltaTime;
+        if (updateTimer <= 0f)
+        {
+            updateTimer = 0.2f;
+            agent.SetDestination(target);
+        }
         
         // checks distance to see if AI needs to speed up to get back to the formation
         float distanceToTarget = Vector3.Distance(agent.transform.position, target);

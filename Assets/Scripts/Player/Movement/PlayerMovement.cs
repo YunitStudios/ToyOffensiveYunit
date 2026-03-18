@@ -75,6 +75,8 @@ public class PlayerMovement : StateMachine
     [SerializeField] private Vector2 aimingShoulderOffset = new Vector2(3,1);
 
     [Tooltip("Speed to move the aiming target when you start aiming")] [SerializeField] private float aimingShoulderSpeed = 0.1f;
+    [SerializeField,Range(0,89)] private float verticalMaxAngle = 60f;
+    [SerializeField,Range(-89,0)] private float verticalMinAngle = -40f;
 
     public float GetCurrentCameraHeightOffset => currentState switch
     {
@@ -477,8 +479,10 @@ public class PlayerMovement : StateMachine
         Vector3 trackerEuler = thirdPersonTracker.localEulerAngles;
         trackerEuler.z = 0;
         float angle = trackerEuler.x;
-        if (angle is > 180f and < 340f) angle = 340f;
-        else if (angle is < 180f and > 40f) angle = 40f;
+        float minAngle = 360 + verticalMinAngle;
+        float maxAngle = verticalMaxAngle;
+        if (angle > 180f && angle < minAngle) angle = minAngle;
+        else if (angle < 180f && angle > maxAngle) angle = maxAngle;
         trackerEuler.x = angle;
         thirdPersonTracker.localEulerAngles = trackerEuler;
         

@@ -47,7 +47,6 @@ public class AIDetection : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Detection: " + detectionPercent);
         VisionDetection();
         HeardRecently();
         DetectionDrop();
