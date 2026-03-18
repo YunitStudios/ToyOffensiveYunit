@@ -46,12 +46,12 @@ public class WeaponsSystem : MonoBehaviour
     // timing values
     private float lastShotTime = 0;                 // time in seconds since the start of the application when the last shot happened
     private float accumulatedShootingTime = 0f;     // total time spent shooting, used for recovery speed
-    private float lastReloadTime = -999f;
+    private float reloadTime = 0;
 
     private bool aiming = false;
     private Tween weaponSwapTimer;
 
-    private float ReloadProgress => (Time.time - lastReloadTime) / currentWeapon.WeaponData.ReloadTime;
+    private float ReloadProgress => Mathf.Clamp01(1-(reloadTime / currentWeapon.WeaponData.ReloadTime));
 
     [SerializeField] private PlayerMovement playerMovement;
     
@@ -60,7 +60,7 @@ public class WeaponsSystem : MonoBehaviour
 
     private bool weaponFrozen;
 
-    private bool IsReloading => ReloadProgress is > 0 and < 1;
+    private bool IsReloading => reloadTime > 0;
     private bool CanSwitchWeapon =>  !aiming;
 
     private IEnumerator Start()
@@ -110,21 +110,36 @@ public class WeaponsSystem : MonoBehaviour
         onUpdateSpread?.Invoke(currentWeapon.WeaponSpread.CurrentSpreadAmount);
         
         // Show reload prompt if out of ammo and not reloading
+        if(IsReloading)
+        {
+            print(ReloadProgress);
+            // Reload update
+            reloadTime -= Time.deltaTime;
+
+            onUpdateReload?.Invoke(ReloadProgress);
+
+            if (!IsReloading)
+            {
+                reloadPromptUI.Hide();
+                currentWeapon.Reload(PlayerData);
+            }
+            
+        }
         if (currentWeapon.CurrentAmmoInMag <= 0 && !IsReloading)
         {
             reloadPromptUI.ShowReloadPrompt();
         }
-        
-        // Reload update
-        if (ReloadProgress > 0)
+        else if (IsReloading)
         {
-            onUpdateReload?.Invoke(ReloadProgress);
+            reloadPromptUI.ShowReloading();
 
-            if (ReloadProgress >= 1 && ReloadProgress <= 1.1f)
-            {
-                reloadPromptUI.Hide();
-            }
         }
+        else
+        {
+            reloadPromptUI.Hide();
+        }
+        
+
     }
 
     private void WeaponSwitching()
@@ -161,6 +176,7 @@ public class WeaponsSystem : MonoBehaviour
         GameManager.PlayerData.SetWeaponSlot(newSlot);
         weaponSwapTimer = Tween.Delay(GameManager.PlayerData.WeaponSwapTime);
         SetWeaponVisual();
+        ReloadCancel();
     }
     private void SetWeaponVisual()
     {
@@ -274,19 +290,24 @@ public class WeaponsSystem : MonoBehaviour
     private void Reload()
     {
         if (weaponFrozen)
-        {
             return;
-        }
+        
+        // Dont reload if mag full
+        if (currentWeapon.CurrentAmmoInMag >= currentWeapon.WeaponData.MagSize)
+            return;
         
         if (ReloadProgress >= 1)
         {
             accumulatedShootingTime = 0f;
-            lastReloadTime = Time.time;
-            
-            reloadPromptUI.ShowReloading();
 
-            currentWeapon.Reload(PlayerData);
+            reloadTime = currentWeapon.WeaponData.ReloadTime;
         }
+    }
+
+    private void ReloadCancel()
+    {
+        reloadTime = 0;
+        onUpdateReload.Invoke(-1);
     }
 
     private void DoMultiShoot(bool isPhysicsBased = false)
