@@ -215,7 +215,6 @@ public class PlayerMovement : StateMachine
         onTeleportPlayer.OnEventRaised -= SetPosition;
         onTryUnstuck.OnEventRaised -= OnTryUnstuck;
     }
-
     private void SetupStates()
     {
         walkingState = new WalkingState(this);
@@ -245,6 +244,8 @@ public class PlayerMovement : StateMachine
     {
         base.OnStateSwitched();
     }
+    
+
 
     protected override void Update()
     {
