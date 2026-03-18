@@ -147,7 +147,13 @@ public class PlayerMovement : StateMachine
     [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     [SerializeField] private VoidEventChannelSO onTryUnstuck;
     
-    public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
+    public void OnDealPlayerDamage(float damage)
+    {
+        if (damage <= 0)
+            return;
+        
+        onDealPlayerDamage?.Invoke(damage);
+    }
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
     public bool ShouldMouseRotateVisuals => currentState is IMovementState { UseMouseRotateVisuals: true };
