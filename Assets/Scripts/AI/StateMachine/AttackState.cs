@@ -10,6 +10,7 @@ public class AttackState : AIState
     float distanceToPlayer;
     float distanceToCoverPoint;
     private AIController aiController;
+    private float coverCheckTime;
 
 
     public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
@@ -22,21 +23,29 @@ public class AttackState : AIState
     // Moves towards player at them moment, will update with actual enemy logic eventually
     public override void Execute()
     {
-        if (coverPoint == null)
+        coverCheckTime += Time.deltaTime;
+        if(coverCheckTime >= controller.CoverCheckDelay)
         {
-            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
-
-            if (coverPoint != null)
+            coverCheckTime = 0.0f;
+            if (coverPoint == null)
             {
-                distanceToCoverPoint = Vector3.Distance(controller.transform.position, coverPoint.transform.position);
+                coverPoint =
+                    CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
+
+                if (coverPoint != null)
+                {
+                    distanceToCoverPoint =
+                        Vector3.Distance(controller.transform.position, coverPoint.transform.position);
+                }
             }
-        }
-        distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
-        if (coverPoint != null && controller.AttackRange < distanceToPlayer)
-        {
-            coverPoint.TakeCoverPoint(controller);
-            controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
-            return;
+
+            distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
+            if (coverPoint != null && controller.AttackRange < distanceToPlayer)
+            {
+                coverPoint.TakeCoverPoint(controller);
+                controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
+                return;
+            }
         }
         
         agent.SetDestination(player.position);
