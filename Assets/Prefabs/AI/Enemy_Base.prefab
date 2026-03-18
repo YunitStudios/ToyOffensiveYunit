@@ -283,8 +283,8 @@ RectTransform:
   m_GameObject: {fileID: 3851673053854071535}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7617426875131972019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -323,8 +323,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 478a6574b4f8da747a35704cebd9c2d5, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 478a6574b4f8da747a35704cebd9c2d5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -579,7 +579,6 @@ GameObject:
   - component: {fileID: 7617426875131972019}
   - component: {fileID: 1611490595107682129}
   - component: {fileID: 6730281793799492972}
-  - component: {fileID: 6696188834681919115}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -653,20 +652,6 @@ MonoBehaviour:
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
   m_PresetInfoIsWorld: 1
---- !u!114 &6696188834681919115
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6760784240567653024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd0d2e9f5dea46c4faa04305e4f21320, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::BillboardCanvas
-  yaw: 1
-  pitch: 1
 --- !u!1 &7081199409497347268
 GameObject:
   m_ObjectHideFlags: 0
