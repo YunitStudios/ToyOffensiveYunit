@@ -85,6 +85,24 @@ public class SettingsManager : MonoBehaviour
         // Apply resolution
         Screen.SetResolution(playerSettings.resolutionWidth, playerSettings.resolutionHeight, playerSettings.fullScreen);
         
+        // Apply quality
+        SetGameQuality(playerSettings.quality);
+    }
+    
+    public void SetGameQuality(QualitySettingValue type)
+    {
+        switch (type)
+        {
+            case QualitySettingValue.Low:
+                QualitySettings.SetQualityLevel(2, true);
+                break;
+            case QualitySettingValue.Balanced:
+                QualitySettings.SetQualityLevel(1, true);
+                break;
+            case QualitySettingValue.High:
+                QualitySettings.SetQualityLevel(0, true);
+                break;
+        }
     }
     
     private void LoadSettings()
