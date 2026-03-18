@@ -119,8 +119,6 @@ public class AIStateMachine : MonoBehaviour
             return;
         }
         
-        CheckForThreats();
-        
         currentState?.Execute();
         
         if (currentState is EvadeState)
@@ -368,23 +366,9 @@ public class AIStateMachine : MonoBehaviour
         }
     }
     
-    private void CheckForThreats()
-    {
-        float threatCheckRadius = 8f;
-        Collider[] hits = Physics.OverlapSphere(transform.position, threatCheckRadius);
-        foreach (Collider hit in hits)
-        {
-            ThrowableTemplate grenade = hit.GetComponent<ThrowableTemplate>();
-            if (grenade != null && grenade.Damage > 0f)
-            {
-                if (!(currentState is EvadeState))
-                {
-                    ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
-                }
-
-                return;
-            }
-        }
+    public void ThreatFound(ThrowableTemplate grenade)
+    { 
+        ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
     }
 
     public void SetTypeToPatrol()
