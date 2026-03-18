@@ -161,7 +161,8 @@ public class PlayerDataSO : ScriptableObject
         
         CameraType = PlayerCamera.CameraType.Main;
         CurrentHealth = MaxHealth;
-    }
+
+        IsAiming = false; }
 
     public void Reset()
     {

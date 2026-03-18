@@ -112,7 +112,6 @@ public class WeaponsSystem : MonoBehaviour
         // Show reload prompt if out of ammo and not reloading
         if(IsReloading)
         {
-            print(ReloadProgress);
             // Reload update
             reloadTime -= Time.deltaTime;
 
