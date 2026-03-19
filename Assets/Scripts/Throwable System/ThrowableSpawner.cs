@@ -6,7 +6,9 @@ using UnityEngine;
 // on the player this will probably be on the player hand? For use with animation. Im unsure currently
 public class ThrowableSpawner : MonoBehaviour
 {
-    float throwForce = 10f;
+    [SerializeField] private Transform baseRotation;
+    [SerializeField] private float throwForce = 10f;
+    [SerializeField] private float throwUpForce = 0.2f;
     public void ThrowObject(ThrowableDataSO throwableDataSO)
     {
         if (throwableDataSO.ThrowablePrefab == null)
@@ -16,19 +18,19 @@ public class ThrowableSpawner : MonoBehaviour
         }
 
         // instantiate the prefab from the SO
-        GameObject instance = Instantiate(throwableDataSO.ThrowablePrefab, transform.position, transform.rotation);
+        GameObject instance = Instantiate(throwableDataSO.ThrowablePrefab, transform.position, baseRotation.rotation);
 
         // make sure it has a Rigidbody for physics
         Rigidbody rb = instance.GetComponent<Rigidbody>();
         if (rb == null)
         {
             rb = instance.AddComponent<Rigidbody>();
+            rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         }
 
         // throw the prefab
-        Vector3 throwDirection = transform.forward + Vector3.up * 0.2f; // slight arc
+        Vector3 throwDirection = baseRotation.forward + Vector3.up * 0.2f; // slight arc
         rb.AddForce(throwDirection.normalized * throwForce, ForceMode.VelocityChange);
-        
         
     }
 }

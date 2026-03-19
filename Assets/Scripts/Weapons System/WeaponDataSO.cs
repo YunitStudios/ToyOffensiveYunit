@@ -15,7 +15,7 @@ public class WeaponDataSO : ScriptableObject, ILoadout
 
     public Sprite WeaponSprite;
     public Sprite WeaponSpriteWhite;
-
+    public AnimatorOverrideController animationController;
 
     [Header("Core stats")]
     [Tooltip("The weapons maximum fire rate in rounds per minute. It also acts as a limit for semi auto firing speed")]

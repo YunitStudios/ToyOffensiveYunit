@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GloryKill : MonoBehaviour, IDamageSource
 {
@@ -21,7 +22,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
     private bool isGloryKilling = false;
     private Transform snapPoint;
     private AIController currentTargetController;
-    [SerializeField] private GameObject gunMesh;
+    [SerializeField] private GameObject gunRoot;
     [SerializeField] private GameObject gloryKillCamera; 
     [SerializeField] private CinemachineSplineCart cinemachineDollyCart;
     private CanvasGroup hud;
@@ -109,7 +110,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
     {
         playerAnimator.SetBool("IsAiming", false);
         DisableTargetColliders(true);
-        gunMesh.SetActive(false);
+        gunRoot.SetActive(false);
         cinemachineDollyCart.SplinePosition = 0.8f;
         gloryKillCamera.SetActive(true);
         hud.alpha = 0.0f;
@@ -145,7 +146,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
         currentTargetController.TakeDamage(this, 100f);
         currentTarget = null;
         isGloryKilling = false;
-        gunMesh.SetActive(true);
+        gunRoot.SetActive(true);
         cinemachineDollyCart.SplinePosition = 0.8f;
         gloryKillCamera.SetActive(false);
         hud.alpha = 1.0f;
