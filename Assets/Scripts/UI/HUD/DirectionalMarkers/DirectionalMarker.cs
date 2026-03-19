@@ -23,14 +23,16 @@ namespace UI.HUD
         [SerializeField] private VoidEventChannelSO onMissionCompleted;
         [SerializeField] private GameObject image;
 
-        void Start()
+        private void Start()
         {
             // initialise countdown
             timer = showTime;
-            if (type == MarkerTypes.Exfil)
-            {
+        }
+
+        private void OnEnable()
+        {
+            if (onMissionCompleted != null)
                 onMissionCompleted.OnEventRaised += ShowMarker;
-            }
         }
 
         private void OnDisable()
@@ -41,7 +43,8 @@ namespace UI.HUD
 
         void ShowMarker()
         {
-            image.SetActive(true);
+            if (type == MarkerTypes.Exfil && image != null)
+                image.SetActive(true);
         }
 
         void Update()
