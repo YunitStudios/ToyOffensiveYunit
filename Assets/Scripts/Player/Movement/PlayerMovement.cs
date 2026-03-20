@@ -220,6 +220,7 @@ public class PlayerMovement : StateMachine
     private void OnEnable()
     {
         onTeleportPlayer.OnEventRaised += SetPosition;
+        onTeleportPlayer.OnEventRaised += (_) => GameManager.PlayerData?.StoreRotationRootTransform(rotationRoot);
         onTryUnstuck.OnEventRaised += OnTryUnstuck;
     }
 
@@ -278,7 +279,6 @@ public class PlayerMovement : StateMachine
             GameManager.PlayerData.StorePosition(transform.position);
             GameManager.PlayerData.StoreRotationRootTransform(rotationRoot);
         }
-           
     }
 
     protected override void LateUpdate()

@@ -127,7 +127,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DirectionalMarkerComponent
   markerType: 0
   hasWorldSprite: 0
+  showAlways: 1
   imageObject: {fileID: 7100972058308222589}
+  onMissionCompleted: {fileID: 11400000, guid: f353a3c6e7051e64c988305ea3ec4831, type: 2}
+  onLoadRadialHUD: {fileID: 11400000, guid: 98ec62bdb0f79ce4bbe41c5c90c68110, type: 2}
 --- !u!223 &2453100589713400991
 Canvas:
   m_ObjectHideFlags: 0
