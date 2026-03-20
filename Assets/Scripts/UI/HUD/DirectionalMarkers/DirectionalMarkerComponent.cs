@@ -13,29 +13,36 @@ public class DirectionalMarkerComponent : MonoBehaviour
     [SerializeField] private GameObject imageObject;
 
     [SerializeField] private VoidEventChannelSO onMissionCompleted;
+    [SerializeField] private VoidEventChannelSO onLoadRadialHUD;
 
     private void OnEnable()
     {
         if(onMissionCompleted != null)
             onMissionCompleted.OnEventRaised += ShowImage;
+        if (onLoadRadialHUD != null)
+            onLoadRadialHUD.OnEventRaised += SpawnMarker;
     }
 
     private void OnDisable()
     {
         if(onMissionCompleted != null)
             onMissionCompleted.OnEventRaised -= ShowImage;
+        if (onLoadRadialHUD != null)
+            onLoadRadialHUD.OnEventRaised -= SpawnMarker;
     }
 
-    void Start()
+    private void Start()
     {
         if (!showAlways)
             imageObject.SetActive(false);
-        if(markerType == MarkerTypes.Target)
+        if (markerType == MarkerTypes.Target)
             RadialHUDDisplay.SpawnLiveMarker?.Invoke(transform, markerType);
-        else
-        {
+    }
+
+    void SpawnMarker()
+    {
+        if (markerType != MarkerTypes.Target)
             RadialHUDDisplay.SpawnMarker?.Invoke(transform.position, markerType);
-        }
     }
 
     private void ShowImage()
