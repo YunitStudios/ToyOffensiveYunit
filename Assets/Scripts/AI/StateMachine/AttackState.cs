@@ -11,6 +11,8 @@ public class AttackState : AIState
     float distanceToCoverPoint;
     private AIController aiController;
     private float coverCheckTime;
+    private float reactionTimer = 0f;
+    private bool engaging = false;
 
 
     public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
@@ -50,18 +52,31 @@ public class AttackState : AIState
             }
             
             agent.SetDestination(player.position);
-            aiController.SetAiming(true);
+            engaging = true;
+            //RotateTowardsPlayer();
         }
+        
+        if (engaging)
+        {
+            if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
+            {
+                agent.isStopped = true;
+            }
+            else
+            {
+                agent.isStopped = false;
+            }
 
-        weaponSystem.Fire();
-        if (aiController.isEnemyAiming && agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
-        {
-            agent.isStopped = true;
-            RotateTowardsPlayer();
-        }
-        else
-        {
-            agent.isStopped = false;
+            if (HasLineOfSight())
+            {
+                RotateTowardsPlayer();
+                aiController.SetAiming(true);
+                weaponSystem.Fire();
+            }
+            else
+            {
+                aiController.SetAiming(false);
+            }
         }
     }
 
@@ -73,7 +88,7 @@ public class AttackState : AIState
         float dist = dir.magnitude * 2f;
 
         // Raycast to check it can see player
-        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy", "Vision")))
+        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, LayerMask.GetMask("Default", "Environment")))
         {
             return hit.transform == player;
         }
