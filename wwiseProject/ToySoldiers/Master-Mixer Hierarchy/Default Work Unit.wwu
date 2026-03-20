@@ -10,28 +10,208 @@
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
-						<Bus Name="Effects" ID="{0955737E-7307-455E-9DB7-D977D6650F42}">
+						<Bus Name="Non-World" ID="{49BCE9C6-A2F1-4198-A384-E31A0FCD04C2}">
 							<PropertyList>
-								<Property Name="Color" Type="int16" Value="8"/>
-								<Property Name="OverrideColor" Type="bool" Value="True"/>
-							</PropertyList>
-						</Bus>
-						<Bus Name="Music" ID="{4FA3C533-3E97-4511-9FCC-80770F906F2C}">
-							<PropertyList>
-								<Property Name="Color" Type="int16" Value="14"/>
-								<Property Name="OverrideColor" Type="bool" Value="True"/>
-							</PropertyList>
-						</Bus>
-						<Bus Name="Sound_Effects" ID="{6210C36B-654B-49FB-BE7C-9AC102604970}">
-							<PropertyList>
-								<Property Name="Color" Type="int16" Value="24"/>
+								<Property Name="Color" Type="int16" Value="1"/>
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ChildrenList>
-								<AuxBus Name="Player" ID="{8C0F63FF-9FD2-4902-B49B-D021606AE4E4}"/>
-								<AuxBus Name="UI" ID="{4ACE517C-A1D6-492A-9855-28DDC66D21E0}"/>
-								<AuxBus Name="Environment" ID="{865FE0AF-549B-4AFC-A5C7-C557D5D120C2}"/>
-								<AuxBus Name="Enemies" ID="{8AE3E08C-B9C3-49F1-B657-82147C3F5B83}"/>
+								<Bus Name="UI" ID="{76135593-32BC-44F5-BAEA-F6D688DC43CA}">
+									<ChildrenList>
+										<Bus Name="Menu" ID="{9F032D24-668D-45F6-B814-89529156E23D}">
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<Reference>
+														<Local>
+															<EffectSlot Name="" ID="{9BE79E10-5C63-4289-A408-2EB15F50243F}" ShortID="947426276">
+																<ReferenceList>
+																	<Reference Name="Effect" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+																		<ObjectRef Name="Menu_Ducking_Meter" ID="{6CF00D12-4FB6-40B8-B1A0-A66A2496E918}" WorkUnitID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}"/>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</Bus>
+										<Bus Name="Player_HUD" ID="{C12B0713-34EB-4EF0-86CB-EAFDA42C60C4}">
+											<ReferenceList>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+												</Reference>
+											</ReferenceList>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<Reference>
+														<Local>
+															<EffectSlot Name="" ID="{741ED941-E1FD-4C88-B36B-C5A05ABCC28F}" ShortID="1059497787">
+																<ReferenceList>
+																	<Reference Name="Effect" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+																		<ObjectRef Name="HUD_Ducking_Meter" ID="{A286F2C1-117B-4671-BA2E-C8F4E9DA4913}" WorkUnitID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}"/>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</Bus>
+									</ChildrenList>
+								</Bus>
+							</ChildrenList>
+						</Bus>
+						<Bus Name="World" ID="{D2542BCC-4833-4782-8B5E-4CE744B6287D}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="10"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<Bus Name="Environment" ID="{04A82551-9324-4294-A0FE-C0D80A374AFE}">
+									<PropertyList>
+										<Property Name="Color" Type="int16" Value="4"/>
+										<Property Name="OverrideColor" Type="bool" Value="True"/>
+									</PropertyList>
+									<ChildrenList>
+										<Bus Name="Hazards" ID="{E6CF924D-8AE7-4D9A-9C67-1EEB68805244}">
+											<ReferenceList>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+												</Reference>
+											</ReferenceList>
+											<ChildrenList>
+												<Bus Name="Fire" ID="{F9B13E45-1EB1-4E06-8092-4F7959A1676A}"/>
+												<Bus Name="Mouse_Trap" ID="{41DF228B-1960-4254-A473-F2E3B7A0A689}"/>
+											</ChildrenList>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<Reference>
+														<Local>
+															<EffectSlot Name="" ID="{F1490481-D542-4FCA-AB07-11D40D580AFB}" ShortID="63512457">
+																<ReferenceList>
+																	<Reference Name="Effect" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+																		<ObjectRef Name="Hazard_Duck_Meter" ID="{2E4AB2A9-9C70-4997-9115-527151AABB1D}" WorkUnitID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}"/>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</Bus>
+									</ChildrenList>
+								</Bus>
+								<Bus Name="Player" ID="{76421170-5967-41B6-B541-54CB1AF1664F}">
+									<PropertyList>
+										<Property Name="Color" Type="int16" Value="11"/>
+										<Property Name="OverrideColor" Type="bool" Value="True"/>
+									</PropertyList>
+									<ReferenceList/>
+									<ChildrenList>
+										<Bus Name="Movement" ID="{E30C9E64-F3FB-4633-91F2-960EEC514728}">
+											<ReferenceList>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+												</Reference>
+											</ReferenceList>
+										</Bus>
+										<Bus Name="Weapons_Foley" ID="{F4B67CAD-23DF-4668-A532-857E29880799}">
+											<ReferenceList>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+												</Reference>
+											</ReferenceList>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<Reference>
+														<Local>
+															<EffectSlot Name="" ID="{1580C074-5B65-44A8-A923-BE71547896C4}" ShortID="384926267">
+																<ReferenceList>
+																	<Reference Name="Effect" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+																		<ObjectRef Name="Weapon_Duck_Meter" ID="{4D8BA1F2-50B5-490A-A9AD-46953BC3F42B}" WorkUnitID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}"/>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</Bus>
+										<Bus Name="Health" ID="{CAF8D6EB-6472-4D0F-B781-90AD01B5C994}">
+											<ReferenceList>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+												</Reference>
+											</ReferenceList>
+										</Bus>
+										<Bus Name="BreakCam" ID="{B9F475BA-7938-425B-AE8E-F3A81B61B0F7}"/>
+										<Bus Name="Swim" ID="{36A7F8C7-D385-4408-AF4F-F0680BAA7567}"/>
+										<Bus Name="Weapons_Gunshot" ID="{120BADCC-1FFB-4A3E-9562-D57F34C99DC8}">
+											<ReferenceList>
+												<Reference Name="UserAuxSend0">
+													<ObjectRef Name="World_Weapon_Reverb" ID="{52610B04-3008-4CDD-B6F5-A6C96CD3700D}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+												</Reference>
+											</ReferenceList>
+											<ObjectLists>
+												<ObjectList Name="Effects">
+													<Reference>
+														<Local>
+															<EffectSlot Name="" ID="{41CF782C-774E-484A-84B1-B672500D50E5}" ShortID="848658163">
+																<ReferenceList>
+																	<Reference Name="Effect" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+																		<ObjectRef Name="Weapon_Duck_Meter" ID="{4D8BA1F2-50B5-490A-A9AD-46953BC3F42B}" WorkUnitID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}"/>
+																	</Reference>
+																</ReferenceList>
+															</EffectSlot>
+														</Local>
+													</Reference>
+												</ObjectList>
+											</ObjectLists>
+										</Bus>
+									</ChildrenList>
+								</Bus>
+							</ChildrenList>
+						</Bus>
+						<Bus Name="Sound_Effects" ID="{C03A7E61-214F-4354-AA56-9445373691C1}">
+							<PropertyList>
+								<Property Name="Color" Type="int16" Value="13"/>
+								<Property Name="OverrideColor" Type="bool" Value="True"/>
+							</PropertyList>
+							<ChildrenList>
+								<AuxBus Name="World_Weapon_Reverb" ID="{52610B04-3008-4CDD-B6F5-A6C96CD3700D}">
+									<ObjectLists>
+										<ObjectList Name="Effects">
+											<Reference>
+												<Local>
+													<EffectSlot Name="" ID="{B5C93537-F8DF-49E2-8FCE-735E99BEA2DD}" ShortID="310380992">
+														<ReferenceList>
+															<Reference Name="Effect" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																<ObjectRef Name="Room_Small" ID="{577F1466-A63B-47F7-98BD-C56E433F8B5D}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</AuxBus>
+								<AuxBus Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}">
+									<ObjectLists>
+										<ObjectList Name="Effects">
+											<Reference>
+												<Local>
+													<EffectSlot Name="" ID="{F64B2BCE-4D86-4D73-BC49-E5FDD839D1F6}" ShortID="93333209">
+														<ReferenceList>
+															<Reference Name="Effect" PluginName="Wwise RoomVerb" CompanyID="0" PluginID="118" PluginType="3">
+																<ObjectRef Name="Room_Small" ID="{577F1466-A63B-47F7-98BD-C56E433F8B5D}" WorkUnitID="{E8613F7D-BAD3-45CD-A3ED-505576F31277}"/>
+															</Reference>
+														</ReferenceList>
+													</EffectSlot>
+												</Local>
+											</Reference>
+										</ObjectList>
+									</ObjectLists>
+								</AuxBus>
 							</ChildrenList>
 						</Bus>
 					</ChildrenList>

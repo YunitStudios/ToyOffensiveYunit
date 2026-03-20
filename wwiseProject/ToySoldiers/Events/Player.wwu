@@ -8,6 +8,10 @@
 			</PropertyList>
 			<ChildrenList>
 				<Folder Name="Movement" ID="{F54FF2DE-6C59-4CF5-AFF9-792F6736C60D}" ShortID="279374751">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="13"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
 					<ChildrenList>
 						<Folder Name="Footsteps" ID="{F9F2BCEF-12AA-4D5E-8F40-306DFDECD2A6}" ShortID="430828668">
 							<ChildrenList>
@@ -518,11 +522,19 @@
 					</ChildrenList>
 				</Folder>
 				<Folder Name="BreakCam" ID="{ED6D0549-C755-4409-9D34-6EFFB8B80F85}" ShortID="617006868">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="8"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
 					<ChildrenList>
 						<Event Name="Audio_Play_Break_Cam" ID="{D509291E-1362-46A0-859D-3675ED088C43}"/>
 					</ChildrenList>
 				</Folder>
 				<Folder Name="Health" ID="{438519DF-73E6-4C9B-9403-78AA5783FCF2}" ShortID="712776838">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="18"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
 					<ChildrenList>
 						<Event Name="Audio_Play_Low_Health" ID="{2379CD5E-0945-4F3F-BCA8-478C374A145B}"/>
 						<Event Name="Audio_Play_Low_Stamina" ID="{A2185E3D-1FA1-4706-BD05-4F712E5B6803}"/>

@@ -9,17 +9,20 @@
 							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 						</Reference>
 						<Reference Name="OutputBus">
-							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+							<ObjectRef Name="Movement" ID="{E30C9E64-F3FB-4633-91F2-960EEC514728}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 						</Reference>
 					</ReferenceList>
 					<ChildrenList>
 						<ActorMixer Name="Footsteps" ID="{DFFD5C06-640A-4FC6-9E5B-1057797AD17C}" ShortID="673546399">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 								</Reference>
 								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+									<ObjectRef Name="Movement" ID="{E30C9E64-F3FB-4633-91F2-960EEC514728}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
@@ -1246,12 +1249,15 @@
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Jump" ID="{517F00E4-2C00-4405-BAFC-E3C6A11012BE}" ShortID="719788586">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 								</Reference>
 								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+									<ObjectRef Name="Movement" ID="{E30C9E64-F3FB-4633-91F2-960EEC514728}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
@@ -1302,12 +1308,15 @@
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Parachute" ID="{B3DFFD28-136F-4800-AA6F-0EF2F428C8E1}" ShortID="801911036">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 								</Reference>
 								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+									<ObjectRef Name="Movement" ID="{E30C9E64-F3FB-4633-91F2-960EEC514728}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
@@ -1418,12 +1427,15 @@
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Swim" ID="{FEB0E412-25CB-45C2-A65B-4EF77AC4562E}" ShortID="352948257">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 								</Reference>
 								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+									<ObjectRef Name="Swim" ID="{36A7F8C7-D385-4408-AF4F-F0680BAA7567}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>
@@ -1706,12 +1718,15 @@
 							</ChildrenList>
 						</ActorMixer>
 						<ActorMixer Name="Slide" ID="{CBD677BB-8777-4425-A34C-2244FE901702}" ShortID="1071974280">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Conversion">
 									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 								</Reference>
 								<Reference Name="OutputBus">
-									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+									<ObjectRef Name="Movement" ID="{E30C9E64-F3FB-4633-91F2-960EEC514728}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 								</Reference>
 							</ReferenceList>
 							<ChildrenList>

@@ -90,7 +90,17 @@
 								</Action>
 							</ChildrenList>
 						</Event>
-						<Event Name="Audio_Play_Hitmarker" ID="{81765B8E-6076-444F-B9C2-3FCFD2EE3023}"/>
+						<Event Name="Audio_Play_Hitmarker" ID="{81765B8E-6076-444F-B9C2-3FCFD2EE3023}">
+							<ChildrenList>
+								<Action Name="" ID="{EEEE575F-E574-4C22-998E-C9E60108C057}" ShortID="440951566">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Hitmarker" ID="{C8B6C39C-E4ED-48FA-9812-3D2C55492DAC}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
