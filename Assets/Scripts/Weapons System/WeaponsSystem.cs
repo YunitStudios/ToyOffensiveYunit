@@ -464,6 +464,7 @@ public class WeaponsSystem : MonoBehaviour
         GameObject physicsProjectile = Instantiate(physicsProjectilePrefab, firePoint.position, firePoint.rotation);
         PhysicsBulletMovement movementScript = physicsProjectile.GetComponent<PhysicsBulletMovement>();
 
+        movementScript.bulletFromEnemy = false;
         movementScript.InitialDirection = shootDir;
         movementScript.InitialVelocity = currentWeapon.WeaponData.InitialVelocityMS;
         movementScript.Damage = currentWeapon.WeaponData.Damage;

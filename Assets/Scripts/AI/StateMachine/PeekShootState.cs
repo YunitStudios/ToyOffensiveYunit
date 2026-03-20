@@ -107,7 +107,7 @@ public class PeekShootState : AIState
         float dist = dir.magnitude * 2f;
 
         // Raycast to check it can see player
-        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy", "Vision")))
+        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, LayerMask.GetMask("Default", "Environment")))
         {
             return hit.transform == player;
         }

@@ -21,6 +21,8 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     [SerializeField] private VoidEventChannelSO onBulletHitPlayer;
     [SerializeField] private Vector3EventChannelSO onBulletHitPlayerPosition;
 
+    [HideInInspector] public bool bulletFromEnemy;
+
 
     private Vector3 bulletSpawnPoint; // This will hold the "Snapshot"
     
@@ -72,6 +74,11 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                 {
                     if (hit.transform.TryGetComponentInParent<IDamageable>(out IDamageable target))
                     {
+                        if (bulletFromEnemy && target is AIController)
+                        {
+                            return;
+                        }
+                        
                         bool hitHead = false;
                         Debug.Log("Enemy health hit");
                         

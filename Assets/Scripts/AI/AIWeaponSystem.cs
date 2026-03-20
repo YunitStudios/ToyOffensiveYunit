@@ -44,6 +44,8 @@ public class AIWeaponSystem : MonoBehaviour
         aiInventory = GetComponent<AIInventory>();
         currentWeapon = aiInventory.GetPrimaryWeapon();
         RandomiseShootTimes();
+        currentWeapon.WeaponSpread.IsAiming = false;
+        currentWeapon.WeaponSpread.ResetSpread();
     }
 
     public bool CanFire()
@@ -202,7 +204,7 @@ public class AIWeaponSystem : MonoBehaviour
         // instantiate and set up the physics projectile
         GameObject physicsProjectile = Instantiate(physicsProjectilePrefab, firePoint.position, firePoint.rotation);
         PhysicsBulletMovement movementScript = physicsProjectile.GetComponent<PhysicsBulletMovement>();
-        
+        movementScript.bulletFromEnemy = true;
         movementScript.InitialDirection = shootDir;
         movementScript.InitialVelocity = currentWeapon.WeaponData.InitialVelocityMS;
         movementScript.Damage = currentWeapon.WeaponData.Damage * damageMult;
