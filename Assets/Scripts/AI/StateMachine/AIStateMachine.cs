@@ -189,7 +189,7 @@ public class AIStateMachine : MonoBehaviour
             vision.ResetVision();
         }
 
-        if (newState is AttackState)
+        if (newState is AttackState || newState is SearchState)
         {
             vision.IncreaseVision();
         }
@@ -316,6 +316,7 @@ public class AIStateMachine : MonoBehaviour
     {
         vision.canSeePlayer = true;
         detection.AddDetection(100);
+        RotateTowardsPlayer();
         vision.lastSeenTime = Time.time;
         
         // if Enemy is a target it will enter the flee state
@@ -323,11 +324,11 @@ public class AIStateMachine : MonoBehaviour
         {
             ChangeState(new FleeState(this, agent, player));
         }
-        // if Enemy is not a target it will enter the attack state
+        // if Enemy is not a target it will enter the attack state if player seen
         else
         {
             if (!(currentState is AttackState) && !(currentState is MoveToCoverState) &&
-                !(currentState is BehindCoverState) && !(currentState is PeekShootState))
+                !(currentState is BehindCoverState) && !(currentState is PeekShootState) && detection.IsDetected)
             {
                 ChangeState(new AttackState(this, agent, player));
             }
@@ -430,5 +431,13 @@ public class AIStateMachine : MonoBehaviour
     {
         isFrozen = frozen;
         agent.isStopped = frozen;
+    }
+    
+    private void RotateTowardsPlayer()
+    {
+        Vector3 lookDirection = (vision.player.position - transform.position).normalized;
+        lookDirection.y = 0;
+        Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5);
     }
 }
