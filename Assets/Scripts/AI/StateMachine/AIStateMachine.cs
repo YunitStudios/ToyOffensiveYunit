@@ -328,9 +328,9 @@ public class AIStateMachine : MonoBehaviour
         else
         {
             if (!(currentState is AttackState) && !(currentState is MoveToCoverState) &&
-                !(currentState is BehindCoverState) && !(currentState is PeekShootState) && detection.IsDetected)
+                !(currentState is BehindCoverState) && !(currentState is PeekShootState))
             {
-                ChangeState(new AttackState(this, agent, player));
+                ChangeState(new SearchState(this, agent, player.position));
             }
         }
     }
