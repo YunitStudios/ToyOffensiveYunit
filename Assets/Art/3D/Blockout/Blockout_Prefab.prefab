@@ -81,6 +81,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: -8989838457343850014, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: 157918cc58a45484784129ccab58d018, type: 2}
     - target: {fileID: -8679921383154817045, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -401,9 +405,21 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 2147483647
       objectReference: {fileID: 0}
+    - target: {fileID: 8889843149663659494, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 4300000, guid: fe0b786590329469da2ef3579679215a, type: 2}
     - target: {fileID: 9013235669137923606, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
       propertyPath: m_DynamicOccludee
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9013235669137923606, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 7197b2f334d8f450496eac8a8e2bc095, type: 2}
+    - target: {fileID: 9013235669137923606, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
+      propertyPath: m_SelectedEditorRenderState
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 9084685435209888687, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
       propertyPath: m_Layer
@@ -1071,7 +1087,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: -5059178597143838424, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 157918cc58a45484784129ccab58d018, type: 2}
 --- !u!1 &5124718485084078558 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2236042504466215486, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
@@ -1368,7 +1384,7 @@ MeshCollider:
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
-  m_Mesh: {fileID: 6040443936994993827, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
+  m_Mesh: {fileID: 4300000, guid: fe0b786590329469da2ef3579679215a, type: 2}
 --- !u!1 &8684969575543268573 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6876546584937081025, guid: 3f010960996504bacb15f74e7bb4d288, type: 3}
