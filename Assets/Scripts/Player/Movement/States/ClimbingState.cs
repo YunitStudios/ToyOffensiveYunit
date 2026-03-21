@@ -61,6 +61,9 @@ public class ClimbingSettings : StateSettings
     [Tooltip("The scale of the players collider while climbing. Cant outright disable the collider as I still need the CharacterController to check for collisions when moving, but changing the scale will stop the collider messing with regular climbing")]
     [SerializeField, Clamp(0, 1f, 0f, 1f)] private Vector2 climbingCollisionScale;
     public Vector2 ClimbingCollisionScale => climbingCollisionScale;
+    [Tooltip("The speed to blend when switching between climbing animations, for example going left to right")]
+    [SerializeField] private float climbingAnimBlendSpeed = 10;
+    public float ClimbingAnimBlendSpeed => climbingAnimBlendSpeed;
 
 
 
@@ -149,6 +152,7 @@ public class ClimbingState : MovementState
 {
     private static readonly int AnimIsClimbing = Animator.StringToHash("IsClimbing");
     private static readonly int AnimClimbSpeed = Animator.StringToHash("ClimbSpeed");
+    private static readonly int AnimClimbSpeedInterpolated = Animator.StringToHash("ClimbSpeedInterpolated");
     private static readonly int AnimIsHanging = Animator.StringToHash("IsHanging");
     
     public override bool CanShoot => false;
@@ -254,6 +258,8 @@ public class ClimbingState : MovementState
             startPos.y = topPosition.y - (stateMachine.PlayerHeight - (stateMachine.PlayerHeadHeight+ 0.01f));
             stateMachine.SetPosition(startPos);
         }
+        
+        stateMachine.PlayerAnimator.applyRootMotion = true;
 
         climbTimer = 0.0f;
         isVaulting = false;
@@ -317,15 +323,6 @@ public class ClimbingState : MovementState
                 StopHanging();
             }
             
-            // If moving sideways but not up, disable root motion
-            if (Mathf.Abs(sideInput) > 0f && Mathf.Abs(upInput) <= 0f)
-            {
-                stateMachine.PlayerAnimator.applyRootMotion = false;
-            }
-            if(!isHanging && Mathf.Abs(upInput) > 0f)
-            {
-                stateMachine.PlayerAnimator.applyRootMotion = true;
-            }
             
             float currentClimbSpeed = Mathf.Abs(upInput) >= Mathf.Abs(sideInput) ? upInput : sideInput;
             
@@ -337,6 +334,7 @@ public class ClimbingState : MovementState
             }
             
             stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeed, currentClimbSpeed);
+            stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeedInterpolated, Mathf.Lerp(stateMachine.PlayerAnimator.GetFloat(AnimClimbSpeedInterpolated), currentClimbSpeed, Settings.ClimbingAnimBlendSpeed * Time.deltaTime));
             
             // If moving upwards, sprinting, not on cooldown, you have enough stamina
             if (upInput > 0 && 
@@ -364,6 +362,7 @@ public class ClimbingState : MovementState
             // Face wall
             Quaternion targetRotation = Quaternion.LookRotation(-currentWallNormal);
             stateMachine.SetRotation(Quaternion.Slerp(stateMachine.Rotation, targetRotation, Settings.ClimbingWallLockSpeed * Time.deltaTime));
+            //stateMachine.SetRotation(targetRotation);
         }
         
         // If they cant climb up
@@ -432,7 +431,6 @@ public class ClimbingState : MovementState
         isHanging = true;
         
         stateMachine.PlayerAnimator.SetBool(AnimIsHanging, true);
-        stateMachine.PlayerAnimator.applyRootMotion = false;
         
         // If in the sprint leap animation, crossfade to hanging
         if (stateMachine.PlayerAnimator.GetCurrentAnimatorStateInfo(0).IsName("ClimbingSprint"))
@@ -448,7 +446,6 @@ public class ClimbingState : MovementState
         isHanging = false;
         
         stateMachine.PlayerAnimator.SetBool(AnimIsHanging, false);
-        stateMachine.PlayerAnimator.applyRootMotion = true;
  
         rehangDelayTween = Tween.Delay(Settings.RehangDelay);
     }
@@ -496,7 +493,7 @@ public class ClimbingState : MovementState
         Vector3 result = GetVaultCheckPosition();
         // Raycast down to find ground
         Ray downRay = new Ray(result, Vector3.down);
-        if (Physics.SphereCast(downRay, Settings.ClimbVaultDistance, out var hitInfo, Settings.ClimbableLayer))
+        if (Physics.SphereCast(downRay, stateMachine.PlayerRadius, out var hitInfo, Settings.ClimbMaxVaultHeight + stateMachine.PlayerHeight, Settings.ClimbableLayer))
         {
             result = hitInfo.point + stateMachine.Up * 0.1f; // Slightly above ground
         }
@@ -673,10 +670,6 @@ public class ClimbingState : MovementState
         Vector3 topOrigin = playerPosition + playerUp * stateMachine.PlayerHeight;
         Vector3 mainOrigin = playerPosition + playerUp * (stateMachine.PlayerHeight*Settings.MainRayNormalizedHeight);
         
-        // use these if you want the top and bottom origins to be at the top and bottom of the climbing collider
-        //Vector3 bottomOrigin = mainOrigin - (Vector3.up *(stateMachine.PlayerHeight*Settings.ClimbingCollisionScale.y)/2);
-        //Vector3 topOrigin = mainOrigin + (Vector3.up *(stateMachine.PlayerHeight*Settings.ClimbingCollisionScale.y)/2);
-        
         Vector3 sideDirection = stateMachine.Right;
         Vector3 widthOffset = sideDirection * Settings.ClimbWidth;
         
@@ -729,8 +722,8 @@ public class ClimbingState : MovementState
             
             // casting cone rays
             
-            bool canUp = topCone.CastRays(out Vector3 topNormal);
-            bool canDown = bottomCone.CastRays(out Vector3 bottomNormal);
+            bool canUp = topCone.CastRays(out Vector3 topNormal) && CheckNormalVertical(topNormal);
+            bool canDown = bottomCone.CastRays(out Vector3 bottomNormal) && CheckNormalVertical(bottomNormal);
             bool canRight = rightCone.CastRays(out Vector3 rightNormal);
             bool canLeft = leftCone.CastRays(out Vector3 leftNormal);
             
@@ -748,7 +741,16 @@ public class ClimbingState : MovementState
             if (!canRight)
                 climbDirections &= ~ClimbDirections.Right;
 
-            Vector3 surfaceNormal = topNormal + bottomNormal + rightNormal + leftNormal;
+            Vector3 surfaceNormal = Vector3.zero;
+            // Only add normal if can climb in that direction
+            if (canUp)
+                surfaceNormal += topNormal;
+            if (canDown)
+                surfaceNormal += bottomNormal;
+            if (canRight)
+                surfaceNormal += rightNormal;
+            if (canLeft)
+                surfaceNormal += leftNormal;
 
             // Find average surface normal
             // now using normals generated by cones instead of single raycasts
@@ -770,7 +772,7 @@ public class ClimbingState : MovementState
 
             wallNormal = surfaceNormal;
             wallPos = hits[0].point;
-            
+
             // Set the start data if they aren't currently climbing
             if (stateMachine.CurrentState != this)
             {
