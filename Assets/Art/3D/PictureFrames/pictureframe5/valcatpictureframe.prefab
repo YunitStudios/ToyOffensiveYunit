@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 8774864970941382702}
   - component: {fileID: 357617330732071968}
   - component: {fileID: 3245095379157412060}
-  m_Layer: 0
+  - component: {fileID: 7751337282152574019}
+  m_Layer: 6
   m_Name: valcatpictureframe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,3 +90,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &7751337282152574019
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122980444745537182}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.004226621, y: 0.02568052, z: 0.03677113}
+  m_Center: {x: 0.0011069737, y: 0.00004582898, z: 0.000054189924}
