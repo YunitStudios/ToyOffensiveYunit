@@ -513,6 +513,11 @@ public class ClimbingState : MovementState
 
         // Reset camera
         stateMachine.PlayerCamera.ChangeCamera(PlayerCamera.CameraType.Main);
+
+        // Remove Y from visual offset cos this breaks vaulting anim
+        Vector3 vaultVisualOffset = Settings.ClimbingHangingVisualOffset;
+        vaultVisualOffset.y = 0f;
+        stateMachine.SetVisualOffset(vaultVisualOffset, 0.5f);
     }
 
     private Vector3 GetVaultCheckPosition()

@@ -65,7 +65,7 @@ MonoBehaviour:
   aimingRig: {fileID: 4319127251319387377}
   gunRoot: {fileID: 3703927800343930480}
   gravity: -15
-  playerHeight: 2
+  playerHeight: 1.8
   playerRadius: 0.25
   playerHeadNormalizedHeight: 0.8
   minGroundDistance: 0.15
@@ -152,7 +152,7 @@ MonoBehaviour:
     climbingAnimBlendSpeed: 0.2
     climbingAnimStartSpeed: 0.02
     climbingVisualOffset: {x: 0, y: 0, z: 0.35}
-    climbingHangingVisualOffset: {x: 0, y: 0, z: 0.2}
+    climbingHangingVisualOffset: {x: 0, y: -0.2, z: 0.2}
     climbVaultDistance: 0.5
     climbMaxVaultHeight: 1
     climbVaultDuration: 2.5
@@ -433,13 +433,13 @@ CharacterController:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Height: 2
+  m_Height: 1.8
   m_Radius: 0.25
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 1, z: 0}
+  m_Center: {x: 0, y: 0.9, z: 0}
 --- !u!136 &2987020068191397963
 CapsuleCollider:
   m_ObjectHideFlags: 0

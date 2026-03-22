@@ -372,7 +372,7 @@ public class PlayerMovement : StateMachine
     public void SetVisualOffset(Vector3 offset, float duration)
     {
         if(visualOffsetTween.isAlive)
-            visualOffsetTween.Complete();
+            visualOffsetTween.Stop();
         
         visualOffsetTween = Tween.LocalPosition(visualRoot, offset, duration);
     }
