@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea4aeb25f2d1564b9bebed1a05a565f, type: 3}
+  m_Name: Sniper
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSoundPackSO
+  ADS: {fileID: 11400000, guid: b93f7bfa376c8d841a61ea37f103b0de, type: 2}
+  Equip: {fileID: 11400000, guid: 6b3e35c75c4431b45b9cac32a9eb3636, type: 2}
+  Gunshot: {fileID: 11400000, guid: df9958a304c5e6045bea349ef5ebad71, type: 2}
+  Reload_Empty: {fileID: 11400000, guid: af2db63addcefb547a731e76926d256f, type: 2}
+  Reload_Half_Empty: {fileID: 11400000, guid: e4aebb74270793d4f8e626df1232cde5, type: 2}

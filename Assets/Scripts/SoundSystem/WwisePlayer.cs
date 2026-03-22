@@ -31,7 +31,7 @@ namespace SoundSystem
                     break;
             }
             
-            Debug.Log(SoundData.WwiseName);
+            // Debug.Log(SoundData.WwiseName);
         }
     }
 }

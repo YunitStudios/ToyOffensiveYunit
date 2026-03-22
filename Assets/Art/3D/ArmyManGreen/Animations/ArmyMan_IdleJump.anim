@@ -43449,7 +43449,7 @@ AnimationClip:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
-    m_StartTime: 0.1
+    m_StartTime: 0
     m_StopTime: 1.9666669
     m_OrientationOffsetY: 0
     m_Level: 0
@@ -85718,4 +85718,18 @@ AnimationClip:
   m_EulerEditorCurves: []
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
-  m_Events: []
+  m_Events:
+  - time: 0.16666667
+    functionName: PlaySound
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: db0372930fa6dbd44ba186e04529661c, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 1.2
+    functionName: PlaySound
+    data: 
+    objectReferenceParameter: {fileID: 11400000, guid: 94b10e5dccf0517468993a6d51a0903a, type: 2}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0

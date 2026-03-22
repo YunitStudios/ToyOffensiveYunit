@@ -15,16 +15,35 @@ Game Parameter	ID	Name			Wwise Object Path	Notes
 	4262522749	Wood_Bright			\Factory Acoustic Textures\Textures\Wood_Bright	
 
 Audio Bus	ID	Name			Wwise Object Path	Notes
+	20324216	Mouse_Trap			\Default Work Unit\Master Audio Bus\World\Environment\Hazards\Mouse_Trap	
+	151879501	Swim			\Default Work Unit\Master Audio Bus\World\Player\Swim	
+	587342027	BreakCam			\Default Work Unit\Master Audio Bus\World\Player\BreakCam	
+	838047381	Non-World			\Default Work Unit\Master Audio Bus\Non-World	
+	1069431850	Player			\Default Work Unit\Master Audio Bus\World\Player	
+	1073144984	Player_HUD			\Default Work Unit\Master Audio Bus\Non-World\UI\Player_HUD	
+	1229948536	Environment			\Default Work Unit\Master Audio Bus\World\Environment	
+	1440596779	Weapons_Gunshot			\Default Work Unit\Master Audio Bus\World\Player\Weapons_Gunshot	
+	1551306167	UI			\Default Work Unit\Master Audio Bus\Non-World\UI	
 	1761240301	Sound_Effects			\Default Work Unit\Master Audio Bus\Sound_Effects	
-	1942696649	Effects			\Default Work Unit\Master Audio Bus\Effects	
+	2129636626	Movement			\Default Work Unit\Master Audio Bus\World\Player\Movement	
+	2595877424	Weapons_Foley			\Default Work Unit\Master Audio Bus\World\Player\Weapons_Foley	
+	2607556080	Menu			\Default Work Unit\Master Audio Bus\Non-World\UI\Menu	
+	2609808943	World			\Default Work Unit\Master Audio Bus\World	
+	2678880713	Fire			\Default Work Unit\Master Audio Bus\World\Environment\Hazards\Fire	
+	3677180323	Health			\Default Work Unit\Master Audio Bus\World\Player\Health	
 	3803692087	Master Audio Bus			\Default Work Unit\Master Audio Bus	
-	3991942870	Music			\Default Work Unit\Master Audio Bus\Music	
+	4039062316	Hazards			\Default Work Unit\Master Audio Bus\World\Environment\Hazards	
 
 Auxiliary Bus	ID	Name			Wwise Object Path	Notes
-	1069431850	Player			\Default Work Unit\Master Audio Bus\Sound_Effects\Player	
-	1229948536	Environment			\Default Work Unit\Master Audio Bus\Sound_Effects\Environment	
-	1551306167	UI			\Default Work Unit\Master Audio Bus\Sound_Effects\UI	
-	2242381963	Enemies			\Default Work Unit\Master Audio Bus\Sound_Effects\Enemies	
+	191267372	World_Main_Reverb			\Default Work Unit\Master Audio Bus\Sound_Effects\World_Main_Reverb	
+	1153822417	World_Weapon_Reverb			\Default Work Unit\Master Audio Bus\Sound_Effects\World_Weapon_Reverb	
+
+Effect plug-ins	ID	Name	Type				Notes
+	1031403393	Weapon_Duck_Meter	Wwise Meter			
+	2995775460	Room_Small	Wwise RoomVerb			
+	3653805094	Menu_Ducking_Meter	Wwise Meter			
+	3989698561	Hazard_Duck_Meter	Wwise Meter			
+	4168794106	HUD_Ducking_Meter	Wwise Meter			
 
 Audio Devices	ID	Name	Type				Notes
 	2317455096	No_Output	No Output			

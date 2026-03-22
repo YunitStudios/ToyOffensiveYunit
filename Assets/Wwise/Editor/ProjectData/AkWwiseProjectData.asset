@@ -303,7 +303,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 50a85ccf09b6a245b903d0644e4c1d0c
     GuidInternal: 
-    m_lastTime: -8584275917455098977
+    m_lastTime: -8584274063846577906
     List:
     - name: BreakCam
       guid: ba75f4b938795b42ae8ef3a81b61b0f7
@@ -741,7 +741,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f589af6a9cbf584d8491570d94dd718b
     GuidInternal: 
-    m_lastTime: -8584290455174783437
+    m_lastTime: -8584274128737467396
     List:
     - name: Main
       guid: 81e2f863686cc74eb33ad4b9071621a5
@@ -846,7 +846,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 6d1e79866cc86e4ab59292b408947fd0
       Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Fire_Burning_Player
-      maxAttenuation: 0
+      maxAttenuation: 18
       maxDuration: 7.2901816
       minDuration: 7.2901816
     - name: Audio_Play_Fire_Extinguished
@@ -872,7 +872,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 2235a0ee66fdde45a7aeaf8c00c136b8
       Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Fire_Extinguished
-      maxAttenuation: 0
+      maxAttenuation: 18
       maxDuration: 2.58483
       minDuration: 2.58483
     - name: Audio_Play_Fire_Ignites_Player
@@ -898,7 +898,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 9ccc256e734be343b33d24190221f8b1
       Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Fire_Ignites_Player
-      maxAttenuation: 0
+      maxAttenuation: 18
       maxDuration: 1.5044671
       minDuration: 1.5044671
     - name: Audio_Play_Mouse_Trap_Activation
@@ -924,7 +924,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 83e73811fee18e4f927a590a9b2ad915
       Path: Events\Default Work Unit\Environment\Hazards\Mousetrap\Audio_Play_Mouse_Trap_Activation
-      maxAttenuation: 0
+      maxAttenuation: 18
       maxDuration: 1.089297
       minDuration: 1.089297
     - name: Audio_Play_Mouse_Trap_Reload
@@ -950,7 +950,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 34ea56ed038baa4a9c52f87d3944d2c7
       Path: Events\Default Work Unit\Environment\Hazards\Mousetrap\Audio_Play_Mouse_Trap_Reload
-      maxAttenuation: 0
+      maxAttenuation: 18
       maxDuration: 2.2141306
       minDuration: 2.2141306
     - name: Audio_Play_Player_On_Fire_Screaming
@@ -976,7 +976,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: a35e7a88c543974b8d55e982357ea648
       Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Player_On_Fire_Screaming
-      maxAttenuation: 0
+      maxAttenuation: 18
       maxDuration: 1.6205442
       minDuration: 1.6205442
     - name: Fire
@@ -1059,7 +1059,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit\Player
     guid: b2992e10cc5ecb449a17ca1faac018b2
     GuidInternal: 
-    m_lastTime: -8584275917459054141
+    m_lastTime: -8584274084648084921
     List:
     - name: AmmoPickup
       guid: c8ccfc31f1ea434aae08a235fe9fe4d8
@@ -1130,7 +1130,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: d04a7e057c747944b9b8523db7aa624b
       Path: Events\Default Work Unit\Player\Weapons\AmmoPickup\Audio_Play_Ammo_Pickup
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.5401814
       minDuration: 0.5401814
     - name: Audio_Play_Assault_Rifle_ADS
@@ -1156,7 +1156,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 0cd9ba4e1c3ec245be846fa7cf67592b
       Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_ADS
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.36160997
       minDuration: 0.36160997
     - name: Audio_Play_Assault_Rifle_Equip
@@ -1182,7 +1182,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 206d4ef26ffc9341993d64c9b878d982
       Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Equip
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.43303856
       minDuration: 0.43303856
     - name: Audio_Play_Assault_Rifle_Gunshot
@@ -1208,7 +1208,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: dc3ff1222b253b468bd3e3e3b92c3f27
       Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Gunshot
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 3.2321541
       minDuration: 3.2321541
     - name: Audio_Play_Assault_Rifle_Reload_Empty
@@ -1234,7 +1234,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 5f2352e6ebfb3641a457b21129c6565a
       Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Reload_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 3.004467
       minDuration: 3.004467
     - name: Audio_Play_Assault_Rifle_Reload_Half_Empty
@@ -1260,7 +1260,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: af9ecb623d528e4688588f87ecb92f16
       Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Reload_Half_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 2.05356
       minDuration: 2.05356
     - name: Audio_Play_Break_Cam
@@ -1309,7 +1309,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 47f01fd26a253e4caaa600227f39eb09
       Path: Events\Default Work Unit\Player\Movement\Swimming\Audio_Play_Fall_Into_Water
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 1.5044671
       minDuration: 1.5044671
     - name: Audio_Play_Footsteps
@@ -1335,7 +1335,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: c3da49d9f5a47d40b6b3e7037e557ef0
       Path: Events\Default Work Unit\Player\Movement\Footsteps\Audio_Play_Footsteps
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 0.4419728
       minDuration: 0.3258957
     - name: Audio_Play_Grenade_Explosion
@@ -1361,7 +1361,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: ed97524ccde78d499a1db0cbf984deb7
       Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Explosion
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 3.2991157
       minDuration: 3.2991157
     - name: Audio_Play_Grenade_Land
@@ -1387,7 +1387,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 86c4af83f7bde148be16a5ad3bb6af81
       Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Land
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.43303856
       minDuration: 0.43303856
     - name: Audio_Play_Grenade_Pin
@@ -1413,7 +1413,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 5f7ed0cbdba82c43b787b530002dceea
       Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Pin
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.5401814
       minDuration: 0.5401814
     - name: Audio_Play_Grenade_Throw
@@ -1439,7 +1439,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: de72d747f282964b876005d4952b2326
       Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Throw
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.64732426
       minDuration: 0.64732426
     - name: Audio_Play_Health_Pickup
@@ -1462,9 +1462,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: b42f230523f99b46bb3250a01b8bdb1b
       Path: Events\Default Work Unit\Player\Health\Audio_Play_Health_Pickup
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
+      maxAttenuation: 100
+      maxDuration: 2.0401814
+      minDuration: 2.0401814
     - name: Audio_Play_Jump_Landing
       guid: 41f9901b1ed2194e905f7af613e66ed1
       id: 3287526049
@@ -1488,7 +1488,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 41f9901b1ed2194e905f7af613e66ed1
       Path: Events\Default Work Unit\Player\Movement\Jumping\Audio_Play_Jump_Landing
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 0.52231294
       minDuration: 0.52231294
     - name: Audio_Play_Jump_Up
@@ -1514,7 +1514,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 783c6100d24a924299b28ea4d31657d4
       Path: Events\Default Work Unit\Player\Movement\Jumping\Audio_Play_Jump_Up
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 0.5401814
       minDuration: 0.5401814
     - name: Audio_Play_Low_Health
@@ -1586,7 +1586,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: fd11292dc283d54482c122256568911d
       Path: Events\Default Work Unit\Player\Movement\Parachute\Audio_Play_Parachute_Cut
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 1.5044671
       minDuration: 1.5044671
     - name: Audio_Play_Parachute_Deploy
@@ -1612,9 +1612,9 @@ MonoBehaviour:
         ObjectType: 3
         guid: 23c09f396f1343468d0ba96de7898d1f
       Path: Events\Default Work Unit\Player\Movement\Parachute\Audio_Play_Parachute_Deploy
-      maxAttenuation: 0
-      maxDuration: 11.89412
-      minDuration: 11.89412
+      maxAttenuation: 20
+      maxDuration: 0.73339266
+      minDuration: 0.73339266
     - name: Audio_Play_Pistol_ADS
       guid: cf8465ec25a4ee459ab9b04f3c0d320b
       id: 4022401871
@@ -1638,7 +1638,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: cf8465ec25a4ee459ab9b04f3c0d320b
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_ADS
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.23215419
       minDuration: 0.23215419
     - name: Audio_Play_Pistol_Equip
@@ -1664,7 +1664,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 0353fc7995edde45a2657f062e9e1320
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Equip
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.4419728
       minDuration: 0.4419728
     - name: Audio_Play_Pistol_Gunshot
@@ -1690,7 +1690,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: f3d8bc1c533e594aa1c46e2dc673024f
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Gunshot
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 2.3705442
       minDuration: 2.3705442
     - name: Audio_Play_Pistol_Reload_Empty
@@ -1716,7 +1716,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 70dd619132964143b58b492679249fb9
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Reload_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 2.7901814
       minDuration: 2.7901814
     - name: Audio_Play_Pistol_Reload_Half_Empty
@@ -1742,7 +1742,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: ebd496e9f06cde43a222a6c4861db09a
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Reload_Half_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 2.1607256
       minDuration: 2.1607256
     - name: Audio_Play_Shotgun_ADS
@@ -1768,7 +1768,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 6fd67fb6d920724f8e9fce8fdf4a6269
       Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_ADS
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.4419728
       minDuration: 0.4419728
     - name: Audio_Play_Shotgun_Empty_Click
@@ -1794,7 +1794,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 3313a2ef1c12594bbc40d98030330a02
       Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Empty_Click
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.43303856
       minDuration: 0.43303856
     - name: Audio_Play_Shotgun_Equip
@@ -1820,7 +1820,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: f74666e50fa5f54f9ad1760c46a1d3fe
       Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Equip
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 1.0758957
       minDuration: 1.0758957
     - name: Audio_Play_Shotgun_Gunshot
@@ -1846,7 +1846,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 3cc103579993dd48922e387c9f8044a2
       Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Gunshot
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 2.63839
       minDuration: 2.63839
     - name: Audio_Play_Shotgun_Rechamber
@@ -1872,7 +1872,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: a7e1c61cd3929d4ab8b8f5b21478fa94
       Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Rechamber
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.7561205
       minDuration: 0.7561205
     - name: Audio_Play_Shotgun_Reload
@@ -1898,7 +1898,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 0aac4115fb950c459614ced248154d23
       Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Reload
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.43303856
       minDuration: 0.43303856
     - name: Audio_Play_Slide
@@ -1924,7 +1924,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 4ff35692e113cc4db2a0aa53e1159b56
       Path: Events\Default Work Unit\Player\Movement\Sliding\Audio_Play_Slide
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 1.6160771
       minDuration: 1.6116099
     - name: Audio_Play_Sniper_Rifle_ADS
@@ -1950,7 +1950,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 7539b44d5b55504697063ba26ffe7a23
       Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_ADS
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.5535601
       minDuration: 0.5535601
     - name: Audio_Play_Sniper_Rifle_Equip
@@ -1976,7 +1976,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 3b79b45e3881054abb99ccc21296910e
       Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Equip
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.7544671
       minDuration: 0.7544671
     - name: Audio_Play_Sniper_Rifle_Gunshot
@@ -2002,7 +2002,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: cf08b356ac675f46af485915f116b709
       Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Gunshot
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 3.0580273
       minDuration: 3.0580273
     - name: Audio_Play_Sniper_Rifle_Reload_Empty
@@ -2028,7 +2028,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: fc6452e0161d1144938724cc055bb868
       Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Reload_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 3.11161
       minDuration: 3.11161
     - name: Audio_Play_Sniper_Rifle_Reload_Half_Empty
@@ -2054,7 +2054,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: d14ed6839e0e284fb2993ec35d125e65
       Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Reload_Half_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 1.8258957
       minDuration: 1.8258957
     - name: Audio_Play_Stepping_Out_Water
@@ -2080,7 +2080,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 12971dfe765e63459e0e2c07b166f73c
       Path: Events\Default Work Unit\Player\Movement\Swimming\Audio_Play_Stepping_Out_Water
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 1.7187529
       minDuration: 1.7187529
     - name: Audio_Play_SubMachineGun_ADS
@@ -2106,7 +2106,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 082fedc113649f4f814a19008040b19d
       Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_ADS
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.21875283
       minDuration: 0.21875283
     - name: Audio_Play_SubMachineGun_Equip
@@ -2132,7 +2132,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 075d61e5511dd74b91ed00e3c6226aca
       Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Equip
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 0.5535601
       minDuration: 0.5535601
     - name: Audio_Play_SubMachineGun_Gunshot
@@ -2158,7 +2158,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 883f219471609a4cb9c0e238ec2e9d60
       Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Gunshot
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 1.4062585
       minDuration: 1.4062585
     - name: Audio_Play_SubMachineGun_Reload_Empty
@@ -2184,7 +2184,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 36c4a38eca3b4842a1622bba7534ed5f
       Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Reload_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 3.5401814
       minDuration: 3.5401814
     - name: Audio_Play_SubMachineGun_Reload_Half_Empty
@@ -2210,7 +2210,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: dd91a2d012051546867118429dfb76d9
       Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Reload_Half_Empty
-      maxAttenuation: 0
+      maxAttenuation: 100
       maxDuration: 2.6964173
       minDuration: 2.6964173
     - name: Audio_Play_Swim_Stroke
@@ -2236,7 +2236,7 @@ MonoBehaviour:
         ObjectType: 3
         guid: 90af8d2cb06e3940a7ad0d326d8643b2
       Path: Events\Default Work Unit\Player\Movement\Swimming\Audio_Play_Swim_Stroke
-      maxAttenuation: 0
+      maxAttenuation: 20
       maxDuration: 3.0178685
       minDuration: 1.3035828
     - name: BreakCam
@@ -2655,8 +2655,8 @@ MonoBehaviour:
         guid: 8e5b768176604f44b9c23fcfd2ee3023
       Path: Events\Default Work Unit\UI\Player_HUD\Audio_Play_Hitmarker
       maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
+      maxDuration: 0.30388406
+      minDuration: 0.30388406
     - name: Audio_Play_Kill_With_Score_Badge
       guid: a6a8e439a6ab094a8e0257798464863a
       id: 4274192131
@@ -2954,9 +2954,9 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584306524301550025
     List: []
-  ExpandedFileSystemItemIds: 020000000300000004000000090000000a000000
-  ExpandedWaapiItemIds: 06000000070000000b000000
+  ExpandedFileSystemItemIds: 01000000020000000300000004000000090000000a000000100000001100000012000000130000001c000000210000002800000030000000360000003f000000460000006100000062000000
+  ExpandedWaapiItemIds: 01000000020000000300000004000000090000000a000000100000001100000012000000130000001c000000210000002800000030000000360000003f000000460000006100000062000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
-  currentDataSource: 1
+  currentDataSource: 0
   CurrentPluginConfig: 
