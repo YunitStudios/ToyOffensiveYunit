@@ -4,6 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using PrimeTween;
+using SoundSystem;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -24,6 +25,7 @@ public class WeaponsSystem : MonoBehaviour
     [SerializeField] private LayerMask enemyLayerMask;
     [Tooltip("The point that the gun actually shoots from, will be obtained dynamically in the future")]
     [SerializeField] private Transform firePoint;
+    [SerializeField] private WwisePlayer wwisePlayer;
     
     private PlayerDataSO PlayerData => GameManager.PlayerData;
     private Weapon currentWeapon => PlayerData.CurrentWeapon;
@@ -69,6 +71,7 @@ public class WeaponsSystem : MonoBehaviour
         
         crosshair = FindObjectOfType<Crosshair>();
         reloadPromptUI =  FindObjectOfType<ReloadPromptUI>();
+        wwisePlayer = GetComponent<WwisePlayer>();
 
         yield return null;
         
@@ -248,6 +251,9 @@ public class WeaponsSystem : MonoBehaviour
         
         currentWeapon.Fire();
         
+        if(wwisePlayer is not null)
+            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Gunshot);
+        
         onWeaponFired?.Invoke();
     }
 
@@ -262,6 +268,9 @@ public class WeaponsSystem : MonoBehaviour
                 currentWeapon.WeaponSpread.IsAiming = aiming;
                 PlayerData.ToggleAiming(aiming);
                 playerMovement.PlayerAnimator.SetBool(IsAiming, true);
+                
+                if(wwisePlayer is not null)
+                    wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.ADS);
 
             }
         }
@@ -283,7 +292,9 @@ public class WeaponsSystem : MonoBehaviour
             else
                 playerCameraSystem.ResetCamera();
         }
-
+        
+        if(wwisePlayer is not null)
+            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.ADS);
     }
 
     private void Reload()
@@ -291,9 +302,15 @@ public class WeaponsSystem : MonoBehaviour
         if (weaponFrozen)
             return;
         
+        if(IsReloading)
+            return;
+        
         // Dont reload if mag full
         if (currentWeapon.CurrentAmmoInMag >= currentWeapon.WeaponData.MagSize)
             return;
+        
+        if(wwisePlayer is not null)
+            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Reload_Empty);
         
         if (ReloadProgress >= 1)
         {

@@ -1,4 +1,6 @@
+using SoundSystem;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class MouseTrap : MonoBehaviour
 {
@@ -19,7 +21,12 @@ public class MouseTrap : MonoBehaviour
     private bool activated = false;
     private float progress;
     private float activationTime = 0.15f;
-
+    
+    [Header("Sound elements")]
+    [SerializeField] private WwisePlayer audioPlayer;
+    [SerializeField] private SoundDataSO mouseTrapActivateSound;
+    [SerializeField] private SoundDataSO mouseTrapReloadSound;
+    
     void Start()
     {
         animator.Play(Activate,0,0);
@@ -46,6 +53,7 @@ public class MouseTrap : MonoBehaviour
     {
         progress = 0f;
         activated = true;
+        audioPlayer.PlaySound(mouseTrapActivateSound);
     }
 
     public void StartRecharging()
@@ -57,6 +65,7 @@ public class MouseTrap : MonoBehaviour
         
         rechargeTimer = timeToRecharge;
         isRecharging = true;
+        audioPlayer.PlaySound(mouseTrapReloadSound);
     }
 
     private void Update()

@@ -95,6 +95,8 @@ GameObject:
   - component: {fileID: 1761445734072530711}
   - component: {fileID: 8012070958160733388}
   - component: {fileID: 8153258955286544360}
+  - component: {fileID: 215972027984037749}
+  - component: {fileID: 3647999751916863244}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -146,6 +148,7 @@ MonoBehaviour:
   shootPeriodRange: {x: 1, y: 3}
   currentShootCooldown: 0
   currentShootPeriod: 0
+  wwisePlayer: {fileID: 3647999751916863244}
 --- !u!114 &8153258955286544360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -974,6 +977,12 @@ PrefabInstance:
       insertIndex: 0
       addedObject: {fileID: 5696021800842753317}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8647459244666492555, guid: 67c765228505be4418c2e9afb92be622, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 9165078724546308168}
+    - targetCorrespondingSourceObject: {fileID: 8647459244666492555, guid: 67c765228505be4418c2e9afb92be622, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2810433372698981941}
     - targetCorrespondingSourceObject: {fileID: 5367527492579780293, guid: 67c765228505be4418c2e9afb92be622, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5711443195897617722}
@@ -1020,6 +1029,47 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6156950474905947553, guid: 67c765228505be4418c2e9afb92be622, type: 3}
   m_PrefabInstance: {fileID: 598659301159495901}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &8092738919337819734 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8647459244666492555, guid: 67c765228505be4418c2e9afb92be622, type: 3}
+  m_PrefabInstance: {fileID: 598659301159495901}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &9165078724546308168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092738919337819734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!114 &2810433372698981941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8092738919337819734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b1fb4ae87e1845a91f263eec0b3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AK.Wwise.Unity.MonoBehaviour::AkGameObj
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!4 &8864490922288325868 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8307490883045149745, guid: 67c765228505be4418c2e9afb92be622, type: 3}

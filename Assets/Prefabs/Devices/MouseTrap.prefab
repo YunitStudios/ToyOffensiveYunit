@@ -161,6 +161,9 @@ MonoBehaviour:
   animator: {fileID: 12637677710254820}
   canRecharge: 1
   timeToRecharge: 5
+  audioPlayer: {fileID: 5765051824854835680}
+  mouseTrapActivateSound: {fileID: 11400000, guid: 93894697148b13d43b74147adc212b71, type: 2}
+  mouseTrapReloadSound: {fileID: 11400000, guid: c034ea671d353ad4a9877b2fcd58655c, type: 2}
 --- !u!1 &8079578792835240613
 GameObject:
   m_ObjectHideFlags: 0
@@ -283,6 +286,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8211560165045260031}
   - component: {fileID: 12637677710254820}
+  - component: {fileID: 5765051824854835680}
+  - component: {fileID: 3533748768262949349}
   m_Layer: 6
   m_Name: MouseTrap
   m_TagString: Untagged
@@ -330,3 +335,39 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5765051824854835680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8170185453384761955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!114 &3533748768262949349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8170185453384761955}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b1fb4ae87e1845a91f263eec0b3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AK.Wwise.Unity.MonoBehaviour::AkGameObj
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1

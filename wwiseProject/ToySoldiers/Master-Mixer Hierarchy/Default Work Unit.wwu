@@ -106,9 +106,11 @@
 										<Property Name="Color" Type="int16" Value="11"/>
 										<Property Name="OverrideColor" Type="bool" Value="True"/>
 									</PropertyList>
-									<ReferenceList/>
 									<ChildrenList>
 										<Bus Name="Movement" ID="{E30C9E64-F3FB-4633-91F2-960EEC514728}">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="UserAuxSend0">
 													<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
