@@ -16,7 +16,7 @@ public class AssistState : AIState
         healingCompleted = false;
         this.target = target;
         target.isBeingAssisted = true;
-        assistCover = CoverPointManager.instance.GetNearestCoverPoint(target.transform.position, controller.vision.player);
+        assistCover = CoverPointManager.instance.GetNearestCoverPoint(target.transform.position, controller.vision.player, controller);
         target.ChangeState(new MoveToAssistCoverState(target, target.agent, assistCover));
         
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();

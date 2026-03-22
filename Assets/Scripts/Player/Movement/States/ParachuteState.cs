@@ -92,7 +92,10 @@ public class ParachuteState : MovementState
     public ParachutingSettings Settings => stateMachine.ParachutingSettings;
     public override bool UseMouseRotatePlayer => false;
     public override bool UseMouseRotateVisuals => stateMachine.PlayerData.IsAiming;
+
+    public override bool RotatePlayerVertically => true;
     public override bool ControlRotation => isParachuting;
+    public override bool ShouldDisplayGun => GameManager.PlayerData.IsAiming;
 
     private bool wasDiving;
     private float currentTurnValue = 0.0f;
@@ -188,7 +191,7 @@ public class ParachuteState : MovementState
 
     private void Parachuting()
     {
-        if (!isParachuting)
+        if (!isParachuting || Time.timeScale == 0f)
             return;
         
         Vector2 input = stateMachine.InputController.FrameMove;
@@ -197,7 +200,7 @@ public class ParachuteState : MovementState
         float targetTurnValue = input.x * Settings.ParachuteTurnMaxSpeed;
         currentTurnValue = Mathf.MoveTowards(currentTurnValue, targetTurnValue, Settings.ParachuteTurnAcceleration * Time.deltaTime);
         float finalTurnAngle = stateMachine.RotationEuler.y + currentTurnValue;
-
+        
         
         
         // Dive

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{C9D666BD-3A08-4088-B90F-27D8CE101F80}" SchemaVersion="123" RootDocumentID="{984CFF7C-BD2E-4782-BFEB-B11D6A2952BB}" ParentDocumentID="{984CFF7C-BD2E-4782-BFEB-B11D6A2952BB}">
+	<Events>
+		<WorkUnit Name="UI" ID="{C9D666BD-3A08-4088-B90F-27D8CE101F80}" OwnerID="{984CFF7C-BD2E-4782-BFEB-B11D6A2952BB}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="19"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Folder Name="Menu" ID="{E28B884E-82AE-4011-9EAB-DD6C722D2F82}" ShortID="530086458">
+					<ChildrenList>
+						<Event Name="Audio_Play_Round_Complete" ID="{6249DB48-C57A-4ABA-89CB-4B6FA5CD8BCD}">
+							<ChildrenList>
+								<Action Name="" ID="{F911E6F2-446B-44E1-A996-5A635CDC1240}" ShortID="139755656">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Round_Complete" ID="{180C9800-9258-4D46-8039-4DA2C7D36DA1}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Game_Over" ID="{866696FA-619A-4D9B-A8F2-FFC2992A8F39}">
+							<ChildrenList>
+								<Action Name="" ID="{7DF6BBE3-C34B-4BE6-9634-E789BE12257F}" ShortID="675482752">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Game_Over" ID="{B0BC8BF6-2D44-4531-A8B4-D8309A8250A8}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Objective_Complete" ID="{165AAF24-1F0E-466F-8084-5CB95387EC70}">
+							<ChildrenList>
+								<Action Name="" ID="{D73A1CE3-275B-40A2-94EE-586381C745FA}" ShortID="256256901">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Objective_Complete" ID="{1DB95B93-DECD-489B-AED4-19403E915418}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Button_Click" ID="{36F48F97-1219-4E84-A8E1-CF07C481D85D}">
+							<ChildrenList>
+								<Action Name="" ID="{47327D36-A104-4D19-89BD-17EAE3B706D4}" ShortID="797475611">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Button_Click" ID="{C037861B-5465-4C7C-A6E3-0285CB923624}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Objective_Fail" ID="{004E978E-48B1-4D11-B9EE-EFE0E240BEC2}">
+							<ChildrenList>
+								<Action Name="" ID="{B25A1DD1-8EEE-4728-BE67-05CAD9AD6676}" ShortID="760463918">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Objective_Fail" ID="{754BE627-E949-4C6B-B876-F97E86E8AE81}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Player_HUD" ID="{A4A1964C-7A66-4914-8D6E-AAD5DB3032FA}" ShortID="447282225">
+					<ChildrenList>
+						<Event Name="Audio_Play_HeadShot_Badge" ID="{464E3D0E-EEC2-4F40-A530-11E0C67118B0}">
+							<ChildrenList>
+								<Action Name="" ID="{5DAA03A8-8719-4A8E-AD32-91935B64F058}" ShortID="394958055">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="HeadShot_Badge" ID="{E4495B1D-ED76-4320-8A36-0168A0328901}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Kill_With_Score_Badge" ID="{39E4A8A6-ABA6-4A09-8E02-57798464863A}">
+							<ChildrenList>
+								<Action Name="" ID="{53620019-79CF-4BF8-B99C-EC850DB9ADAB}" ShortID="880279118">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Kill_With_Score_Badge" ID="{365C1260-4695-4680-A4A7-92E25EADC39B}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Hitmarker" ID="{81765B8E-6076-444F-B9C2-3FCFD2EE3023}">
+							<ChildrenList>
+								<Action Name="" ID="{EEEE575F-E574-4C22-998E-C9E60108C057}" ShortID="440951566">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Hitmarker" ID="{C8B6C39C-E4ED-48FA-9812-3D2C55492DAC}" WorkUnitID="{3CDD41A1-DFBA-48FC-B573-1B8C86DBFCBF}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

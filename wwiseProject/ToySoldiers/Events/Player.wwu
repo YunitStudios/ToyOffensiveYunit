@@ -1,0 +1,557 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{102E99B2-5ECC-44CB-9A17-CA1FAAC018B2}" SchemaVersion="123" RootDocumentID="{984CFF7C-BD2E-4782-BFEB-B11D6A2952BB}" ParentDocumentID="{984CFF7C-BD2E-4782-BFEB-B11D6A2952BB}">
+	<Events>
+		<WorkUnit Name="Player" ID="{102E99B2-5ECC-44CB-9A17-CA1FAAC018B2}" OwnerID="{984CFF7C-BD2E-4782-BFEB-B11D6A2952BB}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="11"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<Folder Name="Movement" ID="{F54FF2DE-6C59-4CF5-AFF9-792F6736C60D}" ShortID="279374751">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="13"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Folder Name="Footsteps" ID="{F9F2BCEF-12AA-4D5E-8F40-306DFDECD2A6}" ShortID="430828668">
+							<ChildrenList>
+								<Event Name="Audio_Play_Footsteps" ID="{D949DAC3-A4F5-407D-B6B3-E7037E557EF0}">
+									<ChildrenList>
+										<Action Name="" ID="{8B5F88AD-70C2-49E5-B557-FC152B835AD5}" ShortID="86802406">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Footstep_Ground_Material" ID="{2EDA7C45-FE52-4C0E-9795-41CF3E6755EC}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{8EBDBA04-2AF5-441D-B282-34752A3B5282}" ShortID="573567984">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Boot_Impact_Random_Container" ID="{D682EDF1-32B4-43EE-A9A6-4E74148F301B}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Parachute" ID="{6061C0FC-4E47-43A8-AB93-FE55AC356A65}" ShortID="744343472">
+							<ChildrenList>
+								<Event Name="Audio_Play_Parachute_Cut" ID="{2D2911FD-83C2-44D5-82C1-22256568911D}">
+									<ChildrenList>
+										<Action Name="" ID="{92246E23-8C8E-4B81-ADD2-8007744D5545}" ShortID="139158799">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Parachute_Cut" ID="{DD7D4CC0-D094-41FC-9512-8854AAF051B2}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Parachute_Deploy" ID="{399FC023-136F-4643-8D0B-A96DE7898D1F}">
+									<ChildrenList>
+										<Action Name="" ID="{CE393532-B272-486C-9536-BB535F6C069D}" ShortID="873063259">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Parachute_Deploy" ID="{B4017230-A93F-4447-9AB4-08BF0369317F}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Sliding" ID="{B2F2A2C4-3BE8-4CB7-AB7F-68D32EE3651B}" ShortID="255078149">
+							<ChildrenList>
+								<Event Name="Audio_Play_Slide" ID="{9256F34F-13E1-4DCC-B2A0-AA53E1159B56}">
+									<ChildrenList>
+										<Action Name="" ID="{FD5E1DC8-C752-4505-8D4E-5382F1BE5569}" ShortID="522637667">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Slide_Ground_Material" ID="{87408DE5-A216-41D2-8667-729AD5268295}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+										<Action Name="" ID="{A5A126D2-EE78-4FDF-9FF8-E2DFAFEA42F2}" ShortID="260221027">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Sliding_Foley" ID="{5BAC9066-5CF8-4652-91EF-58877E3DA61F}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Swimming" ID="{036188D4-3CE7-4DD8-ADDE-349E8390F012}" ShortID="180296579">
+							<ChildrenList>
+								<Event Name="Audio_Play_Stepping_Out_Water" ID="{FE1D9712-5E76-4563-9E0E-2C07B166F73C}">
+									<ChildrenList>
+										<Action Name="" ID="{2AABA3D3-3FD3-45E1-A47F-3AD9744E5D6D}" ShortID="643811482">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Stepping_Out_Water" ID="{CD3F84C1-C706-4143-92FC-2C5D04057039}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Fall_Into_Water" ID="{D21FF047-256A-4C3E-AAA6-00227F39EB09}">
+									<ChildrenList>
+										<Action Name="" ID="{B56C65A8-EA1E-46B9-9613-479925479808}" ShortID="102851726">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Fall_Into_Water" ID="{A67E1B2F-118B-4381-AFD0-479C73BBE729}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Swim_Stroke" ID="{2C8DAF90-6EB0-4039-A7AD-0D326D8643B2}">
+									<ChildrenList>
+										<Action Name="" ID="{02CC3968-0888-4FAE-9C97-0DB809763403}" ShortID="7418825">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SwimStroke" ID="{E7CF4D60-7D67-47FE-B8E8-877C07E49DAA}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Jumping" ID="{72E4FD1A-95F2-496C-942F-0582A0B342AC}" ShortID="687221725">
+							<ChildrenList>
+								<Event Name="Audio_Play_Jump_Landing" ID="{1B90F941-D21E-4E19-905F-7AF613E66ED1}">
+									<ChildrenList>
+										<Action Name="" ID="{CF0F6549-FBC6-467D-9E29-FA0CAD633AEA}" ShortID="824459145">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Jump_Landing_Foley" ID="{370BC480-DC81-42AA-9417-C2A4778F76C7}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Jump_Up" ID="{00613C78-4AD2-4292-99B2-8EA4D31657D4}">
+									<ChildrenList>
+										<Action Name="" ID="{2F42A8F7-7817-4559-985D-DF126D0BC7BE}" ShortID="429815290">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Jump_Up" ID="{0C49D64D-A239-480B-88EA-22BE398D88B9}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Weapons" ID="{B5B51B92-7420-4641-9415-C7E3DDCE4415}" ShortID="261504907">
+					<ChildrenList>
+						<Folder Name="Assault_Rifle" ID="{3D268351-585D-44AF-87AC-ACB2FE7C181E}" ShortID="362837840">
+							<ChildrenList>
+								<Event Name="Audio_Play_Assault_Rifle_Gunshot" ID="{22F13FDC-252B-463B-8BD3-E3E3B92C3F27}">
+									<ChildrenList>
+										<Action Name="" ID="{B01BF96A-845D-437C-9514-1E1247959D00}" ShortID="1021497202">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Assault_Rifle_Gunshot" ID="{0BCF7B48-7359-4C92-9958-57A7C2E28AE8}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Assault_Rifle_ADS" ID="{4EBAD90C-3E1C-45C2-BE84-6FA7CF67592B}">
+									<ChildrenList>
+										<Action Name="" ID="{22F4A23B-DF85-43B6-A0C5-680EC7E8C440}" ShortID="919044654">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Assault_Rifle_ADS" ID="{C1F6A194-01B6-410D-986D-63D30B1919B1}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Assault_Rifle_Reload_Half_Empty" ID="{62CB9EAF-523D-468E-8858-8F87ECB92F16}">
+									<ChildrenList>
+										<Action Name="" ID="{231F18C4-68FB-4C89-BDB9-454CF2005A9A}" ShortID="707190897">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Assault_Rifle _Reload_Half_Empty" ID="{7EB1EB1D-F6C3-434B-9F4A-44BCDD2F6881}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Assault_Rifle_Reload_Empty" ID="{E652235F-FBEB-4136-A457-B21129C6565A}">
+									<ChildrenList>
+										<Action Name="" ID="{C811EA4C-8F23-44D3-9A1A-24BDADA1A62D}" ShortID="92624371">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Assault_Rifle_Reload_Empty" ID="{0EAD3A6F-D783-44FA-BF22-350C4C08E39D}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Assault_Rifle_Equip" ID="{F24E6D20-FC6F-4193-993D-64C9B878D982}">
+									<ChildrenList>
+										<Action Name="" ID="{976A2F47-73BB-48A8-B1E6-8380C761E31F}" ShortID="925931944">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Assault_Rifle_Equip" ID="{4FC635EC-5E21-4FE1-A75A-99D63C52A8BB}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Sub_Machine_Gun" ID="{60E94C72-5B9A-48F1-8477-44B5F07CCA44}" ShortID="534017845">
+							<ChildrenList>
+								<Event Name="Audio_Play_SubMachineGun_ADS" ID="{C1ED2F08-6413-4F9F-814A-19008040B19D}">
+									<ChildrenList>
+										<Action Name="" ID="{CE628613-8D2B-41E4-825D-C0A4A9EA4142}" ShortID="639644425">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SubMachineGun_ADS" ID="{E060F554-C76E-4EB1-804D-6E7B5031659B}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_SubMachineGun_Gunshot" ID="{94213F88-6071-4C9A-B9C0-E238EC2E9D60}">
+									<ChildrenList>
+										<Action Name="" ID="{F67294B5-BA0F-4F6D-9DB1-32813727179D}" ShortID="7749841">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SubMachineGun_Gunshot" ID="{8CE2155D-052B-4A76-B20C-57A8BB544AFE}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_SubMachineGun_Reload_Empty" ID="{8EA3C436-3BCA-4248-A162-2BBA7534ED5F}">
+									<ChildrenList>
+										<Action Name="" ID="{76083B92-073C-4D10-A401-2695E54AB08E}" ShortID="273235582">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SubMachineGun_Reload_Empty" ID="{8DE22637-17E2-49D5-8076-B974DA44B465}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_SubMachineGun_Reload_Half_Empty" ID="{D0A291DD-0512-4615-8671-18429DFB76D9}">
+									<ChildrenList>
+										<Action Name="" ID="{6E26C406-9C89-4545-A54F-BCEB4CAF2194}" ShortID="92218267">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SubMachineGun_Reload_Half_Empty" ID="{D1831CCC-1597-4060-BBEE-655B75C9CC07}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_SubMachineGun_Equip" ID="{E5615D07-1D51-4BD7-91ED-00E3C6226ACA}">
+									<ChildrenList>
+										<Action Name="" ID="{E5F8970A-1ECE-4455-8672-43E102F863F4}" ShortID="744556878">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="SubMachineGun_Equip" ID="{FB26310E-BBC7-4FF1-A1EF-2A58BC0FBDAD}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Grenade" ID="{2451C3C1-1EF2-487C-8E9E-FB37DE89F4D4}" ShortID="622454768">
+							<ChildrenList>
+								<Event Name="Audio_Play_Grenade_Throw" ID="{47D772DE-82F2-4B96-8760-05D4952B2326}">
+									<ChildrenList>
+										<Action Name="" ID="{D4CAFBEF-7854-410E-A02D-A72D3F8A9DF6}" ShortID="1013411701">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Grenade_Throw" ID="{E24D4297-5E26-4835-BA98-C46561138E0F}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Grenade_Land" ID="{83AFC486-BDF7-48E1-BE16-A5AD3BB6AF81}">
+									<ChildrenList>
+										<Action Name="" ID="{7CE2A13D-E7BD-4932-A96C-1806F2B00013}" ShortID="448387209">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Grenade_Land" ID="{E06AE2FB-892A-41CA-9046-10722AC92127}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Grenade_Pin" ID="{CBD07E5F-A8DB-432C-B787-B530002DCEEA}">
+									<ChildrenList>
+										<Action Name="" ID="{AC9ACFE4-1177-4858-9073-CBF289C054A8}" ShortID="757096458">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Grenade_Pin" ID="{EBFFBD2C-95C4-4F59-AC82-CB559E0F40E5}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Grenade_Explosion" ID="{4C5297ED-E7CD-498D-9A1D-B0CBF984DEB7}">
+									<ChildrenList>
+										<Action Name="" ID="{B65D4F97-1713-4E06-9541-4510FDB97AAB}" ShortID="980305167">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Grenade_Explosion" ID="{2D5ACBCE-7553-451E-A051-FFA38563D527}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Shotgun" ID="{E3CC98E0-465D-40ED-B525-EA9CD49E399D}" ShortID="932149184">
+							<ChildrenList>
+								<Event Name="Audio_Play_Shotgun_Gunshot" ID="{5703C13C-9399-48DD-922E-387C9F8044A2}">
+									<ChildrenList>
+										<Action Name="" ID="{89D84E99-1E68-4978-81A5-F2BDF4E737CD}" ShortID="897046697">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Shotgun_Gunshot" ID="{976C4929-61E2-4BB0-8E7A-5CAA27ECBA36}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Shotgun_Empty_Click" ID="{EFA21333-121C-4B59-BC40-D98030330A02}">
+									<ChildrenList>
+										<Action Name="" ID="{4A590DB7-3477-402D-880C-9387086BCC27}" ShortID="927210894">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Shotgun Empty Click" ID="{E8CC547B-7862-4A32-85D9-C9CB34A5433F}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Shotgun_ADS" ID="{B67FD66F-20D9-4F72-8E9F-CE8FDF4A6269}">
+									<ChildrenList>
+										<Action Name="" ID="{7ED8FC78-5EA3-41B6-BAFA-BA2F121C2499}" ShortID="862382293">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Shotgun_ADS" ID="{AA7340BE-36DE-4263-9A18-B75E9737A54C}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Shotgun_Equip" ID="{E56646F7-A50F-4FF5-9AD1-760C46A1D3FE}">
+									<ChildrenList>
+										<Action Name="" ID="{E7F1A86B-3F5D-4071-87F2-51DB69708142}" ShortID="997012827">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Shotgun_Equip" ID="{252A13C9-7381-4D5B-93AC-BCA747618ECC}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Shotgun_Rechamber" ID="{1CC6E1A7-92D3-4A9D-B8B8-F5B21478FA94}">
+									<ChildrenList>
+										<Action Name="" ID="{D82C343E-C8D4-4734-AA4B-53656588C917}" ShortID="515414294">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Shotgun_Rechamber" ID="{97A7D24A-0A3D-465E-A954-78F328DBFFA6}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Shotgun_Reload" ID="{1541AC0A-95FB-450C-9614-CED248154D23}">
+									<ChildrenList>
+										<Action Name="" ID="{30F6B730-31E6-497F-BF44-F9F5B21B0D41}" ShortID="43331496">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Shotgun_Reload" ID="{F324A18C-078D-445D-8785-DB1999185736}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Pistol" ID="{7260A4D6-0FE7-4839-92B4-E0D4477C998F}" ShortID="376441650">
+							<ChildrenList>
+								<Event Name="Audio_Play_Pistol_Equip" ID="{79FC5303-ED95-45DE-A265-7F062E9E1320}">
+									<ChildrenList>
+										<Action Name="" ID="{1AD25ABA-AF5E-4C68-8B41-E4406644B872}" ShortID="758721305">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Pistol_Equip" ID="{82CF1486-63BE-4403-B6AF-C3B2C662EF25}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Pistol_Gunshot" ID="{1CBCD8F3-3E53-4A59-A1C4-6E2DC673024F}">
+									<ChildrenList>
+										<Action Name="" ID="{45FBB2D0-F718-4713-BF88-22854B53718F}" ShortID="512786265">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Pistol_Gunshot" ID="{1D3B8248-701E-4543-B4CE-B6F97081078B}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Pistol_Reload_Empty" ID="{9161DD70-9632-4341-B58B-492679249FB9}">
+									<ChildrenList>
+										<Action Name="" ID="{650C5C20-7694-4B7E-B803-1872983B9E4C}" ShortID="937748512">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Pistol_Reload Empty" ID="{BAEF2D1F-21BD-4E58-848C-F63F2139E792}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Pistol_Reload_Half_Empty" ID="{E996D4EB-6CF0-43DE-A222-A6C4861DB09A}">
+									<ChildrenList>
+										<Action Name="" ID="{72142CD9-DF20-4DBC-8A5F-0CB6AEB94415}" ShortID="533959841">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Pistol_Reload_Half_Empty" ID="{0EE4ACF8-92F5-41DC-B257-C5C0ADDC9109}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Pistol_ADS" ID="{EC6584CF-A425-45EE-9AB9-B04F3C0D320B}">
+									<ChildrenList>
+										<Action Name="" ID="{062F5006-4EAD-4903-B932-A79AAF6663B7}" ShortID="292133860">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Pistol_ADS" ID="{A7FE0E20-876D-45ED-B508-EA26D65C75D9}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="Sniper" ID="{F70FA924-3D45-4AE3-AE9C-43DAD7068B06}" ShortID="584970468">
+							<ChildrenList>
+								<Event Name="Audio_Play_Sniper_Rifle_Reload_Empty" ID="{E05264FC-1D16-4411-9387-24CC055BB868}">
+									<ChildrenList>
+										<Action Name="" ID="{B2740B5B-5FF0-430C-B800-B72D7E0526EC}" ShortID="311195958">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Sniper_Rifle_Reload_Empty" ID="{14CD4CDE-DA4C-4696-9B2D-726CC8C58522}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Sniper_Rifle_Reload_Half_Empty" ID="{83D64ED1-0E9E-4F28-B299-3EC35D125E65}">
+									<ChildrenList>
+										<Action Name="" ID="{29EE7D44-F0E4-4087-9A88-861EF57B58D1}" ShortID="880053069">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Sniper_Rifle_Reload_Half_Empty" ID="{0CA2A73B-6627-416B-B482-73D9A6C4F3CF}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Sniper_Rifle_ADS" ID="{4DB43975-555B-4650-9706-3BA26FFE7A23}">
+									<ChildrenList>
+										<Action Name="" ID="{217A1772-6F35-4E02-AD94-CAB2D8624355}" ShortID="256648694">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Sniper_Rifle_ADS" ID="{F0B4536F-2450-4ECC-9DCF-BC9A1EE4AA3F}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Sniper_Rifle_Equip" ID="{5EB4793B-8138-4A05-BB99-CCC21296910E}">
+									<ChildrenList>
+										<Action Name="" ID="{BC0CEFCC-3033-4BA6-9046-B261531952CD}" ShortID="262188340">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Sniper_Rifle_Equip" ID="{5B0CFECF-2F99-4928-85F2-E1CF146B966C}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+								<Event Name="Audio_Play_Sniper_Rifle_Gunshot" ID="{56B308CF-67AC-465F-AF48-5915F116B709}">
+									<ChildrenList>
+										<Action Name="" ID="{5FB8A285-6D34-4AD6-AE3D-5242A4A991A6}" ShortID="986272501">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Sniper_Rifle_Gunshot" ID="{36CFD01F-E3C5-465C-8831-EFF914DC07F6}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+						<Folder Name="AmmoPickup" ID="{31FCCCC8-EAF1-4A43-AE08-A235FE9FE4D8}" ShortID="612418001">
+							<ChildrenList>
+								<Event Name="Audio_Play_Ammo_Pickup" ID="{057E4AD0-747C-4479-B9B8-523DB7AA624B}">
+									<ChildrenList>
+										<Action Name="" ID="{3D4301DE-9C30-47E9-8C7E-90DB056BDF34}" ShortID="566259695">
+											<ReferenceList>
+												<Reference Name="Target">
+													<ObjectRef Name="Ammo_Pickup" ID="{47CD6258-25BE-4D99-ADEC-AD8FE3FF3188}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}"/>
+												</Reference>
+											</ReferenceList>
+										</Action>
+									</ChildrenList>
+								</Event>
+							</ChildrenList>
+						</Folder>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="BreakCam" ID="{ED6D0549-C755-4409-9D34-6EFFB8B80F85}" ShortID="617006868">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="8"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Event Name="Audio_Play_Break_Cam" ID="{D509291E-1362-46A0-859D-3675ED088C43}"/>
+					</ChildrenList>
+				</Folder>
+				<Folder Name="Health" ID="{438519DF-73E6-4C9B-9403-78AA5783FCF2}" ShortID="712776838">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="18"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+					<ChildrenList>
+						<Event Name="Audio_Play_Low_Health" ID="{2379CD5E-0945-4F3F-BCA8-478C374A145B}"/>
+						<Event Name="Audio_Play_Low_Stamina" ID="{A2185E3D-1FA1-4706-BD05-4F712E5B6803}"/>
+						<Event Name="Audio_Play_Health_Pickup" ID="{05232FB4-F923-469B-BB32-50A01B8BDB1B}">
+							<ChildrenList>
+								<Action Name="" ID="{4AB5ADB9-5B8E-47D1-A382-1016B4AA866E}" ShortID="81537133">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Health_Pickup" ID="{41D6D2DF-0B53-477F-8E24-3B70726C042D}" WorkUnitID="{33744AEF-8AE5-4F70-8017-CC9E38AB7714}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
+			</ChildrenList>
+		</WorkUnit>
+	</Events>
+</WwiseDocument>

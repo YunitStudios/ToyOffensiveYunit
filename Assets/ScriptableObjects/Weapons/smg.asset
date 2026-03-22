@@ -14,16 +14,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponDataSO
   ClassName: smg
   DisplayName: SMG
+  WeaponSprite: {fileID: 21300000, guid: 5eb481327f8724c4980ebf445dbad545, type: 3}
+  WeaponSpriteWhite: {fileID: 21300000, guid: bf83291566096f64dab65f33ee68e31d, type: 3}
+  animationController: {fileID: 22100000, guid: 2e1ee8431f11d9644865dc7a32dd53cb, type: 2}
   FireRateRPM: 360
   Damage: 20
   SupportedFireModes: 0000000001000000
   CurrentFireMode: 0
   MagSize: 30
   SecondaryAmmo: 0
-  ReloadTime: 2.5
+  ReloadTime: 2.2
   BaseSpread: 0
-  HalfSpread: 2
-  MaxSpread: 3
+  HalfSpread: 2.4
+  MaxSpread: 4
   ShotQuantity: 1
   ShotSpread: 0
   IsPhysicsBased: 1
@@ -35,3 +38,4 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 0}
   AimCameraType: 1
   AttachmentSOs: []
+  soundPack: {fileID: 11400000, guid: 76c98f5085412514a915c9b987221758, type: 2}

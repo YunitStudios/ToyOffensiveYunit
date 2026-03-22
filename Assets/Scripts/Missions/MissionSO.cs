@@ -50,8 +50,6 @@ public class MissionSO : ScriptableObject
         
         StartPointIndex %= startPoints.Count;
 
-        Debug.Log(StartPointIndex);
-        
         return startPoints[StartPointIndex].GetPosition();
     }
 }

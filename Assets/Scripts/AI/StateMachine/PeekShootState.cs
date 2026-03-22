@@ -37,6 +37,7 @@ public class PeekShootState : AIState
         agent.isStopped = false;
         if (!weaponSystem.IsInShootPeriod() || weaponSystem.IsReloading())
         {
+            aiController.SetAiming(false);
             controller.ChangeState(new BehindCoverState(controller, agent, coverPoint, player));
             return;
         }
@@ -55,6 +56,7 @@ public class PeekShootState : AIState
             {
                 RotateTowardsPlayer();
                 weaponSystem.target = player;
+                aiController.SetAiming(true);
                 weaponSystem.Fire();
             }
             return;
@@ -91,6 +93,7 @@ public class PeekShootState : AIState
                 agent.isStopped = true;
                 RotateTowardsPlayer();
                 weaponSystem.target = player;
+                aiController.SetAiming(true);
                 weaponSystem.Fire();
             }
         }
@@ -104,7 +107,7 @@ public class PeekShootState : AIState
         float dist = dir.magnitude * 2f;
 
         // Raycast to check it can see player
-        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy", "Vision")))
+        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, LayerMask.GetMask("Default", "Environment")))
         {
             return hit.transform == player;
         }

@@ -24,6 +24,13 @@ public class BehindCoverState : AIState
 
     public override void Execute()
     {
+        float distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
+        if (distanceToPlayer <= controller.AttackRange)
+        {
+            controller.ChangeState(new AttackState(controller, agent, player));
+            return;
+        }
+        
         if (!coverPoint.IsStandingCover)
         {
             aiController.SetCrouching(true);
