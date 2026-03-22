@@ -122,6 +122,8 @@ public class InputManager : MonoBehaviour
     public bool CrouchDown { get; private set; }
     public bool CrouchHeld { get; private set; }
     private bool previousCrouchHeld;
+    public bool IsParachuteDown { get; private set; }
+    public bool IsParachuteUp { get; private set; }
     public bool AimHeld { get; private set; }
     private bool previousAimHeld;
     private bool currentAimValue;
@@ -180,6 +182,15 @@ public class InputManager : MonoBehaviour
 
         CrouchDown = isPressed && !previousCrouchHeld;
         CrouchHeld = isPressed;
+    }
+    
+    private void OnParachuteDown(InputValue inputValue)
+    {
+        IsParachuteDown = inputValue.isPressed;
+    }
+    private void OnParachuteUp(InputValue inputValue)
+    {
+        IsParachuteUp = inputValue.isPressed;
     }
     
     private void OnLook(InputValue inputValue)
