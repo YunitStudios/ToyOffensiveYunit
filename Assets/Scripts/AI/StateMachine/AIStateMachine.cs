@@ -319,8 +319,8 @@ public class AIStateMachine : MonoBehaviour
     // When enemy is alerted, new states are set here based on enemy desired behaviour.
     private void ReactToAlert(Transform player)
     {
+        detection.Alerted();
         vision.canSeePlayer = true;
-        detection.AddDetection(100);
         RotateTowardsPlayer();
         vision.lastSeenTime = Time.time;
         
