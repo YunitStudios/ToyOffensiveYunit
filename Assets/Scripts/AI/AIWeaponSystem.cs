@@ -29,7 +29,9 @@ public class AIWeaponSystem : MonoBehaviour
     private float damageMult = 0.5f;
     private float accuracyMult = 1f;
  
+    [Tooltip("Delay before the enemy will start shooting")]
     [SerializeField] private Vector2 shootCooldownRange = new Vector2(1.0f, 3.0f);
+    [Tooltip("How long the enemy will Shoot for")]
     [SerializeField] private Vector2 shootPeriodRange = new Vector2 (1.0f, 3.0f);
     [HideInInspector] public float currentShootCooldown;
     [HideInInspector] public float currentShootPeriod;
