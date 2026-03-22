@@ -61,9 +61,12 @@ public class ClimbingSettings : StateSettings
     [Tooltip("The scale of the players collider while climbing. Cant outright disable the collider as I still need the CharacterController to check for collisions when moving, but changing the scale will stop the collider messing with regular climbing")]
     [SerializeField, Clamp(0, 1f, 0f, 1f)] private Vector2 climbingCollisionScale;
     public Vector2 ClimbingCollisionScale => climbingCollisionScale;
-    [Tooltip("The speed to blend when switching between climbing animations, for example going left to right")]
+    [Tooltip("The speed to blend when switching between climbing animations, for example going left to right. For some reason lower is faster, dont question it")]
     [SerializeField] private float climbingAnimBlendSpeed = 10;
     public float ClimbingAnimBlendSpeed => climbingAnimBlendSpeed;
+    [Tooltip("The speed to start the animation whenyou start moving while climbing. For some reason lower is faster, dont question it")]
+    [SerializeField] private float climbingAnimStartSpeed = 0.05f;
+    public float ClimbingAnimStartSpeed => climbingAnimStartSpeed;
 
 
 
@@ -154,6 +157,10 @@ public class ClimbingState : MovementState
     private static readonly int AnimClimbSpeed = Animator.StringToHash("ClimbSpeed");
     private static readonly int AnimClimbSpeedInterpolated = Animator.StringToHash("ClimbSpeedInterpolated");
     private static readonly int AnimIsHanging = Animator.StringToHash("IsHanging");
+    private static readonly int AnimIsClimbX = Animator.StringToHash("ClimbX");
+    private static readonly int AnimIsClimbY = Animator.StringToHash("ClimbY");
+    private static readonly int AnimClimbInput = Animator.StringToHash("ClimbInput");
+
     
     public override bool CanShoot => false;
     public override bool CanAim => false;
@@ -334,7 +341,10 @@ public class ClimbingState : MovementState
             }
             
             stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeed, currentClimbSpeed);
-            stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeedInterpolated, Mathf.Lerp(stateMachine.PlayerAnimator.GetFloat(AnimClimbSpeedInterpolated), currentClimbSpeed, Settings.ClimbingAnimBlendSpeed * Time.deltaTime));
+            stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeedInterpolated, currentClimbSpeed, Settings.ClimbingAnimBlendSpeed, Time.deltaTime);
+            stateMachine.PlayerAnimator.SetFloat(AnimIsClimbX, Math.Abs(upInput) > 0 ? 0 : sideInput, Settings.ClimbingAnimBlendSpeed, Time.deltaTime);
+            stateMachine.PlayerAnimator.SetFloat(AnimIsClimbY, upInput, Settings.ClimbingAnimBlendSpeed, Time.deltaTime);
+            stateMachine.PlayerAnimator.SetFloat(AnimClimbInput, Mathf.Max(Mathf.Abs(sideInput), Mathf.Abs(upInput)), Settings.ClimbingAnimStartSpeed, Time.deltaTime);
             
             // If moving upwards, sprinting, not on cooldown, you have enough stamina
             if (upInput > 0 && 
@@ -347,6 +357,10 @@ public class ClimbingState : MovementState
             Vector3 upVelocity = CurrentUpDirection * (Settings.ClimbVerticalSpeed * upInput);
             Vector3 rightVelocity = stateMachine.Right * (Settings.ClimbHorizontalSpeed * sideInput);
             Vector3 finalVelocity = upVelocity + rightVelocity;
+            
+            // If moving sideways while hanging, don't add horizontal velocity
+            if(isHanging)
+                finalVelocity.x = 0;
             
             stateMachine.SetVelocity(finalVelocity);
 
