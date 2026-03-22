@@ -67,6 +67,12 @@ public class ClimbingSettings : StateSettings
     [Tooltip("The speed to start the animation whenyou start moving while climbing. For some reason lower is faster, dont question it")]
     [SerializeField] private float climbingAnimStartSpeed = 0.05f;
     public float ClimbingAnimStartSpeed => climbingAnimStartSpeed;
+    [Tooltip("How much to move the player model while climbing")]
+    [SerializeField] private Vector3 climbingVisualOffset = new Vector3(0, 0, 0.25f);
+    public Vector3 ClimbingVisualOffset => climbingVisualOffset;
+    [Tooltip("Because the hanging anim is positioned differently then its gotta use a lower value here lol")]
+    [SerializeField] private Vector3 climbingHangingVisualOffset = new Vector3(0, 0, 0.2f);
+    public Vector3 ClimbingHangingVisualOffset => climbingHangingVisualOffset;
 
 
 
@@ -120,6 +126,9 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Padding percentage of extra stamina needed to be able to sprint leap, prevents sprint leaping and then immediately falling because you have no stamina"), Range(0,1)]
     [SerializeField] private float climbSprintLeapStaminaPadding = 0.1f;
     public float ClimbSprintLeapStaminaPadding => climbSprintLeapStaminaPadding;
+    [Tooltip("Small delay to stop root motion for applying. This is a bandaid fix for the leap motion applying while it blends to the hanging animation, causing the player to go above the ledge")]
+    [SerializeField] private float rootMotionDelay = 0.2f;
+    public float RootMotionDelay => rootMotionDelay;
     
     
     
@@ -183,6 +192,7 @@ public class ClimbingState : MovementState
     private Tween rehangDelayTween;
     private Tween staminaFadeTween;
     private Tween sprintLeapCooldownTween;
+    private Tween sprintLeapRootMotionTween;
     
     
     private float climbTimer;
@@ -270,6 +280,8 @@ public class ClimbingState : MovementState
 
         climbTimer = 0.0f;
         isVaulting = false;
+        
+        stateMachine.SetVisualOffset(Settings.ClimbingVisualOffset, 0.5f);
     }
 
     public override void OnExit()
@@ -285,6 +297,8 @@ public class ClimbingState : MovementState
         ToggleStaminaBar(false);
         
         StopClimbing();
+        
+        stateMachine.SetVisualOffset(Vector3.zero, 0.5f);
     }
 
     private void StopClimbing()
@@ -339,6 +353,9 @@ public class ClimbingState : MovementState
                 currentStamina -= Settings.ClimbStaminaDrainRate * Mathf.Abs(currentClimbSpeed) * Time.deltaTime;
                 currentStamina = Mathf.Max(0f, currentStamina);
             }
+            
+            // Disable root motion during delay
+            stateMachine.PlayerAnimator.applyRootMotion = !sprintLeapRootMotionTween.isAlive;
             
             stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeed, currentClimbSpeed);
             stateMachine.PlayerAnimator.SetFloat(AnimClimbSpeedInterpolated, currentClimbSpeed, Settings.ClimbingAnimBlendSpeed, Time.deltaTime);
@@ -453,6 +470,10 @@ public class ClimbingState : MovementState
         }
         
         unhangDelayTween = Tween.Delay(Settings.UnhangDelay);
+
+        sprintLeapRootMotionTween = Tween.Delay(Settings.RootMotionDelay);
+
+        stateMachine.SetVisualOffset(Settings.ClimbingHangingVisualOffset, 0.2f);
     }
 
     private void StopHanging()
@@ -462,6 +483,9 @@ public class ClimbingState : MovementState
         stateMachine.PlayerAnimator.SetBool(AnimIsHanging, false);
  
         rehangDelayTween = Tween.Delay(Settings.RehangDelay);
+        
+        stateMachine.SetVisualOffset(Settings.ClimbingVisualOffset, 0.2f);
+
     }
 
     private void SprintLeap()

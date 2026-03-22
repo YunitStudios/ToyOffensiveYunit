@@ -364,6 +364,19 @@ public class PlayerMovement : StateMachine
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
     }
 
+    private Tween visualOffsetTween;
+    public void SetVisualOffset(Vector3 offset)
+    {
+        visualRoot.localPosition = offset;
+    }
+    public void SetVisualOffset(Vector3 offset, float duration)
+    {
+        if(visualOffsetTween.isAlive)
+            visualOffsetTween.Complete();
+        
+        visualOffsetTween = Tween.LocalPosition(visualRoot, offset, duration);
+    }
+
     public Quaternion GetCameraRotation()
     {
         return thirdPersonTracker.rotation;
