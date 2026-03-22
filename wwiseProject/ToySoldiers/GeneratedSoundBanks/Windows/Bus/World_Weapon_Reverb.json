@@ -1,0 +1,49 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Windows",
+  "BasePlatform": "Windows",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "1153822417",
+    "Type": "Bus",
+    "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+    "Language": "SFX",
+    "Hash": "{1668DCCA-877B-8E87-547D-3C883426DB12}",
+    "ObjectPath": "World_Weapon_Reverb",
+    "ShortName": "World_Weapon_Reverb",
+    "Path": "Bus/World_Weapon_Reverb.bnk",
+    "Plugins": {
+     "ShareSets": [
+      {
+       "Id": "2995775460",
+       "Name": "Room_Small",
+       "ObjectPath": "\\Effects\\Factory Effects\\RoomVerb\\Rooms\\Room_Small",
+       "GUID": "{577F1466-A63B-47F7-98BD-C56E433F8B5D}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      }
+     ]
+    },
+    "AuxBusses": [
+     {
+      "Id": "1153822417",
+      "Name": "World_Weapon_Reverb",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Weapon_Reverb",
+      "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+      "Color": "13",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "2995775460"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{B658D093-8203-9EE7-1AD2-2F5C2DADB22E}"
+ }
+}

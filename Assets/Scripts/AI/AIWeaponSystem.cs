@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using SoundSystem;
 
 public class AIWeaponSystem : MonoBehaviour
 {
@@ -35,6 +36,9 @@ public class AIWeaponSystem : MonoBehaviour
     private float shootCooldownTimer;
     private float shootPeriodTimer;
     private AIStateMachine aiStateMachine;
+    
+    [SerializeField] private WwisePlayer wwisePlayer;
+
 
     private void Start()
     {
@@ -46,6 +50,7 @@ public class AIWeaponSystem : MonoBehaviour
         RandomiseShootTimes();
         currentWeapon.WeaponSpread.IsAiming = false;
         currentWeapon.WeaponSpread.ResetSpread();
+        wwisePlayer = GetComponent<WwisePlayer>();
     }
 
     public bool CanFire()
@@ -114,10 +119,15 @@ public class AIWeaponSystem : MonoBehaviour
 
         
         currentWeapon.Fire();
+        if(wwisePlayer is not null)
+            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Gunshot);
     }
     
     public void Reload()
     {
+        if(wwisePlayer is not null)
+            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Reload_Empty);
+        
         accumulatedShootingTime = 0f;
         lastReloadTime = Time.time;
         
