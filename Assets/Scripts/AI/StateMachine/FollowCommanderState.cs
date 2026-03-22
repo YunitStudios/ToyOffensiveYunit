@@ -20,6 +20,10 @@ public class FollowCommanderState : AIState
     // sets AI to follow the offset position from the commander
     public override void Execute()
     {
+        if (commander == null)
+        {
+            return;
+        }
         Vector3 Offset = commander.right * offset.x + commander.forward * offset.y;
         Vector3 target = commander.position + Offset;
         
