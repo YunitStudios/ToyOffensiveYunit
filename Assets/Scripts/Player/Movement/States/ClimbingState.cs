@@ -682,6 +682,7 @@ public class ClimbingState : MovementState
         {
             // Calculate vertical angle between normal and world up
             float verticalAngle = Vector3.Angle(-normal, Vector3.up) - 90f;
+            
             // Check if angle is within limits
             if (verticalAngle < Settings.ClimbingVerticalAngleLimits.x || verticalAngle > Settings.ClimbingVerticalAngleLimits.y)
                 return false;
@@ -722,7 +723,7 @@ public class ClimbingState : MovementState
         
         // Check if middle can find wall
         RaycastCone mainCone = new RaycastCone(mainOrigin, direction, detectionRange, Settings.ClimbableLayer, detectionAngle);
-        bool foundWall = mainCone.CastRays(out IList<RaycastHit> hits, out Vector3 mainNormal);
+        bool foundWall = mainCone.CastRays(out IList<RaycastHit> hits, out Vector3 mainNormal) && CheckNormalVertical(mainNormal);
         if (foundWall)
         { 
             

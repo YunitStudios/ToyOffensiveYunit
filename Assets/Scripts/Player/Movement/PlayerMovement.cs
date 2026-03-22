@@ -610,9 +610,7 @@ public class PlayerMovement : StateMachine
             return 0;
         
         float t = Mathf.InverseLerp(FallingSettings.FallDistanceScale.x, FallingSettings.FallDistanceScale.y, fallDistance);
-        print(t);
         float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
-        print(damageScale);
         return 100 * damageScale;
     }
 
