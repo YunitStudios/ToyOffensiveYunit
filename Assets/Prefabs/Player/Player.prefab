@@ -616,6 +616,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1026038049874292585}
   - component: {fileID: 7571786518036270854}
+  - component: {fileID: 1255640529530228350}
+  - component: {fileID: 292829945684031962}
   m_Layer: 0
   m_Name: Weapons
   m_TagString: Untagged
@@ -659,6 +661,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   firePoint: {fileID: 1283563445095331218}
+  wwisePlayer: {fileID: 0}
   tracerPrefab: {fileID: 1779594140215910652, guid: f4d1a7441a64b8543bc8ae92e32c70f6, type: 3}
   tracerSpeed: 200
   physicsProjectilePrefab: {fileID: 1779594140215910652, guid: 99236bb3e982031448498db290581e9f, type: 3}
@@ -677,6 +680,42 @@ MonoBehaviour:
   playerMovement: {fileID: 386950647050592367}
   crosshair: {fileID: 0}
   reloadPromptUI: {fileID: 0}
+--- !u!114 &1255640529530228350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207910790990521309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!114 &292829945684031962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5207910790990521309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b1fb4ae87e1845a91f263eec0b3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AK.Wwise.Unity.MonoBehaviour::AkGameObj
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 1
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &5314908794841146516
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +794,8 @@ GameObject:
   - component: {fileID: 3107692770457289402}
   - component: {fileID: 5441211148100684664}
   - component: {fileID: 760652052866937090}
+  - component: {fileID: 4920495529765660030}
+  - component: {fileID: 2016813189950474197}
   m_Layer: 0
   m_Name: RotationRoot
   m_TagString: Untagged
@@ -929,6 +970,42 @@ MonoBehaviour:
   - m_Rig: {fileID: 4319127251319387377}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &4920495529765660030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575587763439869236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+--- !u!114 &2016813189950474197
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7575587763439869236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 183b1fb4ae87e1845a91f263eec0b3b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: AK.Wwise.Unity.MonoBehaviour::AkGameObj
+  m_listeners:
+    initialListenerList: []
+    useDefaultListeners: 1
+  isEnvironmentAware: 0
+  isStaticObject: 0
+  usePositionOffsetData: 0
+  m_positionOffsetData:
+    KeepMe: 0
+    positionOffset: {x: 0, y: 0, z: 0}
+  scalingFactor: 1
+  m_posOffsetData: {fileID: 0}
+  listenerMask: 1
 --- !u!1 &7669584702012679197
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,9 +1460,17 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Torso
       objectReference: {fileID: 0}
+    - target: {fileID: 619971607529628172, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
+      propertyPath: m_VersionIndex
+      value: 5680
+      objectReference: {fileID: 0}
     - target: {fileID: 1389507859492609268, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
       propertyPath: m_Name
       value: PlayerCharacter_Prefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 7136563807831848199, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
+      propertyPath: m_VersionIndex
+      value: 13579
       objectReference: {fileID: 0}
     - target: {fileID: 7591376140421774139, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
       propertyPath: m_LocalScale.x
