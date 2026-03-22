@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: CameraBlends
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBlenderSettings
   CustomBlends:
-  - From: ParachutingCamera
+  - From: '**ANY CAMERA**'
     To: Scope Camera
     Blend:
-      Style: 0
-      Time: 0
+      Style: 1
+      Time: 0.25
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
@@ -25,10 +25,32 @@ MonoBehaviour:
         m_PostInfinity: 0
         m_RotationOrder: 0
   - From: Scope Camera
-    To: ParachutingCamera
+    To: '**ANY CAMERA**'
     Blend:
-      Style: 0
-      Time: 0
+      Style: 1
+      Time: 0.25
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - From: '**ANY CAMERA**'
+    To: FPS Camera
+    Blend:
+      Style: 1
+      Time: 0.25
+      CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - From: FPS Camera
+    To: '**ANY CAMERA**'
+    Blend:
+      Style: 1
+      Time: 0.25
       CustomCurve:
         serializedVersion: 2
         m_Curve: []

@@ -67,7 +67,7 @@ public class PlayerCamera : MonoBehaviour
     {
         
         currentBaseFov = playerSettings.fov + cameras[CurrentCameraType].fovOffset;
-        if(currentCamera)
+        if(currentCamera && currentCamera.Lens.FieldOfView != currentBaseFov)
             currentCamera.Lens.FieldOfView = currentBaseFov;
     }
 
