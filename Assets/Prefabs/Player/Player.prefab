@@ -134,7 +134,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
     climbRange: 1.5
-    startClimbRangeMultiplier: 0.3
+    startClimbRangeMultiplier: 0.5
     climbingVerticalAngleLimits: {x: -40, y: 40}
     climbingHorizontalAngleLimits: {x: -40, y: 40}
     climbVerticalSpeed: 0
@@ -150,7 +150,7 @@ MonoBehaviour:
     mainRayNormalizedHeight: 0.6
     climbingCollisionScale: {x: 0.5, y: 0.3}
     climbingAnimBlendSpeed: 0.2
-    climbingAnimStartSpeed: 0.05
+    climbingAnimStartSpeed: 0.02
     climbingVisualOffset: {x: 0, y: 0, z: 0.35}
     climbingHangingVisualOffset: {x: 0, y: 0, z: 0.2}
     climbVaultDistance: 0.5
@@ -240,10 +240,10 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    hangCheckVerticalOffset: -0.05
+    hangCheckVerticalOffset: 0
     hangSurfaceMinAngle: 45
     unhangDelay: 0.4
-    rehangDelay: 0.66
+    rehangDelay: 0.5
     autoTriggerHangDistance: 1.66
     climbSprintLeapCooldown: 2
     climbSprintLeapStaminaPercentage: 0.2
