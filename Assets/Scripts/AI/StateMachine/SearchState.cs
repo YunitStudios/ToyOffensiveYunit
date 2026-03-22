@@ -12,12 +12,23 @@ public class SearchState : AIState
     private bool isPaused = true;
     private float stuckTimer = 0f;
     private float stuckTime = 6f;
+    private bool wasShot = false;
+    private float originalSpeed;
+    private bool usingCover = false;
+    private AIController aiController;
         
-    public SearchState(AIStateMachine controller, NavMeshAgent agent, Vector3 searchPosition) : base(controller, agent)
+    public SearchState(AIStateMachine controller, NavMeshAgent agent, Vector3 searchPosition, bool wasShot) : base(controller, agent)
     {
         this.searchPosition = GetRandomPointOnNavMesh(searchPosition, 5f);
+        this.wasShot = wasShot;
         agent.isStopped = true;
         controller.detection.isSearching = true;
+        originalSpeed = agent.speed;
+        if (wasShot)
+        {
+            agent.speed = 4f;
+        }
+        aiController = controller.GetComponent<AIController>();
     }
 
     public override void Execute()
@@ -36,6 +47,15 @@ public class SearchState : AIState
             if (pauseTimer >= pauseTime)
             {
                 isPaused = false;
+                if (wasShot && !CanReachPosition(searchPosition))
+                {
+                    CoverPoint cover = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, controller.vision.player , controller);
+                    if (cover != null)
+                    {
+                        searchPosition = cover.transform.position;
+                        usingCover = true;
+                    }
+                }
                 agent.isStopped = false;
                 agent.SetDestination(searchPosition);
             }
@@ -50,6 +70,10 @@ public class SearchState : AIState
                 reachedPosition = true;
                 agent.isStopped = true;
                 stuckTimer = stuckTime;
+                if (usingCover)
+                {
+                    aiController.SetCrouching(true);
+                }
             }
             else
             {
@@ -74,11 +98,13 @@ public class SearchState : AIState
         controller.detection.isSearching = false;
         if (controller.detection.DetectionPercent <= controller.detection.InvestigateThreshold)
         {
-            Debug.Log("ReturningToStart");
+            aiController.SetCrouching(false);
+            agent.speed = originalSpeed;
             controller.ReturnToStartingState();
         }
     }
 
+    // gets random point in a radius around search position
     private Vector3 GetRandomPointOnNavMesh(Vector3 position, float radius)
     {
         Vector3 randomDirection = Random.insideUnitSphere * radius + position;
@@ -88,5 +114,16 @@ public class SearchState : AIState
         }
         
         return position;
+    }
+
+    // checks if enemy can reach the search location
+    private bool CanReachPosition(Vector3 position)
+    {
+        NavMeshPath path = new NavMeshPath();
+        if (agent.CalculatePath(position, path))
+        {
+            return path.status == NavMeshPathStatus.PathComplete;
+        }
+        return false;
     }
 }

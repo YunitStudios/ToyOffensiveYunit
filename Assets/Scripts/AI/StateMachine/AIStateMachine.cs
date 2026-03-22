@@ -134,7 +134,7 @@ public class AIStateMachine : MonoBehaviour
             !(currentState is AttackState) && !(currentState is MoveToCoverState) &&
             !(currentState is BehindCoverState) && !(currentState is PeekShootState) && !(currentState is FleeState))
         {
-            ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
+            ChangeState(new SearchState(this, agent, detection.LastKnownPosition, false));
         }
 
         if (health != null && HoldMedkit && health.CurrentHealth / health.MaxHealth <= healAtPercent &&
@@ -170,7 +170,7 @@ public class AIStateMachine : MonoBehaviour
                 }
                 else
                 {
-                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
+                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition, false));
                 }
             }
         }
@@ -205,6 +205,11 @@ public class AIStateMachine : MonoBehaviour
                     point.LeaveCoverPoint(this);
                 }
             }
+        }
+
+        if (currentState is SearchState)
+        {
+            aiController.SetCrouching(false);
         }
         currentState = newState;
     }
@@ -330,7 +335,7 @@ public class AIStateMachine : MonoBehaviour
             if (!(currentState is AttackState) && !(currentState is MoveToCoverState) &&
                 !(currentState is BehindCoverState) && !(currentState is PeekShootState))
             {
-                ChangeState(new SearchState(this, agent, player.position));
+                ChangeState(new SearchState(this, agent, player.position, true));
             }
         }
     }
