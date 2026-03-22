@@ -69,12 +69,12 @@ MonoBehaviour:
   playerRadius: 0.25
   playerHeadNormalizedHeight: 0.8
   minGroundDistance: 0.15
-  slopeSlideSpeed: 6
+  slopeSlideSpeed: 3
   cameraHeightOffset: 0.5
   crouchedCameraHeightOffset: 0
   aimingShoulderOffset: {x: 3, y: 1.5}
   aimingShoulderSpeed: 10
-  verticalMaxAngle: 65
+  verticalMaxAngle: 55
   verticalMinAngle: -40
   environmentLayer:
     serializedVersion: 2
@@ -141,14 +141,18 @@ MonoBehaviour:
     climbHorizontalSpeed: 1
     climbingDelayAfterJump: 0.5
     climbingRetryDelay: 0.5
-    climbDistanceFromWall: {x: -0.5, y: 0.75}
+    climbDistanceFromWall: {x: -0.25, y: 1}
     climbDistanceFromWallRange: {x: -40, y: 40}
     climbWidth: 0.15
     climbingMaxGapDistance: 0.5
     climbingWallLockSpeed: 5
     climbingStartWallLockTime: 0.25
     mainRayNormalizedHeight: 0.6
-    climbingCollisionScale: {x: 0.5, y: 0.5}
+    climbingCollisionScale: {x: 0.5, y: 0.3}
+    climbingAnimBlendSpeed: 0.2
+    climbingAnimStartSpeed: 0.05
+    climbingVisualOffset: {x: 0, y: 0, z: 0.35}
+    climbingHangingVisualOffset: {x: 0, y: 0, z: 0.2}
     climbVaultDistance: 0.5
     climbMaxVaultHeight: 1
     climbVaultDuration: 2.5
@@ -236,7 +240,7 @@ MonoBehaviour:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-    hangCheckVerticalOffset: 0
+    hangCheckVerticalOffset: -0.05
     hangSurfaceMinAngle: 45
     unhangDelay: 0.4
     rehangDelay: 0.66
@@ -244,6 +248,7 @@ MonoBehaviour:
     climbSprintLeapCooldown: 2
     climbSprintLeapStaminaPercentage: 0.2
     climbSprintLeapStaminaPadding: 0.1
+    rootMotionDelay: 0.3
     climbStaminaUI: {fileID: 5515616672219483051}
     climbStaminaBar: {fileID: 10641581326834246}
     maxClimbStamina: 7
