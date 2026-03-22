@@ -101,6 +101,7 @@ public class ParachuteState : MovementState
     public override bool RotatePlayerVertically => true;
     public override bool ControlRotation => isParachuting;
     public override bool ShouldDisplayGun => GameManager.PlayerData.IsAiming;
+    public override bool PlayFootsteps => false;
 
     private bool wasDiving;
     private float currentTurnValue = 0.0f;

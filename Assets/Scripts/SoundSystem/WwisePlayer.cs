@@ -6,6 +6,7 @@ namespace SoundSystem
 {
     public class WwisePlayer : MonoBehaviour
     {
+        [SerializeField] private PlayerMovement playerMovement;
         [SerializeField] private FootData[] feet;
         [SerializeField] private float footSoundThreshold = 0;
         [SerializeField] private SoundDataSO footstep;
@@ -53,6 +54,9 @@ namespace SoundSystem
 
         private void PlayFootsteps()
         {
+            if (!playerMovement ||  playerMovement.CurrentState is IMovementState { PlayFootsteps: false })
+                return;
+            
             // Check if any feet are below the Y threshold
             foreach (var foot in feet)
             {
@@ -60,7 +64,6 @@ namespace SoundSystem
                 Vector3 playerPosition = transform.position;
                 Vector3 footPosition = foot.transform.position;
                 float difference = footPosition.y - playerPosition.y;
-                print(difference);
                 
                 if(foot.onGround && difference >= footSoundThreshold)
                 {
