@@ -10,11 +10,53 @@
     "Type": "User",
     "GUID": "{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}",
     "Language": "SFX",
-    "Hash": "{EF183359-76B5-64B3-CB8B-9CDB7526C4BB}",
+    "Hash": "{527DD1FA-CF24-D8C6-7C13-F25A9C4190D0}",
     "ObjectPath": "Init",
     "ShortName": "Init",
     "Path": "Init.bnk",
     "Plugins": {
+     "ShareSets": [
+      {
+       "Id": "1031403393",
+       "Name": "Weapon_Duck_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\Weapon_Duck_Meter",
+       "GUID": "{4D8BA1F2-50B5-490A-A9AD-46953BC3F42B}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      },
+      {
+       "Id": "2995775460",
+       "Name": "Room_Small",
+       "ObjectPath": "\\Effects\\Factory Effects\\RoomVerb\\Rooms\\Room_Small",
+       "GUID": "{577F1466-A63B-47F7-98BD-C56E433F8B5D}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      },
+      {
+       "Id": "3653805094",
+       "Name": "Menu_Ducking_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\Menu_Ducking_Meter",
+       "GUID": "{6CF00D12-4FB6-40B8-B1A0-A66A2496E918}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      },
+      {
+       "Id": "3989698561",
+       "Name": "Hazard_Duck_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\Hazard_Duck_Meter",
+       "GUID": "{2E4AB2A9-9C70-4997-9115-527151AABB1D}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      },
+      {
+       "Id": "4168794106",
+       "Name": "HUD_Ducking_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\HUD_Ducking_Meter",
+       "GUID": "{A286F2C1-117B-4671-BA2E-C8F4E9DA4913}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      }
+     ],
      "AudioDevices": [
       {
        "Id": "2317455096",
@@ -36,10 +78,189 @@
     },
     "Busses": [
      {
-      "Id": "1942696649",
-      "Name": "Effects",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Effects",
-      "GUID": "{0955737E-7307-455E-9DB7-D977D6650F42}"
+      "Id": "20324216",
+      "Name": "Mouse_Trap",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment\\Hazards\\Mouse_Trap",
+      "GUID": "{41DF228B-1960-4254-A473-F2E3B7A0A689}",
+      "Color": "4"
+     },
+     {
+      "Id": "151879501",
+      "Name": "Swim",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Swim",
+      "GUID": "{36A7F8C7-D385-4408-AF4F-F0680BAA7567}",
+      "Color": "11"
+     },
+     {
+      "Id": "587342027",
+      "Name": "BreakCam",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\BreakCam",
+      "GUID": "{B9F475BA-7938-425B-AE8E-F3A81B61B0F7}",
+      "Color": "11"
+     },
+     {
+      "Id": "838047381",
+      "Name": "Non-World",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World",
+      "GUID": "{49BCE9C6-A2F1-4198-A384-E31A0FCD04C2}",
+      "Color": "1"
+     },
+     {
+      "Id": "1069431850",
+      "Name": "Player",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player",
+      "GUID": "{76421170-5967-41B6-B541-54CB1AF1664F}",
+      "Color": "11"
+     },
+     {
+      "Id": "1073144984",
+      "Name": "Player_HUD",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World\\UI\\Player_HUD",
+      "GUID": "{C12B0713-34EB-4EF0-86CB-EAFDA42C60C4}",
+      "Color": "1",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "4168794106"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "1229948536",
+      "Name": "Environment",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment",
+      "GUID": "{04A82551-9324-4294-A0FE-C0D80A374AFE}",
+      "Color": "4"
+     },
+     {
+      "Id": "1440596779",
+      "Name": "Weapons_Gunshot",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Weapons_Gunshot",
+      "GUID": "{120BADCC-1FFB-4A3E-9562-D57F34C99DC8}",
+      "Color": "11",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "1031403393"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "1153822417",
+        "Name": "World_Weapon_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Weapon_Reverb",
+        "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "1551306167",
+      "Name": "UI",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World\\UI",
+      "GUID": "{76135593-32BC-44F5-BAEA-F6D688DC43CA}",
+      "Color": "1"
+     },
+     {
+      "Id": "1761240301",
+      "Name": "Sound_Effects",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects",
+      "GUID": "{C03A7E61-214F-4354-AA56-9445373691C1}",
+      "Color": "13"
+     },
+     {
+      "Id": "2129636626",
+      "Name": "Movement",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Movement",
+      "GUID": "{E30C9E64-F3FB-4633-91F2-960EEC514728}",
+      "Color": "11",
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "2595877424",
+      "Name": "Weapons_Foley",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Weapons_Foley",
+      "GUID": "{F4B67CAD-23DF-4668-A532-857E29880799}",
+      "Color": "11",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "1031403393"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "2607556080",
+      "Name": "Menu",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World\\UI\\Menu",
+      "GUID": "{9F032D24-668D-45F6-B814-89529156E23D}",
+      "Color": "1",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "3653805094"
+        }
+       ]
+      }
+     },
+     {
+      "Id": "2609808943",
+      "Name": "World",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World",
+      "GUID": "{D2542BCC-4833-4782-8B5E-4CE744B6287D}",
+      "Color": "10"
+     },
+     {
+      "Id": "2678880713",
+      "Name": "Fire",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment\\Hazards\\Fire",
+      "GUID": "{F9B13E45-1EB1-4E06-8092-4F7959A1676A}",
+      "Color": "4"
+     },
+     {
+      "Id": "3677180323",
+      "Name": "Health",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Health",
+      "GUID": "{CAF8D6EB-6472-4D0F-B781-90AD01B5C994}",
+      "Color": "11",
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
      },
      {
       "Id": "3803692087",
@@ -48,10 +269,100 @@
       "GUID": "{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"
      },
      {
-      "Id": "3991942870",
-      "Name": "Music",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Music",
-      "GUID": "{4FA3C533-3E97-4511-9FCC-80770F906F2C}"
+      "Id": "4039062316",
+      "Name": "Hazards",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment\\Hazards",
+      "GUID": "{E6CF924D-8AE7-4D9A-9C67-1EEB68805244}",
+      "Color": "4",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "3989698561"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
+     }
+    ],
+    "AuxBusses": [
+     {
+      "Id": "191267372",
+      "Name": "World_Main_Reverb",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+      "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+      "Color": "13",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "2995775460"
+        }
+       ]
+      }
+     },
+     {
+      "Id": "1153822417",
+      "Name": "World_Weapon_Reverb",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Weapon_Reverb",
+      "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+      "Color": "13",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "2995775460"
+        }
+       ]
+      }
+     }
+    ],
+    "GameParameters": [
+     {
+      "Id": "236777424",
+      "Name": "RTPC_Ducking",
+      "ObjectPath": "\\Game Parameters\\SideChain_Parameters\\RTPC_Ducking",
+      "GUID": "{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}",
+      "Color": "24"
+     }
+    ],
+    "SwitchGroups": [
+     {
+      "Id": "3539622648",
+      "Name": "Ground_Material",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Ground_Material",
+      "GUID": "{31BA19BB-6E97-4BCD-AC6F-C3F5EB0F3D2C}",
+      "Switches": [
+       {
+        "Id": "479619172",
+        "Name": "Ground_Material_Metal",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Ground_Material\\Ground_Material_Metal",
+        "GUID": "{AFAC6419-BD55-4E0B-BC55-A59D08AC5934}"
+       },
+       {
+        "Id": "1699346256",
+        "Name": "Ground_Material_Dirt",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Ground_Material\\Ground_Material_Dirt",
+        "GUID": "{C7592B4B-019C-4140-95C5-636846D0486B}"
+       },
+       {
+        "Id": "3858318948",
+        "Name": "Ground_Material_Fabric",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Ground_Material\\Ground_Material_Fabric",
+        "GUID": "{9524014B-174B-4A52-8A98-40066306B90C}"
+       },
+       {
+        "Id": "3915029512",
+        "Name": "Ground_Material_Wood",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Ground_Material\\Ground_Material_Wood",
+        "GUID": "{9F753397-14C1-4C78-B37A-0CF5CA6C3D0D}"
+       }
+      ]
      }
     ],
     "AcousticTextures": [
@@ -533,6 +844,6 @@
     ]
    }
   ],
-  "FileHash": "{883160A8-931C-EDB2-F2F2-C4C58A1E1478}"
+  "FileHash": "{5D77EAD8-2229-3790-5979-9731C49932B9}"
  }
 }

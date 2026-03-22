@@ -15,8 +15,15 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
     [Header("Output Events")] 
     [SerializeField] private VoidEventChannelSO onBulletHitEnemy;
     [SerializeField] private VoidEventChannelSO onBulletHeadshotEnemy;
+    [SerializeField] private Vector3EventChannelSO onBulletHitEnemyPosition;
+    [SerializeField] private Vector3EventChannelSO onBulletHeadshotEnemyPosition;
     [SerializeField] private VoidEventChannelSO onShowHitmarker;
-    
+    [SerializeField] private VoidEventChannelSO onBulletHitPlayer;
+    [SerializeField] private Vector3EventChannelSO onBulletHitPlayerPosition;
+
+    [HideInInspector] public bool bulletFromEnemy;
+
+
     private Vector3 bulletSpawnPoint; // This will hold the "Snapshot"
     
     // constants
@@ -59,11 +66,19 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                     
                     playerHealth.TakeDamage(this, Damage * dmgMultiplier);
                     // onShowHitmarker.Invoke();
+
+                    onBulletHitPlayer?.Invoke();
+                    onBulletHitPlayerPosition?.Invoke(hit.point);
                 }
                 else
                 {
                     if (hit.transform.TryGetComponentInParent<IDamageable>(out IDamageable target))
                     {
+                        if (bulletFromEnemy && target is AIController)
+                        {
+                            return;
+                        }
+                        
                         bool hitHead = false;
                         Debug.Log("Enemy health hit");
                         
@@ -79,9 +94,13 @@ public class PhysicsBulletMovement : MonoBehaviour, IDamageSource
                         onShowHitmarker.Invoke();
                         
                         if(hitHead)
+                        {
                             onBulletHeadshotEnemy?.Invoke();
-                        
+                            onBulletHeadshotEnemyPosition?.Invoke(hit.point);
+                        }
+
                         onBulletHitEnemy?.Invoke();
+                        onBulletHitEnemyPosition?.Invoke(hit.point);
                     }
                 }
 

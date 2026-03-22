@@ -164,6 +164,8 @@ public class ClimbingState : MovementState
     public override bool UseRootMotion => true;
     public override bool UseMouseRotatePlayer => false;
     public override bool ControlRotation => true;
+    public override bool ShouldDisplayGun => false;
+
     public override Vector2 CollisionScale => Settings.ClimbingCollisionScale;
 
     private Tween unhangDelayTween;

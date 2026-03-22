@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}" SchemaVersion="123">
 	<Effects>
-		<WorkUnit Name="Default Work Unit" ID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{A80222CB-0865-4869-AD85-76C87AAEBFB1}" PersistMode="Standalone">
+			<ChildrenList>
+				<Effect Name="Ducking_Meter" ID="{66ACACE9-9126-4390-BCBD-08C837A0A78E}" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+					<PropertyList>
+						<Property Name="ReleaseTime" Type="Real32" Value="0.57"/>
+					</PropertyList>
+					<PluginData>
+	<GameParameter Name="RTPC_Ducking" ID="{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}"/>
+</PluginData>
+				</Effect>
+				<Effect Name="Weapon_Duck_Meter" ID="{4D8BA1F2-50B5-490A-A9AD-46953BC3F42B}" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+					<PropertyList>
+						<Property Name="ReleaseTime" Type="Real32" Value="0.62"/>
+					</PropertyList>
+					<PluginData>
+	<GameParameter Name="RTPC_Ducking" ID="{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}"/>
+</PluginData>
+				</Effect>
+				<Effect Name="Hazard_Duck_Meter" ID="{2E4AB2A9-9C70-4997-9115-527151AABB1D}" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">
+					<PropertyList>
+						<Property Name="ReleaseTime" Type="Real32" Value="0.31"/>
+					</PropertyList>
+					<PluginData>
+	<GameParameter Name="RTPC_Ducking" ID="{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}"/>
+</PluginData>
+				</Effect>
+				<Effect Name="HUD_Ducking_Meter" ID="{A286F2C1-117B-4671-BA2E-C8F4E9DA4913}" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">					<PluginData>
+	<GameParameter Name="RTPC_Ducking" ID="{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}"/>
+</PluginData>
+				</Effect>
+				<Effect Name="Menu_Ducking_Meter" ID="{6CF00D12-4FB6-40B8-B1A0-A66A2496E918}" PluginName="Wwise Meter" CompanyID="0" PluginID="129" PluginType="3">					<PluginData>
+	<GameParameter Name="RTPC_Ducking" ID="{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}"/>
+</PluginData>
+				</Effect>
+			</ChildrenList>
+		</WorkUnit>
 	</Effects>
 </WwiseDocument>

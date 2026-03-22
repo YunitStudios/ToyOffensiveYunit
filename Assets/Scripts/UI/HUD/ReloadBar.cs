@@ -13,6 +13,7 @@ public class ReloadBar : MonoBehaviour
     [SerializeField] private FloatEventChannelSO onUpdateReloadProgress;
 
     private bool active;
+    private float lastProgress;
 
     private void OnEnable()
     {
@@ -31,6 +32,14 @@ public class ReloadBar : MonoBehaviour
         if (!active && progress > 1)
             return;
         
+        // If -1, hide without fading
+        if (progress < 0)
+        {
+            active = false;
+            canvasFader.PlayInstant(CanvasFader.FadeType.Out);
+            return;
+        }
+        
         // Start reload bar
         if (!active && progress is > 0 and <= 1)
         {
@@ -39,12 +48,14 @@ public class ReloadBar : MonoBehaviour
         }
         
         // End reload bar
-        if (active && progress > 1)
+        if (active && progress >= 1)
         {
             active = false;
             canvasFader.Play(CanvasFader.FadeType.Out);
         }
 
         reloadBar.fillAmount = progress;
+
+        lastProgress = progress;
     }
 }
