@@ -180,9 +180,12 @@ public class WeaponsSystem : MonoBehaviour
         SetWeaponVisual();
         ReloadCancel();
     }
+
+    private Tween swapControllerTween;
     private void SetWeaponVisual()
     {
-        playerMovement.PlayerAnimator.runtimeAnimatorController = PlayerData.CurrentWeapon.WeaponData.animationController;
+        SwapController();
+        
         // Disable all gun models and disable current
         foreach (var model in weaponModels)
         {
@@ -190,6 +193,21 @@ public class WeaponsSystem : MonoBehaviour
         }
         if(weaponModels.TryGetValue(PlayerData.CurrentWeapon.WeaponData, out var newModel))
             newModel.SetActive(true);
+    }
+
+    // ITS SO JANK BUT IT LOWKEY WORKS
+    // https://www.reddit.com/r/Unity3D/comments/1clna15/tutorial_workaround_for_swapping/
+    private void SwapController()
+    {
+        if(swapControllerTween.isAlive)
+            swapControllerTween.Stop();
+
+        playerMovement.PlayerAnimator.CrossFadeInFixedTime("Transition", 0.1f);
+        swapControllerTween = Tween.Delay(0.1f, () =>
+        {
+            playerMovement.PlayerAnimator.runtimeAnimatorController = PlayerData.CurrentWeapon.WeaponData.animationController;
+            playerMovement.PlayerAnimator.PlayInFixedTime("Transition", 0, 0.1f);
+        });
     }
 
     // called when for example the player clicks, or called every frame if holding down for full auto
