@@ -13,6 +13,8 @@ namespace Throwable_System.ThrowableTypes
             particle.Play();
             particle.transform.parent = null;
             
+            wwisePlayer.PlaySound(detonationSound);
+            
             // destroy the object
             Destroy(gameObject);
         }

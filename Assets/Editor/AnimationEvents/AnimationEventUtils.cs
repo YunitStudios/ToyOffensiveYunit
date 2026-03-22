@@ -301,10 +301,23 @@ public static class AnimationEventUtils
             return null;
         }
 
-        AnimatorController controller = animator.runtimeAnimatorController as AnimatorController;
+        RuntimeAnimatorController runtimeController = animator.runtimeAnimatorController;
+        if (!runtimeController)
+        {
+            errorMessage = "Animator has no controller assigned.";
+            return null;
+        }
+
+        // Handle override controller
+        if (runtimeController is AnimatorOverrideController overrideController)
+        {
+            runtimeController = overrideController.runtimeAnimatorController;
+        }
+
+        AnimatorController controller = runtimeController as AnimatorController;
         if (!controller)
         {
-            errorMessage = "Selected Animator does not have a valid AnimatorController.";
+            errorMessage = "Could not resolve a valid AnimatorController.";
             return null;
         }
 

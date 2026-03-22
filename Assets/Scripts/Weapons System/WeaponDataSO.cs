@@ -68,6 +68,8 @@ public class WeaponDataSO : ScriptableObject, ILoadout
     
     public List<AttachmentDataSO> AttachmentSOs = new();
 
+    [Header("Sound pack")] public WeaponSoundPackSO soundPack;
+
     public enum FireModes
     {
         Full,

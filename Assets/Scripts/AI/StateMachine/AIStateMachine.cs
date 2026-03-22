@@ -134,7 +134,7 @@ public class AIStateMachine : MonoBehaviour
             !(currentState is AttackState) && !(currentState is MoveToCoverState) &&
             !(currentState is BehindCoverState) && !(currentState is PeekShootState) && !(currentState is FleeState))
         {
-            ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
+            ChangeState(new SearchState(this, agent, detection.LastKnownPosition, false));
         }
 
         if (health != null && HoldMedkit && health.CurrentHealth / health.MaxHealth <= healAtPercent &&
@@ -170,7 +170,7 @@ public class AIStateMachine : MonoBehaviour
                 }
                 else
                 {
-                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
+                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition, false));
                 }
             }
         }
@@ -205,6 +205,11 @@ public class AIStateMachine : MonoBehaviour
                     point.LeaveCoverPoint(this);
                 }
             }
+        }
+
+        if (currentState is SearchState)
+        {
+            aiController.SetCrouching(false);
         }
         currentState = newState;
     }
@@ -314,8 +319,8 @@ public class AIStateMachine : MonoBehaviour
     // When enemy is alerted, new states are set here based on enemy desired behaviour.
     private void ReactToAlert(Transform player)
     {
+        detection.Alerted();
         vision.canSeePlayer = true;
-        detection.AddDetection(100);
         RotateTowardsPlayer();
         vision.lastSeenTime = Time.time;
         
@@ -328,9 +333,9 @@ public class AIStateMachine : MonoBehaviour
         else
         {
             if (!(currentState is AttackState) && !(currentState is MoveToCoverState) &&
-                !(currentState is BehindCoverState) && !(currentState is PeekShootState) && detection.IsDetected)
+                !(currentState is BehindCoverState) && !(currentState is PeekShootState))
             {
-                ChangeState(new AttackState(this, agent, player));
+                ChangeState(new SearchState(this, agent, player.position, true));
             }
         }
     }

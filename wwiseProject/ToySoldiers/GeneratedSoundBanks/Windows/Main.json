@@ -10,7 +10,7 @@
     "Type": "User",
     "GUID": "{63F8E281-6C68-4EC7-B33A-D4B9071621A5}",
     "Language": "SFX",
-    "Hash": "{8A3301D4-E6D0-32E1-FADC-6839E5D89080}",
+    "Hash": "{3A972EB0-50F3-56A4-3D05-2A01748049C1}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Main",
     "ShortName": "Main",
     "Path": "Main.bnk",
@@ -53,7 +53,7 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "Mouse_Trap_Reload.wav",
-      "CachePath": "BE/{BE2121C8-3078-5EAD-D2CF-BBA0EB359DC5}.wem"
+      "CachePath": "96/{96A3F02B-79A3-8904-6D21-7203A6B96D80}.wem"
      },
      {
       "Id": "56929758",
@@ -149,7 +149,7 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "Fire_Burning_Player_Sequence.wav",
-      "CachePath": "F2/{F2B9F194-9468-C026-1BB2-ED42F7D68C4F}.wem"
+      "CachePath": "47/{4766724F-DED5-805F-502D-9E57F662C700}.wem"
      },
      {
       "Id": "166775050",
@@ -261,7 +261,7 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "Shotgun\\Shotgun_Rechamber.wav",
-      "CachePath": "42/{42DC9610-1C30-4291-B567-FE213B878E89}.wem"
+      "CachePath": "29/{29B8C2D3-3E53-8C63-17FB-E3AB5EFCFD3F}.wem"
      },
      {
       "Id": "306472425",
@@ -453,7 +453,7 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "Parachute\\Parachute_Deploy.wav",
-      "CachePath": "D2/{D253C860-C7CC-7158-4CD9-D759012D387C}.wem"
+      "CachePath": "4D/{4DF2C6D3-1468-6B0A-338B-13E1B1B7C35B}.wem"
      },
      {
       "Id": "467728007",
@@ -573,7 +573,7 @@
       "Streaming": "false",
       "Location": "Memory",
       "ShortName": "Parachute\\Parachute_Glide.wav",
-      "CachePath": "13/{139A4EF6-2650-B9A2-48DA-7F44CC6F80F3}.wem"
+      "CachePath": "19/{19C09C99-CC81-2EA9-91C9-4AC0BCB67182}.wem"
      },
      {
       "Id": "622839975",
@@ -936,6 +936,14 @@
       "CachePath": "42/{425B2FBC-254C-19F3-66E8-DC68E65441AD}.wem"
      },
      {
+      "Id": "1012472380",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Hitmarker.wav",
+      "CachePath": "84/{8486EC03-C64D-2B4D-F8DC-2E932CBC12EE}.wem"
+     },
+     {
       "Id": "1023626771",
       "Language": "SFX",
       "Streaming": "false",
@@ -976,6 +984,50 @@
       "CachePath": "46/{46BC73CE-B4D1-373E-16AF-13D20E029EE3}.wem"
      }
     ],
+    "Plugins": {
+     "ShareSets": [
+      {
+       "Id": "1031403393",
+       "Name": "Weapon_Duck_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\Weapon_Duck_Meter",
+       "GUID": "{4D8BA1F2-50B5-490A-A9AD-46953BC3F42B}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      },
+      {
+       "Id": "2995775460",
+       "Name": "Room_Small",
+       "ObjectPath": "\\Effects\\Factory Effects\\RoomVerb\\Rooms\\Room_Small",
+       "GUID": "{577F1466-A63B-47F7-98BD-C56E433F8B5D}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      },
+      {
+       "Id": "3653805094",
+       "Name": "Menu_Ducking_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\Menu_Ducking_Meter",
+       "GUID": "{6CF00D12-4FB6-40B8-B1A0-A66A2496E918}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      },
+      {
+       "Id": "3989698561",
+       "Name": "Hazard_Duck_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\Hazard_Duck_Meter",
+       "GUID": "{2E4AB2A9-9C70-4997-9115-527151AABB1D}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      },
+      {
+       "Id": "4168794106",
+       "Name": "HUD_Ducking_Meter",
+       "ObjectPath": "\\Effects\\Default Work Unit\\HUD_Ducking_Meter",
+       "GUID": "{A286F2C1-117B-4671-BA2E-C8F4E9DA4913}",
+       "LibName": "Wwise Meter",
+       "LibId": "8454147"
+      }
+     ]
+    },
     "Events": [
      {
       "Id": "2031222450",
@@ -983,6 +1035,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\AmmoPickup\\Audio_Play_Ammo_Pickup",
       "GUID": "{057E4AD0-747C-4479-B9B8-523DB7AA624B}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.5401814",
       "DurationMax": "0.5401814",
@@ -998,6 +1051,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Assault_Rifle\\Audio_Play_Assault_Rifle_ADS",
       "GUID": "{4EBAD90C-3E1C-45C2-BE84-6FA7CF67592B}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.36160997",
       "DurationMax": "0.36160997",
@@ -1013,6 +1067,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Assault_Rifle\\Audio_Play_Assault_Rifle_Equip",
       "GUID": "{F24E6D20-FC6F-4193-993D-64C9B878D982}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.43303856",
       "DurationMax": "0.43303856",
@@ -1028,6 +1083,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Assault_Rifle\\Audio_Play_Assault_Rifle_Gunshot",
       "GUID": "{22F13FDC-252B-463B-8BD3-E3E3B92C3F27}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "3.2321541",
       "DurationMax": "3.2321541",
@@ -1043,6 +1099,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Assault_Rifle\\Audio_Play_Assault_Rifle_Reload_Empty",
       "GUID": "{E652235F-FBEB-4136-A457-B21129C6565A}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "3.004467",
       "DurationMax": "3.004467",
@@ -1058,6 +1115,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Assault_Rifle\\Audio_Play_Assault_Rifle_Reload_Half_Empty",
       "GUID": "{62CB9EAF-523D-468E-8858-8F87ECB92F16}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "2.05356",
       "DurationMax": "2.05356",
@@ -1072,7 +1130,7 @@
       "Name": "Audio_Play_Break_Cam",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\BreakCam\\Audio_Play_Break_Cam",
       "GUID": "{D509291E-1362-46A0-859D-3675ED088C43}",
-      "Color": "11",
+      "Color": "8",
       "MaxAttenuation": "0",
       "DurationType": "OneShot",
       "DurationMin": "0",
@@ -1098,7 +1156,8 @@
       "Name": "Audio_Play_Fall_Into_Water",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Swimming\\Audio_Play_Fall_Into_Water",
       "GUID": "{D21FF047-256A-4C3E-AAA6-00227F39EB09}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "1.5044671",
       "DurationMax": "1.5044671",
@@ -1114,6 +1173,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Environment\\Hazards\\Fire\\Audio_Play_Fire_Burning_Player",
       "GUID": "{86791E6D-C86C-4A6E-B592-92B408947FD0}",
       "Color": "4",
+      "MaxAttenuation": "18",
       "DurationType": "OneShot",
       "DurationMin": "7.2901816",
       "DurationMax": "7.2901816",
@@ -1129,6 +1189,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Environment\\Hazards\\Fire\\Audio_Play_Fire_Extinguished",
       "GUID": "{EEA03522-FD66-45DE-A7AE-AF8C00C136B8}",
       "Color": "4",
+      "MaxAttenuation": "18",
       "DurationType": "OneShot",
       "DurationMin": "2.58483",
       "DurationMax": "2.58483",
@@ -1144,6 +1205,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Environment\\Hazards\\Fire\\Audio_Play_Fire_Ignites_Player",
       "GUID": "{6E25CC9C-4B73-43E3-B33D-24190221F8B1}",
       "Color": "4",
+      "MaxAttenuation": "18",
       "DurationType": "OneShot",
       "DurationMin": "1.5044671",
       "DurationMax": "1.5044671",
@@ -1158,7 +1220,8 @@
       "Name": "Audio_Play_Footsteps",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Footsteps\\Audio_Play_Footsteps",
       "GUID": "{D949DAC3-A4F5-407D-B6B3-E7037E557EF0}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "0.3258957",
       "DurationMax": "0.4419728",
@@ -1540,6 +1603,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Grenade\\Audio_Play_Grenade_Explosion",
       "GUID": "{4C5297ED-E7CD-498D-9A1D-B0CBF984DEB7}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "3.2991157",
       "DurationMax": "3.2991157",
@@ -1555,6 +1619,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Grenade\\Audio_Play_Grenade_Land",
       "GUID": "{83AFC486-BDF7-48E1-BE16-A5AD3BB6AF81}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.43303856",
       "DurationMax": "0.43303856",
@@ -1570,6 +1635,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Grenade\\Audio_Play_Grenade_Pin",
       "GUID": "{CBD07E5F-A8DB-432C-B787-B530002DCEEA}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.5401814",
       "DurationMax": "0.5401814",
@@ -1585,6 +1651,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Grenade\\Audio_Play_Grenade_Throw",
       "GUID": "{47D772DE-82F2-4B96-8760-05D4952B2326}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.64732426",
       "DurationMax": "0.64732426",
@@ -1614,11 +1681,16 @@
       "Name": "Audio_Play_Health_Pickup",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Health\\Audio_Play_Health_Pickup",
       "GUID": "{05232FB4-F923-469B-BB32-50A01B8BDB1B}",
-      "Color": "11",
-      "MaxAttenuation": "0",
+      "Color": "18",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
-      "DurationMin": "0",
-      "DurationMax": "0"
+      "DurationMin": "2.0401814",
+      "DurationMax": "2.0401814",
+      "MediaRefs": [
+       {
+        "Id": "373175969"
+       }
+      ]
      },
      {
       "Id": "3026700978",
@@ -1626,17 +1698,22 @@
       "ObjectPath": "\\Events\\Default Work Unit\\UI\\Player_HUD\\Audio_Play_Hitmarker",
       "GUID": "{81765B8E-6076-444F-B9C2-3FCFD2EE3023}",
       "Color": "19",
-      "MaxAttenuation": "0",
       "DurationType": "OneShot",
-      "DurationMin": "0",
-      "DurationMax": "0"
+      "DurationMin": "0.30388406",
+      "DurationMax": "0.30388406",
+      "MediaRefs": [
+       {
+        "Id": "1012472380"
+       }
+      ]
      },
      {
       "Id": "3287526049",
       "Name": "Audio_Play_Jump_Landing",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Jumping\\Audio_Play_Jump_Landing",
       "GUID": "{1B90F941-D21E-4E19-905F-7AF613E66ED1}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "0.52231294",
       "DurationMax": "0.52231294",
@@ -1651,7 +1728,8 @@
       "Name": "Audio_Play_Jump_Up",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Jumping\\Audio_Play_Jump_Up",
       "GUID": "{00613C78-4AD2-4292-99B2-8EA4D31657D4}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "0.5401814",
       "DurationMax": "0.5401814",
@@ -1681,7 +1759,7 @@
       "Name": "Audio_Play_Low_Health",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Health\\Audio_Play_Low_Health",
       "GUID": "{2379CD5E-0945-4F3F-BCA8-478C374A145B}",
-      "Color": "11",
+      "Color": "18",
       "MaxAttenuation": "0",
       "DurationType": "OneShot",
       "DurationMin": "0",
@@ -1692,7 +1770,7 @@
       "Name": "Audio_Play_Low_Stamina",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Health\\Audio_Play_Low_Stamina",
       "GUID": "{A2185E3D-1FA1-4706-BD05-4F712E5B6803}",
-      "Color": "11",
+      "Color": "18",
       "MaxAttenuation": "0",
       "DurationType": "OneShot",
       "DurationMin": "0",
@@ -1704,6 +1782,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Environment\\Hazards\\Mousetrap\\Audio_Play_Mouse_Trap_Activation",
       "GUID": "{1138E783-E1FE-4F8E-927A-590A9B2AD915}",
       "Color": "4",
+      "MaxAttenuation": "18",
       "DurationType": "OneShot",
       "DurationMin": "1.089297",
       "DurationMax": "1.089297",
@@ -1719,6 +1798,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Environment\\Hazards\\Mousetrap\\Audio_Play_Mouse_Trap_Reload",
       "GUID": "{ED56EA34-8B03-4AAA-9C52-F87D3944D2C7}",
       "Color": "4",
+      "MaxAttenuation": "18",
       "DurationType": "OneShot",
       "DurationMin": "2.2141306",
       "DurationMax": "2.2141306",
@@ -1763,7 +1843,8 @@
       "Name": "Audio_Play_Parachute_Cut",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Parachute\\Audio_Play_Parachute_Cut",
       "GUID": "{2D2911FD-83C2-44D5-82C1-22256568911D}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "1.5044671",
       "DurationMax": "1.5044671",
@@ -1778,19 +1859,14 @@
       "Name": "Audio_Play_Parachute_Deploy",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Parachute\\Audio_Play_Parachute_Deploy",
       "GUID": "{399FC023-136F-4643-8D0B-A96DE7898D1F}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
-      "DurationMin": "11.89412",
-      "DurationMax": "11.89412",
+      "DurationMin": "0.73339266",
+      "DurationMax": "0.73339266",
       "MediaRefs": [
        {
-        "Id": "185168912"
-       },
-       {
         "Id": "464154328"
-       },
-       {
-        "Id": "615836738"
        }
       ]
      },
@@ -1800,6 +1876,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Pistol\\Audio_Play_Pistol_ADS",
       "GUID": "{EC6584CF-A425-45EE-9AB9-B04F3C0D320B}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.23215419",
       "DurationMax": "0.23215419",
@@ -1815,6 +1892,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Pistol\\Audio_Play_Pistol_Equip",
       "GUID": "{79FC5303-ED95-45DE-A265-7F062E9E1320}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.4419728",
       "DurationMax": "0.4419728",
@@ -1830,6 +1908,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Pistol\\Audio_Play_Pistol_Gunshot",
       "GUID": "{1CBCD8F3-3E53-4A59-A1C4-6E2DC673024F}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "2.3705442",
       "DurationMax": "2.3705442",
@@ -1845,6 +1924,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Pistol\\Audio_Play_Pistol_Reload_Empty",
       "GUID": "{9161DD70-9632-4341-B58B-492679249FB9}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "2.7901814",
       "DurationMax": "2.7901814",
@@ -1860,6 +1940,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Pistol\\Audio_Play_Pistol_Reload_Half_Empty",
       "GUID": "{E996D4EB-6CF0-43DE-A222-A6C4861DB09A}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "2.1607256",
       "DurationMax": "2.1607256",
@@ -1875,6 +1956,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Environment\\Hazards\\Fire\\Audio_Play_Player_On_Fire_Screaming",
       "GUID": "{887A5EA3-43C5-4B97-8D55-E982357EA648}",
       "Color": "4",
+      "MaxAttenuation": "18",
       "DurationType": "OneShot",
       "DurationMin": "1.6205442",
       "DurationMax": "1.6205442",
@@ -1905,6 +1987,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Shotgun\\Audio_Play_Shotgun_ADS",
       "GUID": "{B67FD66F-20D9-4F72-8E9F-CE8FDF4A6269}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.4419728",
       "DurationMax": "0.4419728",
@@ -1920,6 +2003,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Shotgun\\Audio_Play_Shotgun_Empty_Click",
       "GUID": "{EFA21333-121C-4B59-BC40-D98030330A02}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.43303856",
       "DurationMax": "0.43303856",
@@ -1935,6 +2019,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Shotgun\\Audio_Play_Shotgun_Equip",
       "GUID": "{E56646F7-A50F-4FF5-9AD1-760C46A1D3FE}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "1.0758957",
       "DurationMax": "1.0758957",
@@ -1950,6 +2035,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Shotgun\\Audio_Play_Shotgun_Gunshot",
       "GUID": "{5703C13C-9399-48DD-922E-387C9F8044A2}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "2.63839",
       "DurationMax": "2.63839",
@@ -1965,6 +2051,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Shotgun\\Audio_Play_Shotgun_Rechamber",
       "GUID": "{1CC6E1A7-92D3-4A9D-B8B8-F5B21478FA94}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.7561205",
       "DurationMax": "0.7561205",
@@ -1980,6 +2067,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Shotgun\\Audio_Play_Shotgun_Reload",
       "GUID": "{1541AC0A-95FB-450C-9614-CED248154D23}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.43303856",
       "DurationMax": "0.43303856",
@@ -1994,7 +2082,8 @@
       "Name": "Audio_Play_Slide",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Sliding\\Audio_Play_Slide",
       "GUID": "{9256F34F-13E1-4DCC-B2A0-AA53E1159B56}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "1.6116099",
       "DurationMax": "1.6160771",
@@ -2090,6 +2179,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sniper\\Audio_Play_Sniper_Rifle_ADS",
       "GUID": "{4DB43975-555B-4650-9706-3BA26FFE7A23}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.5535601",
       "DurationMax": "0.5535601",
@@ -2105,6 +2195,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sniper\\Audio_Play_Sniper_Rifle_Equip",
       "GUID": "{5EB4793B-8138-4A05-BB99-CCC21296910E}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.7544671",
       "DurationMax": "0.7544671",
@@ -2120,6 +2211,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sniper\\Audio_Play_Sniper_Rifle_Gunshot",
       "GUID": "{56B308CF-67AC-465F-AF48-5915F116B709}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "3.0580273",
       "DurationMax": "3.0580273",
@@ -2135,6 +2227,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sniper\\Audio_Play_Sniper_Rifle_Reload_Empty",
       "GUID": "{E05264FC-1D16-4411-9387-24CC055BB868}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "3.11161",
       "DurationMax": "3.11161",
@@ -2150,6 +2243,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sniper\\Audio_Play_Sniper_Rifle_Reload_Half_Empty",
       "GUID": "{83D64ED1-0E9E-4F28-B299-3EC35D125E65}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "1.8258957",
       "DurationMax": "1.8258957",
@@ -2164,7 +2258,8 @@
       "Name": "Audio_Play_Stepping_Out_Water",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Swimming\\Audio_Play_Stepping_Out_Water",
       "GUID": "{FE1D9712-5E76-4563-9E0E-2C07B166F73C}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "1.7187529",
       "DurationMax": "1.7187529",
@@ -2180,6 +2275,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sub_Machine_Gun\\Audio_Play_SubMachineGun_ADS",
       "GUID": "{C1ED2F08-6413-4F9F-814A-19008040B19D}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.21875283",
       "DurationMax": "0.21875283",
@@ -2195,6 +2291,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sub_Machine_Gun\\Audio_Play_SubMachineGun_Equip",
       "GUID": "{E5615D07-1D51-4BD7-91ED-00E3C6226ACA}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "0.5535601",
       "DurationMax": "0.5535601",
@@ -2210,6 +2307,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sub_Machine_Gun\\Audio_Play_SubMachineGun_Gunshot",
       "GUID": "{94213F88-6071-4C9A-B9C0-E238EC2E9D60}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "1.4062585",
       "DurationMax": "1.4062585",
@@ -2225,6 +2323,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sub_Machine_Gun\\Audio_Play_SubMachineGun_Reload_Empty",
       "GUID": "{8EA3C436-3BCA-4248-A162-2BBA7534ED5F}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "3.5401814",
       "DurationMax": "3.5401814",
@@ -2240,6 +2339,7 @@
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Weapons\\Sub_Machine_Gun\\Audio_Play_SubMachineGun_Reload_Half_Empty",
       "GUID": "{D0A291DD-0512-4615-8671-18429DFB76D9}",
       "Color": "11",
+      "MaxAttenuation": "100",
       "DurationType": "OneShot",
       "DurationMin": "2.6964173",
       "DurationMax": "2.6964173",
@@ -2254,7 +2354,8 @@
       "Name": "Audio_Play_Swim_Stroke",
       "ObjectPath": "\\Events\\Default Work Unit\\Player\\Movement\\Swimming\\Audio_Play_Swim_Stroke",
       "GUID": "{2C8DAF90-6EB0-4039-A7AD-0D326D8643B2}",
-      "Color": "11",
+      "Color": "13",
+      "MaxAttenuation": "20",
       "DurationType": "OneShot",
       "DurationMin": "1.3035828",
       "DurationMax": "3.0178685",
@@ -2305,18 +2406,189 @@
     ],
     "Busses": [
      {
+      "Id": "20324216",
+      "Name": "Mouse_Trap",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment\\Hazards\\Mouse_Trap",
+      "GUID": "{41DF228B-1960-4254-A473-F2E3B7A0A689}",
+      "Color": "4"
+     },
+     {
+      "Id": "151879501",
+      "Name": "Swim",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Swim",
+      "GUID": "{36A7F8C7-D385-4408-AF4F-F0680BAA7567}",
+      "Color": "11"
+     },
+     {
+      "Id": "587342027",
+      "Name": "BreakCam",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\BreakCam",
+      "GUID": "{B9F475BA-7938-425B-AE8E-F3A81B61B0F7}",
+      "Color": "11"
+     },
+     {
+      "Id": "838047381",
+      "Name": "Non-World",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World",
+      "GUID": "{49BCE9C6-A2F1-4198-A384-E31A0FCD04C2}",
+      "Color": "1"
+     },
+     {
+      "Id": "1069431850",
+      "Name": "Player",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player",
+      "GUID": "{76421170-5967-41B6-B541-54CB1AF1664F}",
+      "Color": "11"
+     },
+     {
+      "Id": "1073144984",
+      "Name": "Player_HUD",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World\\UI\\Player_HUD",
+      "GUID": "{C12B0713-34EB-4EF0-86CB-EAFDA42C60C4}",
+      "Color": "1",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "4168794106"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "1229948536",
+      "Name": "Environment",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment",
+      "GUID": "{04A82551-9324-4294-A0FE-C0D80A374AFE}",
+      "Color": "4"
+     },
+     {
+      "Id": "1440596779",
+      "Name": "Weapons_Gunshot",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Weapons_Gunshot",
+      "GUID": "{120BADCC-1FFB-4A3E-9562-D57F34C99DC8}",
+      "Color": "11",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "1031403393"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "1153822417",
+        "Name": "World_Weapon_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Weapon_Reverb",
+        "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "1551306167",
+      "Name": "UI",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World\\UI",
+      "GUID": "{76135593-32BC-44F5-BAEA-F6D688DC43CA}",
+      "Color": "1"
+     },
+     {
       "Id": "1761240301",
       "Name": "Sound_Effects",
       "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects",
-      "GUID": "{6210C36B-654B-49FB-BE7C-9AC102604970}",
-      "Color": "24"
+      "GUID": "{C03A7E61-214F-4354-AA56-9445373691C1}",
+      "Color": "13"
      },
      {
-      "Id": "1942696649",
-      "Name": "Effects",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Effects",
-      "GUID": "{0955737E-7307-455E-9DB7-D977D6650F42}",
-      "Color": "8"
+      "Id": "2129636626",
+      "Name": "Movement",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Movement",
+      "GUID": "{E30C9E64-F3FB-4633-91F2-960EEC514728}",
+      "Color": "11",
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "2595877424",
+      "Name": "Weapons_Foley",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Weapons_Foley",
+      "GUID": "{F4B67CAD-23DF-4668-A532-857E29880799}",
+      "Color": "11",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "1031403393"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
+     },
+     {
+      "Id": "2607556080",
+      "Name": "Menu",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Non-World\\UI\\Menu",
+      "GUID": "{9F032D24-668D-45F6-B814-89529156E23D}",
+      "Color": "1",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "3653805094"
+        }
+       ]
+      }
+     },
+     {
+      "Id": "2609808943",
+      "Name": "World",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World",
+      "GUID": "{D2542BCC-4833-4782-8B5E-4CE744B6287D}",
+      "Color": "10"
+     },
+     {
+      "Id": "2678880713",
+      "Name": "Fire",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment\\Hazards\\Fire",
+      "GUID": "{F9B13E45-1EB1-4E06-8092-4F7959A1676A}",
+      "Color": "4"
+     },
+     {
+      "Id": "3677180323",
+      "Name": "Health",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Player\\Health",
+      "GUID": "{CAF8D6EB-6472-4D0F-B781-90AD01B5C994}",
+      "Color": "11",
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
      },
      {
       "Id": "3803692087",
@@ -2325,41 +2597,57 @@
       "GUID": "{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}"
      },
      {
-      "Id": "3991942870",
-      "Name": "Music",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Music",
-      "GUID": "{4FA3C533-3E97-4511-9FCC-80770F906F2C}",
-      "Color": "14"
+      "Id": "4039062316",
+      "Name": "Hazards",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\World\\Environment\\Hazards",
+      "GUID": "{E6CF924D-8AE7-4D9A-9C67-1EEB68805244}",
+      "Color": "4",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "3989698561"
+        }
+       ]
+      },
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
+       }
+      ]
      }
     ],
     "AuxBusses": [
      {
-      "Id": "1069431850",
-      "Name": "Player",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\Player",
-      "GUID": "{8C0F63FF-9FD2-4902-B49B-D021606AE4E4}",
-      "Color": "24"
+      "Id": "191267372",
+      "Name": "World_Main_Reverb",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+      "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+      "Color": "13",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "2995775460"
+        }
+       ]
+      }
      },
      {
-      "Id": "1229948536",
-      "Name": "Environment",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\Environment",
-      "GUID": "{865FE0AF-549B-4AFC-A5C7-C557D5D120C2}",
-      "Color": "24"
-     },
-     {
-      "Id": "1551306167",
-      "Name": "UI",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\UI",
-      "GUID": "{4ACE517C-A1D6-492A-9855-28DDC66D21E0}",
-      "Color": "24"
-     },
-     {
-      "Id": "2242381963",
-      "Name": "Enemies",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\Enemies",
-      "GUID": "{8AE3E08C-B9C3-49F1-B657-82147C3F5B83}",
-      "Color": "24"
+      "Id": "1153822417",
+      "Name": "World_Weapon_Reverb",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Weapon_Reverb",
+      "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+      "Color": "13",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "2995775460"
+        }
+       ]
+      }
      }
     ],
     "SwitchGroups": [
@@ -2398,6 +2686,6 @@
     ]
    }
   ],
-  "FileHash": "{AD35226A-75B2-4BE7-4E3B-B84B757D9312}"
+  "FileHash": "{B05FF9D8-8AE9-BD1A-6067-69EF50C5FC85}"
  }
 }

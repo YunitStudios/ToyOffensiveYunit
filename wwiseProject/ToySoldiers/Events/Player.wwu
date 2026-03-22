@@ -53,7 +53,7 @@
 										<Action Name="" ID="{CE393532-B272-486C-9536-BB535F6C069D}" ShortID="873063259">
 											<ReferenceList>
 												<Reference Name="Target">
-													<ObjectRef Name="Parachute_Sequence" ID="{8359717E-6D9A-4ED9-A596-703C2EE66F28}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
+													<ObjectRef Name="Parachute_Deploy" ID="{B4017230-A93F-4447-9AB4-08BF0369317F}" WorkUnitID="{EAF2D4EE-BD67-428E-896E-60C414333D92}"/>
 												</Reference>
 											</ReferenceList>
 										</Action>
@@ -538,7 +538,17 @@
 					<ChildrenList>
 						<Event Name="Audio_Play_Low_Health" ID="{2379CD5E-0945-4F3F-BCA8-478C374A145B}"/>
 						<Event Name="Audio_Play_Low_Stamina" ID="{A2185E3D-1FA1-4706-BD05-4F712E5B6803}"/>
-						<Event Name="Audio_Play_Health_Pickup" ID="{05232FB4-F923-469B-BB32-50A01B8BDB1B}"/>
+						<Event Name="Audio_Play_Health_Pickup" ID="{05232FB4-F923-469B-BB32-50A01B8BDB1B}">
+							<ChildrenList>
+								<Action Name="" ID="{4AB5ADB9-5B8E-47D1-A382-1016B4AA866E}" ShortID="81537133">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Health_Pickup" ID="{41D6D2DF-0B53-477F-8E24-3B70726C042D}" WorkUnitID="{33744AEF-8AE5-4F70-8017-CC9E38AB7714}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
 					</ChildrenList>
 				</Folder>
 			</ChildrenList>
