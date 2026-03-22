@@ -313,6 +313,7 @@ MonoBehaviour:
     parachutingDiveMaxAngle: 75
     parachutingDiveInSpeed: 0.1
     parachutingDiveOutSpeed: 0.15
+    parachutingDiveResetSpeed: 0.15
     parachutingDiveSpeedBoost: 1.2
     parachutingDiveInEasing: 3
     parachutingDiveOutEasing: 0
@@ -500,6 +501,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+  feet: []
+  footSoundThreshold: 0
+  footstep: {fileID: 0}
 --- !u!114 &3982826205419482273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -698,6 +702,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+  feet: []
+  footSoundThreshold: 0
+  footstep: {fileID: 0}
 --- !u!114 &292829945684031962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -988,6 +995,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+  feet:
+  - transform: {fileID: 4519036925311670477}
+    onGround: 0
+  - transform: {fileID: 9053766537933601383}
+    onGround: 0
+  footSoundThreshold: -0.9
+  footstep: {fileID: 11400000, guid: 2ba455e342b43c4498373ecb46b98042, type: 2}
 --- !u!114 &2016813189950474197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1320,6 +1334,14 @@ PrefabInstance:
       value: PlayerCameras
       objectReference: {fileID: 0}
     - target: {fileID: 2727723059565811811, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727723059565811811, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2727723059565811811, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -1333,31 +1355,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000008139068
+      value: 41.5641
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.3642373
+      value: 16.42
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.151636
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9369574
+      value: 0.6625573
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.34944355
+      value: 0.2470178
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000000017721311
+      value: -0.6625574
       objectReference: {fileID: 0}
     - target: {fileID: 5707801204631659035, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 6.609274e-10
+      value: 0.24701785
       objectReference: {fileID: 0}
     - target: {fileID: 5813169159224759092, guid: 5a5a350d3a737c642bd3a3ff63b1880a, type: 3}
       propertyPath: HorizontalAxis.Value
