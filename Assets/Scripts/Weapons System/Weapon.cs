@@ -36,7 +36,7 @@ public class Weapon
     
     public void Initialize(WeaponDataSO weaponData)
     {
-        WeaponData = weaponData;
+        WeaponData = Object.Instantiate(weaponData);;
         FirePoint = LocateFirePoint(weaponData.WeaponPrefab);
         CurrentAmmoInMag = weaponData.MagSize;
         

@@ -33,9 +33,6 @@ public class AIDetection : MonoBehaviour
     private bool shouldInvestigate = false;
     public bool ShouldInvestigate => shouldInvestigate;
     [HideInInspector] public bool isSearching = false;
-    private bool wasAlertedRecently = false;
-    private float shotTimer = 0f;
-    private float shotTimerDuration = 2f;
     
     [Header("Visual Settings")]
     [Tooltip("The TMP on enemy prefab")]
@@ -52,7 +49,6 @@ public class AIDetection : MonoBehaviour
     {
         VisionDetection();
         HeardRecently();
-        AlertedRecently();
         DetectionDrop();
         Detected();
         
@@ -113,7 +109,7 @@ public class AIDetection : MonoBehaviour
     // Losing Detection
     public void DetectionDrop()
     {
-        if (!(aiVision.canSeePlayer || heardRecently || isSearching || wasAlertedRecently))
+        if (!(aiVision.canSeePlayer || heardRecently || isSearching))
         {
             detectionPercent -= detectionDropPerSecond * Time.deltaTime;
         }
@@ -125,8 +121,6 @@ public class AIDetection : MonoBehaviour
         if (detectionPercent >= engageThreshold && aiVision.canSeePlayer)
         {
             isDetected = true;
-            AIStateMachine ai = GetComponent<AIStateMachine>();
-            ai.AlertSquad(aiVision.player);
         }
 
         if (isDetected && detectionPercent < disengageThreshold)
@@ -159,53 +153,6 @@ public class AIDetection : MonoBehaviour
         {
             alertText.text = "";
             alertText.color = Color.white;
-        }
-    }
-
-    void OnEnable()
-    {
-        AIController.OnEnemyKilled += OnEnemyKilledNearby;
-    }
-
-    void OnDisable()
-    {
-        AIController.OnEnemyKilled -= OnEnemyKilledNearby;
-    }
-
-    private void OnEnemyKilledNearby(IObjectiveTarget target)
-    {
-        Component Target = target as Component;
-        if (Target == null)
-        {
-            return;
-        }
-        
-        Vector3 deathPosition = Target.transform.position;
-
-        if (aiVision.CanSeePosition(deathPosition))
-        {
-            aiStateMachine.AlertSquad(aiVision.player);
-        }
-    }
-
-    public void Alerted()
-    {
-        Debug.Log("Alerted");
-        wasAlertedRecently = true;
-        shotTimer = shotTimerDuration;
-        AddDetection(100f);
-    }
-
-    private void AlertedRecently()
-    {
-        if (!wasAlertedRecently)
-        {
-            return;
-        }
-        shotTimer -= Time.deltaTime;
-        if (shotTimer <= 0f)
-        {
-            wasAlertedRecently = false;
         }
     }
 }

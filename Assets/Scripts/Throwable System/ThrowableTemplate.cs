@@ -1,4 +1,3 @@
-using SoundSystem;
 using UnityEngine;
 
 public class ThrowableTemplate : MonoBehaviour, IDamageSource
@@ -8,18 +7,8 @@ public class ThrowableTemplate : MonoBehaviour, IDamageSource
     
     public float Damage;
     public float Radius;
-
-    public ParticleSystem DetonateParticles;  
-
+    
     private bool detonated;
-
-    public WwisePlayer wwisePlayer;
-    public SoundDataSO detonationSound;
-
-    private void Start()
-    {
-        wwisePlayer = gameObject.GetComponent<WwisePlayer>();
-    }
 
     private void Update()
     {

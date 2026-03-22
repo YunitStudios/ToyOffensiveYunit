@@ -7,13 +7,10 @@ public class CoverPointManager : MonoBehaviour
     public static CoverPointManager instance;
     private List<CoverPoint> coverPoints = new List<CoverPoint>();
     [SerializeField] private LayerMask ignoreLayers;
-    private float nearSearchRadius = 40f;
-    private float nearSearchRadiusSqr;
 
     void Awake()
     {
         instance = this;
-        nearSearchRadiusSqr = nearSearchRadius * nearSearchRadius;
     }
 
     public void AddCoverPoint(CoverPoint coverPoint)
@@ -27,59 +24,35 @@ public class CoverPointManager : MonoBehaviour
     }
 
     // finds closest cover point from the enemy
-    public CoverPoint GetNearestCoverPoint(Vector3 fromPosition, Transform player, AIStateMachine aiStateMachine)
+    public CoverPoint GetNearestCoverPoint(Vector3 fromPosition, Transform player)
     {
         CoverPoint best = null;
         float bestDistance = Mathf.Infinity;
         NavMeshPath path = new NavMeshPath();
-        int checkCount = 0;
-        int maxChecks = 10;
 
         foreach (CoverPoint coverPoint in coverPoints)
         {
-            // breaks loop if max checks done
-            if (checkCount >= maxChecks)
-            {
-                break;
-            }
             // skips already taken cover points
             if (coverPoint.isTaken)
             {
                 continue;
             }
 
-            Vector3 position = coverPoint.transform.position;
-            float sqrDistance = (fromPosition - position).sqrMagnitude;
-            if (sqrDistance > nearSearchRadiusSqr)
-            {
-                continue;
-            }
-
-            if (sqrDistance >= bestDistance)
-            {
-                continue;
-            }
-
             // skips cover points that don't block line of sight from player
-            if (!HasCoverFrom(player, position))
+            if (!HasCoverFrom(player, coverPoint.transform.position))
             {
                 continue;
             }
             
-            checkCount++;
-            
-      
-            // checks the cover point is reachable
-            if (NavMesh.CalculatePath(fromPosition, position, NavMesh.AllAreas, path) && path.status == NavMeshPathStatus.PathComplete)
+            float distance = Vector3.Distance(fromPosition, coverPoint.transform.position);
+            if (distance < bestDistance)
             {
-                if (coverPoint.TakeCoverPoint(aiStateMachine))
+                // checks the cover point is reachable
+                if (NavMesh.CalculatePath(fromPosition, coverPoint.transform.position, NavMesh.AllAreas, path) &&
+                    path.status == NavMeshPathStatus.PathComplete)
                 {
-                    bestDistance = sqrDistance;
+                    bestDistance = distance;
                     best = coverPoint;
-                    if (sqrDistance < 25f)
-                    {
-                        return best;
-                    }
                 }
             }
         }

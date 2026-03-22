@@ -45,7 +45,6 @@ public class MissionManager : MonoBehaviour
     [SerializeField] private VoidEventChannelSO onMissionComplete;
     [SerializeField] private VoidEventChannelSO onMissionEnd;
     [SerializeField] private VoidEventChannelSO onBonusObjectiveComplete;
-    [SerializeField] private VoidEventChannelSO onLoadRadialHUD;
 
     public bool IsMissionActive { get; private set; }
     
@@ -77,10 +76,9 @@ public class MissionManager : MonoBehaviour
         foreach(var obj in currentMission.BonusObjectives)
             obj.OnObjectiveCompleted += CompleteBonus;
         
-        
         onMissionStart?.Invoke();
+        
         onTeleportPlayer?.Invoke(currentMission.GetStartPosition());
-        onLoadRadialHUD?.Invoke();
 
         IsMissionActive = true;
     }

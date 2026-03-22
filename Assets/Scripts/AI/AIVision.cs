@@ -18,6 +18,10 @@ public class AIVision : MonoBehaviour
     [Tooltip("Everything the enemy cant see through")]
     [SerializeField] private LayerMask visionMask;
     
+    [Tooltip("Time before the player is seen inside vision")]
+    [SerializeField] private float aggressionTime = 1.0f;
+    private float visibleTimer = 0f;
+    
     [HideInInspector] public Vector3 lastSeenPosition;
 
     [HideInInspector] public float lastSeenTime;
@@ -28,7 +32,7 @@ public class AIVision : MonoBehaviour
 
     private bool playerInsideVision = false;
     [Tooltip("Detection drop per second, when out of sight")]
-    //[SerializeField] private float detectionDrop = 10f;
+    [SerializeField] private float detectionDrop = 10f;
     
     private bool hasAlertedSquad = false;
     private AIStateMachine aiStateMachine;
@@ -42,6 +46,30 @@ public class AIVision : MonoBehaviour
         defaultRange = range;
         // Finds the player object using Tag
         player = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+
+    private void Update()
+    {
+        // increases timer if inside vision, or decrease timer if out of vision
+        if (playerInsideVision)
+        {
+            visibleTimer += Time.deltaTime;
+        }
+        else
+        {
+            visibleTimer = Mathf.Clamp(visibleTimer -= Time.deltaTime * detectionDrop, 0, aggressionTime);
+        }
+
+        // Alert the enemies squad
+        if (canSeePlayer)
+        {
+            if (!hasAlertedSquad)
+            { 
+                aiStateMachine = GetComponentInParent<AIStateMachine>();
+                aiStateMachine.AlertSquad(player);
+                hasAlertedSquad = true;
+            }
+        }
     }
 
     // Will activate when player is inside the trigger collider
@@ -60,6 +88,7 @@ public class AIVision : MonoBehaviour
         // If the angle calculated is larger than half the FOV, then the player is outside of its vision cone
         if (angle > FOV * 0.5f)
         {
+            playerInsideVision = false;
             canSeePlayer = false;
             return;
         }
@@ -68,13 +97,19 @@ public class AIVision : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                canSeePlayer = true;
-                lastSeenPosition = player.position;
-                lastSeenTime = Time.time;
+                // When player has been inside vision for the aggression time, AI can see the player.
+                playerInsideVision = true;
+                if (visibleTimer >= aggressionTime)
+                {
+                    canSeePlayer = true;
+                    lastSeenPosition = player.position;
+                    lastSeenTime = Time.time;
+                }
                 return;
             }
         }
         canSeePlayer = false;
+        playerInsideVision = false;
     }
 
     // Will activate when player Leaves the trigger collider
@@ -82,6 +117,7 @@ public class AIVision : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            playerInsideVision = false;
             canSeePlayer = false;
         }
     }
@@ -122,24 +158,5 @@ public class AIVision : MonoBehaviour
             }
         }
         return false;
-    }
-
-    public bool CanSeePosition(Vector3 position)
-    {
-        // Calculates direction to the target position
-        Vector3 direction = (position - transform.position).normalized;
-        // Which is then used to calculate the angle between the AI forwards and the targets direction
-        float angle = Vector3.Angle(transform.forward, direction);
-        // If the angle calculated is larger than half the FOV, then the target is outside of its vision cone
-        if (angle > FOV * 0.5f)
-        {
-            return false;
-        }
-        // Does raycast to check if anything is blocking vision between enemy and target
-        if (Physics.Raycast(transform.position + Vector3.up * 1.8f, direction, out RaycastHit hit, Vector3.Distance(transform.position, position),  visionMask))
-        {
-            return false;
-        }
-        return true;
     }
 }

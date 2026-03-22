@@ -46,14 +46,7 @@ public class StateMachine : MonoBehaviour
         currentState = newState;
         currentState?.OnEnter();
         
-        OnStateSwitched();
-        
         return true;
-    }
-
-    protected virtual void OnStateSwitched()
-    {
-        
     }
     
     private IEnumerator ResetChangedStateFlagCoroutine(State oldState)

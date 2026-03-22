@@ -218,8 +218,6 @@ public class Popup : MonoBehaviour
 
             if (disableGameObjectWhenClosed)
                 gameObject.SetActive(false);
-            
-            OnClosedPopup?.Invoke();
         });
 
         if(movePanel)

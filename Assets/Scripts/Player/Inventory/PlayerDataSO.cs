@@ -41,10 +41,8 @@ public class PlayerDataSO : ScriptableObject
     public AttachmentDataSO SecondaryAttachment { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int NormalAmmoCount { get; private set; }
-    public int TotalNormalAmmoCount => NormalAmmoCount + PrimaryWeapon.CurrentAmmoInMag;
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int SecondaryAmmoCount { get; private set; }
-    public int TotalSecondaryAmmoCount => SecondaryAmmoCount + SecondaryWeapon.CurrentAmmoInMag;
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
     public int ThrowableCount { get; private set; }
     [field: SerializeField, HideInEditMode, DisableInPlayMode]
@@ -129,10 +127,7 @@ public class PlayerDataSO : ScriptableObject
     // Player Movement
     public PlayerCamera.CameraType CameraType { get; private set; }
     // Player General
-    public void StoreCurrentHealth(float value)
-    {
-        CurrentHealth = value;
-    }
+    public void SetCurrentHealth(float value) => CurrentHealth = value;
 
     [Title("\n<b><color=#8880ff>Callbacks", 15, 5, false)]
     public VoidEventChannelSO OnCurrentWeaponChanged;
@@ -164,8 +159,7 @@ public class PlayerDataSO : ScriptableObject
         
         CameraType = PlayerCamera.CameraType.Main;
         CurrentHealth = MaxHealth;
-
-        IsAiming = false; }
+    }
 
     public void Reset()
     {

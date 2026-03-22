@@ -6,16 +6,13 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewWeapon", menuName = "ScriptableObjects/Weapon")]
 public class WeaponDataSO : ScriptableObject, ILoadout
 {
-    [Header("Visuals")]
+    [Header("Name")]
     [Tooltip("How the weapon will be referred to in code")]
     public string ClassName;
 
     [Tooltip("How the weapon is shown in UI")]
     public string DisplayName;
 
-    public Sprite WeaponSprite;
-    public Sprite WeaponSpriteWhite;
-    public AnimatorOverrideController animationController;
 
     [Header("Core stats")]
     [Tooltip("The weapons maximum fire rate in rounds per minute. It also acts as a limit for semi auto firing speed")]
@@ -67,8 +64,6 @@ public class WeaponDataSO : ScriptableObject, ILoadout
     public PlayerCamera.CameraType AimCameraType;
     
     public List<AttachmentDataSO> AttachmentSOs = new();
-
-    [Header("Sound pack")] public WeaponSoundPackSO soundPack;
 
     public enum FireModes
     {

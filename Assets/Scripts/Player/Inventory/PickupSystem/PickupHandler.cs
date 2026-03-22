@@ -1,12 +1,10 @@
 using System;
 using Player.Inventory.PickupSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class PickupHandler : MonoBehaviour
 {
     [SerializeField] private string pickupTag = "Pickup";
-    [SerializeField] private FloatEventChannelSO adjustPlayerHealth;
     
     private void OnTriggerEnter(Collider other)
     {
@@ -36,7 +34,7 @@ public class PickupHandler : MonoBehaviour
                 }
                 break;
             case PickupObjectType.Health:
-                adjustPlayerHealth?.Invoke(-(GameManager.PlayerData.CurrentHealth + obj.value));
+                GameManager.PlayerData.SetCurrentHealth(GameManager.PlayerData.CurrentHealth + obj.value);
                 NotifyPlayer("Health", obj.value);
                 break;
         }

@@ -12,8 +12,6 @@ public class DebugUI : MonoBehaviour
 
     private bool isPaused = false;
 
-    [SerializeField] private VoidEventChannelSO onMissionComplete;
-
     private void Start()
     {
         InputManager.Instance.OnDebug += TogglePanel;
@@ -73,12 +71,6 @@ public class DebugUI : MonoBehaviour
         {
             isPaused = !isPaused;
             Time.timeScale = isPaused ? 0f : 1f;
-        }
-
-        // complete mission button
-        if (GUI.Button(new Rect(x, y + 170, 100, 30), "Finish"))
-        {
-            onMissionComplete?.Invoke();
         }
 
         // something was modified

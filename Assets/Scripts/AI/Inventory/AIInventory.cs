@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
 public class AIInventory : MonoBehaviour
@@ -21,9 +20,6 @@ public class AIInventory : MonoBehaviour
     
     private int throwableCount;
     public int GetThrowableCount() => throwableCount;
-    
-    [SerializeField] private SerializedDictionary<WeaponDataSO, GameObject> weaponModels;
-    [SerializeField] private Animator animator;
 
 
     private void Awake()
@@ -40,7 +36,6 @@ public class AIInventory : MonoBehaviour
         secondaryAmmoCount = aiData.MaxSecondaryAmmo;
         throwableData = aiData.StartingThrowable;
         throwableCount = aiData.MaxThrowableAmount;
-        SetWeaponVisual();
     }
     
     public void SetNormalAmmoCount(int count)
@@ -77,21 +72,5 @@ public class AIInventory : MonoBehaviour
     {
         aiData = newAIData;
         Init();
-    }
-    
-    private void SetWeaponVisual()
-    {
-        WeaponDataSO weaponData = primaryWeapon.WeaponData;
-        animator.runtimeAnimatorController = weaponData.animationController;
-        // Disable all gun models and disable current
-        foreach (var model in weaponModels)
-        {
-            model.Value.SetActive(false);
-        }
-
-        if (weaponModels.TryGetValue(weaponData, out var newModel))
-        {
-            newModel.SetActive(true);
-        }
     }
 }

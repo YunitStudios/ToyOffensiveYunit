@@ -11,7 +11,7 @@ def get_unity_path(custom_path=None):
 
     system = platform.system()
     if system == "Windows":
-        return r"C:\Program Files\Unity\Hub\Editor\6000.2.10f1\Editor\Unity.exe"
+        return r"C:\Program Files\Unity\Hub\Editor\6000.2.7f2\Editor\Unity.exe"
     elif system == "Linux":
         return f"{os.environ['HOME']}/Unity/Hub/Editor/6000.2.7f2/Editor/Unity"
     elif system == "Darwin":

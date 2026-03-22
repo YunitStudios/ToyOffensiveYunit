@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using EditorAttributes;
-using UnityEngine.AI;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -72,10 +71,7 @@ public class EnemySpawner : MonoBehaviour
                 spawnPosition = transform.position + new Vector3(offset.x, 0, offset.y);
             }
             
-            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, transform.rotation);
-            NavMeshAgent agent = enemy.GetComponent<NavMeshAgent>();
-            // Randomise nav agents obstacle avoidance priority
-            agent.avoidancePriority = Random.Range(0, 100);
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
             squadMembers.Add(enemy);
             // assigns formation offsets to enemies 
             AIStateMachine controller = enemy.GetComponent<AIStateMachine>();

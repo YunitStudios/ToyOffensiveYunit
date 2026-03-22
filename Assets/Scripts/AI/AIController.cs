@@ -11,10 +11,6 @@ public class AIController : MonoBehaviour, IDamageable
     [SerializeField] private Animator aiAnimator;
     public Animator AIAnimator => aiAnimator;
     private NavMeshAgent navMeshAgent;
-    [Tooltip("Min and Max speed the moving animation can be, the speed is based on their current speed compared to the max speed")]
-    [SerializeField] private Vector2 moveAnimSpeedRange = new(0f, 1f);
-    public Vector2 MoveAnimSpeedRange => moveAnimSpeedRange;
-    [SerializeField] private float animUpdateDelay = 0.1f;
 
     [Header("Output Events")] 
     [SerializeField] private VoidEventChannelSO onEnemyKilledWithGrenade;
@@ -23,15 +19,12 @@ public class AIController : MonoBehaviour, IDamageable
     
     private static readonly int AnimMoveSpeed = Animator.StringToHash("MoveSpeed");
     private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
-    private static readonly int IsAiming = Animator.StringToHash("IsAiming");
 
     private CapsuleCollider capCollider;
     private float standHeight = 2f;
     private float crouchHeight = 1f;
     private float targetHeight;
     private Transform playerTransform;
-    private float animUpdateTime;
-    [HideInInspector] public bool isEnemyAiming;
     
     public IDamageSource RecentDamageSource { get; set; }
 
@@ -49,26 +42,23 @@ public class AIController : MonoBehaviour, IDamageable
 
     void Update()
     {
-        
-        Vector3 localDirection = transform.InverseTransformDirection(navMeshAgent.velocity.normalized);
-
-        animUpdateTime += Time.deltaTime;
-        if(animUpdateTime > animUpdateDelay)
+        // Walking animation based on current speed
+        float horizontalSpeed = navMeshAgent.velocity.magnitude;
+        // Divide by max speed to get 0-1 range
+        horizontalSpeed /= navMeshAgent.speed;
+        // Half to fit walking blend tree
+        horizontalSpeed /= 2f;
+        // If sprinting, remove multiplier and instead double to get full speed
+        if (navMeshAgent.speed > 2)
         {
-            InputMoveState.SetAnimatorMovement(aiAnimator,
-                navMeshAgent.speed,
-                navMeshAgent.velocity.magnitude,
-                localDirection,
-                navMeshAgent.speed > 2,
-                1.5f,
-                MoveAnimSpeedRange);
-            animUpdateTime = 0.0f;
+            horizontalSpeed *= 2f;
         }
+        aiAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed , 0.2f, Time.deltaTime);
     }
     
     public void TakeDamage(IDamageSource source, float damage)
     {
-        // prevents squad taking damage during glory kill
+        // prevents squad being alerted during glory kill
         if (stateMachine.IsFrozen)
         {
             return;
@@ -77,13 +67,10 @@ public class AIController : MonoBehaviour, IDamageable
         if(source != null)
             RecentDamageSource = source;
         
+        // Alert squad when damaged 
+        stateMachine.AlertSquad(playerTransform);
         
         enemyHealth.DealDamage(damage, out bool didDie);
-        if (!didDie)
-        {
-            // Alert squad when damaged 
-            stateMachine.AlertSquad(playerTransform);
-        }
         if (didDie)
         {
             stateMachine.Die();
@@ -123,19 +110,5 @@ public class AIController : MonoBehaviour, IDamageable
         }
         capCollider.height = targetHeight;
         navMeshAgent.height = targetHeight;
-    }
-
-    public void SetAiming(bool isAiming)
-    {
-        if (isAiming)
-        {
-            aiAnimator.SetBool(IsAiming, true);
-            isEnemyAiming = true;
-        }
-        else
-        {
-            aiAnimator.SetBool(IsAiming, false);
-            isEnemyAiming = false;
-        }
     }
 }

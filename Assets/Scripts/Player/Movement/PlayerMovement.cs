@@ -4,7 +4,6 @@ using Unity.Cinemachine;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Animations.Rigging;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -33,9 +32,6 @@ public class PlayerMovement : StateMachine
     public PlayerDataSO PlayerData => playerData;
     [SerializeField] private Transform rotationRoot;
     [SerializeField] private Transform visualRoot;
-    [SerializeField] private Transform aimingTarget;
-    [SerializeField] private Rig aimingRig;
-    [SerializeField] private Transform gunRoot;
     public Transform VisualRoot => visualRoot;
     public Vector3 Position => transform.position;
     public Quaternion Rotation => rotationRoot.rotation;
@@ -70,14 +66,7 @@ public class PlayerMovement : StateMachine
 
     [Tooltip("How much to offset the cameras look target from the players pivot when crouched")]
     [SerializeField] private float crouchedCameraHeightOffset = 0f;
-
-    [Tooltip("How much to move the aiming target so that the player looks slightly to the right and up to match what the camera sees")]
-    [SerializeField] private Vector2 aimingShoulderOffset = new Vector2(3,1);
-
-    [Tooltip("Speed to move the aiming target when you start aiming")] [SerializeField] private float aimingShoulderSpeed = 0.1f;
-    [SerializeField,Range(0,89)] private float verticalMaxAngle = 60f;
-    [SerializeField,Range(-89,0)] private float verticalMinAngle = -40f;
-
+    
     public float GetCurrentCameraHeightOffset => currentState switch
     {
         global::CrouchingState => crouchedCameraHeightOffset,
@@ -147,13 +136,7 @@ public class PlayerMovement : StateMachine
     [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     [SerializeField] private VoidEventChannelSO onTryUnstuck;
     
-    public void OnDealPlayerDamage(float damage)
-    {
-        if (damage <= 0)
-            return;
-        
-        onDealPlayerDamage?.Invoke(damage);
-    }
+    public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
     public bool ShouldMouseRotateVisuals => currentState is IMovementState { UseMouseRotateVisuals: true };
@@ -169,7 +152,6 @@ public class PlayerMovement : StateMachine
     private bool movementFrozen;
     private bool hasCachedGroundCheck;
     private bool cachedGroundCheck;
-    private Vector2 currentShoulderOffset;
     
     // Public Properties
     public bool IsGrounded
@@ -186,13 +168,6 @@ public class PlayerMovement : StateMachine
     public bool CanAim => CheckCanAim();
     public bool DisableSprinting { get; private set; }
     public bool IsSlopeSliding { get; private set; }
-
-    private bool shouldDisplayGun = true;
-    public bool ShouldDisplayGun
-    {
-        get => currentState is IMovementState { ShouldDisplayGun: true } && shouldDisplayGun;
-        set => shouldDisplayGun = value;
-    }
 
     private void Awake()
     {
@@ -220,7 +195,6 @@ public class PlayerMovement : StateMachine
     private void OnEnable()
     {
         onTeleportPlayer.OnEventRaised += SetPosition;
-        onTeleportPlayer.OnEventRaised += (_) => GameManager.PlayerData?.StoreRotationRootTransform(rotationRoot);
         onTryUnstuck.OnEventRaised += OnTryUnstuck;
     }
 
@@ -229,6 +203,7 @@ public class PlayerMovement : StateMachine
         onTeleportPlayer.OnEventRaised -= SetPosition;
         onTryUnstuck.OnEventRaised -= OnTryUnstuck;
     }
+
     private void SetupStates()
     {
         walkingState = new WalkingState(this);
@@ -254,13 +229,6 @@ public class PlayerMovement : StateMachine
         SwitchState(walkingState, null);
     }
 
-    protected override void OnStateSwitched()
-    {
-        base.OnStateSwitched();
-    }
-    
-
-
     protected override void Update()
     {
         if (movementFrozen || !playerHealth.IsAlive)
@@ -279,6 +247,7 @@ public class PlayerMovement : StateMachine
             GameManager.PlayerData.StorePosition(transform.position);
             GameManager.PlayerData.StoreRotationRootTransform(rotationRoot);
         }
+           
     }
 
     protected override void LateUpdate()
@@ -458,13 +427,6 @@ public class PlayerMovement : StateMachine
             // Rotate tracker horizontally if visuals are affected
             if(ShouldMouseRotateVisuals)
                 thirdPersonTracker.transform.rotation *= Quaternion.AngleAxis(finalInput.x, Vector3.up);
-            // If not, rotate back to default
-            // UNLESS its parachuting, cos im lazy
-            else if(currentState is not global::ParachuteState)
-            {
-                Quaternion target = Quaternion.Euler(thirdPersonTracker.transform.rotation.eulerAngles.x, rotationRoot.rotation.eulerAngles.y, thirdPersonTracker.transform.rotation.eulerAngles.z);
-                thirdPersonTracker.transform.rotation = Quaternion.Slerp(thirdPersonTracker.transform.rotation, target, 0.2f);
-            }
             
             SetCameraRotation(thirdPersonTracker.transform.rotation);
                 
@@ -493,10 +455,8 @@ public class PlayerMovement : StateMachine
         Vector3 trackerEuler = thirdPersonTracker.localEulerAngles;
         trackerEuler.z = 0;
         float angle = trackerEuler.x;
-        float minAngle = 360 + verticalMinAngle;
-        float maxAngle = verticalMaxAngle;
-        if (angle > 180f && angle < minAngle) angle = minAngle;
-        else if (angle < 180f && angle > maxAngle) angle = maxAngle;
+        if (angle is > 180f and < 340f) angle = 340f;
+        else if (angle is < 180f and > 40f) angle = 40f;
         trackerEuler.x = angle;
         thirdPersonTracker.localEulerAngles = trackerEuler;
         
@@ -509,34 +469,6 @@ public class PlayerMovement : StateMachine
         trackerPos.y = GetCurrentCameraHeightOffset;
         thirdPersonTracker.localPosition = trackerPos;
         
-        
-        // Face player vertically based on camera direction
-        if (currentState is IMovementState { RotatePlayerVertically: true })
-        {
-            aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 1.0f, Time.deltaTime * aimingShoulderSpeed);
-            
-            Vector3 targetPosition = transform.position + Vector3.up * PlayerHeadHeight;
-            // Only offset the shoulder while aiming
-            if (playerData.IsAiming && currentShoulderOffset != aimingShoulderOffset)
-                currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, aimingShoulderOffset,
-                    aimingShoulderSpeed * Time.deltaTime);
-            else if (!playerData.IsAiming && currentShoulderOffset != Vector2.zero)
-                currentShoulderOffset = Vector2.Lerp(currentShoulderOffset, Vector2.zero,
-                    aimingShoulderSpeed * Time.deltaTime);
-
-            // Offset the aim target to be around the shoulder
-            targetPosition += rotationRoot.right * currentShoulderOffset.x + rotationRoot.up * currentShoulderOffset.y;
-
-            // Move forwards to smoothen the rotation
-            targetPosition += thirdPersonTracker.transform.forward * 10;
-            ;
-            aimingTarget.transform.position = targetPosition;
-        }
-        else
-            aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 0.0f, Time.deltaTime * aimingShoulderSpeed);
-        
-        gunRoot.gameObject.SetActive(ShouldDisplayGun);
-
     }
     
     public bool IsFacingWall(float distance = 1f)

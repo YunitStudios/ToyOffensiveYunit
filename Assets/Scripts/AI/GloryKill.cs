@@ -1,7 +1,5 @@
 using System.Collections;
-using Unity.Cinemachine;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class GloryKill : MonoBehaviour, IDamageSource
 {
@@ -22,9 +20,8 @@ public class GloryKill : MonoBehaviour, IDamageSource
     private bool isGloryKilling = false;
     private Transform snapPoint;
     private AIController currentTargetController;
-    [SerializeField] private GameObject gunRoot;
+    [SerializeField] private GameObject gunMesh;
     [SerializeField] private GameObject gloryKillCamera; 
-    [SerializeField] private CinemachineSplineCart cinemachineDollyCart;
     private CanvasGroup hud;
     
     
@@ -110,8 +107,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
     {
         playerAnimator.SetBool("IsAiming", false);
         DisableTargetColliders(true);
-        gunRoot.SetActive(false);
-        cinemachineDollyCart.SplinePosition = 0.8f;
+        gunMesh.SetActive(false);
         gloryKillCamera.SetActive(true);
         hud.alpha = 0.0f;
         isGloryKilling = true;
@@ -123,13 +119,21 @@ public class GloryKill : MonoBehaviour, IDamageSource
         playerMovement.SetMovementFrozen(true);
         weaponsSystem.SetWeaponFrozen(true);
         Vector3 snapPosition = snapPoint.position;
-        playerMovement.SetRotation(snapPoint.rotation);
+        snapPosition.y = transform.position.y;
+        //playerMovement.SetPosition(snapPosition);
         StartCoroutine(MovePlayerToPoint(snapPosition, () =>
         {
             playerAnimator.applyRootMotion = true; 
+            playerMovement.SetRotation(snapPoint.rotation);
             playerAnimator.CrossFade("GloryKill1", 0f);
             targetAnimator.CrossFade("GloryKill2", 0f);
         }));
+        //playerMovement.SetRotation(snapPoint.rotation);
+        //playerAnimator.applyRootMotion = true;
+        //playerAnimator.CrossFade("GloryKill1", 0f);
+        //targetAnimator.CrossFade("GloryKill2", 0f);
+       
+       // play animation on the target ai and the player, freeze player movement somewhere too, maybe change camera for the glory kill
     }
 
     // Will be called by end of glory kill animation
@@ -146,8 +150,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
         currentTargetController.TakeDamage(this, 100f);
         currentTarget = null;
         isGloryKilling = false;
-        gunRoot.SetActive(true);
-        cinemachineDollyCart.SplinePosition = 0.8f;
+        gunMesh.SetActive(true);
         gloryKillCamera.SetActive(false);
         hud.alpha = 1.0f;
     }
@@ -158,6 +161,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
         float duration = 0.5f;
         float timeElapsed = 0f;
         Vector3 startPosition = transform.position;
+        targetPosition.y = startPosition.y;
         while (timeElapsed < duration)
         {
             timeElapsed += Time.deltaTime;

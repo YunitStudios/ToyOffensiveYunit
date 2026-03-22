@@ -11,7 +11,7 @@ public class HealingState : AIState
     public HealingState(AIStateMachine controller, NavMeshAgent agent) : base(controller, agent)
     {
         healingCompleted = false;
-        healCover = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, controller.vision.player, controller);
+        healCover = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, controller.vision.player);
     }
 
     public override void Execute()

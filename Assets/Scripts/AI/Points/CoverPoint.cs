@@ -3,7 +3,7 @@ using UnityEngine;
 public class CoverPoint : MonoBehaviour
 {
     // is cover point taken?
-    public bool isTaken = false;
+    [HideInInspector] public bool isTaken = false;
     [HideInInspector] public AIStateMachine aiStateMachine = null;
     [Tooltip("Set to true if enemy stands up when hiding behind cover, otherwise will crouch")]
     [SerializeField] private bool standingCover = true;
@@ -34,13 +34,10 @@ public class CoverPoint : MonoBehaviour
         return true;
     }
 
-    public void LeaveCoverPoint(AIStateMachine ai)
+    public void LeaveCoverPoint()
     {
-        if (aiStateMachine == ai);
-        {
-            isTaken = false;
-            aiStateMachine = null;
-        }
+        isTaken = false;
+        aiStateMachine = null;
     }
 
     // Cover points shown in scene, for easy placement

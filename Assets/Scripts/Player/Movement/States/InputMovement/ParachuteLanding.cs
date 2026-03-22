@@ -32,7 +32,6 @@ public class ParachuteLanding : InputMoveState
     public override bool CanJump => false;
     public override bool CanAim => false;
     public override bool CanShoot => false;
-    public override bool ShouldDisplayGun => false;
 
     private float currentMultiplier;
     private float currentTime;

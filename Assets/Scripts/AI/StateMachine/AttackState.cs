@@ -9,74 +9,46 @@ public class AttackState : AIState
     private CoverPoint coverPoint;
     float distanceToPlayer;
     float distanceToCoverPoint;
-    private AIController aiController;
-    private float coverCheckTime;
-    private float reactionTimer = 0f;
-    private bool engaging = false;
 
 
     public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
     {
         this.player = player;
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
-        aiController = controller.GetComponent<AIController>();
-        weaponSystem.target = player;
     }
 
     // Moves towards player at them moment, will update with actual enemy logic eventually
     public override void Execute()
     {
-        coverCheckTime += Time.deltaTime;
-        if(coverCheckTime >= controller.CoverCheckDelay)
+        if (coverPoint == null)
         {
-            coverCheckTime = 0.0f;
-            if (coverPoint == null)
-            {
-                coverPoint =
-                    CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
+            coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player);
 
-                if (coverPoint != null)
-                {
-                    distanceToCoverPoint =
-                        Vector3.Distance(controller.transform.position, coverPoint.transform.position);
-                }
-            }
-
-            distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
-            if (coverPoint != null && controller.AttackRange < distanceToPlayer)
+            if (coverPoint != null)
             {
-                coverPoint.TakeCoverPoint(controller);
-                aiController.SetAiming(false);
-                controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
-                return;
+                distanceToCoverPoint = Vector3.Distance(controller.transform.position, coverPoint.transform.position);
             }
-            
-            agent.SetDestination(player.position);
-            engaging = true;
-            //RotateTowardsPlayer();
+        }
+        distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
+        if (coverPoint != null && distanceToCoverPoint < distanceToPlayer)
+        {
+            coverPoint.TakeCoverPoint(controller);
+            controller.ChangeState(new MoveToCoverState(controller, agent, coverPoint, player));
+            return;
         }
         
-        if (engaging)
+        // needs changing 
+        agent.SetDestination(player.position);
+        weaponSystem.target = player;
+        weaponSystem.Fire();
+        if (agent.remainingDistance <= stoppingDistance && HasLineOfSight())
         {
-            if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
-            {
-                agent.isStopped = true;
-            }
-            else
-            {
-                agent.isStopped = false;
-            }
-
-            if (HasLineOfSight())
-            {
-                RotateTowardsPlayer();
-                aiController.SetAiming(true);
-                weaponSystem.Fire();
-            }
-            else
-            {
-                aiController.SetAiming(false);
-            }
+            agent.isStopped = true;
+            RotateTowardsPlayer();
+        }
+        else
+        {
+            agent.isStopped = false;
         }
     }
 
@@ -88,7 +60,7 @@ public class AttackState : AIState
         float dist = dir.magnitude * 2f;
 
         // Raycast to check it can see player
-        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, LayerMask.GetMask("Default", "Environment")))
+        if (Physics.Raycast(from, dir, out RaycastHit hit, dist, ~LayerMask.GetMask("Enemy", "Vision")))
         {
             return hit.transform == player;
         }

@@ -53,7 +53,6 @@ public abstract class InputMoveState : MovementState
     private static readonly int AnimMoveSpeedModified = Animator.StringToHash("MoveSpeedModified");
     private static readonly int AnimMoveX = Animator.StringToHash("MoveX");
     private static readonly int AnimMoveY = Animator.StringToHash("MoveY");
-    private static readonly int IsSprinting = Animator.StringToHash("IsSprinting");
     
     public MovementSettings Settings =>stateMachine.MovementSettings; 
     
@@ -62,8 +61,7 @@ public abstract class InputMoveState : MovementState
     }
     
     public virtual bool CanJump => true;
-    public override bool RotatePlayerVertically => true;
-
+    
     public abstract float GetSpeedMultiplier { get; }
 
     private float currentAirTime;
@@ -129,31 +127,27 @@ public abstract class InputMoveState : MovementState
         
         stateMachine.SetVelocity(new Vector3(horizontalVelocity.x, verticalVelocity, horizontalVelocity.z));
         
-        SetAnimatorMovement(stateMachine.PlayerAnimator, 
-            Settings.MaxSpeed, 
-            horizontalVelocity.magnitude, 
-            input,
-            stateMachine.InputController.IsSprinting,
-            stateMachine.SprintingSettings.SprintSpeedMultiplier,
-            Settings.MoveAnimSpeedRange);
-
-    }
-
-    public static void SetAnimatorMovement(Animator animator, float maxSpeed, float currentSpeed, Vector2 direction, bool isSprinting, float sprintSpeedMultiplier, Vector2 moveAnimRange)
-    {
+        
         // Walking animation based on current speed
+        float horizontalSpeed = horizontalVelocity.magnitude;
         // Divide by max speed to get 0-1 range
-        currentSpeed /= maxSpeed;
+        horizontalSpeed /= Settings.MaxSpeed;
+        // Half to fit walking blend tree
+        horizontalSpeed /= 2f;
+        // If sprinting, remove multiplier and instead double to get full speed
+        if (stateMachine.InputController.IsSprinting)
+        {
+            horizontalSpeed /= stateMachine.SprintingSettings.SprintSpeedMultiplier;
+            horizontalSpeed *= 2f;
+        }
         
-        animator.SetBool(IsSprinting, isSprinting);
-        
-        animator.SetFloat(AnimMoveSpeed, currentSpeed);
-        float modifiedSpeed = currentSpeed * 2f;
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeed, horizontalSpeed, 0.1f, Time.deltaTime);
+        float modifiedSpeed = horizontalSpeed * 2f;
         // Keep in range
-        modifiedSpeed = Mathf.Lerp(moveAnimRange.x, moveAnimRange.y, modifiedSpeed);
-        animator.SetFloat(AnimMoveSpeedModified, modifiedSpeed, 0.1f, Time.deltaTime);
-        animator.SetFloat(AnimMoveX, direction.x, 0.1f, Time.deltaTime);
-        animator.SetFloat(AnimMoveY, direction.y, 0.1f, Time.deltaTime);
+        modifiedSpeed = Mathf.Lerp(Settings.MoveAnimSpeedRange.x, Settings.MoveAnimSpeedRange.y, modifiedSpeed);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveSpeedModified, modifiedSpeed, 0.1f, Time.deltaTime);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveX, input.x, 0.1f, Time.deltaTime);
+        stateMachine.PlayerAnimator.SetFloat(AnimMoveY, input.y, 0.1f, Time.deltaTime);
     }
 
     public override void Tick()
