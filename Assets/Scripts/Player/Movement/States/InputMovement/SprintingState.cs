@@ -8,6 +8,8 @@ public class SprintingSettings : StateSettings
     [Tooltip("Speed multiplier when sprinting")]
     [SerializeField] private float sprintSpeedMultiplier = 1.5f;
     public float SprintSpeedMultiplier => sprintSpeedMultiplier;
+    [SerializeField] private float fovMultiplier = 1.5f;
+    public float FovMultiplier => fovMultiplier;
 }
 
 public class SprintingState : InputMoveState
@@ -32,10 +34,13 @@ public class SprintingState : InputMoveState
     {
         base.OnEnter();
 
+        stateMachine.PlayerCamera.CurrentFovMultiplier = Settings.FovMultiplier;
+
     }
 
     public override void OnExit()
     {
+        stateMachine.PlayerCamera.CurrentFovMultiplier = 1;
     }
     public override void Tick()
     {

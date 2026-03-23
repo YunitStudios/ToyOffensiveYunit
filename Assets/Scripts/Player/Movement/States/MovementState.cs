@@ -22,6 +22,8 @@ public abstract class MovementState : State, IMovementState
     public virtual bool CanAim => true;
     public virtual bool CanShoot => true;
     public virtual bool ShouldDisplayGun => true;
+    public virtual bool PlayFootsteps => true;
+
 
     public override void OnEnter()
     {
@@ -50,4 +52,5 @@ public interface IMovementState
     public bool CanAim { get; }
     public bool CanShoot { get; }
     public bool ShouldDisplayGun { get; }
+    public bool PlayFootsteps { get; }
 }
