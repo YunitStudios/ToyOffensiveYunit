@@ -11,15 +11,14 @@ public class CoverPoint : MonoBehaviour
 
     void Start()
     {
-        CoverPointManager.instance.AddCoverPoint(this);
+        if(CoverPointManager.instance)
+            CoverPointManager.instance.AddCoverPoint(this);
     }
 
     private void OnDestroy()
     {
-        if (CoverPointManager.instance != null)
-        {
+        if (CoverPointManager.instance)
             CoverPointManager.instance.RemoveCoverPoint(this);
-        }
     }
     
     // claims cover for an enemy

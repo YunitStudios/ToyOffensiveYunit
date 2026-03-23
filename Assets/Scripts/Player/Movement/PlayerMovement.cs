@@ -364,6 +364,19 @@ public class PlayerMovement : StateMachine
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
     }
 
+    private Tween visualOffsetTween;
+    public void SetVisualOffset(Vector3 offset)
+    {
+        visualRoot.localPosition = offset;
+    }
+    public void SetVisualOffset(Vector3 offset, float duration)
+    {
+        if(visualOffsetTween.isAlive)
+            visualOffsetTween.Stop();
+        
+        visualOffsetTween = Tween.LocalPosition(visualRoot, offset, duration);
+    }
+
     public Quaternion GetCameraRotation()
     {
         return thirdPersonTracker.rotation;
@@ -597,9 +610,7 @@ public class PlayerMovement : StateMachine
             return 0;
         
         float t = Mathf.InverseLerp(FallingSettings.FallDistanceScale.x, FallingSettings.FallDistanceScale.y, fallDistance);
-        print(t);
         float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
-        print(damageScale);
         return 100 * damageScale;
     }
 

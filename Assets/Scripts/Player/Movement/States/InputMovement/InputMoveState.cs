@@ -133,7 +133,7 @@ public abstract class InputMoveState : MovementState
             Settings.MaxSpeed, 
             horizontalVelocity.magnitude, 
             input,
-            stateMachine.InputController.IsSprinting,
+            stateMachine.CurrentState is SprintingState,
             stateMachine.SprintingSettings.SprintSpeedMultiplier,
             Settings.MoveAnimSpeedRange);
 
