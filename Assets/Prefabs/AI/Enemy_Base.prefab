@@ -466,9 +466,6 @@ MonoBehaviour:
   visionMask:
     serializedVersion: 2
     m_Bits: 215
-  visionMaskEnemy:
-    serializedVersion: 2
-    m_Bits: 256
   lastSeenPosition: {x: 0, y: 0, z: 0}
   lastSeenTime: 0
   searchTimeout: 20
@@ -739,7 +736,7 @@ MonoBehaviour:
   stoppingDistance: 10
   attackRange: 15
   damageMultiplier: 0.5
-  accuracyMultiplier: 1
+  accuracyMultiplier: 1.8
   holdMedkit: 0
   healAtPercent: 0.3
   healAmount: 50
