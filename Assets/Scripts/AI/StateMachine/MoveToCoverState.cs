@@ -20,7 +20,7 @@ public class MoveToCoverState : AIState
         float distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
         if (distanceToPlayer <= controller.AttackRange)
         {
-            controller.ChangeState(new AttackState(controller, agent, player));
+            controller.ChangeState(new AttackState(controller, agent, player, true));
             return;
         }
         
@@ -29,7 +29,7 @@ public class MoveToCoverState : AIState
             coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
             if (coverPoint == null)
             {
-                controller.ChangeState(new AttackState(controller, agent, player));
+                controller.ChangeState(new AttackState(controller, agent, player, false));
                 return;
             }
         }

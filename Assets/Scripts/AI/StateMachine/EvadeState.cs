@@ -30,7 +30,7 @@ public class EvadeState : AIState
         if (threat == null)
         {
             agent.speed = regularSpeed;
-            controller.ChangeState(new AttackState(controller, agent, player));
+            controller.ChangeState(new AttackState(controller, agent, player, false));
             return;
         }
         // if agent reached evade location, change state
@@ -38,7 +38,7 @@ public class EvadeState : AIState
         if (!agent.pathPending && agent.remainingDistance <= agent.stoppingDistance)
         {
             agent.speed = regularSpeed;
-            controller.ChangeState(new AttackState(controller, agent, player));
+            controller.ChangeState(new AttackState(controller, agent, player, false));
         }
     }
 }
