@@ -179,5 +179,25 @@ public class GloryKill : MonoBehaviour, IDamageSource
         }
     }
 
+    void LateUpdate()
+    {
+        if (!isGloryKilling)
+        {
+            return;
+        }
+        
+        Vector3 position = transform.position;
+        
+        if (Physics.Raycast(position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 3f))
+        {
+            float heightDifference = position.y - hit.point.y;
+            if (heightDifference <= 1f)
+            {
+                position.y = hit.point.y + 0.06f;
+            }
+        }
+        transform.position = position;
+    }
+
     public Vector3 damageSourcePos { get; set; }
 }
