@@ -15,12 +15,13 @@ public class AttackState : AIState
     private bool engaging = false;
 
 
-    public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player) : base(controller, agent)
+    public AttackState(AIStateMachine controller, NavMeshAgent agent, Transform player, bool isEngaging) : base(controller, agent)
     {
         this.player = player;
         weaponSystem = controller.GetComponentInChildren<AIWeaponSystem>();
         aiController = controller.GetComponent<AIController>();
         weaponSystem.target = player;
+        agent.speed = 4f;
     }
 
     // Moves towards player at them moment, will update with actual enemy logic eventually
@@ -43,7 +44,7 @@ public class AttackState : AIState
             }
 
             distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
-            if (coverPoint != null && controller.AttackRange < distanceToPlayer)
+            if (coverPoint != null && controller.AttackRange < distanceToPlayer && !engaging)
             {
                 coverPoint.TakeCoverPoint(controller);
                 aiController.SetAiming(false);
@@ -61,10 +62,12 @@ public class AttackState : AIState
             if (agent.remainingDistance <= controller.StoppingDistance && HasLineOfSight())
             {
                 agent.isStopped = true;
+                agent.speed = 2f;
             }
             else
             {
                 agent.isStopped = false;
+                agent.speed = 4f;
             }
 
             if (HasLineOfSight())
