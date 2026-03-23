@@ -551,6 +551,32 @@
 						</Event>
 					</ChildrenList>
 				</Folder>
+				<Folder Name="Execution" ID="{803C0E61-C674-460B-A3C8-0490C6D26D4E}" ShortID="425219199">
+					<ChildrenList>
+						<Event Name="Audio_Play_Body_Drop" ID="{DB46B022-CC43-41DA-BD17-A0C0E00485CC}">
+							<ChildrenList>
+								<Action Name="" ID="{FAB4C47E-F5A4-4D2E-B82F-1A73850B8FB8}" ShortID="500455331">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Body Drop" ID="{7A348D05-C948-4393-BE4E-2D4A7651CF32}" WorkUnitID="{33744AEF-8AE5-4F70-8017-CC9E38AB7714}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Neck_Snap" ID="{E96BCDAE-04BB-48B9-ABA1-0481F2F070C7}">
+							<ChildrenList>
+								<Action Name="" ID="{D085286B-5C16-4484-9126-D9FDE87A8F2B}" ShortID="468748105">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Neck Snap" ID="{87A57DCE-B401-4D60-BFA6-63C0603DB588}" WorkUnitID="{33744AEF-8AE5-4F70-8017-CC9E38AB7714}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
