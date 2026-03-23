@@ -81,8 +81,8 @@ public class WeaponDisplay : MonoBehaviour
 
     private void UpdateAmmo()
     {
-        primaryAmmoObj.text = GetAmmoString(PlayerData.TotalNormalAmmoCount.ToString("D3"));
-        secondaryAmmoObj.text = GetAmmoString(PlayerData.TotalSecondaryAmmoCount.ToString("D3"));
+        primaryAmmoObj.text = GetAmmoString(PlayerData.NormalAmmoCount.ToString("D3"));
+        secondaryAmmoObj.text = GetAmmoString(PlayerData.SecondaryAmmoCount.ToString("D3"));
 
         primaryCurrentAmmoObj.text = GetAmmoString(PlayerData.PrimaryWeapon.CurrentAmmoInMag.ToString("D2"));
         secondaryCurrentAmmoObj.text = GetAmmoString(PlayerData.SecondaryWeapon.CurrentAmmoInMag.ToString("D2"));
