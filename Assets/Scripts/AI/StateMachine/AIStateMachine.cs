@@ -51,6 +51,9 @@ public class AIStateMachine : MonoBehaviour
     [Tooltip("Distance where enemy will choose to attack rather than move to cover")] 
     [SerializeField] private float attackRange = 15f;
     public float AttackRange => attackRange;
+    [SerializeField] private float coverCheckDelay = 0.1f;
+    public float CoverCheckDelay => coverCheckDelay;
+
     
     [Header("Weapon Settings")]
     [Tooltip("Damage multiplier for enemy weapons")]
@@ -69,6 +72,7 @@ public class AIStateMachine : MonoBehaviour
     [Tooltip("Amount of health to heal")] 
     [SerializeField] private float healAmount = 50f;
     public float HealAmount => healAmount;
+
 
     [Header("Guard Settings")]
     [Tooltip("The Target to guard")]
@@ -119,8 +123,6 @@ public class AIStateMachine : MonoBehaviour
             return;
         }
         
-        CheckForThreats();
-        
         currentState?.Execute();
         
         if (currentState is EvadeState)
@@ -132,7 +134,7 @@ public class AIStateMachine : MonoBehaviour
             !(currentState is AttackState) && !(currentState is MoveToCoverState) &&
             !(currentState is BehindCoverState) && !(currentState is PeekShootState) && !(currentState is FleeState))
         {
-            ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
+            ChangeState(new SearchState(this, agent, detection.LastKnownPosition, false));
         }
 
         if (health != null && HoldMedkit && health.CurrentHealth / health.MaxHealth <= healAtPercent &&
@@ -154,7 +156,7 @@ public class AIStateMachine : MonoBehaviour
         }
         if (detection.IsDetected && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && enemyType != EnemyType.Target)
         { 
-            ChangeState(new AttackState(this, agent, vision.player));
+            ChangeState(new AttackState(this, agent, vision.player, false));
         }
         // else if cant see player and is in attack state, switch to search state
         else if (!vision.canSeePlayer && (currentState is AttackState || currentState is MoveToCoverState || currentState is BehindCoverState || currentState is PeekShootState))
@@ -168,7 +170,7 @@ public class AIStateMachine : MonoBehaviour
                 }
                 else
                 {
-                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition));
+                    ChangeState(new SearchState(this, agent, detection.LastKnownPosition, false));
                 }
             }
         }
@@ -187,7 +189,7 @@ public class AIStateMachine : MonoBehaviour
             vision.ResetVision();
         }
 
-        if (newState is AttackState)
+        if (newState is AttackState || newState is SearchState)
         {
             vision.IncreaseVision();
         }
@@ -203,6 +205,11 @@ public class AIStateMachine : MonoBehaviour
                     point.LeaveCoverPoint(this);
                 }
             }
+        }
+
+        if (currentState is SearchState)
+        {
+            aiController.SetCrouching(false);
         }
         currentState = newState;
     }
@@ -312,8 +319,9 @@ public class AIStateMachine : MonoBehaviour
     // When enemy is alerted, new states are set here based on enemy desired behaviour.
     private void ReactToAlert(Transform player)
     {
+        detection.Alerted();
         vision.canSeePlayer = true;
-        detection.AddDetection(100);
+        RotateTowardsPlayer();
         vision.lastSeenTime = Time.time;
         
         // if Enemy is a target it will enter the flee state
@@ -321,13 +329,13 @@ public class AIStateMachine : MonoBehaviour
         {
             ChangeState(new FleeState(this, agent, player));
         }
-        // if Enemy is not a target it will enter the attack state
+        // if Enemy is not a target it will enter the attack state if player seen
         else
         {
             if (!(currentState is AttackState) && !(currentState is MoveToCoverState) &&
                 !(currentState is BehindCoverState) && !(currentState is PeekShootState))
             {
-                ChangeState(new AttackState(this, agent, player));
+                ChangeState(new SearchState(this, agent, player.position, true));
             }
         }
     }
@@ -368,23 +376,9 @@ public class AIStateMachine : MonoBehaviour
         }
     }
     
-    private void CheckForThreats()
-    {
-        float threatCheckRadius = 8f;
-        Collider[] hits = Physics.OverlapSphere(transform.position, threatCheckRadius);
-        foreach (Collider hit in hits)
-        {
-            ThrowableTemplate grenade = hit.GetComponent<ThrowableTemplate>();
-            if (grenade != null && grenade.Damage > 0f)
-            {
-                if (!(currentState is EvadeState))
-                {
-                    ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
-                }
-
-                return;
-            }
-        }
+    public void ThreatFound(ThrowableTemplate grenade)
+    { 
+        ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
     }
 
     public void SetTypeToPatrol()
@@ -442,5 +436,13 @@ public class AIStateMachine : MonoBehaviour
     {
         isFrozen = frozen;
         agent.isStopped = frozen;
+    }
+    
+    private void RotateTowardsPlayer()
+    {
+        Vector3 lookDirection = (vision.player.position - transform.position).normalized;
+        lookDirection.y = 0;
+        Quaternion targetRotation = Quaternion.LookRotation(lookDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5);
     }
 }

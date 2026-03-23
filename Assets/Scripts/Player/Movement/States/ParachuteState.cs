@@ -24,10 +24,15 @@ public class ParachutingSettings : StateSettings
     public float ParachuteTileDampening => parachutingTileDampening;
     [SerializeField] private float parachutingDiveMaxAngle = 45f;
     public float ParachuteDiveMaxAngle => parachutingDiveMaxAngle;
+    [Tooltip("Speed to start diving when input is pressed")]
     [SerializeField] private float parachutingDiveInSpeed = 0.1f;
     public float ParachuteDiveInSpeed => parachutingDiveInSpeed;
-    [SerializeField] private float parachutingDiveOutSpeed = 0.15f;
+    [Tooltip("Speed to stop diving when input is pressed")]
+    [SerializeField] private float parachutingDiveOutSpeed = 0.25f;
     public float ParachuteDiveOutSpeed => parachutingDiveOutSpeed;
+    [Tooltip("Speed to stop diving when no input is pressed")]
+    [SerializeField] private float parachutingDiveResetSpeed = 0.15f;
+    public float ParachuteDiveResetSpeed => parachutingDiveResetSpeed;
     [SerializeField] private float parachutingDiveSpeedBoost = 3;
     public float ParachuteDiveSpeedBoost => parachutingDiveSpeedBoost;
     [SerializeField] private Easing.EaseType parachutingDiveInEasing = Easing.EaseType.InSine;
@@ -96,6 +101,7 @@ public class ParachuteState : MovementState
     public override bool RotatePlayerVertically => true;
     public override bool ControlRotation => isParachuting;
     public override bool ShouldDisplayGun => GameManager.PlayerData.IsAiming;
+    public override bool PlayFootsteps => false;
 
     private bool wasDiving;
     private float currentTurnValue = 0.0f;
@@ -191,20 +197,22 @@ public class ParachuteState : MovementState
 
     private void Parachuting()
     {
-        if (!isParachuting)
+        if (!isParachuting || Time.timeScale == 0f)
             return;
-        
-        Vector2 input = stateMachine.InputController.FrameMove;
+
+        float horizontalInput = InputManager.Instance.FrameMove.x;
+        bool parachuteUp = InputManager.Instance.IsParachuteUp;
+        bool parachuteDown = InputManager.Instance.IsParachuteDown;
         
         // Turn
-        float targetTurnValue = input.x * Settings.ParachuteTurnMaxSpeed;
+        float targetTurnValue = horizontalInput * Settings.ParachuteTurnMaxSpeed;
         currentTurnValue = Mathf.MoveTowards(currentTurnValue, targetTurnValue, Settings.ParachuteTurnAcceleration * Time.deltaTime);
         float finalTurnAngle = stateMachine.RotationEuler.y + currentTurnValue;
-
+        
         
         
         // Dive
-        bool diving = Mathf.Abs(input.y) > 0.1f;
+        bool diving = parachuteDown;
 
         if (diving != wasDiving)
         {
@@ -212,7 +220,8 @@ public class ParachuteState : MovementState
             wasDiving = diving;
         }
 
-        float currentDiveSpeed = diving ? Settings.ParachuteDiveInSpeed : Settings.ParachuteDiveOutSpeed;
+        float diveOutSpeed = parachuteUp ? Settings.ParachuteDiveOutSpeed : Settings.ParachuteDiveResetSpeed;
+        float currentDiveSpeed = diving ? Settings.ParachuteDiveInSpeed : diveOutSpeed;
         diveEaseProgress = Mathf.Clamp01(diveEaseProgress + Time.deltaTime * currentDiveSpeed);
 
         var ease = Easing.FindEaseType(diving 

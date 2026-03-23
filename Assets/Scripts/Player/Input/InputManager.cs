@@ -95,6 +95,20 @@ public class InputManager : MonoBehaviour
         lookAction.action.ApplyParameterOverride((InvertVector2Processor p) => p.invertX, playerSettingsInverseLook);
         lookAction.action.ApplyParameterOverride((InvertVector2Processor p) => p.invertY, playerSettingsInverseLook);
     }
+    
+    public void ToggleInputs(bool value)
+    {
+        if (value)
+        {
+            inputActions.FindActionMap("Movement").Enable();
+            inputActions.FindActionMap("Combat").Enable();
+        }
+        else
+        {
+            inputActions.FindActionMap("Movement").Disable();
+            inputActions.FindActionMap("Combat").Disable();
+        }
+    }
 
     #region PlayerInput
     public Vector2 FrameMove { get; private set; }
@@ -108,6 +122,8 @@ public class InputManager : MonoBehaviour
     public bool CrouchDown { get; private set; }
     public bool CrouchHeld { get; private set; }
     private bool previousCrouchHeld;
+    public bool IsParachuteDown { get; private set; }
+    public bool IsParachuteUp { get; private set; }
     public bool AimHeld { get; private set; }
     private bool previousAimHeld;
     private bool currentAimValue;
@@ -166,6 +182,15 @@ public class InputManager : MonoBehaviour
 
         CrouchDown = isPressed && !previousCrouchHeld;
         CrouchHeld = isPressed;
+    }
+    
+    private void OnParachuteDown(InputValue inputValue)
+    {
+        IsParachuteDown = inputValue.isPressed;
+    }
+    private void OnParachuteUp(InputValue inputValue)
+    {
+        IsParachuteUp = inputValue.isPressed;
     }
     
     private void OnLook(InputValue inputValue)

@@ -525,7 +525,10 @@ public class RebindActionUI : MonoBehaviour
         if (m_ActionLabel != null)
         {
             var action = m_Action?.action;
-            m_ActionLabel.text = action != null ? action.name : string.Empty;
+            string actionName = action != null ? action.name : string.Empty;
+            // Format to add space before new words
+            actionName = System.Text.RegularExpressions.Regex.Replace(actionName, "([a-z])([A-Z])", "$1 $2");
+            m_ActionLabel.text = actionName;
         }
     }
 

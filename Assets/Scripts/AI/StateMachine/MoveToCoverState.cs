@@ -17,12 +17,19 @@ public class MoveToCoverState : AIState
 
     public override void Execute()
     {
+        float distanceToPlayer = Vector3.Distance(controller.transform.position, player.position);
+        if (distanceToPlayer <= controller.AttackRange)
+        {
+            controller.ChangeState(new AttackState(controller, agent, player, true));
+            return;
+        }
+        
         if (coverPoint.aiStateMachine != controller)
         {
             coverPoint = CoverPointManager.instance.GetNearestCoverPoint(controller.transform.position, player, controller);
             if (coverPoint == null)
             {
-                controller.ChangeState(new AttackState(controller, agent, player));
+                controller.ChangeState(new AttackState(controller, agent, player, false));
                 return;
             }
         }

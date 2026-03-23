@@ -147,7 +147,13 @@ public class PlayerMovement : StateMachine
     [SerializeField] private Vector3EventChannelSO onTeleportPlayer;
     [SerializeField] private VoidEventChannelSO onTryUnstuck;
     
-    public void OnDealPlayerDamage(float damage) => onDealPlayerDamage?.Invoke(damage);
+    public void OnDealPlayerDamage(float damage)
+    {
+        if (damage <= 0)
+            return;
+        
+        onDealPlayerDamage?.Invoke(damage);
+    }
     
     public bool ShouldMouseRotatePlayer => currentState is IMovementState { UseMouseRotatePlayer: true };
     public bool ShouldMouseRotateVisuals => currentState is IMovementState { UseMouseRotateVisuals: true };
@@ -181,6 +187,13 @@ public class PlayerMovement : StateMachine
     public bool DisableSprinting { get; private set; }
     public bool IsSlopeSliding { get; private set; }
 
+    private bool shouldDisplayGun = true;
+    public bool ShouldDisplayGun
+    {
+        get => currentState is IMovementState { ShouldDisplayGun: true } && shouldDisplayGun;
+        set => shouldDisplayGun = value;
+    }
+
     private void Awake()
     {
         PrimeTweenConfig.warnEndValueEqualsCurrent = false;
@@ -207,6 +220,7 @@ public class PlayerMovement : StateMachine
     private void OnEnable()
     {
         onTeleportPlayer.OnEventRaised += SetPosition;
+        onTeleportPlayer.OnEventRaised += (_) => GameManager.PlayerData?.StoreRotationRootTransform(rotationRoot);
         onTryUnstuck.OnEventRaised += OnTryUnstuck;
     }
 
@@ -215,7 +229,6 @@ public class PlayerMovement : StateMachine
         onTeleportPlayer.OnEventRaised -= SetPosition;
         onTryUnstuck.OnEventRaised -= OnTryUnstuck;
     }
-
     private void SetupStates()
     {
         walkingState = new WalkingState(this);
@@ -245,6 +258,8 @@ public class PlayerMovement : StateMachine
     {
         base.OnStateSwitched();
     }
+    
+
 
     protected override void Update()
     {
@@ -264,7 +279,6 @@ public class PlayerMovement : StateMachine
             GameManager.PlayerData.StorePosition(transform.position);
             GameManager.PlayerData.StoreRotationRootTransform(rotationRoot);
         }
-           
     }
 
     protected override void LateUpdate()
@@ -348,6 +362,19 @@ public class PlayerMovement : StateMachine
     public void SetVisualRotation(Vector3 eulerAngles)
     {
         visualRoot.localRotation = Quaternion.Euler(eulerAngles);
+    }
+
+    private Tween visualOffsetTween;
+    public void SetVisualOffset(Vector3 offset)
+    {
+        visualRoot.localPosition = offset;
+    }
+    public void SetVisualOffset(Vector3 offset, float duration)
+    {
+        if(visualOffsetTween.isAlive)
+            visualOffsetTween.Stop();
+        
+        visualOffsetTween = Tween.LocalPosition(visualRoot, offset, duration);
     }
 
     public Quaternion GetCameraRotation()
@@ -521,7 +548,7 @@ public class PlayerMovement : StateMachine
         else
             aimingRig.weight = Mathf.MoveTowards(aimingRig.weight, 0.0f, Time.deltaTime * aimingShoulderSpeed);
         
-        gunRoot.gameObject.SetActive(currentState is IMovementState {ShouldDisplayGun:true});
+        gunRoot.gameObject.SetActive(ShouldDisplayGun);
 
     }
     
@@ -583,9 +610,7 @@ public class PlayerMovement : StateMachine
             return 0;
         
         float t = Mathf.InverseLerp(FallingSettings.FallDistanceScale.x, FallingSettings.FallDistanceScale.y, fallDistance);
-        print(t);
         float damageScale = Mathf.Lerp(FallingSettings.FallDamageScale.x, FallingSettings.FallDamageScale.y, t);
-        print(damageScale);
         return 100 * damageScale;
     }
 

@@ -19,7 +19,9 @@ public class PlayerHealthUI : MonoBehaviour
     [SerializeField] private Color damageFlashColor;
     [SerializeField] private TweenSettings damageFlashInSettings;
     [SerializeField] private TweenSettings damageFlashOutSettings;
-    
+    [SerializeField] private Color healFlashColor;
+    [SerializeField] private TweenSettings healFlashInSettings;
+    [SerializeField] private TweenSettings healFlashOutSettings;
     [Header("Events")] 
     [SerializeField] private FloatEventChannelSO onHealthChanged;
 
@@ -53,16 +55,23 @@ public class PlayerHealthUI : MonoBehaviour
         if(difference < 0) 
             PlayDamageAnimation(newValue);
         else
-        {
-            float percent = newValue / maxHealth;
-            foregroundImage.fillAmount = percent;
-        }
+            PlayHealAnimation(newValue);
         
         valueText.text = Mathf.RoundToInt(newValue).ToString();
         currentValue = newValue;
     }
 
     private void PlayDamageAnimation(float newValue)
+    {
+        PlayAnimation(newValue, damageFlashColor, damageFlashInSettings, damageFlashOutSettings);
+    }
+
+    private void PlayHealAnimation(float newValue)
+    {
+        PlayAnimation(newValue, healFlashColor, healFlashInSettings, healFlashOutSettings);
+    }
+
+    private void PlayAnimation(float newValue, Color color, TweenSettings inSettings, TweenSettings outSettings)
     {
         float newPercent = newValue / maxHealth;
         
@@ -74,8 +83,7 @@ public class PlayerHealthUI : MonoBehaviour
         mainTween = Tween.UIFillAmount(foregroundImage, newPercent, animationLength, animationEase);
         
         flashSequence = Sequence.Create().
-            Group(Tween.Color(foregroundImage, damageFlashColor, damageFlashInSettings))
-            .Chain(Tween.Color(foregroundImage, defaultColor, damageFlashOutSettings));
-
+            Group(Tween.Color(foregroundImage, color, inSettings))
+            .Chain(Tween.Color(foregroundImage, defaultColor, outSettings));
     }
 }

@@ -303,11 +303,11 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 50a85ccf09b6a245b903d0644e4c1d0c
     GuidInternal: 
-    m_lastTime: -8584290455175325186
+    m_lastTime: -8584274063846577906
     List:
-    - name: Effects
-      guid: 7e73550907735e459db7d977d6650f42
-      id: 1942696649
+    - name: BreakCam
+      guid: ba75f4b938795b42ae8ef3a81b61b0f7
+      id: 587342027
       PathAndIcons:
       - ElementName: Master-Mixer Hierarchy
         ObjectType: 5
@@ -318,10 +318,108 @@ MonoBehaviour:
       - ElementName: Master Audio Bus
         ObjectType: 2
         guid: d8a41415a61d2a41a17e75ca0c2149f3
-      - ElementName: Effects
+      - ElementName: World
         ObjectType: 2
-        guid: 7e73550907735e459db7d977d6650f42
-      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Effects
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Player
+        ObjectType: 2
+        guid: 701142766759b641b54154cb1af1664f
+      - ElementName: BreakCam
+        ObjectType: 2
+        guid: ba75f4b938795b42ae8ef3a81b61b0f7
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Player\BreakCam
+    - name: Environment
+      guid: 5125a80424939442a0fec0d80a374afe
+      id: 1229948536
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Environment
+        ObjectType: 2
+        guid: 5125a80424939442a0fec0d80a374afe
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Environment
+    - name: Fire
+      guid: 453eb1f9b11e064e80924f7959a1676a
+      id: 2678880713
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Environment
+        ObjectType: 2
+        guid: 5125a80424939442a0fec0d80a374afe
+      - ElementName: Hazards
+        ObjectType: 2
+        guid: 4d92cfe6e78a9a4d9c671eeb68805244
+      - ElementName: Fire
+        ObjectType: 2
+        guid: 453eb1f9b11e064e80924f7959a1676a
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Environment\Hazards\Fire
+    - name: Hazards
+      guid: 4d92cfe6e78a9a4d9c671eeb68805244
+      id: 4039062316
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Environment
+        ObjectType: 2
+        guid: 5125a80424939442a0fec0d80a374afe
+      - ElementName: Hazards
+        ObjectType: 2
+        guid: 4d92cfe6e78a9a4d9c671eeb68805244
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Environment\Hazards
+    - name: Health
+      guid: ebd6f8ca72640f4db78190ad01b5c994
+      id: 3677180323
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Player
+        ObjectType: 2
+        guid: 701142766759b641b54154cb1af1664f
+      - ElementName: Health
+        ObjectType: 2
+        guid: ebd6f8ca72640f4db78190ad01b5c994
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Player\Health
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
       id: 3803692087
@@ -336,9 +434,9 @@ MonoBehaviour:
         ObjectType: 2
         guid: d8a41415a61d2a41a17e75ca0c2149f3
       Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus
-    - name: Music
-      guid: 33c5a34f973e11459fcc80770f906f2c
-      id: 3991942870
+    - name: Menu
+      guid: 242d039f8d66f645b81489529156e23d
+      id: 2607556080
       PathAndIcons:
       - ElementName: Master-Mixer Hierarchy
         ObjectType: 5
@@ -349,10 +447,288 @@ MonoBehaviour:
       - ElementName: Master Audio Bus
         ObjectType: 2
         guid: d8a41415a61d2a41a17e75ca0c2149f3
-      - ElementName: Music
+      - ElementName: Non-World
         ObjectType: 2
-        guid: 33c5a34f973e11459fcc80770f906f2c
-      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Music
+        guid: c6e9bc49f1a29841a384e31a0fcd04c2
+      - ElementName: UI
+        ObjectType: 2
+        guid: 93551376bc32f544baeaf6d688dc43ca
+      - ElementName: Menu
+        ObjectType: 2
+        guid: 242d039f8d66f645b81489529156e23d
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Non-World\UI\Menu
+    - name: Mouse_Trap
+      guid: 8b22df4160195442a473f2e3b7a0a689
+      id: 20324216
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Environment
+        ObjectType: 2
+        guid: 5125a80424939442a0fec0d80a374afe
+      - ElementName: Hazards
+        ObjectType: 2
+        guid: 4d92cfe6e78a9a4d9c671eeb68805244
+      - ElementName: Mouse_Trap
+        ObjectType: 2
+        guid: 8b22df4160195442a473f2e3b7a0a689
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Environment\Hazards\Mouse_Trap
+    - name: Movement
+      guid: 649e0ce3fbf3334691f2960eec514728
+      id: 2129636626
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Player
+        ObjectType: 2
+        guid: 701142766759b641b54154cb1af1664f
+      - ElementName: Movement
+        ObjectType: 2
+        guid: 649e0ce3fbf3334691f2960eec514728
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Player\Movement
+    - name: Non-World
+      guid: c6e9bc49f1a29841a384e31a0fcd04c2
+      id: 838047381
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Non-World
+        ObjectType: 2
+        guid: c6e9bc49f1a29841a384e31a0fcd04c2
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Non-World
+    - name: Player
+      guid: 701142766759b641b54154cb1af1664f
+      id: 1069431850
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Player
+        ObjectType: 2
+        guid: 701142766759b641b54154cb1af1664f
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Player
+    - name: Player_HUD
+      guid: 13072bc1eb34f04e86cbeafda42c60c4
+      id: 1073144984
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Non-World
+        ObjectType: 2
+        guid: c6e9bc49f1a29841a384e31a0fcd04c2
+      - ElementName: UI
+        ObjectType: 2
+        guid: 93551376bc32f544baeaf6d688dc43ca
+      - ElementName: Player_HUD
+        ObjectType: 2
+        guid: 13072bc1eb34f04e86cbeafda42c60c4
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Non-World\UI\Player_HUD
+    - name: Sound_Effects
+      guid: 617e3ac04f215443aa569445373691c1
+      id: 1761240301
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Sound_Effects
+        ObjectType: 2
+        guid: 617e3ac04f215443aa569445373691c1
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Sound_Effects
+    - name: Swim
+      guid: c7f8a73685d30844af4ff0680baa7567
+      id: 151879501
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Player
+        ObjectType: 2
+        guid: 701142766759b641b54154cb1af1664f
+      - ElementName: Swim
+        ObjectType: 2
+        guid: c7f8a73685d30844af4ff0680baa7567
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Player\Swim
+    - name: UI
+      guid: 93551376bc32f544baeaf6d688dc43ca
+      id: 1551306167
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Non-World
+        ObjectType: 2
+        guid: c6e9bc49f1a29841a384e31a0fcd04c2
+      - ElementName: UI
+        ObjectType: 2
+        guid: 93551376bc32f544baeaf6d688dc43ca
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Non-World\UI
+    - name: Weapons_Foley
+      guid: ad7cb6f4df236846a532857e29880799
+      id: 2595877424
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Player
+        ObjectType: 2
+        guid: 701142766759b641b54154cb1af1664f
+      - ElementName: Weapons_Foley
+        ObjectType: 2
+        guid: ad7cb6f4df236846a532857e29880799
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Player\Weapons_Foley
+    - name: Weapons_Gunshot
+      guid: ccad0b12fb1f3e4a9562d57f34c99dc8
+      id: 1440596779
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      - ElementName: Player
+        ObjectType: 2
+        guid: 701142766759b641b54154cb1af1664f
+      - ElementName: Weapons_Gunshot
+        ObjectType: 2
+        guid: ccad0b12fb1f3e4a9562d57f34c99dc8
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World\Player\Weapons_Gunshot
+    - name: World
+      guid: cc2b54d2334882478b5e4ce744b6287d
+      id: 2609808943
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: World
+        ObjectType: 2
+        guid: cc2b54d2334882478b5e4ce744b6287d
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\World
+    - name: World_Main_Reverb
+      guid: b40d815dff62fc4d832f52f49e718b16
+      id: 191267372
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Sound_Effects
+        ObjectType: 2
+        guid: 617e3ac04f215443aa569445373691c1
+      - ElementName: World_Main_Reverb
+        ObjectType: 1
+        guid: b40d815dff62fc4d832f52f49e718b16
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Sound_Effects\World_Main_Reverb
+    - name: World_Weapon_Reverb
+      guid: 040b61520830dd4cb6f5a6c96cd3700d
+      id: 1153822417
+      PathAndIcons:
+      - ElementName: Master-Mixer Hierarchy
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 50a85ccf09b6a245b903d0644e4c1d0c
+      - ElementName: Master Audio Bus
+        ObjectType: 2
+        guid: d8a41415a61d2a41a17e75ca0c2149f3
+      - ElementName: Sound_Effects
+        ObjectType: 2
+        guid: 617e3ac04f215443aa569445373691c1
+      - ElementName: World_Weapon_Reverb
+        ObjectType: 1
+        guid: 040b61520830dd4cb6f5a6c96cd3700d
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Sound_Effects\World_Weapon_Reverb
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     PathAndIcons:
@@ -365,7 +741,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f589af6a9cbf584d8491570d94dd718b
     GuidInternal: 
-    m_lastTime: -8584290455174783437
+    m_lastTime: -8584274128737467396
     List:
     - name: Main
       guid: 81e2f863686cc74eb33ad4b9071621a5
@@ -393,11 +769,27 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 7cff4c982ebd8247bfebb11d6a2952bb
     GuidInternal: 
-    m_lastTime: -8584290455176162062
+    m_lastTime: -8584275917459075085
+    List: []
+  - PhysicalPath: Events\Enemies.wwu
+    PathAndIcons:
+    - ElementName: Events
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 7cff4c982ebd8247bfebb11d6a2952bb
+    - ElementName: Enemies
+      ObjectType: 12
+      guid: 080396a6c68c4541a90a8e2aadec88b1
+    ParentPath: Events\Default Work Unit\Enemies
+    guid: 080396a6c68c4541a90a8e2aadec88b1
+    GuidInternal: 
+    m_lastTime: -8584275917459069816
     List:
-    - name: DefaultFootstep
-      guid: 2114f389fc37954395925f909147e8e5
-      id: 4234202506
+    - name: Audio_Player_Enemy_Footsteps
+      guid: 44398386be98244e89a662414762011b
+      id: 1882175426
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -405,19 +797,35 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: Movement
-        ObjectType: 4
-        guid: 458451d19810e044aff056dee5776b88
-      - ElementName: DefaultFootstep
+      - ElementName: Enemies
+        ObjectType: 12
+        guid: 080396a6c68c4541a90a8e2aadec88b1
+      - ElementName: Audio_Player_Enemy_Footsteps
         ObjectType: 3
-        guid: 2114f389fc37954395925f909147e8e5
-      Path: Events\Default Work Unit\Movement\DefaultFootstep
+        guid: 44398386be98244e89a662414762011b
+      Path: Events\Default Work Unit\Enemies\Audio_Player_Enemy_Footsteps
       maxAttenuation: 0
-      maxDuration: 0.33927438
-      minDuration: 0.3258957
-    - name: FabricFootstep
-      guid: e07f5add9e70224baca7c9e7bf45885b
-      id: 516981260
+      maxDuration: 0
+      minDuration: 0
+  - PhysicalPath: Events\Environment.wwu
+    PathAndIcons:
+    - ElementName: Events
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 7cff4c982ebd8247bfebb11d6a2952bb
+    - ElementName: Environment
+      ObjectType: 12
+      guid: 57dc02715814bc4d9882969f72a96bf3
+    ParentPath: Events\Default Work Unit\Environment
+    guid: 57dc02715814bc4d9882969f72a96bf3
+    GuidInternal: 
+    m_lastTime: -8584275917459064687
+    List:
+    - name: Audio_Play_Fire_Burning_Player
+      guid: 6d1e79866cc86e4ab59292b408947fd0
+      id: 3235796075
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -425,19 +833,25 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: Movement
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
         ObjectType: 4
-        guid: 458451d19810e044aff056dee5776b88
-      - ElementName: FabricFootstep
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Fire
+        ObjectType: 4
+        guid: b6c5db72da39c94397fbda9be81824b4
+      - ElementName: Audio_Play_Fire_Burning_Player
         ObjectType: 3
-        guid: e07f5add9e70224baca7c9e7bf45885b
-      Path: Events\Default Work Unit\Movement\FabricFootstep
-      maxAttenuation: 0
-      maxDuration: 0.43303856
-      minDuration: 0.43303856
-    - name: Gunshots
-      guid: 7e5e8ac06c170143be90b2763821a053
-      id: 3043617976
+        guid: 6d1e79866cc86e4ab59292b408947fd0
+      Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Fire_Burning_Player
+      maxAttenuation: 18
+      maxDuration: 7.2901816
+      minDuration: 7.2901816
+    - name: Audio_Play_Fire_Extinguished
+      guid: 2235a0ee66fdde45a7aeaf8c00c136b8
+      id: 2209482787
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -445,19 +859,152 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: Weapons
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
         ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Gunshots
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Fire
         ObjectType: 4
-        guid: 7e5e8ac06c170143be90b2763821a053
-      Path: Events\Default Work Unit\Weapons\Gunshots
+        guid: b6c5db72da39c94397fbda9be81824b4
+      - ElementName: Audio_Play_Fire_Extinguished
+        ObjectType: 3
+        guid: 2235a0ee66fdde45a7aeaf8c00c136b8
+      Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Fire_Extinguished
+      maxAttenuation: 18
+      maxDuration: 2.58483
+      minDuration: 2.58483
+    - name: Audio_Play_Fire_Ignites_Player
+      guid: 9ccc256e734be343b33d24190221f8b1
+      id: 3789798827
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
+        ObjectType: 4
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Fire
+        ObjectType: 4
+        guid: b6c5db72da39c94397fbda9be81824b4
+      - ElementName: Audio_Play_Fire_Ignites_Player
+        ObjectType: 3
+        guid: 9ccc256e734be343b33d24190221f8b1
+      Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Fire_Ignites_Player
+      maxAttenuation: 18
+      maxDuration: 1.5044671
+      minDuration: 1.5044671
+    - name: Audio_Play_Mouse_Trap_Activation
+      guid: 83e73811fee18e4f927a590a9b2ad915
+      id: 3380218427
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
+        ObjectType: 4
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Mousetrap
+        ObjectType: 4
+        guid: 4c871700c1f6fe48a63efdeb35b15763
+      - ElementName: Audio_Play_Mouse_Trap_Activation
+        ObjectType: 3
+        guid: 83e73811fee18e4f927a590a9b2ad915
+      Path: Events\Default Work Unit\Environment\Hazards\Mousetrap\Audio_Play_Mouse_Trap_Activation
+      maxAttenuation: 18
+      maxDuration: 1.089297
+      minDuration: 1.089297
+    - name: Audio_Play_Mouse_Trap_Reload
+      guid: 34ea56ed038baa4a9c52f87d3944d2c7
+      id: 2201786952
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
+        ObjectType: 4
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Mousetrap
+        ObjectType: 4
+        guid: 4c871700c1f6fe48a63efdeb35b15763
+      - ElementName: Audio_Play_Mouse_Trap_Reload
+        ObjectType: 3
+        guid: 34ea56ed038baa4a9c52f87d3944d2c7
+      Path: Events\Default Work Unit\Environment\Hazards\Mousetrap\Audio_Play_Mouse_Trap_Reload
+      maxAttenuation: 18
+      maxDuration: 2.2141306
+      minDuration: 2.2141306
+    - name: Audio_Play_Player_On_Fire_Screaming
+      guid: a35e7a88c543974b8d55e982357ea648
+      id: 104916417
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
+        ObjectType: 4
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Fire
+        ObjectType: 4
+        guid: b6c5db72da39c94397fbda9be81824b4
+      - ElementName: Audio_Play_Player_On_Fire_Screaming
+        ObjectType: 3
+        guid: a35e7a88c543974b8d55e982357ea648
+      Path: Events\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Player_On_Fire_Screaming
+      maxAttenuation: 18
+      maxDuration: 1.6205442
+      minDuration: 1.6205442
+    - name: Fire
+      guid: b6c5db72da39c94397fbda9be81824b4
+      id: 2678880713
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
+        ObjectType: 4
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Fire
+        ObjectType: 4
+        guid: b6c5db72da39c94397fbda9be81824b4
+      Path: Events\Default Work Unit\Environment\Hazards\Fire
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: MetalFootstep
-      guid: c71d3514050d5642a4b9b8800dcd42e6
-      id: 3138420520
+    - name: Hazards
+      guid: cc8d0b2766e30d4db28c988092eeb32c
+      id: 4039062316
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -465,18 +1012,1344 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
+        ObjectType: 4
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      Path: Events\Default Work Unit\Environment\Hazards
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Mousetrap
+      guid: 4c871700c1f6fe48a63efdeb35b15763
+      id: 445419067
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Hazards
+        ObjectType: 4
+        guid: cc8d0b2766e30d4db28c988092eeb32c
+      - ElementName: Mousetrap
+        ObjectType: 4
+        guid: 4c871700c1f6fe48a63efdeb35b15763
+      Path: Events\Default Work Unit\Environment\Hazards\Mousetrap
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+  - PhysicalPath: Events\Player.wwu
+    PathAndIcons:
+    - ElementName: Events
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 7cff4c982ebd8247bfebb11d6a2952bb
+    - ElementName: Player
+      ObjectType: 12
+      guid: b2992e10cc5ecb449a17ca1faac018b2
+    ParentPath: Events\Default Work Unit\Player
+    guid: b2992e10cc5ecb449a17ca1faac018b2
+    GuidInternal: 
+    m_lastTime: -8584274084648084921
+    List:
+    - name: AmmoPickup
+      guid: c8ccfc31f1ea434aae08a235fe9fe4d8
+      id: 1165913927
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: AmmoPickup
+        ObjectType: 4
+        guid: c8ccfc31f1ea434aae08a235fe9fe4d8
+      Path: Events\Default Work Unit\Player\Weapons\AmmoPickup
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Assault_Rifle
+      guid: 5183263d5d58af4487acacb2fe7c181e
+      id: 4186144917
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Assault_Rifle
+        ObjectType: 4
+        guid: 5183263d5d58af4487acacb2fe7c181e
+      Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Audio_Play_Ammo_Pickup
+      guid: d04a7e057c747944b9b8523db7aa624b
+      id: 2031222450
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: AmmoPickup
+        ObjectType: 4
+        guid: c8ccfc31f1ea434aae08a235fe9fe4d8
+      - ElementName: Audio_Play_Ammo_Pickup
+        ObjectType: 3
+        guid: d04a7e057c747944b9b8523db7aa624b
+      Path: Events\Default Work Unit\Player\Weapons\AmmoPickup\Audio_Play_Ammo_Pickup
+      maxAttenuation: 100
+      maxDuration: 0.5401814
+      minDuration: 0.5401814
+    - name: Audio_Play_Assault_Rifle_ADS
+      guid: 0cd9ba4e1c3ec245be846fa7cf67592b
+      id: 433783738
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Assault_Rifle
+        ObjectType: 4
+        guid: 5183263d5d58af4487acacb2fe7c181e
+      - ElementName: Audio_Play_Assault_Rifle_ADS
+        ObjectType: 3
+        guid: 0cd9ba4e1c3ec245be846fa7cf67592b
+      Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_ADS
+      maxAttenuation: 100
+      maxDuration: 0.36160997
+      minDuration: 0.36160997
+    - name: Audio_Play_Assault_Rifle_Equip
+      guid: 206d4ef26ffc9341993d64c9b878d982
+      id: 202025768
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Assault_Rifle
+        ObjectType: 4
+        guid: 5183263d5d58af4487acacb2fe7c181e
+      - ElementName: Audio_Play_Assault_Rifle_Equip
+        ObjectType: 3
+        guid: 206d4ef26ffc9341993d64c9b878d982
+      Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Equip
+      maxAttenuation: 100
+      maxDuration: 0.43303856
+      minDuration: 0.43303856
+    - name: Audio_Play_Assault_Rifle_Gunshot
+      guid: dc3ff1222b253b468bd3e3e3b92c3f27
+      id: 4275330602
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Assault_Rifle
+        ObjectType: 4
+        guid: 5183263d5d58af4487acacb2fe7c181e
+      - ElementName: Audio_Play_Assault_Rifle_Gunshot
+        ObjectType: 3
+        guid: dc3ff1222b253b468bd3e3e3b92c3f27
+      Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Gunshot
+      maxAttenuation: 100
+      maxDuration: 3.2321541
+      minDuration: 3.2321541
+    - name: Audio_Play_Assault_Rifle_Reload_Empty
+      guid: 5f2352e6ebfb3641a457b21129c6565a
+      id: 1900764229
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Assault_Rifle
+        ObjectType: 4
+        guid: 5183263d5d58af4487acacb2fe7c181e
+      - ElementName: Audio_Play_Assault_Rifle_Reload_Empty
+        ObjectType: 3
+        guid: 5f2352e6ebfb3641a457b21129c6565a
+      Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Reload_Empty
+      maxAttenuation: 100
+      maxDuration: 3.004467
+      minDuration: 3.004467
+    - name: Audio_Play_Assault_Rifle_Reload_Half_Empty
+      guid: af9ecb623d528e4688588f87ecb92f16
+      id: 3825555971
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Assault_Rifle
+        ObjectType: 4
+        guid: 5183263d5d58af4487acacb2fe7c181e
+      - ElementName: Audio_Play_Assault_Rifle_Reload_Half_Empty
+        ObjectType: 3
+        guid: af9ecb623d528e4688588f87ecb92f16
+      Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Reload_Half_Empty
+      maxAttenuation: 100
+      maxDuration: 2.05356
+      minDuration: 2.05356
+    - name: Audio_Play_Break_Cam
+      guid: 1e2909d56213a046859d3675ed088c43
+      id: 1999478926
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: BreakCam
+        ObjectType: 4
+        guid: 49056ded55c709449d346effb8b80f85
+      - ElementName: Audio_Play_Break_Cam
+        ObjectType: 3
+        guid: 1e2909d56213a046859d3675ed088c43
+      Path: Events\Default Work Unit\Player\BreakCam\Audio_Play_Break_Cam
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_Fall_Into_Water
+      guid: 47f01fd26a253e4caaa600227f39eb09
+      id: 303150163
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Movement
         ObjectType: 4
-        guid: 458451d19810e044aff056dee5776b88
-      - ElementName: MetalFootstep
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Swimming
+        ObjectType: 4
+        guid: d4886103e73cd84dadde349e8390f012
+      - ElementName: Audio_Play_Fall_Into_Water
         ObjectType: 3
-        guid: c71d3514050d5642a4b9b8800dcd42e6
-      Path: Events\Default Work Unit\Movement\MetalFootstep
-      maxAttenuation: 0
-      maxDuration: 0.3258957
+        guid: 47f01fd26a253e4caaa600227f39eb09
+      Path: Events\Default Work Unit\Player\Movement\Swimming\Audio_Play_Fall_Into_Water
+      maxAttenuation: 20
+      maxDuration: 1.5044671
+      minDuration: 1.5044671
+    - name: Audio_Play_Footsteps
+      guid: c3da49d9f5a47d40b6b3e7037e557ef0
+      id: 3935558098
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Footsteps
+        ObjectType: 4
+        guid: efbcf2f9aa125e4d8f40306dfdecd2a6
+      - ElementName: Audio_Play_Footsteps
+        ObjectType: 3
+        guid: c3da49d9f5a47d40b6b3e7037e557ef0
+      Path: Events\Default Work Unit\Player\Movement\Footsteps\Audio_Play_Footsteps
+      maxAttenuation: 20
+      maxDuration: 0.4419728
       minDuration: 0.3258957
+    - name: Audio_Play_Grenade_Explosion
+      guid: ed97524ccde78d499a1db0cbf984deb7
+      id: 2056758385
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Grenade
+        ObjectType: 4
+        guid: c1c35124f21e7c488e9efb37de89f4d4
+      - ElementName: Audio_Play_Grenade_Explosion
+        ObjectType: 3
+        guid: ed97524ccde78d499a1db0cbf984deb7
+      Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Explosion
+      maxAttenuation: 100
+      maxDuration: 3.2991157
+      minDuration: 3.2991157
+    - name: Audio_Play_Grenade_Land
+      guid: 86c4af83f7bde148be16a5ad3bb6af81
+      id: 3125445507
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Grenade
+        ObjectType: 4
+        guid: c1c35124f21e7c488e9efb37de89f4d4
+      - ElementName: Audio_Play_Grenade_Land
+        ObjectType: 3
+        guid: 86c4af83f7bde148be16a5ad3bb6af81
+      Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Land
+      maxAttenuation: 100
+      maxDuration: 0.43303856
+      minDuration: 0.43303856
+    - name: Audio_Play_Grenade_Pin
+      guid: 5f7ed0cbdba82c43b787b530002dceea
+      id: 4197492905
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Grenade
+        ObjectType: 4
+        guid: c1c35124f21e7c488e9efb37de89f4d4
+      - ElementName: Audio_Play_Grenade_Pin
+        ObjectType: 3
+        guid: 5f7ed0cbdba82c43b787b530002dceea
+      Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Pin
+      maxAttenuation: 100
+      maxDuration: 0.5401814
+      minDuration: 0.5401814
+    - name: Audio_Play_Grenade_Throw
+      guid: de72d747f282964b876005d4952b2326
+      id: 382995532
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Grenade
+        ObjectType: 4
+        guid: c1c35124f21e7c488e9efb37de89f4d4
+      - ElementName: Audio_Play_Grenade_Throw
+        ObjectType: 3
+        guid: de72d747f282964b876005d4952b2326
+      Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Throw
+      maxAttenuation: 100
+      maxDuration: 0.64732426
+      minDuration: 0.64732426
+    - name: Audio_Play_Health_Pickup
+      guid: b42f230523f99b46bb3250a01b8bdb1b
+      id: 1535786806
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Health
+        ObjectType: 4
+        guid: df198543e6739b4c940378aa5783fcf2
+      - ElementName: Audio_Play_Health_Pickup
+        ObjectType: 3
+        guid: b42f230523f99b46bb3250a01b8bdb1b
+      Path: Events\Default Work Unit\Player\Health\Audio_Play_Health_Pickup
+      maxAttenuation: 100
+      maxDuration: 2.0401814
+      minDuration: 2.0401814
+    - name: Audio_Play_Jump_Landing
+      guid: 41f9901b1ed2194e905f7af613e66ed1
+      id: 3287526049
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Jumping
+        ObjectType: 4
+        guid: 1afde472f2956c49942f0582a0b342ac
+      - ElementName: Audio_Play_Jump_Landing
+        ObjectType: 3
+        guid: 41f9901b1ed2194e905f7af613e66ed1
+      Path: Events\Default Work Unit\Player\Movement\Jumping\Audio_Play_Jump_Landing
+      maxAttenuation: 20
+      maxDuration: 0.52231294
+      minDuration: 0.52231294
+    - name: Audio_Play_Jump_Up
+      guid: 783c6100d24a924299b28ea4d31657d4
+      id: 4154465847
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Jumping
+        ObjectType: 4
+        guid: 1afde472f2956c49942f0582a0b342ac
+      - ElementName: Audio_Play_Jump_Up
+        ObjectType: 3
+        guid: 783c6100d24a924299b28ea4d31657d4
+      Path: Events\Default Work Unit\Player\Movement\Jumping\Audio_Play_Jump_Up
+      maxAttenuation: 20
+      maxDuration: 0.5401814
+      minDuration: 0.5401814
+    - name: Audio_Play_Low_Health
+      guid: 5ecd792345093f4fbca8478c374a145b
+      id: 1215658942
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Health
+        ObjectType: 4
+        guid: df198543e6739b4c940378aa5783fcf2
+      - ElementName: Audio_Play_Low_Health
+        ObjectType: 3
+        guid: 5ecd792345093f4fbca8478c374a145b
+      Path: Events\Default Work Unit\Player\Health\Audio_Play_Low_Health
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_Low_Stamina
+      guid: 3d5e18a2a11f0647bd054f712e5b6803
+      id: 3115324875
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Health
+        ObjectType: 4
+        guid: df198543e6739b4c940378aa5783fcf2
+      - ElementName: Audio_Play_Low_Stamina
+        ObjectType: 3
+        guid: 3d5e18a2a11f0647bd054f712e5b6803
+      Path: Events\Default Work Unit\Player\Health\Audio_Play_Low_Stamina
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_Parachute_Cut
+      guid: fd11292dc283d54482c122256568911d
+      id: 2861943707
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Parachute
+        ObjectType: 4
+        guid: fcc06160474ea843ab93fe55ac356a65
+      - ElementName: Audio_Play_Parachute_Cut
+        ObjectType: 3
+        guid: fd11292dc283d54482c122256568911d
+      Path: Events\Default Work Unit\Player\Movement\Parachute\Audio_Play_Parachute_Cut
+      maxAttenuation: 20
+      maxDuration: 1.5044671
+      minDuration: 1.5044671
+    - name: Audio_Play_Parachute_Deploy
+      guid: 23c09f396f1343468d0ba96de7898d1f
+      id: 1671316888
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Parachute
+        ObjectType: 4
+        guid: fcc06160474ea843ab93fe55ac356a65
+      - ElementName: Audio_Play_Parachute_Deploy
+        ObjectType: 3
+        guid: 23c09f396f1343468d0ba96de7898d1f
+      Path: Events\Default Work Unit\Player\Movement\Parachute\Audio_Play_Parachute_Deploy
+      maxAttenuation: 20
+      maxDuration: 0.73339266
+      minDuration: 0.73339266
+    - name: Audio_Play_Pistol_ADS
+      guid: cf8465ec25a4ee459ab9b04f3c0d320b
+      id: 4022401871
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Pistol
+        ObjectType: 4
+        guid: d6a46072e70f394892b4e0d4477c998f
+      - ElementName: Audio_Play_Pistol_ADS
+        ObjectType: 3
+        guid: cf8465ec25a4ee459ab9b04f3c0d320b
+      Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_ADS
+      maxAttenuation: 100
+      maxDuration: 0.23215419
+      minDuration: 0.23215419
+    - name: Audio_Play_Pistol_Equip
+      guid: 0353fc7995edde45a2657f062e9e1320
+      id: 409991725
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Pistol
+        ObjectType: 4
+        guid: d6a46072e70f394892b4e0d4477c998f
+      - ElementName: Audio_Play_Pistol_Equip
+        ObjectType: 3
+        guid: 0353fc7995edde45a2657f062e9e1320
+      Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Equip
+      maxAttenuation: 100
+      maxDuration: 0.4419728
+      minDuration: 0.4419728
+    - name: Audio_Play_Pistol_Gunshot
+      guid: f3d8bc1c533e594aa1c46e2dc673024f
+      id: 2441155899
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Pistol
+        ObjectType: 4
+        guid: d6a46072e70f394892b4e0d4477c998f
+      - ElementName: Audio_Play_Pistol_Gunshot
+        ObjectType: 3
+        guid: f3d8bc1c533e594aa1c46e2dc673024f
+      Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Gunshot
+      maxAttenuation: 100
+      maxDuration: 2.3705442
+      minDuration: 2.3705442
+    - name: Audio_Play_Pistol_Reload_Empty
+      guid: 70dd619132964143b58b492679249fb9
+      id: 2863973594
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Pistol
+        ObjectType: 4
+        guid: d6a46072e70f394892b4e0d4477c998f
+      - ElementName: Audio_Play_Pistol_Reload_Empty
+        ObjectType: 3
+        guid: 70dd619132964143b58b492679249fb9
+      Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Reload_Empty
+      maxAttenuation: 100
+      maxDuration: 2.7901814
+      minDuration: 2.7901814
+    - name: Audio_Play_Pistol_Reload_Half_Empty
+      guid: ebd496e9f06cde43a222a6c4861db09a
+      id: 347646286
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Pistol
+        ObjectType: 4
+        guid: d6a46072e70f394892b4e0d4477c998f
+      - ElementName: Audio_Play_Pistol_Reload_Half_Empty
+        ObjectType: 3
+        guid: ebd496e9f06cde43a222a6c4861db09a
+      Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Reload_Half_Empty
+      maxAttenuation: 100
+      maxDuration: 2.1607256
+      minDuration: 2.1607256
+    - name: Audio_Play_Shotgun_ADS
+      guid: 6fd67fb6d920724f8e9fce8fdf4a6269
+      id: 3037541374
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Shotgun
+        ObjectType: 4
+        guid: e098cce35d46ed40b525ea9cd49e399d
+      - ElementName: Audio_Play_Shotgun_ADS
+        ObjectType: 3
+        guid: 6fd67fb6d920724f8e9fce8fdf4a6269
+      Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_ADS
+      maxAttenuation: 100
+      maxDuration: 0.4419728
+      minDuration: 0.4419728
+    - name: Audio_Play_Shotgun_Empty_Click
+      guid: 3313a2ef1c12594bbc40d98030330a02
+      id: 3271907398
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Shotgun
+        ObjectType: 4
+        guid: e098cce35d46ed40b525ea9cd49e399d
+      - ElementName: Audio_Play_Shotgun_Empty_Click
+        ObjectType: 3
+        guid: 3313a2ef1c12594bbc40d98030330a02
+      Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Empty_Click
+      maxAttenuation: 100
+      maxDuration: 0.43303856
+      minDuration: 0.43303856
+    - name: Audio_Play_Shotgun_Equip
+      guid: f74666e50fa5f54f9ad1760c46a1d3fe
+      id: 1430403524
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Shotgun
+        ObjectType: 4
+        guid: e098cce35d46ed40b525ea9cd49e399d
+      - ElementName: Audio_Play_Shotgun_Equip
+        ObjectType: 3
+        guid: f74666e50fa5f54f9ad1760c46a1d3fe
+      Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Equip
+      maxAttenuation: 100
+      maxDuration: 1.0758957
+      minDuration: 1.0758957
+    - name: Audio_Play_Shotgun_Gunshot
+      guid: 3cc103579993dd48922e387c9f8044a2
+      id: 3241567262
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Shotgun
+        ObjectType: 4
+        guid: e098cce35d46ed40b525ea9cd49e399d
+      - ElementName: Audio_Play_Shotgun_Gunshot
+        ObjectType: 3
+        guid: 3cc103579993dd48922e387c9f8044a2
+      Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Gunshot
+      maxAttenuation: 100
+      maxDuration: 2.63839
+      minDuration: 2.63839
+    - name: Audio_Play_Shotgun_Rechamber
+      guid: a7e1c61cd3929d4ab8b8f5b21478fa94
+      id: 476293911
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Shotgun
+        ObjectType: 4
+        guid: e098cce35d46ed40b525ea9cd49e399d
+      - ElementName: Audio_Play_Shotgun_Rechamber
+        ObjectType: 3
+        guid: a7e1c61cd3929d4ab8b8f5b21478fa94
+      Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Rechamber
+      maxAttenuation: 100
+      maxDuration: 0.7561205
+      minDuration: 0.7561205
+    - name: Audio_Play_Shotgun_Reload
+      guid: 0aac4115fb950c459614ced248154d23
+      id: 2308815023
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Shotgun
+        ObjectType: 4
+        guid: e098cce35d46ed40b525ea9cd49e399d
+      - ElementName: Audio_Play_Shotgun_Reload
+        ObjectType: 3
+        guid: 0aac4115fb950c459614ced248154d23
+      Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Reload
+      maxAttenuation: 100
+      maxDuration: 0.43303856
+      minDuration: 0.43303856
+    - name: Audio_Play_Slide
+      guid: 4ff35692e113cc4db2a0aa53e1159b56
+      id: 3126188644
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Sliding
+        ObjectType: 4
+        guid: c4a2f2b2e83bb74cab7f68d32ee3651b
+      - ElementName: Audio_Play_Slide
+        ObjectType: 3
+        guid: 4ff35692e113cc4db2a0aa53e1159b56
+      Path: Events\Default Work Unit\Player\Movement\Sliding\Audio_Play_Slide
+      maxAttenuation: 20
+      maxDuration: 1.6160771
+      minDuration: 1.6116099
+    - name: Audio_Play_Sniper_Rifle_ADS
+      guid: 7539b44d5b55504697063ba26ffe7a23
+      id: 3554801588
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sniper
+        ObjectType: 4
+        guid: 24a90ff7453de34aae9c43dad7068b06
+      - ElementName: Audio_Play_Sniper_Rifle_ADS
+        ObjectType: 3
+        guid: 7539b44d5b55504697063ba26ffe7a23
+      Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_ADS
+      maxAttenuation: 100
+      maxDuration: 0.5535601
+      minDuration: 0.5535601
+    - name: Audio_Play_Sniper_Rifle_Equip
+      guid: 3b79b45e3881054abb99ccc21296910e
+      id: 3704149398
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sniper
+        ObjectType: 4
+        guid: 24a90ff7453de34aae9c43dad7068b06
+      - ElementName: Audio_Play_Sniper_Rifle_Equip
+        ObjectType: 3
+        guid: 3b79b45e3881054abb99ccc21296910e
+      Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Equip
+      maxAttenuation: 100
+      maxDuration: 0.7544671
+      minDuration: 0.7544671
+    - name: Audio_Play_Sniper_Rifle_Gunshot
+      guid: cf08b356ac675f46af485915f116b709
+      id: 2362294448
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sniper
+        ObjectType: 4
+        guid: 24a90ff7453de34aae9c43dad7068b06
+      - ElementName: Audio_Play_Sniper_Rifle_Gunshot
+        ObjectType: 3
+        guid: cf08b356ac675f46af485915f116b709
+      Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Gunshot
+      maxAttenuation: 100
+      maxDuration: 3.0580273
+      minDuration: 3.0580273
+    - name: Audio_Play_Sniper_Rifle_Reload_Empty
+      guid: fc6452e0161d1144938724cc055bb868
+      id: 3247481907
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sniper
+        ObjectType: 4
+        guid: 24a90ff7453de34aae9c43dad7068b06
+      - ElementName: Audio_Play_Sniper_Rifle_Reload_Empty
+        ObjectType: 3
+        guid: fc6452e0161d1144938724cc055bb868
+      Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Reload_Empty
+      maxAttenuation: 100
+      maxDuration: 3.11161
+      minDuration: 3.11161
+    - name: Audio_Play_Sniper_Rifle_Reload_Half_Empty
+      guid: d14ed6839e0e284fb2993ec35d125e65
+      id: 3650859653
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sniper
+        ObjectType: 4
+        guid: 24a90ff7453de34aae9c43dad7068b06
+      - ElementName: Audio_Play_Sniper_Rifle_Reload_Half_Empty
+        ObjectType: 3
+        guid: d14ed6839e0e284fb2993ec35d125e65
+      Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Reload_Half_Empty
+      maxAttenuation: 100
+      maxDuration: 1.8258957
+      minDuration: 1.8258957
+    - name: Audio_Play_Stepping_Out_Water
+      guid: 12971dfe765e63459e0e2c07b166f73c
+      id: 1931113386
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Swimming
+        ObjectType: 4
+        guid: d4886103e73cd84dadde349e8390f012
+      - ElementName: Audio_Play_Stepping_Out_Water
+        ObjectType: 3
+        guid: 12971dfe765e63459e0e2c07b166f73c
+      Path: Events\Default Work Unit\Player\Movement\Swimming\Audio_Play_Stepping_Out_Water
+      maxAttenuation: 20
+      maxDuration: 1.7187529
+      minDuration: 1.7187529
+    - name: Audio_Play_SubMachineGun_ADS
+      guid: 082fedc113649f4f814a19008040b19d
+      id: 3677570253
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sub_Machine_Gun
+        ObjectType: 4
+        guid: 724ce9609a5bf148847744b5f07cca44
+      - ElementName: Audio_Play_SubMachineGun_ADS
+        ObjectType: 3
+        guid: 082fedc113649f4f814a19008040b19d
+      Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_ADS
+      maxAttenuation: 100
+      maxDuration: 0.21875283
+      minDuration: 0.21875283
+    - name: Audio_Play_SubMachineGun_Equip
+      guid: 075d61e5511dd74b91ed00e3c6226aca
+      id: 3389743
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sub_Machine_Gun
+        ObjectType: 4
+        guid: 724ce9609a5bf148847744b5f07cca44
+      - ElementName: Audio_Play_SubMachineGun_Equip
+        ObjectType: 3
+        guid: 075d61e5511dd74b91ed00e3c6226aca
+      Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Equip
+      maxAttenuation: 100
+      maxDuration: 0.5535601
+      minDuration: 0.5535601
+    - name: Audio_Play_SubMachineGun_Gunshot
+      guid: 883f219471609a4cb9c0e238ec2e9d60
+      id: 398636957
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sub_Machine_Gun
+        ObjectType: 4
+        guid: 724ce9609a5bf148847744b5f07cca44
+      - ElementName: Audio_Play_SubMachineGun_Gunshot
+        ObjectType: 3
+        guid: 883f219471609a4cb9c0e238ec2e9d60
+      Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Gunshot
+      maxAttenuation: 100
+      maxDuration: 1.4062585
+      minDuration: 1.4062585
+    - name: Audio_Play_SubMachineGun_Reload_Empty
+      guid: 36c4a38eca3b4842a1622bba7534ed5f
+      id: 2995555196
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sub_Machine_Gun
+        ObjectType: 4
+        guid: 724ce9609a5bf148847744b5f07cca44
+      - ElementName: Audio_Play_SubMachineGun_Reload_Empty
+        ObjectType: 3
+        guid: 36c4a38eca3b4842a1622bba7534ed5f
+      Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Reload_Empty
+      maxAttenuation: 100
+      maxDuration: 3.5401814
+      minDuration: 3.5401814
+    - name: Audio_Play_SubMachineGun_Reload_Half_Empty
+      guid: dd91a2d012051546867118429dfb76d9
+      id: 315327556
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sub_Machine_Gun
+        ObjectType: 4
+        guid: 724ce9609a5bf148847744b5f07cca44
+      - ElementName: Audio_Play_SubMachineGun_Reload_Half_Empty
+        ObjectType: 3
+        guid: dd91a2d012051546867118429dfb76d9
+      Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Reload_Half_Empty
+      maxAttenuation: 100
+      maxDuration: 2.6964173
+      minDuration: 2.6964173
+    - name: Audio_Play_Swim_Stroke
+      guid: 90af8d2cb06e3940a7ad0d326d8643b2
+      id: 3839630280
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Swimming
+        ObjectType: 4
+        guid: d4886103e73cd84dadde349e8390f012
+      - ElementName: Audio_Play_Swim_Stroke
+        ObjectType: 3
+        guid: 90af8d2cb06e3940a7ad0d326d8643b2
+      Path: Events\Default Work Unit\Player\Movement\Swimming\Audio_Play_Swim_Stroke
+      maxAttenuation: 20
+      maxDuration: 3.0178685
+      minDuration: 1.3035828
+    - name: BreakCam
+      guid: 49056ded55c709449d346effb8b80f85
+      id: 587342027
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: BreakCam
+        ObjectType: 4
+        guid: 49056ded55c709449d346effb8b80f85
+      Path: Events\Default Work Unit\Player\BreakCam
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Footsteps
+      guid: efbcf2f9aa125e4d8f40306dfdecd2a6
+      id: 2385628198
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Footsteps
+        ObjectType: 4
+        guid: efbcf2f9aa125e4d8f40306dfdecd2a6
+      Path: Events\Default Work Unit\Player\Movement\Footsteps
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Grenade
+      guid: c1c35124f21e7c488e9efb37de89f4d4
+      id: 3255686181
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Weapons
+        ObjectType: 4
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Grenade
+        ObjectType: 4
+        guid: c1c35124f21e7c488e9efb37de89f4d4
+      Path: Events\Default Work Unit\Player\Weapons\Grenade
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Health
+      guid: df198543e6739b4c940378aa5783fcf2
+      id: 3677180323
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Health
+        ObjectType: 4
+        guid: df198543e6739b4c940378aa5783fcf2
+      Path: Events\Default Work Unit\Player\Health
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Jumping
+      guid: 1afde472f2956c49942f0582a0b342ac
+      id: 68157183
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Jumping
+        ObjectType: 4
+        guid: 1afde472f2956c49942f0582a0b342ac
+      Path: Events\Default Work Unit\Player\Movement\Jumping
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Movement
-      guid: 458451d19810e044aff056dee5776b88
+      guid: def24ff5596cf54caff9792f6736c60d
       id: 2129636626
       PathAndIcons:
       - ElementName: Events
@@ -485,16 +2358,19 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Movement
         ObjectType: 4
-        guid: 458451d19810e044aff056dee5776b88
-      Path: Events\Default Work Unit\Movement
+        guid: def24ff5596cf54caff9792f6736c60d
+      Path: Events\Default Work Unit\Player\Movement
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: PistolReload
-      guid: 21a73f5d6db7da40b56fdbcd3bb59411
-      id: 1972462343
+    - name: Parachute
+      guid: fcc06160474ea843ab93fe55ac356a65
+      id: 4224480086
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -502,82 +2378,22 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: Weapons
-        ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Reloads
-        ObjectType: 4
-        guid: 86cad547ca94c04baa3ac472aa0b9d1f
-      - ElementName: PistolReload
-        ObjectType: 3
-        guid: 21a73f5d6db7da40b56fdbcd3bb59411
-      Path: Events\Default Work Unit\Weapons\Reloads\PistolReload
-      maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: PistolShot
-      guid: d6e465af6652e74781769f1549b47030
-      id: 3835771680
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
+      - ElementName: Player
         ObjectType: 12
-        guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: Weapons
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
         ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Gunshots
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Parachute
         ObjectType: 4
-        guid: 7e5e8ac06c170143be90b2763821a053
-      - ElementName: PistolShot
-        ObjectType: 3
-        guid: d6e465af6652e74781769f1549b47030
-      Path: Events\Default Work Unit\Weapons\Gunshots\PistolShot
-      maxAttenuation: 0
-      maxDuration: 2.9508843
-      minDuration: 2.9508843
-    - name: PlayTestSound
-      guid: f5b39b5c07c16b4eb55bf6a1752bd31b
-      id: 2260221316
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: PlayTestSound
-        ObjectType: 3
-        guid: f5b39b5c07c16b4eb55bf6a1752bd31b
-      Path: Events\Default Work Unit\PlayTestSound
-      maxAttenuation: 0
-      maxDuration: 0.28387755
-      minDuration: 0.28387755
-    - name: Reloads
-      guid: 86cad547ca94c04baa3ac472aa0b9d1f
-      id: 1687968421
-      PathAndIcons:
-      - ElementName: Events
-        ObjectType: 5
-        guid: 00000000000000000000000000000000
-      - ElementName: Default Work Unit
-        ObjectType: 12
-        guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: Weapons
-        ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Reloads
-        ObjectType: 4
-        guid: 86cad547ca94c04baa3ac472aa0b9d1f
-      Path: Events\Default Work Unit\Weapons\Reloads
+        guid: fcc06160474ea843ab93fe55ac356a65
+      Path: Events\Default Work Unit\Player\Movement\Parachute
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: RifleReload
-      guid: fa4dd71a3769c447badc97afdd90d461
-      id: 2259430554
+    - name: Pistol
+      guid: d6a46072e70f394892b4e0d4477c998f
+      id: 324443136
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -585,22 +2401,22 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Weapons
         ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Reloads
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Pistol
         ObjectType: 4
-        guid: 86cad547ca94c04baa3ac472aa0b9d1f
-      - ElementName: RifleReload
-        ObjectType: 3
-        guid: fa4dd71a3769c447badc97afdd90d461
-      Path: Events\Default Work Unit\Weapons\Reloads\RifleReload
+        guid: d6a46072e70f394892b4e0d4477c998f
+      Path: Events\Default Work Unit\Player\Weapons\Pistol
       maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: RifleShot
-      guid: a749acd862f07b469b7d86ef0997ec9a
-      id: 1062449581
+      maxDuration: -1
+      minDuration: -1
+    - name: Shotgun
+      guid: e098cce35d46ed40b525ea9cd49e399d
+      id: 51683977
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -608,22 +2424,22 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Weapons
         ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Gunshots
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Shotgun
         ObjectType: 4
-        guid: 7e5e8ac06c170143be90b2763821a053
-      - ElementName: RifleShot
-        ObjectType: 3
-        guid: a749acd862f07b469b7d86ef0997ec9a
-      Path: Events\Default Work Unit\Weapons\Gunshots\RifleShot
+        guid: e098cce35d46ed40b525ea9cd49e399d
+      Path: Events\Default Work Unit\Player\Weapons\Shotgun
       maxAttenuation: 0
-      maxDuration: 3.2321541
-      minDuration: 3.2321541
-    - name: Rustle
-      guid: c81de24831aaf14b9cee37a1b0fce036
-      id: 1229223666
+      maxDuration: -1
+      minDuration: -1
+    - name: Sliding
+      guid: c4a2f2b2e83bb74cab7f68d32ee3651b
+      id: 472853913
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -631,19 +2447,22 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Movement
         ObjectType: 4
-        guid: 458451d19810e044aff056dee5776b88
-      - ElementName: Rustle
-        ObjectType: 3
-        guid: c81de24831aaf14b9cee37a1b0fce036
-      Path: Events\Default Work Unit\Movement\Rustle
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Sliding
+        ObjectType: 4
+        guid: c4a2f2b2e83bb74cab7f68d32ee3651b
+      Path: Events\Default Work Unit\Player\Movement\Sliding
       maxAttenuation: 0
-      maxDuration: 0.64732426
-      minDuration: 0.64732426
-    - name: SniperReload
-      guid: ca8f0195a95a9548b6a8f538188e6954
-      id: 1740152835
+      maxDuration: -1
+      minDuration: -1
+    - name: Sniper
+      guid: 24a90ff7453de34aae9c43dad7068b06
+      id: 2550763292
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -651,22 +2470,22 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Weapons
         ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Reloads
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sniper
         ObjectType: 4
-        guid: 86cad547ca94c04baa3ac472aa0b9d1f
-      - ElementName: SniperReload
-        ObjectType: 3
-        guid: ca8f0195a95a9548b6a8f538188e6954
-      Path: Events\Default Work Unit\Weapons\Reloads\SniperReload
+        guid: 24a90ff7453de34aae9c43dad7068b06
+      Path: Events\Default Work Unit\Player\Weapons\Sniper
       maxAttenuation: 0
-      maxDuration: 0
-      minDuration: 0
-    - name: SniperShot
-      guid: c52fa74a10b58647bcb6f194e8f9b380
-      id: 1104796412
+      maxDuration: -1
+      minDuration: -1
+    - name: Sub_Machine_Gun
+      guid: 724ce9609a5bf148847744b5f07cca44
+      id: 2822532176
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -674,21 +2493,44 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Weapons
         ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      - ElementName: Gunshots
+        guid: 921bb5b5207441469415c7e3ddce4415
+      - ElementName: Sub_Machine_Gun
         ObjectType: 4
-        guid: 7e5e8ac06c170143be90b2763821a053
-      - ElementName: SniperShot
-        ObjectType: 3
-        guid: c52fa74a10b58647bcb6f194e8f9b380
-      Path: Events\Default Work Unit\Weapons\Gunshots\SniperShot
+        guid: 724ce9609a5bf148847744b5f07cca44
+      Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun
       maxAttenuation: 0
-      maxDuration: 2.8392744
-      minDuration: 2.8392744
+      maxDuration: -1
+      minDuration: -1
+    - name: Swimming
+      guid: d4886103e73cd84dadde349e8390f012
+      id: 322811350
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Movement
+        ObjectType: 4
+        guid: def24ff5596cf54caff9792f6736c60d
+      - ElementName: Swimming
+        ObjectType: 4
+        guid: d4886103e73cd84dadde349e8390f012
+      Path: Events\Default Work Unit\Player\Movement\Swimming
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Weapons
-      guid: d0d6ef5fb77c1642bfa3c246f75a3564
+      guid: 921bb5b5207441469415c7e3ddce4415
       id: 1467963052
       PathAndIcons:
       - ElementName: Events
@@ -697,16 +2539,35 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
       - ElementName: Weapons
         ObjectType: 4
-        guid: d0d6ef5fb77c1642bfa3c246f75a3564
-      Path: Events\Default Work Unit\Weapons
+        guid: 921bb5b5207441469415c7e3ddce4415
+      Path: Events\Default Work Unit\Player\Weapons
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
-    - name: WoodFootstep
-      guid: 048017bf92f6a14483b1ea6e203ea261
-      id: 93359716
+  - PhysicalPath: Events\UI.wwu
+    PathAndIcons:
+    - ElementName: Events
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: Default Work Unit
+      ObjectType: 12
+      guid: 7cff4c982ebd8247bfebb11d6a2952bb
+    - ElementName: UI
+      ObjectType: 12
+      guid: bd66d6c9083a8840b90f27d8ce101f80
+    ParentPath: Events\Default Work Unit\UI
+    guid: bd66d6c9083a8840b90f27d8ce101f80
+    GuidInternal: 
+    m_lastTime: -8584275917459048893
+    List:
+    - name: Audio_Play_Button_Click
+      guid: 978ff4361912844ea8e1cf07c481d85d
+      id: 426281652
       PathAndIcons:
       - ElementName: Events
         ObjectType: 5
@@ -714,16 +2575,220 @@ MonoBehaviour:
       - ElementName: Default Work Unit
         ObjectType: 12
         guid: 7cff4c982ebd8247bfebb11d6a2952bb
-      - ElementName: Movement
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Menu
         ObjectType: 4
-        guid: 458451d19810e044aff056dee5776b88
-      - ElementName: WoodFootstep
+        guid: 4e888be2ae8211409eabdd6c722d2f82
+      - ElementName: Audio_Play_Button_Click
         ObjectType: 3
-        guid: 048017bf92f6a14483b1ea6e203ea261
-      Path: Events\Default Work Unit\Movement\WoodFootstep
+        guid: 978ff4361912844ea8e1cf07c481d85d
+      Path: Events\Default Work Unit\UI\Menu\Audio_Play_Button_Click
       maxAttenuation: 0
-      maxDuration: 0.3258957
-      minDuration: 0.3258957
+      maxDuration: 0.35714287
+      minDuration: 0.35714287
+    - name: Audio_Play_Game_Over
+      guid: fa9666869a619b4da8f2ffc2992a8f39
+      id: 896909616
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Menu
+        ObjectType: 4
+        guid: 4e888be2ae8211409eabdd6c722d2f82
+      - ElementName: Audio_Play_Game_Over
+        ObjectType: 3
+        guid: fa9666869a619b4da8f2ffc2992a8f39
+      Path: Events\Default Work Unit\UI\Menu\Audio_Play_Game_Over
+      maxAttenuation: 0
+      maxDuration: 5.254467
+      minDuration: 5.254467
+    - name: Audio_Play_HeadShot_Badge
+      guid: 0e3d4e46c2ee404fa53011e0c67118b0
+      id: 1789865179
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Player_HUD
+        ObjectType: 4
+        guid: 4c96a1a4667a14498d6eaad5db3032fa
+      - ElementName: Audio_Play_HeadShot_Badge
+        ObjectType: 3
+        guid: 0e3d4e46c2ee404fa53011e0c67118b0
+      Path: Events\Default Work Unit\UI\Player_HUD\Audio_Play_HeadShot_Badge
+      maxAttenuation: 0
+      maxDuration: 1.2991157
+      minDuration: 1.2991157
+    - name: Audio_Play_Hitmarker
+      guid: 8e5b768176604f44b9c23fcfd2ee3023
+      id: 3026700978
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Player_HUD
+        ObjectType: 4
+        guid: 4c96a1a4667a14498d6eaad5db3032fa
+      - ElementName: Audio_Play_Hitmarker
+        ObjectType: 3
+        guid: 8e5b768176604f44b9c23fcfd2ee3023
+      Path: Events\Default Work Unit\UI\Player_HUD\Audio_Play_Hitmarker
+      maxAttenuation: 0
+      maxDuration: 0.30388406
+      minDuration: 0.30388406
+    - name: Audio_Play_Kill_With_Score_Badge
+      guid: a6a8e439a6ab094a8e0257798464863a
+      id: 4274192131
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Player_HUD
+        ObjectType: 4
+        guid: 4c96a1a4667a14498d6eaad5db3032fa
+      - ElementName: Audio_Play_Kill_With_Score_Badge
+        ObjectType: 3
+        guid: a6a8e439a6ab094a8e0257798464863a
+      Path: Events\Default Work Unit\UI\Player_HUD\Audio_Play_Kill_With_Score_Badge
+      maxAttenuation: 0
+      maxDuration: 1.2901814
+      minDuration: 1.2901814
+    - name: Audio_Play_Objective_Complete
+      guid: 24af5a160e1f6f4680845cb95387ec70
+      id: 4242789496
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Menu
+        ObjectType: 4
+        guid: 4e888be2ae8211409eabdd6c722d2f82
+      - ElementName: Audio_Play_Objective_Complete
+        ObjectType: 3
+        guid: 24af5a160e1f6f4680845cb95387ec70
+      Path: Events\Default Work Unit\UI\Menu\Audio_Play_Objective_Complete
+      maxAttenuation: 0
+      maxDuration: 2.1473243
+      minDuration: 2.1473243
+    - name: Audio_Play_Objective_Fail
+      guid: 8e974e00b148114db9eeefe0e240bec2
+      id: 1677698253
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Menu
+        ObjectType: 4
+        guid: 4e888be2ae8211409eabdd6c722d2f82
+      - ElementName: Audio_Play_Objective_Fail
+        ObjectType: 3
+        guid: 8e974e00b148114db9eeefe0e240bec2
+      Path: Events\Default Work Unit\UI\Menu\Audio_Play_Objective_Fail
+      maxAttenuation: 0
+      maxDuration: 2.1473243
+      minDuration: 2.1473243
+    - name: Audio_Play_Round_Complete
+      guid: 48db49627ac5ba4a89cb4b6fa5cd8bcd
+      id: 2160943179
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Menu
+        ObjectType: 4
+        guid: 4e888be2ae8211409eabdd6c722d2f82
+      - ElementName: Audio_Play_Round_Complete
+        ObjectType: 3
+        guid: 48db49627ac5ba4a89cb4b6fa5cd8bcd
+      Path: Events\Default Work Unit\UI\Menu\Audio_Play_Round_Complete
+      maxAttenuation: 0
+      maxDuration: 3.0178685
+      minDuration: 3.0178685
+    - name: Menu
+      guid: 4e888be2ae8211409eabdd6c722d2f82
+      id: 2607556080
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Menu
+        ObjectType: 4
+        guid: 4e888be2ae8211409eabdd6c722d2f82
+      Path: Events\Default Work Unit\UI\Menu
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Player_HUD
+      guid: 4c96a1a4667a14498d6eaad5db3032fa
+      id: 1073144984
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: UI
+        ObjectType: 12
+        guid: bd66d6c9083a8840b90f27d8ce101f80
+      - ElementName: Player_HUD
+        ObjectType: 4
+        guid: 4c96a1a4667a14498d6eaad5db3032fa
+      Path: Events\Default Work Unit\UI\Player_HUD
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -738,6 +2803,33 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584306524301670495
     List: []
+  - PhysicalPath: Game Parameters\SideChain_Parameters.wwu
+    PathAndIcons:
+    - ElementName: Game Parameters
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: SideChain_Parameters
+      ObjectType: 12
+      guid: c3ed39dae715854787697e0a2efa8740
+    ParentPath: Game Parameters\SideChain_Parameters
+    guid: c3ed39dae715854787697e0a2efa8740
+    GuidInternal: 
+    m_lastTime: -8584275917459043680
+    List:
+    - name: RTPC_Ducking
+      guid: bee06efdaa32c14f9b9b4d0f8e9c49e5
+      id: 236777424
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: SideChain_Parameters
+        ObjectType: 12
+        guid: c3ed39dae715854787697e0a2efa8740
+      - ElementName: RTPC_Ducking
+        ObjectType: 13
+        guid: bee06efdaa32c14f9b9b4d0f8e9c49e5
+      Path: Game Parameters\SideChain_Parameters\RTPC_Ducking
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     PathAndIcons:
@@ -764,8 +2856,90 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 7fbdc1e30c11e04a93d30014b13151c1
     GuidInternal: 
-    m_lastTime: -8584306524301565082
-    List: []
+    m_lastTime: -8584275917452493061
+    List:
+    - name: Ground_Material
+      guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
+      id: 3539622648
+      PathAndIcons:
+      - ElementName: Switches
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7fbdc1e30c11e04a93d30014b13151c1
+      - ElementName: Ground_Material
+        ObjectType: 11
+        guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
+      Path: Switches\Default Work Unit\Ground_Material
+      values:
+      - name: Ground_Material_Dirt
+        guid: 4b2b59c79c01404195c5636846d0486b
+        id: 1699346256
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 7fbdc1e30c11e04a93d30014b13151c1
+        - ElementName: Ground_Material
+          ObjectType: 11
+          guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
+        - ElementName: Ground_Material_Dirt
+          ObjectType: 10
+          guid: 4b2b59c79c01404195c5636846d0486b
+      - name: Ground_Material_Fabric
+        guid: 4b0124954b17524a8a9840066306b90c
+        id: 3858318948
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 7fbdc1e30c11e04a93d30014b13151c1
+        - ElementName: Ground_Material
+          ObjectType: 11
+          guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
+        - ElementName: Ground_Material_Fabric
+          ObjectType: 10
+          guid: 4b0124954b17524a8a9840066306b90c
+      - name: Ground_Material_Metal
+        guid: 1964acaf55bd0b4ebc55a59d08ac5934
+        id: 479619172
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 7fbdc1e30c11e04a93d30014b13151c1
+        - ElementName: Ground_Material
+          ObjectType: 11
+          guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
+        - ElementName: Ground_Material_Metal
+          ObjectType: 10
+          guid: 1964acaf55bd0b4ebc55a59d08ac5934
+      - name: Ground_Material_Wood
+        guid: 9733759fc114784cb37a0cf5ca6c3d0d
+        id: 3915029512
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 7fbdc1e30c11e04a93d30014b13151c1
+        - ElementName: Ground_Material
+          ObjectType: 11
+          guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
+        - ElementName: Ground_Material_Wood
+          ObjectType: 10
+          guid: 9733759fc114784cb37a0cf5ca6c3d0d
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
     PathAndIcons:
@@ -780,9 +2954,9 @@ MonoBehaviour:
     GuidInternal: 
     m_lastTime: -8584306524301550025
     List: []
-  ExpandedFileSystemItemIds: 020000000300000004000000090000000a000000
-  ExpandedWaapiItemIds: 06000000070000000b000000
+  ExpandedFileSystemItemIds: 01000000020000000300000004000000090000000a000000100000001100000012000000130000001c000000210000002800000030000000360000003f000000460000006100000062000000
+  ExpandedWaapiItemIds: 01000000020000000300000004000000090000000a000000100000001100000012000000130000001c000000210000002800000030000000360000003f000000460000006100000062000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
-  currentDataSource: 1
+  currentDataSource: 0
   CurrentPluginConfig: 

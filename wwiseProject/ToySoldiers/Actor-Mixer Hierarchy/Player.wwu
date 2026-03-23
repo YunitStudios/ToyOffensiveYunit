@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{33744AEF-8AE5-4F70-8017-CC9E38AB7714}" SchemaVersion="123" RootDocumentID="{B11FE8BF-8DEF-4128-B498-F993B48887BA}" ParentDocumentID="{B11FE8BF-8DEF-4128-B498-F993B48887BA}">
+	<AudioObjects>
+		<WorkUnit Name="Player" ID="{33744AEF-8AE5-4F70-8017-CC9E38AB7714}" OwnerID="{FACC930A-146E-47B4-95C6-161A5B5CBC9F}" PersistMode="Nested">
+			<PropertyList>
+				<Property Name="Color" Type="int16" Value="11"/>
+				<Property Name="OverrideColor" Type="bool" Value="True"/>
+			</PropertyList>
+			<ChildrenList>
+				<ActorMixer Name="Player" ID="{2D56363D-5C69-40C6-A2C0-33D2CEAA6169}" ShortID="60574058">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<ActorMixer Name="Health" ID="{BD7EA93A-673A-418D-AADB-84456CC99126}" ShortID="276361636">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Health" ID="{CAF8D6EB-6472-4D0F-B781-90AD01B5C994}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Low_Health" ID="{ADAFA02A-BD4A-4FAC-B151-8444FE7681CE}" ShortID="578349709">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Low_Health" ID="{157A93D8-2E2A-48EF-8A38-8188B3852AD8}">
+											<Language>SFX</Language>
+											<AudioFile>Low_Health.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="744834611"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Low_Health" ID="{157A93D8-2E2A-48EF-8A38-8188B3852AD8}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Out_of_Stamina" ID="{609C8BB4-8626-47AD-BC1E-306ACC3C12E2}" ShortID="72409248">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Out_of_Stamina" ID="{05AFA3C2-9FF5-4B78-A6F8-AD1699EAB125}">
+											<Language>SFX</Language>
+											<AudioFile>Out_of_Stamina.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="141866607"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Out_of_Stamina" ID="{05AFA3C2-9FF5-4B78-A6F8-AD1699EAB125}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Health_Pickup" ID="{41D6D2DF-0B53-477F-8E24-3B70726C042D}" ShortID="646160609">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Health_Pickup" ID="{CD17F6FA-FF9C-4C03-AAD0-E91476CC9D83}">
+											<Language>SFX</Language>
+											<AudioFile>Ammo Pickup\Health_Pickup.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="373175969"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Health_Pickup" ID="{CD17F6FA-FF9C-4C03-AAD0-E91476CC9D83}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</ActorMixer>
+						<ActorMixer Name="BreakCam" ID="{A19881A3-66F3-4A68-B220-A6C342B3283E}" ShortID="1053217590">
+							<PropertyList>
+								<Property Name="OverrideOutput" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="BreakCam" ID="{B9F475BA-7938-425B-AE8E-F3A81B61B0F7}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Cam_Impact_With_Pause" ID="{B9F6277A-3F89-40B9-90D4-DE90F8533B94}" ShortID="29799044">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Cam_Impact_With_Pause" ID="{A6B6CF6E-1F5B-4972-82FA-81719B34D6FB}">
+											<Language>SFX</Language>
+											<AudioFile>Cam_Impact_With_Pause.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="586009413"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Cam_Impact_With_Pause" ID="{A6B6CF6E-1F5B-4972-82FA-81719B34D6FB}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</ActorMixer>
+						<WorkUnit Name="Movement" ID="{EAF2D4EE-BD67-428E-896E-60C414333D92}" PersistMode="Reference"/>
+						<WorkUnit Name="Weapons" ID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}" PersistMode="Reference"/>
+						<ActorMixer Name="Execution" ID="{F6E2108B-30A8-43E9-B709-42EF75436890}" ShortID="111971426">
+							<PropertyList>
+								<Property Name="OverrideUserAuxSends" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+								<Reference Name="UserAuxSend0">
+									<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<Sound Name="Body Drop" ID="{7A348D05-C948-4393-BE4E-2D4A7651CF32}" ShortID="403261114">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Body Drop" ID="{3ED2A439-A425-4E53-B402-45ABB60C606F}">
+											<Language>SFX</Language>
+											<AudioFile>Body Drop.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="356852813"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Body Drop" ID="{3ED2A439-A425-4E53-B402-45ABB60C606F}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+								<Sound Name="Neck Snap" ID="{87A57DCE-B401-4D60-BFA6-63C0603DB588}" ShortID="414437218">
+									<ReferenceList>
+										<Reference Name="Conversion">
+											<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+										</Reference>
+										<Reference Name="OutputBus">
+											<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+										</Reference>
+									</ReferenceList>
+									<ChildrenList>
+										<AudioFileSource Name="Neck Snap" ID="{5649A2EE-A0D8-4ADC-9AA3-8DF6ED2EA8CE}">
+											<Language>SFX</Language>
+											<AudioFile>Neck Snap.wav</AudioFile>
+											<MediaIDList>
+												<MediaID ID="550035273"/>
+											</MediaIDList>
+										</AudioFileSource>
+									</ChildrenList>
+									<ActiveSourceList>
+										<ActiveSource Name="Neck Snap" ID="{5649A2EE-A0D8-4ADC-9AA3-8DF6ED2EA8CE}" Platform="Linked"/>
+									</ActiveSourceList>
+								</Sound>
+							</ChildrenList>
+						</ActorMixer>
+					</ChildrenList>
+				</ActorMixer>
+			</ChildrenList>
+		</WorkUnit>
+	</AudioObjects>
+</WwiseDocument>
