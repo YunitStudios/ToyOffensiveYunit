@@ -156,7 +156,7 @@ public class AIStateMachine : MonoBehaviour
         }
         if (detection.IsDetected && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && enemyType != EnemyType.Target)
         { 
-            ChangeState(new AttackState(this, agent, vision.player));
+            ChangeState(new AttackState(this, agent, vision.player, false));
         }
         // else if cant see player and is in attack state, switch to search state
         else if (!vision.canSeePlayer && (currentState is AttackState || currentState is MoveToCoverState || currentState is BehindCoverState || currentState is PeekShootState))
