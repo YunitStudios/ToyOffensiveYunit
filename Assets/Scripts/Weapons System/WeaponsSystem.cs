@@ -191,7 +191,7 @@ public class WeaponsSystem : MonoBehaviour
         {
             model.Value.SetActive(false);
         }
-        if(weaponModels.TryGetValue(PlayerData.CurrentWeapon.ModifiedWeaponData, out var newModel))
+        if(weaponModels.TryGetValue(PlayerData.CurrentWeapon.BaseWeaponData, out var newModel))
             newModel.SetActive(true);
     }
 
