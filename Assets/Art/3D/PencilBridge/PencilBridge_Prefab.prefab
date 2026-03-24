@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1389576165347766283}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PencilBridge_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,11 +88,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: PencilBridge
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c9fe167285377d14081e119a33ddbc63, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c9fe167285377d14081e119a33ddbc63, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8521858596073732237}
   m_SourcePrefab: {fileID: 100100000, guid: c9fe167285377d14081e119a33ddbc63, type: 3}
+--- !u!1 &8454361264397395991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c9fe167285377d14081e119a33ddbc63, type: 3}
+  m_PrefabInstance: {fileID: 8760210560013276486}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8521858596073732237
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8454361264397395991}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.011757264, y: 0.042297024, z: 0.0033926023}
+  m_Center: {x: 0.0000000016298145, y: 0.0031116442, z: 0.00005182466}
 --- !u!4 &9086078675350909613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: c9fe167285377d14081e119a33ddbc63, type: 3}
