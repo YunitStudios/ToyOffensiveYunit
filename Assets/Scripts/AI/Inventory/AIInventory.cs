@@ -81,7 +81,7 @@ public class AIInventory : MonoBehaviour
     
     private void SetWeaponVisual()
     {
-        WeaponDataSO weaponData = primaryWeapon.WeaponData;
+        WeaponDataSO weaponData = primaryWeapon.BaseWeaponData;
         animator.runtimeAnimatorController = weaponData.animationController;
         // Disable all gun models and disable current
         foreach (var model in weaponModels)
