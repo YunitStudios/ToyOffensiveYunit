@@ -303,7 +303,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 50a85ccf09b6a245b903d0644e4c1d0c
     GuidInternal: 
-    m_lastTime: -8584274063846577906
+    m_lastTime: -8584272356668299091
     List:
     - name: BreakCam
       guid: ba75f4b938795b42ae8ef3a81b61b0f7
@@ -741,7 +741,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f589af6a9cbf584d8491570d94dd718b
     GuidInternal: 
-    m_lastTime: -8584274128737467396
+    m_lastTime: -8584272388829228310
     List:
     - name: Main
       guid: 81e2f863686cc74eb33ad4b9071621a5
@@ -769,7 +769,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 7cff4c982ebd8247bfebb11d6a2952bb
     GuidInternal: 
-    m_lastTime: -8584275917459075085
+    m_lastTime: -8584272388836110135
     List: []
   - PhysicalPath: Events\Enemies.wwu
     PathAndIcons:
@@ -785,7 +785,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit\Enemies
     guid: 080396a6c68c4541a90a8e2aadec88b1
     GuidInternal: 
-    m_lastTime: -8584275917459069816
+    m_lastTime: -8584272388836099963
     List:
     - name: Audio_Player_Enemy_Footsteps
       guid: 44398386be98244e89a662414762011b
@@ -821,7 +821,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit\Environment
     guid: 57dc02715814bc4d9882969f72a96bf3
     GuidInternal: 
-    m_lastTime: -8584275917459064687
+    m_lastTime: -8584272388836089960
     List:
     - name: Audio_Play_Fire_Burning_Player
       guid: 6d1e79866cc86e4ab59292b408947fd0
@@ -1059,7 +1059,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit\Player
     guid: b2992e10cc5ecb449a17ca1faac018b2
     GuidInternal: 
-    m_lastTime: -8584274084648084921
+    m_lastTime: -8584272388790171938
     List:
     - name: AmmoPickup
       guid: c8ccfc31f1ea434aae08a235fe9fe4d8
@@ -1263,6 +1263,29 @@ MonoBehaviour:
       maxAttenuation: 100
       maxDuration: 2.05356
       minDuration: 2.05356
+    - name: Audio_Play_Body_Drop
+      guid: 22b046db43ccda41bd17a0c0e00485cc
+      id: 4294621067
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Execution
+        ObjectType: 4
+        guid: 610e3c8074c60b46a3c80490c6d26d4e
+      - ElementName: Audio_Play_Body_Drop
+        ObjectType: 3
+        guid: 22b046db43ccda41bd17a0c0e00485cc
+      Path: Events\Default Work Unit\Player\Execution\Audio_Play_Body_Drop
+      maxAttenuation: 100
+      maxDuration: 1.0758957
+      minDuration: 1.0758957
     - name: Audio_Play_Break_Cam
       guid: 1e2909d56213a046859d3675ed088c43
       id: 1999478926
@@ -1563,6 +1586,29 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: 0
       minDuration: 0
+    - name: Audio_Play_Neck_Snap
+      guid: aecd6be9bb04b948aba10481f2f070c7
+      id: 251375467
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Execution
+        ObjectType: 4
+        guid: 610e3c8074c60b46a3c80490c6d26d4e
+      - ElementName: Audio_Play_Neck_Snap
+        ObjectType: 3
+        guid: aecd6be9bb04b948aba10481f2f070c7
+      Path: Events\Default Work Unit\Player\Execution\Audio_Play_Neck_Snap
+      maxAttenuation: 100
+      maxDuration: 0.7544671
+      minDuration: 0.7544671
     - name: Audio_Play_Parachute_Cut
       guid: fd11292dc283d54482c122256568911d
       id: 2861943707
@@ -2259,6 +2305,26 @@ MonoBehaviour:
       maxAttenuation: 0
       maxDuration: -1
       minDuration: -1
+    - name: Execution
+      guid: 610e3c8074c60b46a3c80490c6d26d4e
+      id: 1258563437
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Player
+        ObjectType: 12
+        guid: b2992e10cc5ecb449a17ca1faac018b2
+      - ElementName: Execution
+        ObjectType: 4
+        guid: 610e3c8074c60b46a3c80490c6d26d4e
+      Path: Events\Default Work Unit\Player\Execution
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Footsteps
       guid: efbcf2f9aa125e4d8f40306dfdecd2a6
       id: 2385628198
@@ -2563,7 +2629,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit\UI
     guid: bd66d6c9083a8840b90f27d8ce101f80
     GuidInternal: 
-    m_lastTime: -8584275917459048893
+    m_lastTime: -8584272388836074605
     List:
     - name: Audio_Play_Button_Click
       guid: 978ff4361912844ea8e1cf07c481d85d
@@ -2814,7 +2880,7 @@ MonoBehaviour:
     ParentPath: Game Parameters\SideChain_Parameters
     guid: c3ed39dae715854787697e0a2efa8740
     GuidInternal: 
-    m_lastTime: -8584275917459043680
+    m_lastTime: -8584272388836074605
     List:
     - name: RTPC_Ducking
       guid: bee06efdaa32c14f9b9b4d0f8e9c49e5
@@ -2830,6 +2896,61 @@ MonoBehaviour:
         ObjectType: 13
         guid: bee06efdaa32c14f9b9b4d0f8e9c49e5
       Path: Game Parameters\SideChain_Parameters\RTPC_Ducking
+  - PhysicalPath: Game Parameters\VolumeValues.wwu
+    PathAndIcons:
+    - ElementName: Game Parameters
+      ObjectType: 5
+      guid: 00000000000000000000000000000000
+    - ElementName: VolumeValues
+      ObjectType: 12
+      guid: 289704d5a25a4d42a5dafc19a43bf383
+    ParentPath: Game Parameters\VolumeValues
+    guid: 289704d5a25a4d42a5dafc19a43bf383
+    GuidInternal: 
+    m_lastTime: -8584272375846267606
+    List:
+    - name: RTPC_MasterVolume
+      guid: a997cad7a85e9544bc4c6f12d415e728
+      id: 2582501215
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: VolumeValues
+        ObjectType: 12
+        guid: 289704d5a25a4d42a5dafc19a43bf383
+      - ElementName: RTPC_MasterVolume
+        ObjectType: 13
+        guid: a997cad7a85e9544bc4c6f12d415e728
+      Path: Game Parameters\VolumeValues\RTPC_MasterVolume
+    - name: RTPC_NonWorldVolume
+      guid: 532cd585c96c6a44aece8116c09bfb93
+      id: 2635462830
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: VolumeValues
+        ObjectType: 12
+        guid: 289704d5a25a4d42a5dafc19a43bf383
+      - ElementName: RTPC_NonWorldVolume
+        ObjectType: 13
+        guid: 532cd585c96c6a44aece8116c09bfb93
+      Path: Game Parameters\VolumeValues\RTPC_NonWorldVolume
+    - name: RTPC_WorldVolume
+      guid: fa1e64c9b9b84948b442c219dd9df5a8
+      id: 1434597375
+      PathAndIcons:
+      - ElementName: Game Parameters
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: VolumeValues
+        ObjectType: 12
+        guid: 289704d5a25a4d42a5dafc19a43bf383
+      - ElementName: RTPC_WorldVolume
+        ObjectType: 13
+        guid: fa1e64c9b9b84948b442c219dd9df5a8
+      Path: Game Parameters\VolumeValues\RTPC_WorldVolume
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
     PathAndIcons:
@@ -2856,7 +2977,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 7fbdc1e30c11e04a93d30014b13151c1
     GuidInternal: 
-    m_lastTime: -8584275917452493061
+    m_lastTime: -8584272388829213125
     List:
     - name: Ground_Material
       guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
@@ -2955,7 +3076,7 @@ MonoBehaviour:
     m_lastTime: -8584306524301550025
     List: []
   ExpandedFileSystemItemIds: 01000000020000000300000004000000090000000a000000100000001100000012000000130000001c000000210000002800000030000000360000003f000000460000006100000062000000
-  ExpandedWaapiItemIds: 01000000020000000300000004000000090000000a000000100000001100000012000000130000001c000000210000002800000030000000360000003f000000460000006100000062000000
+  ExpandedWaapiItemIds: 01000000020000000300000004000000090000000a0000000d0000000e000000100000001100000012000000130000001c000000210000002800000030000000360000003f000000460000006100000062000000
   AutoSyncSelection: 0
   autoPopulateEnabled: 1
   currentDataSource: 0

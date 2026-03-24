@@ -25,7 +25,8 @@ public class GameSettings : ScriptableObject
     
     [Header("Audio")]
     [JsonProperty] [Range(0, 100)] public float masterVolume;
-    [JsonProperty] [Range(0, 100)] public float musicVolume;
+    [JsonProperty] [Range(0, 100)] public float worldVolume;
+    [JsonProperty] [Range(0, 100)] public float nonWorldVolume;
     
     [Header("Accessibility")]
     [JsonProperty] public bool cameraShake = true;
@@ -49,7 +50,8 @@ public class GameSettings : ScriptableObject
         a.motionBlur = b.motionBlur;
         
         a.masterVolume = b.masterVolume;
-        a.musicVolume = b.musicVolume;
+        a.worldVolume = b.worldVolume;
+        a.nonWorldVolume = b.nonWorldVolume;
         
         a.cameraShake = b.cameraShake;
         a.colorBlindMode = b.colorBlindMode;

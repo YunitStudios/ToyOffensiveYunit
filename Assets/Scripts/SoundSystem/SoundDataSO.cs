@@ -3,7 +3,8 @@ using UnityEngine;
 public enum SoundType
 {
     WwiseEvent,
-    WwiseTrigger
+    WwiseTrigger,
+    WwiseRTPC
 }
 
 [CreateAssetMenu(fileName = "NewSound", menuName = "ScriptableObjects/Sound")]

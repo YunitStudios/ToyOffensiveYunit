@@ -10,7 +10,7 @@
     "Type": "User",
     "GUID": "{63F8E281-6C68-4EC7-B33A-D4B9071621A5}",
     "Language": "SFX",
-    "Hash": "{3A972EB0-50F3-56A4-3D05-2A01748049C1}",
+    "Hash": "{93E479BD-72D5-9674-C936-D913DFAB070B}",
     "ObjectPath": "\\SoundBanks\\Default Work Unit\\Main",
     "ShortName": "Main",
     "Path": "Main.bnk",
@@ -352,6 +352,14 @@
       "CachePath": "C1/{C138FB07-ACF0-2B11-3FC2-B2AE72E7304F}.wem"
      },
      {
+      "Id": "356852813",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Body Drop.wav",
+      "CachePath": "11/{11F2869E-7622-1B72-6E0A-5D409262BE87}.wem"
+     },
+     {
       "Id": "361873122",
       "Language": "SFX",
       "Streaming": "false",
@@ -502,6 +510,14 @@
       "Location": "Memory",
       "ShortName": "Swimming\\Swimming_Stroke_6.wav",
       "CachePath": "57/{57C55351-D210-F9A2-FA47-25BD8D52A71F}.wem"
+     },
+     {
+      "Id": "550035273",
+      "Language": "SFX",
+      "Streaming": "false",
+      "Location": "Memory",
+      "ShortName": "Neck Snap.wav",
+      "CachePath": "11/{117B616D-491B-4A97-972C-62160B75D5E1}.wem"
      },
      {
       "Id": "564975069",
@@ -1122,6 +1138,31 @@
       "MediaRefs": [
        {
         "Id": "658734132"
+       }
+      ]
+     },
+     {
+      "Id": "4294621067",
+      "Name": "Audio_Play_Body_Drop",
+      "ObjectPath": "\\Events\\Default Work Unit\\Player\\Execution\\Audio_Play_Body_Drop",
+      "GUID": "{DB46B022-CC43-41DA-BD17-A0C0E00485CC}",
+      "Color": "11",
+      "MaxAttenuation": "100",
+      "DurationType": "OneShot",
+      "DurationMin": "1.0758957",
+      "DurationMax": "1.0758957",
+      "MediaRefs": [
+       {
+        "Id": "356852813"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
        }
       ]
      },
@@ -1805,6 +1846,31 @@
       "MediaRefs": [
        {
         "Id": "33014837"
+       }
+      ]
+     },
+     {
+      "Id": "251375467",
+      "Name": "Audio_Play_Neck_Snap",
+      "ObjectPath": "\\Events\\Default Work Unit\\Player\\Execution\\Audio_Play_Neck_Snap",
+      "GUID": "{E96BCDAE-04BB-48B9-ABA1-0481F2F070C7}",
+      "Color": "11",
+      "MaxAttenuation": "100",
+      "DurationType": "OneShot",
+      "DurationMin": "0.7544671",
+      "DurationMax": "0.7544671",
+      "MediaRefs": [
+       {
+        "Id": "550035273"
+       }
+      ],
+      "AuxBusRefs": [
+       {
+        "Id": "191267372",
+        "Name": "World_Main_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Main_Reverb",
+        "GUID": "{5D810DB4-62FF-4DFC-832F-52F49E718B16}",
+        "Color": "13"
        }
       ]
      },
@@ -2650,6 +2716,28 @@
       }
      }
     ],
+    "GameParameters": [
+     {
+      "Id": "1434597375",
+      "Name": "RTPC_WorldVolume",
+      "ObjectPath": "\\Game Parameters\\VolumeValues\\RTPC_WorldVolume",
+      "GUID": "{C9641EFA-B8B9-4849-B442-C219DD9DF5A8}",
+      "Color": "10"
+     },
+     {
+      "Id": "2582501215",
+      "Name": "RTPC_MasterVolume",
+      "ObjectPath": "\\Game Parameters\\VolumeValues\\RTPC_MasterVolume",
+      "GUID": "{D7CA97A9-5EA8-4495-BC4C-6F12D415E728}"
+     },
+     {
+      "Id": "2635462830",
+      "Name": "RTPC_NonWorldVolume",
+      "ObjectPath": "\\Game Parameters\\VolumeValues\\RTPC_NonWorldVolume",
+      "GUID": "{85D52C53-6CC9-446A-AECE-8116C09BFB93}",
+      "Color": "1"
+     }
+    ],
     "SwitchGroups": [
      {
       "Id": "3539622648",
@@ -2686,6 +2774,6 @@
     ]
    }
   ],
-  "FileHash": "{D8B81CCE-A2C8-56B5-749D-A04CEF1B10A9}"
+  "FileHash": "{F8526C5D-AECD-FF2B-846B-511598C5DD9B}"
  }
 }

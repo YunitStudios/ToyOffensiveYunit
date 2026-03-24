@@ -1,6 +1,7 @@
 using System;
 using EditorAttributes;
 using Newtonsoft.Json;
+using SoundSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -10,6 +11,12 @@ public class SettingsManager : MonoBehaviour
 
     [SerializeField] private GameSettings playerSettings;
     [SerializeField] private GameSettings defaultSettings;
+    [SerializeField] private WwisePlayer wwisePlayer;
+    
+    [SerializeField] private SoundDataSO masterRTPC;
+    [SerializeField] private SoundDataSO worldRTPC;
+    [SerializeField] private SoundDataSO nonWorldRTPC;
+    
     public GameSettings GetSettings => playerSettings;
     public GameSettings GetDefaultSettings => defaultSettings;
     public static Action OnSettingsChanged;
@@ -87,6 +94,11 @@ public class SettingsManager : MonoBehaviour
         
         // Apply quality
         SetGameQuality(playerSettings.quality);
+        
+        // Apply volumes
+        wwisePlayer.ChangeRTPC(masterRTPC, playerSettings.masterVolume);
+        wwisePlayer.ChangeRTPC(worldRTPC, playerSettings.worldVolume);
+        wwisePlayer.ChangeRTPC(nonWorldRTPC, playerSettings.nonWorldVolume);
     }
     
     public void SetGameQuality(QualitySettingValue type)

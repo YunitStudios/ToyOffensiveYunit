@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WwiseDocument Type="WorkUnit" ID="{D5049728-5AA2-424D-A5DA-FC19A43BF383}" SchemaVersion="123">
+	<GameParameters>
+		<WorkUnit Name="VolumeValues" ID="{D5049728-5AA2-424D-A5DA-FC19A43BF383}" PersistMode="Standalone">
+			<ChildrenList>
+				<GameParameter Name="RTPC_WorldVolume" ID="{C9641EFA-B8B9-4849-B442-C219DD9DF5A8}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="10"/>
+						<Property Name="InitialValue" Type="Real64" Value="0"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+				</GameParameter>
+				<GameParameter Name="RTPC_NonWorldVolume" ID="{85D52C53-6CC9-446A-AECE-8116C09BFB93}">
+					<PropertyList>
+						<Property Name="Color" Type="int16" Value="1"/>
+						<Property Name="InitialValue" Type="Real64" Value="0"/>
+						<Property Name="OverrideColor" Type="bool" Value="True"/>
+					</PropertyList>
+				</GameParameter>
+				<GameParameter Name="RTPC_MasterVolume" ID="{D7CA97A9-5EA8-4495-BC4C-6F12D415E728}">
+					<PropertyList>
+						<Property Name="InitialValue" Type="Real64" Value="0"/>
+					</PropertyList>
+				</GameParameter>
+			</ChildrenList>
+		</WorkUnit>
+	</GameParameters>
+</WwiseDocument>
