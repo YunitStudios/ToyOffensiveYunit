@@ -119,7 +119,10 @@ public class CanvasFader : MonoBehaviour
     private Tween FadeOut()
     {
         OnFadeOutStart?.Invoke();
-        return Tween.Alpha(canvasGroup, minAlpha, fadeOutTime, fadeOutEase).OnComplete(() => OnFadeOutEnd?.Invoke());
+        return Tween.Alpha(canvasGroup, minAlpha, fadeOutTime, fadeOutEase).OnComplete(
+            // Have to delay a frame or else IsFading condition isnt set to false
+            () => Tween.Delay(0.01f, ()=> OnFadeOutEnd?.Invoke())
+            );
     }
 
     private Tween ScaleIn()

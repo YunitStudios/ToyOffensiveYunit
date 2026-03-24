@@ -53,6 +53,8 @@ public class MissionPOI : MonoBehaviour
     private bool extracted;
     private float currentExtractTime = 0.0f;
 
+    private static bool DisplayedNotif;
+
     public Vector3 GetPosition()
     {
         if (IsPoint)
@@ -120,6 +122,8 @@ public class MissionPOI : MonoBehaviour
         
         if(visualMaterial)
             visualMaterial.SetFloat(ShaderProgress, 0);
+
+        DisplayedNotif = false;
     }
     
     private void TogglePOI(bool value)
@@ -162,7 +166,11 @@ public class MissionPOI : MonoBehaviour
     private void ExtractEnable()
     {
         TogglePOI(true);
-        NotificationUI.DisplayNotification?.Invoke(new NotificationUI.NotificationData("New Goal", "Reach the extract point"));
+        // Jank solution to stop duplicate notifs
+        if(!DisplayedNotif)
+            NotificationUI.DisplayNotification?.Invoke(new NotificationUI.NotificationData("New Goal", "Reach the extract point"));
+
+        DisplayedNotif = true;
     }
 
     private void OnDrawGizmos()
