@@ -19,8 +19,10 @@ public class PlayerMovement : StateMachine
     private CapsuleCollider col;
     private PlayerHealth playerHealth;
     public bool IsAlive => playerHealth.IsAlive;
-    
+
     [Header("Components")]
+    [SerializeField] private GameSettings gameSettings;
+    public GameSettings GameSettings => gameSettings;
     [SerializeField] private Animator playerAnimator;
     public Animator PlayerAnimator => playerAnimator;
     [SerializeField] private Transform thirdPersonTracker;

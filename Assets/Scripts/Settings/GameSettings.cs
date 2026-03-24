@@ -13,6 +13,7 @@ public class GameSettings : ScriptableObject
     [JsonProperty] public bool toggleADS;
     [JsonProperty] public bool inverseLook;
     [JsonProperty] [Range(0,0.4f)] public float deadzone;
+    [JsonProperty] public bool autoClimb;
 
     [Header("Video")] 
     [JsonProperty] public int resolutionWidth = 1920;
