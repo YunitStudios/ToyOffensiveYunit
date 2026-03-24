@@ -40,6 +40,7 @@ public class SprintingState : InputMoveState
 
     public override void OnExit()
     {
+        
         stateMachine.PlayerCamera.CurrentFovMultiplier = 1;
     }
     public override void Tick()
