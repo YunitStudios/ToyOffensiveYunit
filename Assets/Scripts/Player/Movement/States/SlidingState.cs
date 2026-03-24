@@ -38,6 +38,7 @@ public class SlidingState : MovementState
     public override bool CanShoot => false;
     public override bool CanAim => false;
     public override bool UseGravity => false;
+    private bool launched = false;
 
 
     public override void OnEnter()
@@ -63,11 +64,18 @@ public class SlidingState : MovementState
             durationTween.Stop();
         
         // Reset Y velocity on exit
-        stateMachine.SetVelocity(new Vector3(stateMachine.CurrentVelocity.x, 0, stateMachine.CurrentVelocity.z));
+        if (!launched)
+        {
+            stateMachine.SetVelocity(new Vector3(stateMachine.CurrentVelocity.x, 0, stateMachine.CurrentVelocity.z));
+        }
     }
 
     public override void Tick()
     {
+        if (launched)
+        {
+            return;
+        }
         Vector3 direction = stateMachine.Forward;
         float progress = slideTime / Settings.SlideDuration;
         float speedMultiplier = Settings.SlideSpeedCurve.Evaluate(1-progress);
@@ -121,5 +129,10 @@ public class SlidingState : MovementState
 
     public override void FixedTick()
     {
+    }
+
+    public void hasLaunched(bool hasLaunched)
+    {
+        launched = hasLaunched;
     }
 }

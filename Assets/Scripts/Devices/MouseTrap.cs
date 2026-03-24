@@ -1,6 +1,6 @@
+using System.Collections;
 using SoundSystem;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public class MouseTrap : MonoBehaviour
 {
@@ -21,6 +21,7 @@ public class MouseTrap : MonoBehaviour
     private bool activated = false;
     private float progress;
     private float activationTime = 0.15f;
+    private PlayerMovement player;
     
     [Header("Sound elements")]
     [SerializeField] private WwisePlayer audioPlayer;
@@ -41,14 +42,15 @@ public class MouseTrap : MonoBehaviour
 
         if (other.CompareTag("Player"))
         {
-            PlayerMovement player = other.GetComponent<PlayerMovement>();
+            player = other.GetComponent<PlayerMovement>();
             Vector3 launchVelocity = xAxisLaunchForce * transform.right + yAxisLaunchForce * transform.up + zAxisLaunchForce * transform.forward;
+            player.SwitchState(player.WalkingState, player.CurrentState);
+            player.SlidingState.hasLaunched(true);
             player.ImpulseVelocity(launchVelocity);
 
             ActivateTrap();
         }
     }
-
     private void ActivateTrap()
     {
         progress = 0f;
@@ -70,6 +72,12 @@ public class MouseTrap : MonoBehaviour
 
     private void Update()
     {
+        if (player != null)
+        {
+            Debug.Log("Grounded: " + player.IsGrounded + " | Y Vel: " + player.CurrentVelocity.y);
+            Debug.Log("Player State: " + player.CurrentState);
+        }
+
         if (activated)
         {
             progress += Time.deltaTime / activationTime;
