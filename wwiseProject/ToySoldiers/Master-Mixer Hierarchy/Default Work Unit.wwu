@@ -190,7 +190,7 @@
 										<Bus Name="Weapons_Gunshot" ID="{120BADCC-1FFB-4A3E-9562-D57F34C99DC8}">
 											<ReferenceList>
 												<Reference Name="UserAuxSend0">
-													<ObjectRef Name="World_Weapon_Reverb" ID="{52610B04-3008-4CDD-B6F5-A6C96CD3700D}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+													<ObjectRef Name="World_Small_Reverb" ID="{52610B04-3008-4CDD-B6F5-A6C96CD3700D}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 												</Reference>
 											</ReferenceList>
 											<ObjectLists>
@@ -258,7 +258,7 @@
 								<Property Name="OverrideColor" Type="bool" Value="True"/>
 							</PropertyList>
 							<ChildrenList>
-								<AuxBus Name="World_Weapon_Reverb" ID="{52610B04-3008-4CDD-B6F5-A6C96CD3700D}">
+								<AuxBus Name="World_Small_Reverb" ID="{52610B04-3008-4CDD-B6F5-A6C96CD3700D}">
 									<ObjectLists>
 										<ObjectList Name="Effects">
 											<Reference>

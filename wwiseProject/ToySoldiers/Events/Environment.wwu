@@ -85,6 +85,109 @@
 						</Folder>
 					</ChildrenList>
 				</Folder>
+				<Folder Name="Ambience" ID="{E43D89C2-12CC-406B-8A3C-B0E22D19BF9B}" ShortID="958296519">
+					<ChildrenList>
+						<Event Name="Audio_Play_Oven" ID="{53E6B033-2572-4D6F-91B1-082257CD6219}">
+							<ChildrenList>
+								<Action Name="" ID="{882D610D-9484-45EE-8C6A-757D3469D6B4}" ShortID="463946932">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="OvenFan" ID="{68402B03-7F9A-4D7B-961C-337DAADB6D12}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Stove" ID="{11985472-5A75-4B48-A7B4-3285FFD4D844}">
+							<ChildrenList>
+								<Action Name="" ID="{47B84065-C289-49D7-98FC-88A0712684ED}" ShortID="373116531">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="GasStove" ID="{124599E4-0C3B-45F5-B0F9-DA8157EFA29F}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_FryingPan" ID="{4467751E-2597-4D42-A9DD-0A18A1B7326D}">
+							<ChildrenList>
+								<Action Name="" ID="{9DD2ECDB-0BDF-4958-AC03-91A94D9B96A2}" ShortID="5273912">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="FryingPan_Sizzle" ID="{A53EE339-947F-46F4-BEBD-7AB03285F3A9}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Water" ID="{C5EDB543-8223-4B50-AF03-EC63F7AE0EDB}">
+							<ChildrenList>
+								<Action Name="" ID="{044AFE7C-1B40-4564-ABD4-149B34AFB27E}" ShortID="1032940006">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Sink" ID="{CF2327EE-2EFF-4F62-98CA-3A16389B6376}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Radio" ID="{CBEA2283-F0B9-4B92-A4FF-D0CF09E4CBB2}">
+							<ChildrenList>
+								<Action Name="" ID="{A7484670-C669-4F60-B92B-092F7E2F2CF9}" ShortID="596855112">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="RadioStatic" ID="{8B49AFDA-EE84-4C72-B0E6-C578EC1FD3B0}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Microwave" ID="{3049CD94-BD7B-4094-A325-140E7BA2064D}">
+							<ChildrenList>
+								<Action Name="" ID="{A40C0A38-63FD-4735-85DA-9A58A44A2BB5}" ShortID="377754671">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="MicrowaveHum" ID="{044CC86B-A5D2-4042-B22E-0AEC58E57E5E}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Fridge" ID="{CECA3500-CC58-4C44-B214-9EE869525FCE}">
+							<ChildrenList>
+								<Action Name="" ID="{07AAB0F5-E510-4743-96B0-BC87DE16C907}" ShortID="139932320">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="FridgeHum" ID="{5D250C3A-52BA-42BE-B969-67B898259FAB}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_TV" ID="{313443B1-9A9E-4A51-8976-AB849A6F1F39}">
+							<ChildrenList>
+								<Action Name="" ID="{23B50AB4-F45D-4614-90A1-C3237905BC25}" ShortID="421672953">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="TVStatic" ID="{2DD2EC7C-0B12-4FC8-A52D-3C5BF7695187}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+						<Event Name="Audio_Play_Kitchen_Ambience" ID="{06B6461B-B070-4A6C-A31C-F6B46D563762}">
+							<ChildrenList>
+								<Action Name="" ID="{6136846C-3359-4312-97D2-484C72A6BA75}" ShortID="687848463">
+									<ReferenceList>
+										<Reference Name="Target">
+											<ObjectRef Name="Kitchen Ambience" ID="{A098C6B6-654B-4346-9C5B-0D607100EC19}" WorkUnitID="{90012609-A736-4A53-BEE5-4894A8314476}"/>
+										</Reference>
+									</ReferenceList>
+								</Action>
+							</ChildrenList>
+						</Event>
+					</ChildrenList>
+				</Folder>
 			</ChildrenList>
 		</WorkUnit>
 	</Events>
