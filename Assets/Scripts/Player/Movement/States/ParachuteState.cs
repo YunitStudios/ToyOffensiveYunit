@@ -191,8 +191,11 @@ public class ParachuteState : MovementState
             stateMachine.ClampCameraYaw(Settings.AimMaxYawAngle);
         
         // Landed
-        if (isParachuting && stateMachine.IsGrounded)
+        if (isParachuting && stateMachine.IsGrounded && stateMachine.CurrentVelocity.y <= 0f)
+        {
             OnLanded();
+        }
+            //OnLanded();
     }
 
     private void Parachuting()
@@ -254,7 +257,10 @@ public class ParachuteState : MovementState
         
         // Apply gentle gravity
         travelVelocity += Vector3.up * (Settings.ParachuteGravity);
-        stateMachine.SetVelocity(travelVelocity);
+        if (travelVelocity.y < 0f)
+        {
+            stateMachine.SetVelocity(travelVelocity);
+        }
         
         // Set fov based on velocity
         float speedProgress = Mathf.Clamp01(travelVelocity.magnitude / (Settings.ParachuteMaxSpeed * (1f + Settings.ParachuteDiveSpeedBoost)));

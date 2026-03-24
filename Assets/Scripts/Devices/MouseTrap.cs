@@ -44,7 +44,10 @@ public class MouseTrap : MonoBehaviour
         {
             player = other.GetComponent<PlayerMovement>();
             Vector3 launchVelocity = xAxisLaunchForce * transform.right + yAxisLaunchForce * transform.up + zAxisLaunchForce * transform.forward;
-            player.SwitchState(player.WalkingState, player.CurrentState);
+            if (player.CurrentState is not ParachuteState)
+            {
+                player.SwitchState(player.WalkingState, player.CurrentState);
+            }
             player.SlidingState.hasLaunched(true);
             player.ImpulseVelocity(launchVelocity);
 
