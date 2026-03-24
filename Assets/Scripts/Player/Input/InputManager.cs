@@ -82,12 +82,12 @@ public class InputManager : MonoBehaviour
         settings.defaultDeadzoneMin = playerSettingsDeadzone;
     }
     
-    public void SetSensitivity(float playerSettingsSensitivity)
+    public float GetSensitivity(float playerSettingsSensitivity)
     {
         Vector2 sensRange = SettingsManager.Instance.SensitivityRange;
-        float value = Mathf.Lerp(sensRange.x, sensRange.y, playerSettingsSensitivity/100);
-        lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.x, value);
-        lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.y, value);
+        return Mathf.Lerp(sensRange.x, sensRange.y, playerSettingsSensitivity/100);
+        //lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.x, value);
+        //lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.y, value);
     }
 
     public void ToggleInverted(bool playerSettingsInverseLook)
@@ -196,6 +196,7 @@ public class InputManager : MonoBehaviour
     private void OnLook(InputValue inputValue)
     {
         FrameLook = inputValue.Get<Vector2>();
+        FrameLook *= GetSensitivity(playerSettings.sensitivity);
     }
     
     private void OnAim(InputValue inputValue)

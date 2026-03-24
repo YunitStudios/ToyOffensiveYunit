@@ -94,7 +94,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25.75
+  m_fontSize: 29.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -446,6 +446,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6639851621615203229}
   - component: {fileID: 9164803100441999094}
+  - component: {fileID: 1119330753047126442}
   m_Layer: 0
   m_Name: Slider
   m_TagString: Untagged
@@ -460,7 +461,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6858205249040441209}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -538,6 +539,38 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &1119330753047126442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6858205249040441209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0f5780e6fa5bd48bfe6f3ced6dfd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimateSelectable
+  selectableTransform: {fileID: 9133771891783160065}
+  selectableImage: {fileID: 0}
+  selectableText: {fileID: 0}
+  animateType: 1
+  animateScale: 1
+  scaleMax: 1.1
+  scaleInLength: 0.1
+  scaleOutLength: 0.2
+  animateColor: 0
+  hoverButtonColor: {r: 0, g: 0, b: 0, a: 0}
+  colorInLength: 0.1
+  colorOutLength: 0.4
+  animatePosition: 0
+  hoverOffset: {x: 0, y: 0, z: 0}
+  hoverInLength: 0.1
+  hoverOutLength: 0.2
+  animateTextColor: 0
+  hoverTextColor: {r: 0, g: 0, b: 0, a: 0}
+  textColorInLength: 0.1
+  textColorOutLength: 0.2
 --- !u!1001 &1411497583959103103
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -626,10 +659,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2393038988563580739, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}
-      propertyPath: selectableTransform
-      value: 
-      objectReference: {fileID: 9133771891783160065}
     - target: {fileID: 6488695256407250127, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}
       propertyPath: m_Name
       value: SettingSlider
@@ -638,7 +667,8 @@ PrefabInstance:
       propertyPath: label
       value: 
       objectReference: {fileID: 4121447606040448055}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2566105820648973836, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3707445661353194877, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}

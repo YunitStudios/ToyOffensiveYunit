@@ -20,7 +20,7 @@
                     "type": "Value",
                     "id": "1cf86a22-90d8-4d5f-972a-823199a32dd2",
                     "expectedControlType": "Vector2",
-                    "processors": "InvertVector2(invertX=false,invertY=false),ScaleVector2",
+                    "processors": "InvertVector2(invertX=false,invertY=false)",
                     "interactions": "",
                     "initialStateCheck": true
                 },
@@ -206,7 +206,7 @@
                     "id": "c46659b4-45ac-4f81-b566-430393d9cfdc",
                     "path": "<Gamepad>/rightStick",
                     "interactions": "",
-                    "processors": "ScaleVector2,DeltaTimeScale",
+                    "processors": "DeltaTimeScale,ScaleVector2(x=2.5,y=2.5)",
                     "groups": ";Gamepad",
                     "action": "Look",
                     "isComposite": false,
@@ -526,7 +526,7 @@
                 {
                     "name": "",
                     "id": "196141e2-3f71-43c5-8c9e-4b34fee3c3d5",
-                    "path": "<Gamepad>/rightStick/down",
+                    "path": "<Gamepad>/rightStickPress",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",

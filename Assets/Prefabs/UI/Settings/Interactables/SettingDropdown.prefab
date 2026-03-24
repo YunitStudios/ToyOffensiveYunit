@@ -160,6 +160,7 @@ GameObject:
   - component: {fileID: 7923805955823101987}
   - component: {fileID: 2725492087963542528}
   - component: {fileID: 5772622642696612666}
+  - component: {fileID: 1021797749021814284}
   m_Layer: 0
   m_Name: Dropdown
   m_TagString: Untagged
@@ -174,7 +175,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3170871242766023216}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -290,6 +291,38 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!114 &1021797749021814284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3170871242766023216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f0f5780e6fa5bd48bfe6f3ced6dfd13, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AnimateSelectable
+  selectableTransform: {fileID: 6264880450969389104}
+  selectableImage: {fileID: 0}
+  selectableText: {fileID: 0}
+  animateType: 1
+  animateScale: 1
+  scaleMax: 1.1
+  scaleInLength: 0.1
+  scaleOutLength: 0.2
+  animateColor: 0
+  hoverButtonColor: {r: 0, g: 0, b: 0, a: 0}
+  colorInLength: 0.1
+  colorOutLength: 0.4
+  animatePosition: 0
+  hoverOffset: {x: 0, y: 0, z: 0}
+  hoverInLength: 0.1
+  hoverOutLength: 0.2
+  animateTextColor: 0
+  hoverTextColor: {r: 0, g: 0, b: 0, a: 0}
+  textColorInLength: 0.1
+  textColorOutLength: 0.2
 --- !u!1 &3639724035562351979
 GameObject:
   m_ObjectHideFlags: 0
@@ -1322,10 +1355,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2393038988563580739, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}
-      propertyPath: selectableTransform
-      value: 
-      objectReference: {fileID: 8168972489488945527}
     - target: {fileID: 6488695256407250127, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}
       propertyPath: m_Name
       value: SettingDropdown
@@ -1334,7 +1363,9 @@ PrefabInstance:
       propertyPath: label
       value: 
       objectReference: {fileID: 1684268194964700664}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2566105820648973836, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}
+    - {fileID: 2393038988563580739, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3707445661353194877, guid: 92d2c84dff125d34ba96f19ea1c388fc, type: 3}

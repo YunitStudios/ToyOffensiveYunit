@@ -87,8 +87,6 @@ public class Popup : MonoBehaviour
         }
         canvasGroup.blocksRaycasts = false;
         canvasGroup.interactable = false;
-        if (findFirstSelectedInChildren)
-            firstSelectedRoot = firstSelectedRoot.GetComponentInChildren<Selectable>().gameObject;
     }
 
     protected virtual void OnEnable()
@@ -102,6 +100,7 @@ public class Popup : MonoBehaviour
 
     private void Start()
     {
+
         if (disableGameObjectWhenClosed)
             gameObject.SetActive(false);
     }
@@ -140,6 +139,9 @@ public class Popup : MonoBehaviour
 
         //if (disableInputsWhenOpen)
             //InputManager.Instance.ToggleInputs(false);
+            
+        if (findFirstSelectedInChildren)
+            firstSelectedRoot = firstSelectedRoot.GetComponentInChildren<Selectable>().gameObject;
 
         if (EventSystem.current.currentSelectedGameObject)
             lastSelected = EventSystem.current.currentSelectedGameObject;

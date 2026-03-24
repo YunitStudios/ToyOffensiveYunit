@@ -73,7 +73,7 @@ public class SettingsManager : MonoBehaviour
         // Apply deadzone
         if (InputManager.Instance)
         {
-            InputManager.Instance.SetSensitivity(playerSettings.sensitivity);
+            //InputManager.Instance.SetSensitivity(playerSettings.sensitivity);
             InputManager.Instance.ToggleInverted(playerSettings.inverseLook);
             InputManager.Instance.SetDeadzone(playerSettings.deadzone);
         }
