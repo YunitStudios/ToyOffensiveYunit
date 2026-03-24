@@ -190,7 +190,6 @@ public class AIDetection : MonoBehaviour
 
     public void Alerted()
     {
-        Debug.Log("Alerted");
         wasAlertedRecently = true;
         shotTimer = shotTimerDuration;
         AddDetection(100f);
