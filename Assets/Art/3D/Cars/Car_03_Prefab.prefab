@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7147826386228769041}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Car_03_Prefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,11 +84,44 @@ PrefabInstance:
       propertyPath: m_Name
       value: Car_03_FBX
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2ea690688a54cbb4989c140b6592f217, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ea690688a54cbb4989c140b6592f217, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8711778474147767091}
   m_SourcePrefab: {fileID: 100100000, guid: 2ea690688a54cbb4989c140b6592f217, type: 3}
+--- !u!1 &8177487854945494428 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 2ea690688a54cbb4989c140b6592f217, type: 3}
+  m_PrefabInstance: {fileID: 9060446615798929613}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &8711778474147767091
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8177487854945494428}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 2.8755035, y: 1.1536235, z: 1.9345329}
+  m_Center: {x: 0, y: 0.000000059604645, z: 0.00000011920929}
 --- !u!4 &8806671750661717798 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2ea690688a54cbb4989c140b6592f217, type: 3}

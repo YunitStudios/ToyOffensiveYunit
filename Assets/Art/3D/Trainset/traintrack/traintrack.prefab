@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 6698964074198577800}
   - component: {fileID: 1912207612376919529}
   - component: {fileID: 6731561446745200572}
-  m_Layer: 0
+  - component: {fileID: 8956533954158415247}
+  m_Layer: 6
   m_Name: traintrack
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -88,5 +89,26 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &8956533954158415247
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116536848206183840}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 6049959359099248206, guid: 7238773ed31a57243b7d2d0562e5b2a1, type: 3}
