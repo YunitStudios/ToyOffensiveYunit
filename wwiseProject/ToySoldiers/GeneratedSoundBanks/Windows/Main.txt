@@ -2,6 +2,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	3389743	Audio_Play_SubMachineGun_Equip			\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Equip	
 	104916417	Audio_Play_Player_On_Fire_Screaming			\Default Work Unit\Environment\Hazards\Fire\Audio_Play_Player_On_Fire_Screaming	
 	202025768	Audio_Play_Assault_Rifle_Equip			\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Equip	
+	251375467	Audio_Play_Neck_Snap			\Default Work Unit\Player\Execution\Audio_Play_Neck_Snap	
 	303150163	Audio_Play_Fall_Into_Water			\Default Work Unit\Player\Movement\Swimming\Audio_Play_Fall_Into_Water	
 	315327556	Audio_Play_SubMachineGun_Reload_Half_Empty			\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Reload_Half_Empty	
 	347646286	Audio_Play_Pistol_Reload_Half_Empty			\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Reload_Half_Empty	
@@ -58,6 +59,7 @@ Event	ID	Name			Wwise Object Path	Notes
 	4242789496	Audio_Play_Objective_Complete			\Default Work Unit\UI\Menu\Audio_Play_Objective_Complete	
 	4274192131	Audio_Play_Kill_With_Score_Badge			\Default Work Unit\UI\Player_HUD\Audio_Play_Kill_With_Score_Badge	
 	4275330602	Audio_Play_Assault_Rifle_Gunshot			\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Gunshot	
+	4294621067	Audio_Play_Body_Drop			\Default Work Unit\Player\Execution\Audio_Play_Body_Drop	
 
 Switch Group	ID	Name			Wwise Object Path	Notes
 	3539622648	Ground_Material			\Default Work Unit\Ground_Material	
@@ -67,6 +69,11 @@ Switch	ID	Name	Switch Group			Notes
 	1699346256	Ground_Material_Dirt	Ground_Material			
 	3858318948	Ground_Material_Fabric	Ground_Material			
 	3915029512	Ground_Material_Wood	Ground_Material			
+
+Game Parameter	ID	Name			Wwise Object Path	Notes
+	1434597375	RTPC_WorldVolume			\VolumeValues\RTPC_WorldVolume	
+	2582501215	RTPC_MasterVolume			\VolumeValues\RTPC_MasterVolume	
+	2635462830	RTPC_NonWorldVolume			\VolumeValues\RTPC_NonWorldVolume	
 
 Audio Bus	ID	Name			Wwise Object Path	Notes
 	20324216	Mouse_Trap			\Default Work Unit\Master Audio Bus\World\Environment\Hazards\Mouse_Trap	
@@ -142,6 +149,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	352733855	Fabric_Impact_9	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\37\{3723273C-018C-B100-FE0A-C26D0CFB521F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Movement\Movement\Footsteps\Footstep_Ground_Material\Fabric_Random_Container\Fabric_Impact_9		76532
 	353993416	SubMachineGun_Gunshot	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\D3\{D3906892-797A-03AE-B793-1662B40503C1}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Weapons\Weapons\Gunshots\SubMachineGun_Gunshot		248208
 	356652085	Wood_Impact_8	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\C1\{C138FB07-ACF0-2B11-3FC2-B2AE72E7304F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Movement\Movement\Footsteps\Footstep_Ground_Material\Wood_Random_Container\Wood_Impact_8		57632
+	356852813	Body Drop	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\11\{11F2869E-7622-1B72-6E0A-5D409262BE87}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Execution\Body Drop		189932
 	361873122	Objective_Complete	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\24\{2405DF26-B868-EF32-4494-48DCB2C066CA}.wem		\Actor-Mixer Hierarchy\Default Work Unit\Non-World\UI\Menu\Objective_Complete		378932
 	368898366	SubMachineGun_Reload_Half_Empty	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\5F\{5F01AC0F-215E-E6DF-619C-231F8D88C0D5}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Weapons\Weapons\SMG\SubMachineGun_Reload_Half_Empty		475792
 	373175969	Health_Pickup	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\CD\{CD7D43EF-5340-0A28-222E-B47E1E975B61}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Health\Health_Pickup		360032
@@ -161,6 +169,7 @@ In Memory Audio	ID	Name	Audio source file		Wwise Object Path	Notes	Data Size
 	517756757	Shotgun_Equip	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\6B\{6B6756C8-E652-ED40-4814-E0B0D72D78EB}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Weapons\Weapons\Shotgun\Shotgun_Equip		189932
 	536742969	Sniper_Rifle_ADS	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\B6\{B6D4692B-163D-7641-20C9-07D07A7FA43D}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Weapons\Weapons\Sniper\Sniper_Rifle_ADS		97792
 	543701813	Swimming_Stroke_6	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\57\{57C55351-D210-F9A2-FA47-25BD8D52A71F}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Movement\Movement\Swim\SwimStroke\Swimming_Stroke_6		532496
+	550035273	Neck Snap	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\11\{117B616D-491B-4A97-972C-62160B75D5E1}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Execution\Neck Snap		133232
 	564975069	Wood_Impact_3	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\6C\{6CC95DAE-BDB4-DF6B-00E5-4B0CAB719B52}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Movement\Movement\Footsteps\Footstep_Ground_Material\Wood_Random_Container\Wood_Impact_3		57632
 	569546178	Sniper_Rifle_Equip	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\E0\{E08DECB2-7BE1-9E17-6583-FAA1AE744F95}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Player\Player\Weapons\Weapons\Sniper\Sniper_Rifle_Equip		133232
 	578841651	Fire_Extinguished	C:\Users\asdaFemboy\Desktop\Github Repos\ToySoldiers\wwiseProject\ToySoldiers\.cache\7E\{7EAE4865-0AC0-45BE-870A-F000F7DF4875}.wem		\Actor-Mixer Hierarchy\Default Work Unit\World\Environment\Hazards\Fire\Fire_Extinguished		456108

@@ -44,6 +44,25 @@ namespace SoundSystem
                     break;
             }
         }
+        
+        public void ChangeRTPC(SoundDataSO SoundData, float value)
+        {
+            if (SoundData == null || string.IsNullOrEmpty(SoundData.WwiseName))
+            {
+                Debug.LogWarning("SoundData or WwiseName is not set.");
+                return;
+            }
+            
+            switch (SoundData.Type)
+            {
+                case SoundType.WwiseRTPC:
+                    AkSoundEngine.SetRTPCValue(SoundData.WwiseName, value);
+                    break;
+                default:
+                    Debug.LogWarning("Unsupported SoundType.");
+                    break;
+            }
+        }
 
         private void Update()
         {
