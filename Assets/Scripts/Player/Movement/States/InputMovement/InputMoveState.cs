@@ -186,7 +186,7 @@ public abstract class InputMoveState : MovementState
         if (CanJump && stateMachine.InputController.JumpHeld && currentAirTime <= Settings.CoyoteTime)
         {
             // Set jumping state multiplier to current speed multiplier
-            stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier);
+            stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier, stateMachine.CurrentState is SprintingState);
             SwitchState(stateMachine.JumpingState);
         }
 
