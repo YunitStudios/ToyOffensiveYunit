@@ -1,58 +1,61 @@
 Wwise name,Type,Description,MaxHearingRadius meters,"Arbitrary Loudness 1-10. 1 being a footstep, 10 being a gunshot right next to your ear"
-Audio_Play_Fire_Burning_Player,Event,Player on fire,100,5
-Audio_Play_FIre_Extinguished,Event,Fire is extinguished on player,100,5
-Audio_Play_Fire_Ignites_Player,Event,Start of fire sequence,100,5
-Audio_Play_Player_On_Fire_Screaming,Event,Player Screaming when burning starts,100,5
-Audio_Play_Mouse_Trap_Activation,Event,Activate mouse trap,100,5
-Audio_Play_Mouse_Trap_Reload,Event,Reloads mouse trap,100,5
-Audio_Play_Health_Pickup,Event,Health regen audio,100,5
-Audio_Play_Ammo_Pickup,Event,Pickup bullets,100,5
-Audio_Play_Low_Health,Event,Player heartrate ,100,5
-Audio_Play_Low_Stamina,Event,Heavy Breathing,100,5
-Audio_Play_Footsteps,Event,"Footstep audio. Switch for different ground materials, boot step plays alongside whichever ground material is active",100,5
-Audio_Play_Jump_Landing,Event,Subtle rattle of what player is carring,100,5
-Audio_Play_Jump_Up,Event,Subtle rattle and grunt of player jumping,100,5
-Audio_Play_Parachute_Cut,Event,Parachute unequip,100,5
-Audio_Play_Parachute_Deploy,Event,Parachute deploy + gliding through air,100,5
-Audio_Play_Slide,Event,Slide audio with switch for different ground material,100,5
-Audio_Play_Fall_Into_Water,Event,Water Splash,100,5
-Audio_Play_Stepping_Out_Water,Event,Water dripping off player,100,5
-Audio_Play_Swim_Stroke,Event,Swimming audio to be called at each point in the animation,100,5
-Audio_Play_Assault_Rifle_ADS,Event,Assault rifle aim down sights,100,5
-Audio_Play_Assault_Rifle_Equip,Event,Assault rifle equip audio for weapon switch ,100,5
-Audio_Play_Assault_Rifle_Gunshot,Event,Assault rifle shot,100,5
-Audio_Play_Assault_Rifle_Reload_Empty,Event,Assault rifle main reload audio ,100,5
-Audio_Play_Assualt_Rifle_Reload_Half_Empty,Event,Assault rifle reload when mag isnt empty (extra detail if wanted),100,5
-Audio_Play_Pistol_ADS,Event,Pistol aim down sights,100,5
-Audio_Play_Pistol_Equip,Event,Pistol equip audio for weapon switch ,100,5
-Audio_Play_Pistol_Gunshot,Event,Pistol shot,100,5
-Audio_Play_Pistol_Reload_Empty,Event,Pistol main reload audio ,100,5
-Audio_Play_Pistol_Reload_Half_Empty,Event,Pistol  reload when mag isnt empty (extra detail if wanted),100,5
-Audio_Play_Shotgun_ADS,Event,Shotgun aim down sights,100,5
-Audio_Play_Shotgun_Equip,Event,Shotgun equip audio for weapon switch ,100,5
-Audio_Play_Shotgun_Gunshot,Event,Shotgun shot,100,5
-Audio_Play_Shotgun_Rechamber,Event,Cocking the shotgun to be played after the gunshot,100,5
-Audio_Play_Shotgun_Reload,Event,Shotgun main reload,100,5
-Audio_Play_Sniper_Rifle_ADS,Event,Sniper rifle aim down sights,100,5
-Audio_Play_Sniper_Rifle_Equip,Event,Sniper rifle equip audio for weapon switch ,100,5
-Audio_Play_Sniper_Rifle_Gunshot,Event,Sniper rifle shot,100,5
-Audio_Play_Sniper_Rifle_Reload_Empty,Event,Sniper rifle main reload audio ,100,5
-Audio_Play_Sniper_Rifle_Reload_Half_Empty,Event,Sniper rifle reload when mag isnt empty (extra detail if wanted),100,5
-Audio_Play_SubMachineGun_ADS,Event,SubMachineGun aim down sights,100,5
-Audio_Play_SubMachineGun_Equip,Event,SubMachineGun equip audio for weapon switch ,100,5
-Audio_Play_SubMachineGun_Gunshot,Event,SubMachineGun shot,100,5
-Audio_Play_SubMachineGun_Reload_Empty,Event,SubMachineGunmain reload audio ,100,5
-Audio_Play_SubMachineGun_Reload_Half_Empty,Event,SubMachineGun reload when mag isnt empty (extra detail if wanted),100,5
-Audio_Play_Grenade_Explosion,Event,Explosion Audio,100,5
-Audio_Play_Grenade_Pin,Event,Pulling pin out of grenade,100,5
-Audio_Play_Grenade_Throw,Event,Throwing grenade,100,5
-Audio_Play_Button_Click,Event,Menu button click,100,5
-Audio_Play_Game_Over,Event,When player dies,100,5
-Audio_Play_Objective_Complete,Event,Mini objective complete,100,5
-Audio_Play_Objective_Fail,Event,Mini objective fail (not completed in alloted time),100,5
-Audio_Play_Round_Complete,Event,Successfully completed mission,100,5
-Audio_Play_HeadShot_Badge,Event,"When getting a kill with a headshot, a badge pops up like in cod (just an idea i had)",100,5
-Audio_Play_Hitmarker,Event,Hitmarker sound (not implemented yet),100,5
-Audio_Play_Kill_With_Score_Badge,Event,General kill with the same badge idea,100,5
-Audio_Play_Break_Cam,Event,Break cam audio sequence,100,5
+Audio_Play_Fire_Burning_Player,WwiseEvent,Player on fire,100,5
+Audio_Play_FIre_Extinguished,WwiseEvent,Fire is extinguished on player,100,5
+Audio_Play_Fire_Ignites_Player,WwiseEvent,Start of fire sequence,100,5
+Audio_Play_Player_On_Fire_Screaming,WwiseEvent,Player Screaming when burning starts,100,5
+Audio_Play_Mouse_Trap_Activation,WwiseEvent,Activate mouse trap,100,5
+Audio_Play_Mouse_Trap_Reload,WwiseEvent,Reloads mouse trap,100,5
+Audio_Play_Health_Pickup,WwiseEvent,Health regen audio,100,5
+Audio_Play_Ammo_Pickup,WwiseEvent,Pickup bullets,100,5
+Audio_Play_Low_Health,WwiseEvent,Player heartrate ,100,5
+Audio_Play_Low_Stamina,WwiseEvent,Heavy Breathing,100,5
+Audio_Play_Footsteps,WwiseEvent,"Footstep audio. Switch for different ground materials, boot step plays alongside whichever ground material is active",100,5
+Audio_Play_Jump_Landing,WwiseEvent,Subtle rattle of what player is carring,100,5
+Audio_Play_Jump_Up,WwiseEvent,Subtle rattle and grunt of player jumping,100,5
+Audio_Play_Parachute_Cut,WwiseEvent,Parachute unequip,100,5
+Audio_Play_Parachute_Deploy,WwiseEvent,Parachute deploy + gliding through air,100,5
+Audio_Play_Slide,WwiseEvent,Slide audio with switch for different ground material,100,5
+Audio_Play_Fall_Into_Water,WwiseEvent,Water Splash,100,5
+Audio_Play_Stepping_Out_Water,WwiseEvent,Water dripping off player,100,5
+Audio_Play_Swim_Stroke,WwiseEvent,Swimming audio to be called at each point in the animation,100,5
+Audio_Play_Assault_Rifle_ADS,WwiseEvent,Assault rifle aim down sights,100,5
+Audio_Play_Assault_Rifle_Equip,WwiseEvent,Assault rifle equip audio for weapon switch ,100,5
+Audio_Play_Assault_Rifle_Gunshot,WwiseEvent,Assault rifle shot,100,5
+Audio_Play_Assault_Rifle_Reload_Empty,WwiseEvent,Assault rifle main reload audio ,100,5
+Audio_Play_Assualt_Rifle_Reload_Half_Empty,WwiseEvent,Assault rifle reload when mag isnt empty (extra detail if wanted),100,5
+Audio_Play_Pistol_ADS,WwiseEvent,Pistol aim down sights,100,5
+Audio_Play_Pistol_Equip,WwiseEvent,Pistol equip audio for weapon switch ,100,5
+Audio_Play_Pistol_Gunshot,WwiseEvent,Pistol shot,100,5
+Audio_Play_Pistol_Reload_Empty,WwiseEvent,Pistol main reload audio ,100,5
+Audio_Play_Pistol_Reload_Half_Empty,WwiseEvent,Pistol  reload when mag isnt empty (extra detail if wanted),100,5
+Audio_Play_Shotgun_ADS,WwiseEvent,Shotgun aim down sights,100,5
+Audio_Play_Shotgun_Equip,WwiseEvent,Shotgun equip audio for weapon switch ,100,5
+Audio_Play_Shotgun_Gunshot,WwiseEvent,Shotgun shot,100,5
+Audio_Play_Shotgun_Rechamber,WwiseEvent,Cocking the shotgun to be played after the gunshot,100,5
+Audio_Play_Shotgun_Reload,WwiseEvent,Shotgun main reload,100,5
+Audio_Play_Sniper_Rifle_ADS,WwiseEvent,Sniper rifle aim down sights,100,5
+Audio_Play_Sniper_Rifle_Equip,WwiseEvent,Sniper rifle equip audio for weapon switch ,100,5
+Audio_Play_Sniper_Rifle_Gunshot,WwiseEvent,Sniper rifle shot,100,5
+Audio_Play_Sniper_Rifle_Reload_Empty,WwiseEvent,Sniper rifle main reload audio ,100,5
+Audio_Play_Sniper_Rifle_Reload_Half_Empty,WwiseEvent,Sniper rifle reload when mag isnt empty (extra detail if wanted),100,5
+Audio_Play_SubMachineGun_ADS,WwiseEvent,SubMachineGun aim down sights,100,5
+Audio_Play_SubMachineGun_Equip,WwiseEvent,SubMachineGun equip audio for weapon switch ,100,5
+Audio_Play_SubMachineGun_Gunshot,WwiseEvent,SubMachineGun shot,100,5
+Audio_Play_SubMachineGun_Reload_Empty,WwiseEvent,SubMachineGunmain reload audio ,100,5
+Audio_Play_SubMachineGun_Reload_Half_Empty,WwiseEvent,SubMachineGun reload when mag isnt empty (extra detail if wanted),100,5
+Audio_Play_Grenade_Explosion,WwiseEvent,Explosion Audio,100,5
+Audio_Play_Grenade_Pin,WwiseEvent,Pulling pin out of grenade,100,5
+Audio_Play_Grenade_Throw,WwiseEvent,Throwing grenade,100,5
+Audio_Play_Button_Click,WwiseEvent,Menu button click,100,5
+Audio_Play_Game_Over,WwiseEvent,When player dies,100,5
+Audio_Play_Objective_Complete,WwiseEvent,Mini objective complete,100,5
+Audio_Play_Objective_Fail,WwiseEvent,Mini objective fail (not completed in alloted time),100,5
+Audio_Play_Round_Complete,WwiseEvent,Successfully completed mission,100,5
+Audio_Play_HeadShot_Badge,WwiseEvent,"When getting a kill with a headshot, a badge pops up like in cod (just an idea i had)",100,5
+Audio_Play_Hitmarker,WwiseEvent,Hitmarker sound (not implemented yet),100,5
+Audio_Play_Kill_With_Score_Badge,WwiseEvent,General kill with the same badge idea,100,5
+Audio_Play_Break_Cam,WwiseEvent,Break cam audio sequence,100,5
 Ground_Material,Switch,The material which the player is interacting with used for footsteps and sliding,100,5
+RTPC_MasterVolume,WwiseRTPC,Master volume value,100,5
+RTPC_WorldVolume,WwiseRTPC,World volume value (effects),100,5
+RTPC_NonWorldVolume,WwiseRTPC,Non world volume value (ui),100,5

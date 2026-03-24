@@ -10,7 +10,7 @@
     "Type": "User",
     "GUID": "{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}",
     "Language": "SFX",
-    "Hash": "{9F19C6C7-2452-F1CE-F4C8-D4E52616A065}",
+    "Hash": "{B2F5CE88-927E-208F-11D3-E697F4CF4709}",
     "ObjectPath": "Init",
     "ShortName": "Init",
     "Path": "Init.bnk",
@@ -329,6 +329,26 @@
       "ObjectPath": "\\Game Parameters\\SideChain_Parameters\\RTPC_Ducking",
       "GUID": "{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}",
       "Color": "24"
+     },
+     {
+      "Id": "1434597375",
+      "Name": "RTPC_WorldVolume",
+      "ObjectPath": "\\Game Parameters\\VolumeValues\\RTPC_WorldVolume",
+      "GUID": "{C9641EFA-B8B9-4849-B442-C219DD9DF5A8}",
+      "Color": "10"
+     },
+     {
+      "Id": "2582501215",
+      "Name": "RTPC_MasterVolume",
+      "ObjectPath": "\\Game Parameters\\VolumeValues\\RTPC_MasterVolume",
+      "GUID": "{D7CA97A9-5EA8-4495-BC4C-6F12D415E728}"
+     },
+     {
+      "Id": "2635462830",
+      "Name": "RTPC_NonWorldVolume",
+      "ObjectPath": "\\Game Parameters\\VolumeValues\\RTPC_NonWorldVolume",
+      "GUID": "{85D52C53-6CC9-446A-AECE-8116C09BFB93}",
+      "Color": "1"
      }
     ],
     "SwitchGroups": [
@@ -844,6 +864,6 @@
     ]
    }
   ],
-  "FileHash": "{3EFB4E86-B312-3442-72F1-4A8836AE94BC}"
+  "FileHash": "{7AE46ECD-C483-E09E-3EC4-D3C4976FA80B}"
  }
 }

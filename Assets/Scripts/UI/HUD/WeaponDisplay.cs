@@ -74,9 +74,9 @@ public class WeaponDisplay : MonoBehaviour
     private void Initialize()
     {
         Weapon primaryWeapon = PlayerData.PrimaryWeapon;
-        primaryImageObj.sprite = primaryWeapon.WeaponData.WeaponSpriteWhite;
+        primaryImageObj.sprite = primaryWeapon.BaseWeaponData.WeaponSpriteWhite;
         Weapon secondaryWeapon = PlayerData.SecondaryWeapon;
-        secondaryImageObj.sprite = secondaryWeapon.WeaponData.WeaponSpriteWhite;
+        secondaryImageObj.sprite = secondaryWeapon.BaseWeaponData.WeaponSpriteWhite;
     }
 
     private void UpdateAmmo()
@@ -140,7 +140,7 @@ public class WeaponDisplay : MonoBehaviour
         ammoObjects.Clear();
         
         // Create new objects based on mag size
-        int magSize = PlayerData.CurrentWeapon.WeaponData.MagSize;
+        int magSize = PlayerData.CurrentWeapon.ModifiedWeaponData.MagSize;
         for (int i = 0; i < magSize; i++)
         {
             GameObject ammoObj = Instantiate(ammoImagePrefab, ammoCountLayout.transform);

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2481499652579015650}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CardboardBox(Squash)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.17239
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
       propertyPath: m_LocalPosition.y
@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.82249
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
       propertyPath: m_LocalRotation.w
@@ -88,13 +88,46 @@ PrefabInstance:
       propertyPath: m_Name
       value: CardboardBox(Squashed)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2802836373419240200}
   m_SourcePrefab: {fileID: 100100000, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
 --- !u!4 &1699722601329920264 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
   m_PrefabInstance: {fileID: 1160831177352048355}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2079941884956464050 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 6954695584e634f4f954efe1498cedbe, type: 3}
+  m_PrefabInstance: {fileID: 1160831177352048355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2802836373419240200
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2079941884956464050}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.06, y: 0.08, z: 0.03}
+  m_Center: {x: -0.000000018626451, y: -0.00029015535, z: 0.0006022117}

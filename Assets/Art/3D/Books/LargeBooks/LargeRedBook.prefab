@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 9100880242974313995}
   - component: {fileID: 1644558352182769917}
   - component: {fileID: 7902778790874885636}
-  m_Layer: 0
+  - component: {fileID: 885287492985481127}
+  m_Layer: 6
   m_Name: LargeRedBook
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,3 +90,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &885287492985481127
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3814119361712821475}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.020871967, y: 0.005300826, z: 0.028774412}
+  m_Center: {x: -0.0038864135, y: -0.0000033664976, z: 0.00028637}

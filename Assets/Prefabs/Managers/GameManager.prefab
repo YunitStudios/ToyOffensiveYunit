@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4265078746821819708}
   - component: {fileID: 3896822994092665254}
+  - component: {fileID: 8380516884277275249}
   m_Layer: 0
   m_Name: SettingsManager
   m_TagString: Untagged
@@ -46,8 +47,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingsManager
   playerSettings: {fileID: 11400000, guid: 382d08ead9134394ab8207e6a171bd29, type: 2}
   defaultSettings: {fileID: 11400000, guid: 7c85722feb43358479783dd9bd19bcce, type: 2}
+  wwisePlayer: {fileID: 8380516884277275249}
+  masterRTPC: {fileID: 11400000, guid: 2f129fcf847bf3743bce122a05961517, type: 2}
+  worldRTPC: {fileID: 11400000, guid: e4a65f7377a54b743867b7aa866a5a1a, type: 2}
+  nonWorldRTPC: {fileID: 11400000, guid: eb30d466a41e7af44a679887833a75ab, type: 2}
   SensitivityRange: {x: 0.1, y: 1}
   BrightnessRange: {x: 1.5, y: 0.5}
+--- !u!114 &8380516884277275249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1202801974504277413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+  playerMovement: {fileID: 0}
+  feet: []
+  footSoundThreshold: 0
+  footstep: {fileID: 0}
 --- !u!1 &4722630150339373396
 GameObject:
   m_ObjectHideFlags: 0
