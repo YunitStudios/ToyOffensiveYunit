@@ -303,6 +303,274 @@
 						</ActorMixer>
 					</ChildrenList>
 				</ActorMixer>
+				<ActorMixer Name="Ambience" ID="{E5CAF06E-D4E2-4389-8591-7F229CC6B455}" ShortID="823397935">
+					<ReferenceList>
+						<Reference Name="Conversion">
+							<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+						</Reference>
+						<Reference Name="OutputBus">
+							<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+						</Reference>
+					</ReferenceList>
+					<ChildrenList>
+						<Sound Name="FridgeHum" ID="{5D250C3A-52BA-42BE-B969-67B898259FAB}" ShortID="128289988">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Main_Ambience_Attenuation" ID="{E38EB762-9367-415B-90F0-16CCCE83C787}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="FridgeHum" ID="{773A5386-B513-4E86-8E7A-CE472C9C9184}">
+									<Language>SFX</Language>
+									<AudioFile>FridgeHum.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="487436150"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="FridgeHum" ID="{773A5386-B513-4E86-8E7A-CE472C9C9184}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="FryingPan_Sizzle" ID="{A53EE339-947F-46F4-BEBD-7AB03285F3A9}" ShortID="61467342">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Main_Ambience_Attenuation" ID="{E38EB762-9367-415B-90F0-16CCCE83C787}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="FryingPan_Sizzle" ID="{E4069C8F-6B4B-4FCB-BC51-31027F383526}">
+									<Language>SFX</Language>
+									<AudioFile>FryingPan_Sizzle.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="549705901"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="FryingPan_Sizzle" ID="{E4069C8F-6B4B-4FCB-BC51-31027F383526}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="GasStove" ID="{124599E4-0C3B-45F5-B0F9-DA8157EFA29F}" ShortID="730629248">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Quick_Falloff_Attenuation" ID="{1173C28E-1145-45BE-AC64-CC3C016102A1}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="GasStove" ID="{96807C04-CC72-4AF3-B47B-9073DD42FEC7}">
+									<Language>SFX</Language>
+									<AudioFile>GasStove.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="558181809"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="GasStove" ID="{96807C04-CC72-4AF3-B47B-9073DD42FEC7}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Kitchen Ambience" ID="{A098C6B6-654B-4346-9C5B-0D607100EC19}" ShortID="1022792760">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Kitchen Ambience" ID="{E3A0B15C-AC28-497A-9390-0837541AC0C4}">
+									<Language>SFX</Language>
+									<AudioFile>Kitchen Ambience.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="514782800"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Kitchen Ambience" ID="{E3A0B15C-AC28-497A-9390-0837541AC0C4}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="MicrowaveHum" ID="{044CC86B-A5D2-4042-B22E-0AEC58E57E5E}" ShortID="556350964">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Main_Ambience_Attenuation" ID="{E38EB762-9367-415B-90F0-16CCCE83C787}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="MicrowaveHum" ID="{A2543A11-B5DF-4EA7-A74C-F0A532775473}">
+									<Language>SFX</Language>
+									<AudioFile>MicrowaveHum.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="75332361"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="MicrowaveHum" ID="{A2543A11-B5DF-4EA7-A74C-F0A532775473}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="OvenFan" ID="{68402B03-7F9A-4D7B-961C-337DAADB6D12}" ShortID="574714062">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Main_Ambience_Attenuation" ID="{E38EB762-9367-415B-90F0-16CCCE83C787}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="OvenFan" ID="{FB296AA0-8340-45D9-AD4A-579232B22FDD}">
+									<Language>SFX</Language>
+									<AudioFile>OvenFan.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="502357039"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="OvenFan" ID="{FB296AA0-8340-45D9-AD4A-579232B22FDD}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="RadioStatic" ID="{8B49AFDA-EE84-4C72-B0E6-C578EC1FD3B0}" ShortID="22960586">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Quick_Falloff_Attenuation" ID="{1173C28E-1145-45BE-AC64-CC3C016102A1}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="RadioStatic" ID="{2E0391CD-AEF2-44C6-8B85-8767D9045F8E}">
+									<Language>SFX</Language>
+									<AudioFile>RadioStatic.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="5463316"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="RadioStatic" ID="{2E0391CD-AEF2-44C6-8B85-8767D9045F8E}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="TVStatic" ID="{2DD2EC7C-0B12-4FC8-A52D-3C5BF7695187}" ShortID="407676017">
+							<PropertyList>
+								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Quick_Falloff_Attenuation" ID="{1173C28E-1145-45BE-AC64-CC3C016102A1}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="TVStatic" ID="{D709BFC0-E97F-4300-9727-4E7F1719D83D}">
+									<Language>SFX</Language>
+									<AudioFile>TVStatic.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="617646805"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="TVStatic" ID="{D709BFC0-E97F-4300-9727-4E7F1719D83D}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+						<Sound Name="Sink" ID="{CF2327EE-2EFF-4F62-98CA-3A16389B6376}" ShortID="830005183">
+							<PropertyList>
+								<Property Name="OverridePositioning" Type="bool" Value="True"/>
+							</PropertyList>
+							<ReferenceList>
+								<Reference Name="Attenuation">
+									<ObjectRef Name="Quick_Falloff_Attenuation" ID="{1173C28E-1145-45BE-AC64-CC3C016102A1}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+								</Reference>
+								<Reference Name="Conversion">
+									<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
+								</Reference>
+								<Reference Name="OutputBus">
+									<ObjectRef Name="Master Audio Bus" ID="{1514A4D8-1DA6-412A-A17E-75CA0C2149F3}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+								</Reference>
+							</ReferenceList>
+							<ChildrenList>
+								<AudioFileSource Name="Sink" ID="{EE169DAA-01B8-454E-917C-B702AFAD26C2}">
+									<Language>SFX</Language>
+									<AudioFile>Sink.wav</AudioFile>
+									<MediaIDList>
+										<MediaID ID="848077410"/>
+									</MediaIDList>
+								</AudioFileSource>
+							</ChildrenList>
+							<ActiveSourceList>
+								<ActiveSource Name="Sink" ID="{EE169DAA-01B8-454E-917C-B702AFAD26C2}" Platform="Linked"/>
+							</ActiveSourceList>
+						</Sound>
+					</ChildrenList>
+				</ActorMixer>
 			</ChildrenList>
 		</WorkUnit>
 	</AudioObjects>
