@@ -310,6 +310,7 @@ public class PlayerMovement : StateMachine
             {
                 currentVelocity.y = -1f;
                 IsSlopeSliding = false;
+                SlidingState.hasLaunched(false);
             }
         }
 
