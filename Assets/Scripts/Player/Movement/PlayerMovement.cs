@@ -344,6 +344,9 @@ public class PlayerMovement : StateMachine
         cc.enabled = false;
         transform.position = newPosition;
         cc.enabled = true;
+        
+        // Reset velocity
+        currentVelocity = Vector3.zero;
     }
     public void SetRotation(Quaternion newRotation)
     {
