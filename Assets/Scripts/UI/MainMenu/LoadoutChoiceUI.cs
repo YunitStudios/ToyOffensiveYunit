@@ -66,12 +66,12 @@ public class LoadoutChoiceUI : MonoBehaviour
     public void ToggleSelected(bool value)
     {
         canvasGroup.alpha = value ? 1f : offAlpha;
-        canvasGroup.interactable = value;
+        canvasGroup.interactable = true;
         loadoutName.color = IsLoadoutValueActive() ? activeColor : inactiveColor;
     }
 
     public void SelectChoice()
     {
-        mainScript.SetNewLoadoutValue(CurrentLoadoutValue); 
+        mainScript.SetNewLoadoutValue(CurrentLoadoutValue, IsLoadoutValueActive()); 
     }
 }
