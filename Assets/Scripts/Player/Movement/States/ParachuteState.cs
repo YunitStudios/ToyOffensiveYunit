@@ -130,6 +130,8 @@ public class ParachuteState : MovementState
         stateMachine.PlayerAnimator.CrossFadeInFixedTime("Parachuting", Settings.AnimBlendTime);
         
         currentDive = 0.0f;
+        diveEaseProgress = 0.0f;
+        currentTurnValue = 0.0f;
 
         stateMachine.ChangeRadius(Settings.ParachutingPlayerRadius);
 
@@ -341,6 +343,10 @@ public class ParachuteState : MovementState
                 .ChainDelay(Settings.ParachuteModelScaleOutDelay)
                 .Chain(Tween.Scale(Settings.ParachuteModelTransform, Vector3.zero, Settings.ParachuteModelScaleOutDuration,Settings.ParachuteModelScaleOutEase));
         }
+        
+        currentDive = 0.0f;
+        diveEaseProgress = 0.0f;
+        currentTurnValue = 0.0f;
     }
 
 }

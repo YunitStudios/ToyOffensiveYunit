@@ -178,14 +178,15 @@ public abstract class InputMoveState : MovementState
 
     public override void CheckTransitions()
     {
-        if (stateMachine.ClimbingState.CanInitiateClimb() && stateMachine.ClimbingState.CanEnter() && stateMachine.InputController.FrameMove.y > 0f)
+        bool climbInput = stateMachine.GameSettings.autoClimb || stateMachine.InputController.JumpHeld;
+        if (stateMachine.ClimbingState.CanInitiateClimb() && stateMachine.ClimbingState.CanEnter() && stateMachine.InputController.FrameMove.y > 0f && climbInput)
         {
             SwitchState(stateMachine.ClimbingState);
         }
         if (CanJump && stateMachine.InputController.JumpHeld && currentAirTime <= Settings.CoyoteTime)
         {
             // Set jumping state multiplier to current speed multiplier
-            stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier);
+            stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier, stateMachine.CurrentState is SprintingState);
             SwitchState(stateMachine.JumpingState);
         }
 

@@ -102,7 +102,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
         if (IsInvulnerable)
             return;
         
-        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, -1, maxHealth);
         
         // If taken damage and not dealed
         if(damage > 0)

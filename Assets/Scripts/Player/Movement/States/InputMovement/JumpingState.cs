@@ -52,6 +52,9 @@ public class JumpingState : InputMoveState
         stateMachine.ImpulseVelocity(jumpVelocity);
         
         landDelayTween = Tween.Delay(Settings.JumpLandDelay);
+        
+        if(sprinting)
+            stateMachine.PlayerCamera.CurrentFovMultiplier = stateMachine.SprintingSettings.FovMultiplier;
     }
 
     public override void OnExit()
@@ -59,6 +62,8 @@ public class JumpingState : InputMoveState
         stateMachine.PlayerAnimator.SetBool(IsJumping, false);
         
         rejumpDelayTween = Tween.Delay(Settings.RejumpDelay);
+        
+        stateMachine.PlayerCamera.CurrentFovMultiplier = 1;
        
     }
     
@@ -86,10 +91,12 @@ public class JumpingState : InputMoveState
 
     public override float GetSpeedMultiplier => speedMultiplier;
     private float speedMultiplier;
+    private bool sprinting;
     
-    public void SetSpeedMultiplier(float currentSpeedMultiplier)
+    public void SetSpeedMultiplier(float currentSpeedMultiplier, bool sprinting = false)
     {
         speedMultiplier = currentSpeedMultiplier;
+        this.sprinting = sprinting;
     }
 
     public override void FixedTick()
