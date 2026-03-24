@@ -151,6 +151,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1376621602412303335}
   - component: {fileID: 1736353874887003970}
+  - component: {fileID: 5156522135592553189}
+  - component: {fileID: 5078917018549849577}
   m_Layer: 5
   m_Name: PauseMenu_Prefab
   m_TagString: Untagged
@@ -199,6 +201,62 @@ MonoBehaviour:
         m_TargetAssemblyTypeName: Popup, Assembly-CSharp
         m_MethodName: Display
         m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5156522135592553189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899432122331629225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de08b678de63dbf44ab342c8bdf88c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VoidEventChannelListener
+  eventChannel: {fileID: 11400000, guid: 1348b5b234f1b564bbf860429d040b55, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1736353874887003970}
+        m_TargetAssemblyTypeName: InputTrigger, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5078917018549849577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899432122331629225}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de08b678de63dbf44ab342c8bdf88c7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::VoidEventChannelListener
+  eventChannel: {fileID: 11400000, guid: 6b7ff15f24130aa4ba4547b49da2c9c8, type: 2}
+  onRaised:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1736353874887003970}
+        m_TargetAssemblyTypeName: InputTrigger, Assembly-CSharp
+        m_MethodName: set_enabled
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1612,7 +1670,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3417647751284493862, guid: 16fb05d485e404f20a14cea729eed408, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 941184.25
+      value: 949392.94
       objectReference: {fileID: 0}
     - target: {fileID: 3430344839064933991, guid: 16fb05d485e404f20a14cea729eed408, type: 3}
       propertyPath: m_Size
@@ -1900,7 +1958,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4588386744428628936, guid: 16fb05d485e404f20a14cea729eed408, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 941184.25
+      value: 949392.94
       objectReference: {fileID: 0}
     - target: {fileID: 4635398349295173278, guid: 16fb05d485e404f20a14cea729eed408, type: 3}
       propertyPath: m_TextStyleHashCode
