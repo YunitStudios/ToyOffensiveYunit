@@ -43,8 +43,6 @@ namespace SoundSystem
                     Debug.LogWarning("Unsupported SoundType.");
                     break;
             }
-            
-            // Debug.Log(SoundData.WwiseName);
         }
 
         private void Update()
