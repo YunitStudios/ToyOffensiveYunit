@@ -53,7 +53,7 @@ public class WeaponsSystem : MonoBehaviour
     private bool aiming = false;
     private Tween weaponSwapTimer;
 
-    private float ReloadProgress => Mathf.Clamp01(1-(reloadTime / currentWeapon.WeaponData.ReloadTime));
+    private float ReloadProgress => Mathf.Clamp01(1-(reloadTime / currentWeapon.ModifiedWeaponData.ReloadTime));
 
     [SerializeField] private PlayerMovement playerMovement;
     
@@ -191,7 +191,7 @@ public class WeaponsSystem : MonoBehaviour
         {
             model.Value.SetActive(false);
         }
-        if(weaponModels.TryGetValue(PlayerData.CurrentWeapon.WeaponData, out var newModel))
+        if(weaponModels.TryGetValue(PlayerData.CurrentWeapon.ModifiedWeaponData, out var newModel))
             newModel.SetActive(true);
     }
 
@@ -205,7 +205,7 @@ public class WeaponsSystem : MonoBehaviour
         playerMovement.PlayerAnimator.CrossFadeInFixedTime("Transition", 0.1f);
         swapControllerTween = Tween.Delay(0.1f, () =>
         {
-            playerMovement.PlayerAnimator.runtimeAnimatorController = PlayerData.CurrentWeapon.WeaponData.animationController;
+            playerMovement.PlayerAnimator.runtimeAnimatorController = PlayerData.CurrentWeapon.BaseWeaponData.animationController;
             playerMovement.PlayerAnimator.PlayInFixedTime("Transition", 0, 0.1f);
         });
     }
@@ -238,7 +238,7 @@ public class WeaponsSystem : MonoBehaviour
         playerMovement.PlayerAnimator.SetBool(IsShooting, true);
         
         // limit it so you can only shoot up to the max fire rate
-        float timeBetweenShots = 60f / currentWeapon.WeaponData.FireRateRPM;
+        float timeBetweenShots = 60f / currentWeapon.ModifiedWeaponData.FireRateRPM;
         if(Time.time - lastShotTime < timeBetweenShots)
         {
             // Debug.Log("Shooting too fast!");
@@ -248,13 +248,13 @@ public class WeaponsSystem : MonoBehaviour
         // Debug.Log("Firing weapon: " + currentWeapon.WeaponData.DisplayName);
         
         // shoot it
-        if (currentWeapon.WeaponData.ShotQuantity > 1)
+        if (currentWeapon.ModifiedWeaponData.ShotQuantity > 1)
         {
-            DoMultiShoot(currentWeapon.WeaponData.IsPhysicsBased);
+            DoMultiShoot(currentWeapon.ModifiedWeaponData.IsPhysicsBased);
         }
         else
         {
-            if(currentWeapon.WeaponData.IsPhysicsBased)
+            if(currentWeapon.ModifiedWeaponData.IsPhysicsBased)
             {
                 DoPhysicsShoot();
             }
@@ -270,7 +270,7 @@ public class WeaponsSystem : MonoBehaviour
         currentWeapon.Fire();
         
         if(wwisePlayer is not null)
-            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Gunshot);
+            wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.Gunshot);
         
         onWeaponFired?.Invoke();
     }
@@ -279,16 +279,16 @@ public class WeaponsSystem : MonoBehaviour
     {
         if (playerMovement.CanAim)
         {
-            if (playerCameraSystem.CurrentCameraType != currentWeapon.WeaponData.AimCameraType)
+            if (playerCameraSystem.CurrentCameraType != currentWeapon.ModifiedWeaponData.AimCameraType)
             {
-                playerCameraSystem.ChangeCamera(currentWeapon.WeaponData.AimCameraType);
+                playerCameraSystem.ChangeCamera(currentWeapon.ModifiedWeaponData.AimCameraType);
                 aiming = true;
                 currentWeapon.WeaponSpread.IsAiming = aiming;
                 PlayerData.ToggleAiming(aiming);
                 playerMovement.PlayerAnimator.SetBool(IsAiming, true);
                 
                 if(wwisePlayer is not null)
-                    wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.ADS);
+                    wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.ADS);
 
             }
         }
@@ -302,7 +302,7 @@ public class WeaponsSystem : MonoBehaviour
         PlayerData.ToggleAiming(aiming);
         
         // Only reset the camera if current camera is ADS
-        if (playerCameraSystem.CurrentCameraType == currentWeapon.WeaponData.AimCameraType)
+        if (playerCameraSystem.CurrentCameraType == currentWeapon.ModifiedWeaponData.AimCameraType)
         {
             // Cba to make a proper system
             if(playerMovement.CurrentState is ParachuteState)
@@ -312,7 +312,7 @@ public class WeaponsSystem : MonoBehaviour
         }
         
         if(wwisePlayer is not null)
-            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.ADS);
+            wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.ADS);
     }
 
     private void Reload()
@@ -324,17 +324,17 @@ public class WeaponsSystem : MonoBehaviour
             return;
         
         // Dont reload if mag full
-        if (currentWeapon.CurrentAmmoInMag >= currentWeapon.WeaponData.MagSize)
+        if (currentWeapon.CurrentAmmoInMag >= currentWeapon.ModifiedWeaponData.MagSize)
             return;
         
         if(wwisePlayer is not null)
-            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Reload_Empty);
+            wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.Reload_Empty);
         
         if (ReloadProgress >= 1)
         {
             accumulatedShootingTime = 0f;
 
-            reloadTime = currentWeapon.WeaponData.ReloadTime;
+            reloadTime = currentWeapon.ModifiedWeaponData.ReloadTime;
         }
     }
 
@@ -346,10 +346,10 @@ public class WeaponsSystem : MonoBehaviour
 
     private void DoMultiShoot(bool isPhysicsBased = false)
     {
-        for (int i = 0; i < currentWeapon.WeaponData.ShotQuantity; i++)
+        for (int i = 0; i < currentWeapon.ModifiedWeaponData.ShotQuantity; i++)
         {
             // calculate shot offset rotation
-            float max = currentWeapon.WeaponData.ShotSpread;
+            float max = currentWeapon.ModifiedWeaponData.ShotSpread;
             
             if (isPhysicsBased)
             {
@@ -397,7 +397,7 @@ public class WeaponsSystem : MonoBehaviour
             // apply damage if we hit an enemy
             if (hit.transform.TryGetComponent<IDamageable>(out var target))
             {
-                target.TakeDamage(bullet, currentWeapon.WeaponData.Damage);
+                target.TakeDamage(bullet, currentWeapon.ModifiedWeaponData.Damage);
                 onShowHitmarker?.Invoke();
             }
         }
@@ -501,9 +501,9 @@ public class WeaponsSystem : MonoBehaviour
 
         movementScript.bulletFromEnemy = false;
         movementScript.InitialDirection = shootDir;
-        movementScript.InitialVelocity = currentWeapon.WeaponData.InitialVelocityMS;
-        movementScript.Damage = currentWeapon.WeaponData.Damage;
-        movementScript.MassKG = currentWeapon.WeaponData.MassKG;
+        movementScript.InitialVelocity = currentWeapon.ModifiedWeaponData.InitialVelocityMS;
+        movementScript.Damage = currentWeapon.ModifiedWeaponData.Damage;
+        movementScript.MassKG = currentWeapon.ModifiedWeaponData.MassKG;
         movementScript.Shootable = canShoot;
     }
 

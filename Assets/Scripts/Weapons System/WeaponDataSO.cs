@@ -100,6 +100,7 @@ public class WeaponDataSO : ScriptableObject, ILoadout
         Attachments = other.Attachments;
         AimCameraType = other.AimCameraType;
         AttachmentSOs = other.AttachmentSOs;
+        soundPack = other.soundPack;
     }
 
     public string GetDisplayName => DisplayName;

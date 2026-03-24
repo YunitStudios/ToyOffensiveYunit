@@ -84,7 +84,7 @@ public class AIWeaponSystem : MonoBehaviour
         }
         
         // check we aren't still reloading
-        if(Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime)
+        if(Time.time - lastReloadTime < currentWeapon.ModifiedWeaponData.ReloadTime)
         {
             // am still reloading
             return;
@@ -98,7 +98,7 @@ public class AIWeaponSystem : MonoBehaviour
         }
 
         // limit it so you can only shoot up to the max fire rate
-        float timeBetweenShots = 60f / currentWeapon.WeaponData.FireRateRPM;
+        float timeBetweenShots = 60f / currentWeapon.ModifiedWeaponData.FireRateRPM;
         if(Time.time - lastShotTime < timeBetweenShots)
         {
             return;
@@ -106,7 +106,7 @@ public class AIWeaponSystem : MonoBehaviour
 
         
         // do the actual shooting here
-        if(currentWeapon.WeaponData.IsPhysicsBased)
+        if(currentWeapon.ModifiedWeaponData.IsPhysicsBased)
         {
             DoPhysicsShoot();
         }
@@ -122,13 +122,13 @@ public class AIWeaponSystem : MonoBehaviour
         
         currentWeapon.Fire();
         if(wwisePlayer is not null)
-            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Gunshot);
+            wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.Gunshot);
     }
     
     public void Reload()
     {
         if(wwisePlayer is not null)
-            wwisePlayer.PlaySound(currentWeapon.WeaponData.soundPack.Reload_Empty);
+            wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.Reload_Empty);
         
         accumulatedShootingTime = 0f;
         lastReloadTime = Time.time;
@@ -141,10 +141,10 @@ public class AIWeaponSystem : MonoBehaviour
     
     private void DoMultiShoot(bool isPhysicsBased = false)
     {
-        for (int i = 0; i < currentWeapon.WeaponData.ShotQuantity; i++)
+        for (int i = 0; i < currentWeapon.ModifiedWeaponData.ShotQuantity; i++)
         {
             // calculate shot offset rotation
-            float max = currentWeapon.WeaponData.ShotSpread;
+            float max = currentWeapon.ModifiedWeaponData.ShotSpread;
             
             if (isPhysicsBased)
             {
@@ -181,7 +181,7 @@ public class AIWeaponSystem : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                hit.collider.GetComponent<Health>().DealDamage(currentWeapon.WeaponData.Damage * damageMult);
+                hit.collider.GetComponent<Health>().DealDamage(currentWeapon.ModifiedWeaponData.Damage * damageMult);
             }
             
             return hit.point;
@@ -218,9 +218,9 @@ public class AIWeaponSystem : MonoBehaviour
         PhysicsBulletMovement movementScript = physicsProjectile.GetComponent<PhysicsBulletMovement>();
         movementScript.bulletFromEnemy = true;
         movementScript.InitialDirection = shootDir;
-        movementScript.InitialVelocity = currentWeapon.WeaponData.InitialVelocityMS;
-        movementScript.Damage = currentWeapon.WeaponData.Damage * damageMult;
-        movementScript.MassKG = currentWeapon.WeaponData.MassKG;
+        movementScript.InitialVelocity = currentWeapon.ModifiedWeaponData.InitialVelocityMS;
+        movementScript.Damage = currentWeapon.ModifiedWeaponData.Damage * damageMult;
+        movementScript.MassKG = currentWeapon.ModifiedWeaponData.MassKG;
         movementScript.Shootable = canShoot;
     }
     
@@ -287,7 +287,7 @@ public class AIWeaponSystem : MonoBehaviour
 
     public bool IsReloading()
     {
-        return Time.time - lastReloadTime < currentWeapon.WeaponData.ReloadTime;
+        return Time.time - lastReloadTime < currentWeapon.ModifiedWeaponData.ReloadTime;
     }
 
     public bool IsInShootPeriod()
