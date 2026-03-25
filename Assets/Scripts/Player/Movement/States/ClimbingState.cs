@@ -46,9 +46,6 @@ public class ClimbingSettings : StateSettings
     [Tooltip("Width of player from their head when checking for side climbing space")]
     [SerializeField] private float climbWidth = 0.5f;
     public float ClimbWidth => climbWidth;
-    [Tooltip("Maximum gap distance that the player can ignore and climb over. A gap is a part of the wall which either moves inwards or just isn't there")]
-    [SerializeField] private float climbingMaxGapDistance = 0.5f;
-    public float ClimbingMaxGapDistance => climbingMaxGapDistance;
     [Tooltip("Speed that it takes for the player to lock onto the current wall normal")] 
     [SerializeField] private float climbingWallLockSpeed = 10f;
     public float ClimbingWallLockSpeed => climbingWallLockSpeed;
@@ -268,11 +265,11 @@ public class ClimbingState : MovementState
         {
             StartHanging();
             
-            // Shift start position to same Y level as top
-            // Move down slightly to account for head height
-            Vector3 startPos = stateMachine.Position;
-            startPos.y = topPosition.y - (stateMachine.PlayerHeight - (stateMachine.PlayerHeadHeight+ 0.01f));
-            stateMachine.SetPosition(startPos);
+            // // Shift start position to same Y level as top
+            // // Move down slightly to account for head height
+            // Vector3 startPos = stateMachine.Position;
+            // startPos.y = topPosition.y - (stateMachine.PlayerHeight - (stateMachine.PlayerHeadHeight + 0.01f));
+            // stateMachine.SetPosition(startPos);
         }
         
         stateMachine.PlayerAnimator.applyRootMotion = true;
@@ -619,11 +616,16 @@ public class ClimbingState : MovementState
         float maxDistance = 100;
         
         Vector3 headOrigin = stateMachine.Position + CurrentUpDirection * stateMachine.PlayerHeadHeight;
-        Vector3 wallPosition = headOrigin + (CurrentForwardDirection * (CurrentClimbRange + 0.1f));
+        Vector3 wallPosition = headOrigin + CurrentForwardDirection * (CurrentClimbRange + 0.1f);
 
         Ray distanceRay = new Ray(wallPosition + Vector3.up * maxDistance, -CurrentUpDirection);
         if (Physics.Raycast(distanceRay, out var hitInfo, maxDistance, Settings.ClimbableLayer))
         {
+            // Check the normal
+            float angle = Vector3.Angle(hitInfo.normal, Vector3.up);
+            if (angle > Settings.HangSurfaceMinAngle)
+                return maxDistance;
+            
             topPosition = hitInfo.point;
             return Vector3.Distance(headOrigin, hitInfo.point);
         }

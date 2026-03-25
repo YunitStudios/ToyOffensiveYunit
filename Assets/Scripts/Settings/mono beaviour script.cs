@@ -25,6 +25,9 @@ public class monobeaviourscript : MonoBehaviour
 
     private void CheckInput(char c)
     {
+        // Force lowercase
+        c = char.ToLower(c);
+        
         buffer.Add(c);
 
         // Check if buffer matches target string
