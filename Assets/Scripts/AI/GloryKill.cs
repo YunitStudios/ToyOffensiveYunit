@@ -25,6 +25,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
     [SerializeField] private GameObject gunRoot;
     [SerializeField] private GameObject gloryKillCamera; 
     [SerializeField] private CinemachineSplineCart cinemachineDollyCart;
+    [SerializeField] private LayerMask groundMask;
     private CanvasGroup hud;
     
     
@@ -187,14 +188,21 @@ public class GloryKill : MonoBehaviour, IDamageSource
         }
         
         Vector3 position = transform.position;
+        Vector3 rayOrigin = position + Vector3.up * 0.5f;
+        Vector3 rayDirection = Vector3.down * 3f;
         
-        if (Physics.Raycast(position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 3f))
+        if (Physics.Raycast(position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 3f, groundMask))
         {
+            Debug.DrawRay(rayOrigin, rayDirection, Color.green);
             float heightDifference = position.y - hit.point.y;
             if (heightDifference <= 1f)
             {
                 position.y = hit.point.y + 0.06f;
             }
+        }
+        else
+        {
+            Debug.DrawRay(rayOrigin, rayDirection, Color.red);
         }
         transform.position = position;
     }
