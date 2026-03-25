@@ -157,7 +157,13 @@
 											</ReferenceList>
 										</Bus>
 										<Bus Name="Weapons_Foley" ID="{F4B67CAD-23DF-4668-A532-857E29880799}">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Weapon_Manipulation_Attenuation" ID="{76C291FE-AB4C-4540-B508-7CFF846A0324}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+												</Reference>
 												<Reference Name="UserAuxSend0">
 													<ObjectRef Name="World_Main_Reverb" ID="{5D810DB4-62FF-4DFC-832F-52F49E718B16}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 												</Reference>
@@ -188,7 +194,13 @@
 										<Bus Name="BreakCam" ID="{B9F475BA-7938-425B-AE8E-F3A81B61B0F7}"/>
 										<Bus Name="Swim" ID="{36A7F8C7-D385-4408-AF4F-F0680BAA7567}"/>
 										<Bus Name="Weapons_Gunshot" ID="{120BADCC-1FFB-4A3E-9562-D57F34C99DC8}">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+											</PropertyList>
 											<ReferenceList>
+												<Reference Name="Attenuation">
+													<ObjectRef Name="Weapon_Gunshot_Attenuation" ID="{459B8937-795B-4B92-8285-7DED7D1B716A}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
+												</Reference>
 												<Reference Name="UserAuxSend0">
 													<ObjectRef Name="World_Small_Reverb" ID="{52610B04-3008-4CDD-B6F5-A6C96CD3700D}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 												</Reference>

@@ -303,7 +303,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 50a85ccf09b6a245b903d0644e4c1d0c
     GuidInternal: 
-    m_lastTime: -8584272356668299091
+    m_lastTime: -8584271625373539152
     List:
     - name: BreakCam
       guid: ba75f4b938795b42ae8ef3a81b61b0f7
@@ -709,9 +709,9 @@ MonoBehaviour:
         ObjectType: 1
         guid: b40d815dff62fc4d832f52f49e718b16
       Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Sound_Effects\World_Main_Reverb
-    - name: World_Weapon_Reverb
+    - name: World_Small_Reverb
       guid: 040b61520830dd4cb6f5a6c96cd3700d
-      id: 1153822417
+      id: 2926811462
       PathAndIcons:
       - ElementName: Master-Mixer Hierarchy
         ObjectType: 5
@@ -725,10 +725,10 @@ MonoBehaviour:
       - ElementName: Sound_Effects
         ObjectType: 2
         guid: 617e3ac04f215443aa569445373691c1
-      - ElementName: World_Weapon_Reverb
+      - ElementName: World_Small_Reverb
         ObjectType: 1
         guid: 040b61520830dd4cb6f5a6c96cd3700d
-      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Sound_Effects\World_Weapon_Reverb
+      Path: Master-Mixer Hierarchy\Default Work Unit\Master Audio Bus\Sound_Effects\World_Small_Reverb
   BankWwu:
   - PhysicalPath: SoundBanks\Default Work Unit.wwu
     PathAndIcons:
@@ -741,7 +741,7 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: f589af6a9cbf584d8491570d94dd718b
     GuidInternal: 
-    m_lastTime: -8584272388829228310
+    m_lastTime: -8584271644120747610
     List:
     - name: Main
       guid: 81e2f863686cc74eb33ad4b9071621a5
@@ -821,8 +821,28 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit\Environment
     guid: 57dc02715814bc4d9882969f72a96bf3
     GuidInternal: 
-    m_lastTime: -8584272388836089960
+    m_lastTime: -8584271654549282671
     List:
+    - name: Ambience
+      guid: c2893de4cc126b408a3cb0e22d19bf9b
+      id: 85412153
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      Path: Events\Default Work Unit\Environment\Ambience
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
     - name: Audio_Play_Fire_Burning_Player
       guid: 6d1e79866cc86e4ab59292b408947fd0
       id: 3235796075
@@ -901,6 +921,98 @@ MonoBehaviour:
       maxAttenuation: 18
       maxDuration: 1.5044671
       minDuration: 1.5044671
+    - name: Audio_Play_Fridge
+      guid: 0035cace58cc444cb2149ee869525fce
+      id: 2064902890
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_Fridge
+        ObjectType: 3
+        guid: 0035cace58cc444cb2149ee869525fce
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_Fridge
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_FryingPan
+      guid: 1e7567449725424da9dd0a18a1b7326d
+      id: 3016987823
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_FryingPan
+        ObjectType: 3
+        guid: 1e7567449725424da9dd0a18a1b7326d
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_FryingPan
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_Kitchen_Ambience
+      guid: 1b46b60670b06c4aa31cf6b46d563762
+      id: 3076047430
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_Kitchen_Ambience
+        ObjectType: 3
+        guid: 1b46b60670b06c4aa31cf6b46d563762
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_Kitchen_Ambience
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_Microwave
+      guid: 94cd49307bbd9440a325140e7ba2064d
+      id: 3441052336
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_Microwave
+        ObjectType: 3
+        guid: 94cd49307bbd9440a325140e7ba2064d
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_Microwave
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
     - name: Audio_Play_Mouse_Trap_Activation
       guid: 83e73811fee18e4f927a590a9b2ad915
       id: 3380218427
@@ -953,6 +1065,29 @@ MonoBehaviour:
       maxAttenuation: 18
       maxDuration: 2.2141306
       minDuration: 2.2141306
+    - name: Audio_Play_Oven
+      guid: 33b0e65372256f4d91b1082257cd6219
+      id: 866483839
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_Oven
+        ObjectType: 3
+        guid: 33b0e65372256f4d91b1082257cd6219
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_Oven
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
     - name: Audio_Play_Player_On_Fire_Screaming
       guid: a35e7a88c543974b8d55e982357ea648
       id: 104916417
@@ -979,6 +1114,98 @@ MonoBehaviour:
       maxAttenuation: 18
       maxDuration: 1.6205442
       minDuration: 1.6205442
+    - name: Audio_Play_Radio
+      guid: 8322eacbb9f0924ba4ffd0cf09e4cbb2
+      id: 3047097178
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_Radio
+        ObjectType: 3
+        guid: 8322eacbb9f0924ba4ffd0cf09e4cbb2
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_Radio
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_Stove
+      guid: 72549811755a484ba7b43285ffd4d844
+      id: 3436990288
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_Stove
+        ObjectType: 3
+        guid: 72549811755a484ba7b43285ffd4d844
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_Stove
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_TV
+      guid: b14334319e9a514a8976ab849a6f1f39
+      id: 4020258395
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_TV
+        ObjectType: 3
+        guid: b14334319e9a514a8976ab849a6f1f39
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_TV
+      maxAttenuation: 100
+      maxDuration: 0
+      minDuration: 0
+    - name: Audio_Play_Water
+      guid: 43b5edc52382504baf03ec63f7ae0edb
+      id: 459185150
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7cff4c982ebd8247bfebb11d6a2952bb
+      - ElementName: Environment
+        ObjectType: 12
+        guid: 57dc02715814bc4d9882969f72a96bf3
+      - ElementName: Ambience
+        ObjectType: 4
+        guid: c2893de4cc126b408a3cb0e22d19bf9b
+      - ElementName: Audio_Play_Water
+        ObjectType: 3
+        guid: 43b5edc52382504baf03ec63f7ae0edb
+      Path: Events\Default Work Unit\Environment\Ambience\Audio_Play_Water
+      maxAttenuation: 100
+      maxDuration: 27.44644
+      minDuration: 27.44644
     - name: Fire
       guid: b6c5db72da39c94397fbda9be81824b4
       id: 2678880713
@@ -1059,7 +1286,7 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit\Player
     guid: b2992e10cc5ecb449a17ca1faac018b2
     GuidInternal: 
-    m_lastTime: -8584272388790171938
+    m_lastTime: -8584271618183743402
     List:
     - name: AmmoPickup
       guid: c8ccfc31f1ea434aae08a235fe9fe4d8
@@ -1209,8 +1436,8 @@ MonoBehaviour:
         guid: dc3ff1222b253b468bd3e3e3b92c3f27
       Path: Events\Default Work Unit\Player\Weapons\Assault_Rifle\Audio_Play_Assault_Rifle_Gunshot
       maxAttenuation: 100
-      maxDuration: 3.2321541
-      minDuration: 3.2321541
+      maxDuration: 2.8357992
+      minDuration: 0.22147612
     - name: Audio_Play_Assault_Rifle_Reload_Empty
       guid: 5f2352e6ebfb3641a457b21129c6565a
       id: 1900764229
@@ -1385,8 +1612,8 @@ MonoBehaviour:
         guid: ed97524ccde78d499a1db0cbf984deb7
       Path: Events\Default Work Unit\Player\Weapons\Grenade\Audio_Play_Grenade_Explosion
       maxAttenuation: 100
-      maxDuration: 3.2991157
-      minDuration: 3.2991157
+      maxDuration: 3.238766
+      minDuration: 3.238766
     - name: Audio_Play_Grenade_Land
       guid: 86c4af83f7bde148be16a5ad3bb6af81
       id: 3125445507
@@ -1737,8 +1964,8 @@ MonoBehaviour:
         guid: f3d8bc1c533e594aa1c46e2dc673024f
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Gunshot
       maxAttenuation: 100
-      maxDuration: 2.3705442
-      minDuration: 2.3705442
+      maxDuration: 2.2083323
+      minDuration: 0.25231242
     - name: Audio_Play_Pistol_Reload_Empty
       guid: 70dd619132964143b58b492679249fb9
       id: 2863973594
@@ -1763,8 +1990,8 @@ MonoBehaviour:
         guid: 70dd619132964143b58b492679249fb9
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Reload_Empty
       maxAttenuation: 100
-      maxDuration: 2.7901814
-      minDuration: 2.7901814
+      maxDuration: 2.7221282
+      minDuration: 2.7221282
     - name: Audio_Play_Pistol_Reload_Half_Empty
       guid: ebd496e9f06cde43a222a6c4861db09a
       id: 347646286
@@ -1789,8 +2016,8 @@ MonoBehaviour:
         guid: ebd496e9f06cde43a222a6c4861db09a
       Path: Events\Default Work Unit\Player\Weapons\Pistol\Audio_Play_Pistol_Reload_Half_Empty
       maxAttenuation: 100
-      maxDuration: 2.1607256
-      minDuration: 2.1607256
+      maxDuration: 2.0904582
+      minDuration: 2.0904582
     - name: Audio_Play_Shotgun_ADS
       guid: 6fd67fb6d920724f8e9fce8fdf4a6269
       id: 3037541374
@@ -1893,8 +2120,8 @@ MonoBehaviour:
         guid: 3cc103579993dd48922e387c9f8044a2
       Path: Events\Default Work Unit\Player\Weapons\Shotgun\Audio_Play_Shotgun_Gunshot
       maxAttenuation: 100
-      maxDuration: 2.63839
-      minDuration: 2.63839
+      maxDuration: 2.5811892
+      minDuration: 2.5811892
     - name: Audio_Play_Shotgun_Rechamber
       guid: a7e1c61cd3929d4ab8b8f5b21478fa94
       id: 476293911
@@ -2049,8 +2276,8 @@ MonoBehaviour:
         guid: cf08b356ac675f46af485915f116b709
       Path: Events\Default Work Unit\Player\Weapons\Sniper\Audio_Play_Sniper_Rifle_Gunshot
       maxAttenuation: 100
-      maxDuration: 3.0580273
-      minDuration: 3.0580273
+      maxDuration: 2.7493238
+      minDuration: 0.31069636
     - name: Audio_Play_Sniper_Rifle_Reload_Empty
       guid: fc6452e0161d1144938724cc055bb868
       id: 3247481907
@@ -2205,8 +2432,8 @@ MonoBehaviour:
         guid: 883f219471609a4cb9c0e238ec2e9d60
       Path: Events\Default Work Unit\Player\Weapons\Sub_Machine_Gun\Audio_Play_SubMachineGun_Gunshot
       maxAttenuation: 100
-      maxDuration: 1.4062585
-      minDuration: 1.4062585
+      maxDuration: 1.2881175
+      minDuration: 0.2108607
     - name: Audio_Play_SubMachineGun_Reload_Empty
       guid: 36c4a38eca3b4842a1622bba7534ed5f
       id: 2995555196
@@ -2907,7 +3134,7 @@ MonoBehaviour:
     ParentPath: Game Parameters\VolumeValues
     guid: 289704d5a25a4d42a5dafc19a43bf383
     GuidInternal: 
-    m_lastTime: -8584272375846267606
+    m_lastTime: -8584272284322113986
     List:
     - name: RTPC_MasterVolume
       guid: a997cad7a85e9544bc4c6f12d415e728
@@ -2977,7 +3204,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 7fbdc1e30c11e04a93d30014b13151c1
     GuidInternal: 
-    m_lastTime: -8584272388829213125
+    m_lastTime: -8584271640138037717
     List:
     - name: Ground_Material
       guid: bb19ba31976ecd4bac6fc3f5eb0f3d2c
@@ -3058,6 +3285,56 @@ MonoBehaviour:
         - ElementName: Ground_Material_Wood
           ObjectType: 10
           guid: 9733759fc114784cb37a0cf5ca6c3d0d
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
+    - name: Suppression
+      guid: 9c5d8851d9085b4c8f99acb8e765fe1f
+      id: 3027235562
+      PathAndIcons:
+      - ElementName: Switches
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 7fbdc1e30c11e04a93d30014b13151c1
+      - ElementName: Suppression
+        ObjectType: 11
+        guid: 9c5d8851d9085b4c8f99acb8e765fe1f
+      Path: Switches\Default Work Unit\Suppression
+      values:
+      - name: Not_Suppressed
+        guid: e15e5cd665d72745bc5ce34574a897e7
+        id: 2356204469
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 7fbdc1e30c11e04a93d30014b13151c1
+        - ElementName: Suppression
+          ObjectType: 11
+          guid: 9c5d8851d9085b4c8f99acb8e765fe1f
+        - ElementName: Not_Suppressed
+          ObjectType: 10
+          guid: e15e5cd665d72745bc5ce34574a897e7
+      - name: Suppressed
+        guid: 364cdefcb97d1a4c80d5a2877b88f03d
+        id: 614660099
+        PathAndIcons:
+        - ElementName: Switches
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 7fbdc1e30c11e04a93d30014b13151c1
+        - ElementName: Suppression
+          ObjectType: 11
+          guid: 9c5d8851d9085b4c8f99acb8e765fe1f
+        - ElementName: Suppressed
+          ObjectType: 10
+          guid: 364cdefcb97d1a4c80d5a2877b88f03d
       ValueGuids: []
       ValueIcons: []
       valuesInternal: []

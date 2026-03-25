@@ -1,0 +1,49 @@
+{
+ "SoundBanksInfo": {
+  "Platform": "Mac",
+  "BasePlatform": "Mac",
+  "SchemaVersion": "16",
+  "SoundBankVersion": "154",
+  "SoundBanks": [
+   {
+    "Id": "2926811462",
+    "Type": "Bus",
+    "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+    "Language": "SFX",
+    "Hash": "{F80E5B13-E046-9C25-1B0D-129240A1F23A}",
+    "ObjectPath": "World_Small_Reverb",
+    "ShortName": "World_Small_Reverb",
+    "Path": "Bus/World_Small_Reverb.bnk",
+    "Plugins": {
+     "ShareSets": [
+      {
+       "Id": "2995775460",
+       "Name": "Room_Small",
+       "ObjectPath": "\\Effects\\Factory Effects\\RoomVerb\\Rooms\\Room_Small",
+       "GUID": "{577F1466-A63B-47F7-98BD-C56E433F8B5D}",
+       "LibName": "Wwise RoomVerb",
+       "LibId": "7733251"
+      }
+     ]
+    },
+    "AuxBusses": [
+     {
+      "Id": "2926811462",
+      "Name": "World_Small_Reverb",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Small_Reverb",
+      "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
+      "Color": "13",
+      "PluginRefs": {
+       "ShareSets": [
+        {
+         "Id": "2995775460"
+        }
+       ]
+      }
+     }
+    ]
+   }
+  ],
+  "FileHash": "{C6994C0B-4DBF-2C50-A164-4FFBB2A8C62F}"
+ }
+}
