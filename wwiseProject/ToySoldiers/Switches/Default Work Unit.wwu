@@ -11,6 +11,12 @@
 						<Switch Name="Ground_Material_Wood" ID="{9F753397-14C1-4C78-B37A-0CF5CA6C3D0D}"/>
 					</ChildrenList>
 				</SwitchGroup>
+				<SwitchGroup Name="Suppression" ID="{51885D9C-08D9-4C5B-8F99-ACB8E765FE1F}">
+					<ChildrenList>
+						<Switch Name="Suppressed" ID="{FCDE4C36-7DB9-4C1A-80D5-A2877B88F03D}"/>
+						<Switch Name="Not_Suppressed" ID="{D65C5EE1-D765-4527-BC5C-E34574A897E7}"/>
+					</ChildrenList>
+				</SwitchGroup>
 			</ChildrenList>
 		</WorkUnit>
 	</Switches>
