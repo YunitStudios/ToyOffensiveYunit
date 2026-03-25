@@ -10,7 +10,7 @@
     "Type": "User",
     "GUID": "{701ECBBD-9C7B-4030-8CDB-749EE5D1C7B9}",
     "Language": "SFX",
-    "Hash": "{6D66CDDE-C64C-2952-3733-4C0321BC1756}",
+    "Hash": "{0941742F-6626-9AEB-202E-179C35198C69}",
     "ObjectPath": "Init",
     "ShortName": "Init",
     "Path": "Init.bnk",
@@ -157,9 +157,9 @@
       },
       "AuxBusRefs": [
        {
-        "Id": "1153822417",
-        "Name": "World_Weapon_Reverb",
-        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Weapon_Reverb",
+        "Id": "2926811462",
+        "Name": "World_Small_Reverb",
+        "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Small_Reverb",
         "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
         "Color": "13"
        }
@@ -308,9 +308,9 @@
       }
      },
      {
-      "Id": "1153822417",
-      "Name": "World_Weapon_Reverb",
-      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Weapon_Reverb",
+      "Id": "2926811462",
+      "Name": "World_Small_Reverb",
+      "ObjectPath": "\\Master-Mixer Hierarchy\\Default Work Unit\\Master Audio Bus\\Sound_Effects\\World_Small_Reverb",
       "GUID": "{52610B04-3008-4CDD-B6F5-A6C96CD3700D}",
       "Color": "13",
       "PluginRefs": {
@@ -352,6 +352,26 @@
      }
     ],
     "SwitchGroups": [
+     {
+      "Id": "3027235562",
+      "Name": "Suppression",
+      "ObjectPath": "\\Switches\\Default Work Unit\\Suppression",
+      "GUID": "{51885D9C-08D9-4C5B-8F99-ACB8E765FE1F}",
+      "Switches": [
+       {
+        "Id": "614660099",
+        "Name": "Suppressed",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Suppression\\Suppressed",
+        "GUID": "{FCDE4C36-7DB9-4C1A-80D5-A2877B88F03D}"
+       },
+       {
+        "Id": "2356204469",
+        "Name": "Not_Suppressed",
+        "ObjectPath": "\\Switches\\Default Work Unit\\Suppression\\Not_Suppressed",
+        "GUID": "{D65C5EE1-D765-4527-BC5C-E34574A897E7}"
+       }
+      ]
+     },
      {
       "Id": "3539622648",
       "Name": "Ground_Material",
@@ -864,6 +884,6 @@
     ]
    }
   ],
-  "FileHash": "{3062165D-0DFE-33E8-6E8B-FFC9B05C5EE5}"
+  "FileHash": "{794F5964-44FA-C29B-9D82-6EB167DA1AB9}"
  }
 }
