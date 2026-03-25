@@ -93,6 +93,8 @@ public class AIStateMachine : MonoBehaviour
     public static Action<bool> OnFreezeAllAI;
     private bool isFrozen;
     public bool IsFrozen => isFrozen;
+    private bool isThreatFound;
+    public bool  IsThreatFound => isThreatFound;
 
     // Sets starting states for AI 
     void Awake()
@@ -179,6 +181,16 @@ public class AIStateMachine : MonoBehaviour
     // function to change state
     public void ChangeState(AIState newState)
     {
+        agent.isStopped = false;
+        if (isThreatFound)
+        {
+            if (newState is EvadeState)
+            {
+                currentState = newState;
+            }
+            return;
+        }
+
         if (newState is PatrolState)
         {
             CommanderController commander = GetComponent<CommanderController>();
@@ -378,7 +390,13 @@ public class AIStateMachine : MonoBehaviour
     
     public void ThreatFound(ThrowableTemplate grenade)
     { 
+        isThreatFound = true;
         ChangeState(new EvadeState(this, agent, grenade.transform, vision.player));
+    }
+
+    public void LostThreat()
+    {
+        isThreatFound = false;
     }
 
     public void SetTypeToPatrol()
