@@ -122,6 +122,9 @@ public class Weapon
             case WeaponStat.MassKG:
                 weaponData.MassKG = ApplyFloat(weaponData.MassKG, mod);
                 break;
+            case WeaponStat.Noise:
+                weaponData.SoundLoudnessMultiplier *= mod.Value;
+                break;
         }
     }
 

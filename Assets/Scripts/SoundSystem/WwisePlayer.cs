@@ -31,7 +31,51 @@ namespace SoundSystem
             // check if we should use the spatial cue for AI hearing
             if (SoundData.MaxHearingRadius > 0 && SoundData.BaseLoudness > 0)
             {
-                _spatialAudioCue.PlayCue(this, SoundData, transform.position);
+                _spatialAudioCue.PlayCue(this, SoundData.MaxHearingRadius, SoundData.BaseLoudness, transform.position);
+            }
+            
+            // this is a bodge but if sounds are over a level of 5 loudness its a gunshot so just pray that never gets set below 5
+            if(SoundData.BaseLoudness > 5f)
+                AkSoundEngine.SetSwitch("Suppression", "Not_Suppressed", gameObject);
+            
+            // use main listener if 2D, otherwise self-emitting
+            // TODO: see if this actually works and is useful
+            GameObject target = SoundData.Is2D ? Camera.main.gameObject : this.gameObject;
+            
+            // TODO: add more types if needed
+            switch (SoundData.Type)
+            {
+                case SoundType.WwiseEvent:
+                    AkSoundEngine.PostEvent(SoundData.WwiseName, target);
+                    break;
+                case SoundType.WwiseTrigger:
+                    AkSoundEngine.PostTrigger(SoundData.WwiseName, target);
+                    break;
+                default:
+                    Debug.LogWarning("Unsupported SoundType.");
+                    break;
+            }
+        }
+
+        public void PlaySupressedSound(SoundDataSO SoundData, float multiplier)
+        {
+            if (SoundData == null || string.IsNullOrEmpty(SoundData.WwiseName))
+            {
+                Debug.LogWarning("SoundData or WwiseName is not set.");
+                return;
+            }
+            
+            // check if we should use the spatial cue for AI hearing
+            if (SoundData.MaxHearingRadius > 0 && SoundData.BaseLoudness > 0)
+            {
+                if (multiplier != 1f)
+                    AkSoundEngine.SetSwitch("Suppression", "Suppressed", gameObject);
+                else
+                {
+                    AkSoundEngine.SetSwitch("Suppression", "Not_Suppressed", gameObject);
+                }
+                _spatialAudioCue.PlayCue(this, SoundData.MaxHearingRadius * multiplier, SoundData.BaseLoudness * multiplier, transform.position);
+                
             }
             
             // use main listener if 2D, otherwise self-emitting

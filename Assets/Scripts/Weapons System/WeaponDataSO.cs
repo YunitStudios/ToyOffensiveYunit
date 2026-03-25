@@ -69,6 +69,7 @@ public class WeaponDataSO : ScriptableObject, ILoadout
     public List<AttachmentDataSO> AttachmentSOs = new();
 
     [Header("Sound pack")] public WeaponSoundPackSO soundPack;
+    public float SoundLoudnessMultiplier = 1f;
 
     public enum FireModes
     {
@@ -101,6 +102,7 @@ public class WeaponDataSO : ScriptableObject, ILoadout
         AimCameraType = other.AimCameraType;
         AttachmentSOs = other.AttachmentSOs;
         soundPack = other.soundPack;
+        SoundLoudnessMultiplier = other.SoundLoudnessMultiplier;
     }
 
     public string GetDisplayName => DisplayName;

@@ -269,9 +269,20 @@ public class WeaponsSystem : MonoBehaviour
         
         currentWeapon.Fire();
         
-        if(wwisePlayer is not null)
-            wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.Gunshot);
-        
+        if (wwisePlayer is not null)
+        {
+            if (currentWeapon.ModifiedWeaponData.SoundLoudnessMultiplier != 1f)
+            {
+                // if loudness is multiplied meaning a supressor or something
+                if(wwisePlayer is not null)
+                    wwisePlayer.PlaySupressedSound(currentWeapon.ModifiedWeaponData.soundPack.Gunshot, currentWeapon.ModifiedWeaponData.SoundLoudnessMultiplier);
+            }
+            else
+            {
+                wwisePlayer.PlaySound(currentWeapon.ModifiedWeaponData.soundPack.Gunshot);
+            }
+        }
+
         onWeaponFired?.Invoke();
     }
 
