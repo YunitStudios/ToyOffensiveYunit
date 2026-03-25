@@ -3,6 +3,8 @@ using EditorAttributes;
 using Newtonsoft.Json;
 using SoundSystem;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.SceneManagement;
 
 public class SettingsManager : MonoBehaviour
@@ -26,6 +28,8 @@ public class SettingsManager : MonoBehaviour
     public float GetSensitivityValue => Mathf.Lerp(SensitivityRange.x, SensitivityRange.y, playerSettings.sensitivity/100);
     [field: SerializeField] public Vector2 BrightnessRange = new(0.5f, 1.5f);
     public float GetBrightnessValue => Mathf.Lerp(BrightnessRange.x, BrightnessRange.y, playerSettings.brightness/100);
+    
+    float currentScale = 100f;
 
 
     private void Awake()
@@ -40,6 +44,14 @@ public class SettingsManager : MonoBehaviour
         // DontDestroyOnLoad(gameObject);
         
 
+    }
+
+    private void Start()
+    {
+        DynamicResolutionHandler.SetDynamicResScaler(
+            () => currentScale,
+            DynamicResScalePolicyType.ReturnsPercentage
+        );
     }
 
     private void OnEnable()
@@ -103,16 +115,22 @@ public class SettingsManager : MonoBehaviour
     
     public void SetGameQuality(QualitySettingValue type)
     {
+        var hdCam = Camera.main.GetComponent<HDAdditionalCameraData>();
+        hdCam.allowDynamicResolution = true;
+        
         switch (type)
         {
             case QualitySettingValue.Low:
                 QualitySettings.SetQualityLevel(2, true);
+                currentScale = 60f;
                 break;
             case QualitySettingValue.Balanced:
                 QualitySettings.SetQualityLevel(1, true);
+                currentScale = 100f;
                 break;
             case QualitySettingValue.High:
                 QualitySettings.SetQualityLevel(0, true);
+                currentScale = 100f;
                 break;
         }
     }

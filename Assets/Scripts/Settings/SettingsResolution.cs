@@ -11,7 +11,7 @@ public class SettingsResolution : MonoBehaviour
     private List<Resolution> filteredResolutions;
     private int currentResolutionIndex = 0;
 
-void Start()
+    void Start()
     {
         Resolution[] allResolutions = Screen.resolutions;
         filteredResolutions = new List<Resolution>();
@@ -19,10 +19,20 @@ void Start()
         
         resolutionDropdown.ClearOptions();
 
-        // Create set of all unique resolutions available
+        float targetAspect = (float)Screen.currentResolution.width / Screen.currentResolution.height;
+        float tolerance = 0.01f;
+
+        // Create set of all unique resolutions available (filtered by aspect)
         for (int i = 0; i < allResolutions.Length; i++)
         {
+            float aspect = (float)allResolutions[i].width / allResolutions[i].height;
+
+            // Filter by display aspect ratio
+            if (Mathf.Abs(aspect - targetAspect) > tolerance)
+                continue;
+
             string resKey = allResolutions[i].width + "x" + allResolutions[i].height;
+
             if (!seenResolutions.Contains(resKey))
             {
                 filteredResolutions.Add(allResolutions[i]);
@@ -38,7 +48,6 @@ void Start()
         
         List<string> options = new List<string>();
         
-        
         int savedWidth = settings.resolutionWidth;
         int savedHeight = settings.resolutionHeight;
 
@@ -47,13 +56,11 @@ void Start()
         {
             options.Add(filteredResolutions[i].width + "x" + filteredResolutions[i].height);
 
-            // Find current resolution set in settings
             if (filteredResolutions[i].width == savedWidth && 
                 filteredResolutions[i].height == savedHeight)
             {
                 currentResolutionIndex = i;
             }
-            // Or check if it matches the current resolution
             else if (savedWidth == 0 && 
                      filteredResolutions[i].width == Screen.currentResolution.width && 
                      filteredResolutions[i].height == Screen.currentResolution.height)
