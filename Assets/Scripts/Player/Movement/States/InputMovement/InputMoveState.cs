@@ -133,7 +133,7 @@ public abstract class InputMoveState : MovementState
             Settings.MaxSpeed, 
             horizontalVelocity.magnitude, 
             input,
-            stateMachine.InputController.IsSprinting,
+            stateMachine.CurrentState is SprintingState,
             stateMachine.SprintingSettings.SprintSpeedMultiplier,
             Settings.MoveAnimSpeedRange);
 
@@ -178,14 +178,29 @@ public abstract class InputMoveState : MovementState
 
     public override void CheckTransitions()
     {
-        if (stateMachine.ClimbingState.CanInitiateClimb() && stateMachine.ClimbingState.CanEnter() && stateMachine.InputController.FrameMove.y > 0f)
+        bool canEnterClimb = stateMachine.ClimbingState.CanInitiateClimb() && stateMachine.ClimbingState.CanEnter();
+        if (canEnterClimb)
         {
-            SwitchState(stateMachine.ClimbingState);
+            bool autoClimb = stateMachine.GameSettings.autoClimb;
+            bool climbInput = autoClimb ? 
+                // If auto climbing, just check for forward input
+                stateMachine.InputController.FrameMove.y > 0f :
+                // Regular climbing uses jump input
+                stateMachine.InputController.JumpHeld;
+            
+            if(climbInput)
+                SwitchState(stateMachine.ClimbingState);
+            
+            if(!climbInput && !autoClimb)
+                ClimbingPromptUI.OnTogglePrompt?.Invoke(true);
         }
+        else
+            ClimbingPromptUI.OnTogglePrompt?.Invoke(false);
+        
         if (CanJump && stateMachine.InputController.JumpHeld && currentAirTime <= Settings.CoyoteTime)
         {
             // Set jumping state multiplier to current speed multiplier
-            stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier);
+            stateMachine.JumpingState.SetSpeedMultiplier(GetSpeedMultiplier, stateMachine.CurrentState is SprintingState);
             SwitchState(stateMachine.JumpingState);
         }
 

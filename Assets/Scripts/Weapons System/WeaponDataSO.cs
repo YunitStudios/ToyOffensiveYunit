@@ -15,7 +15,7 @@ public class WeaponDataSO : ScriptableObject, ILoadout
 
     public Sprite WeaponSprite;
     public Sprite WeaponSpriteWhite;
-
+    public AnimatorOverrideController animationController;
 
     [Header("Core stats")]
     [Tooltip("The weapons maximum fire rate in rounds per minute. It also acts as a limit for semi auto firing speed")]
@@ -68,6 +68,9 @@ public class WeaponDataSO : ScriptableObject, ILoadout
     
     public List<AttachmentDataSO> AttachmentSOs = new();
 
+    [Header("Sound pack")] public WeaponSoundPackSO soundPack;
+    public float SoundLoudnessMultiplier = 1f;
+
     public enum FireModes
     {
         Full,
@@ -98,6 +101,8 @@ public class WeaponDataSO : ScriptableObject, ILoadout
         Attachments = other.Attachments;
         AimCameraType = other.AimCameraType;
         AttachmentSOs = other.AttachmentSOs;
+        soundPack = other.soundPack;
+        SoundLoudnessMultiplier = other.SoundLoudnessMultiplier;
     }
 
     public string GetDisplayName => DisplayName;

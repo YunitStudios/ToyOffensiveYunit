@@ -81,9 +81,16 @@ public class LoadoutChooserUI : MonoBehaviour
 
     }
 
-    public void SetNewLoadoutValue(ILoadout loadoutValue)
+    public void SetNewLoadoutValue(ILoadout loadoutValue, bool alreadySelected = false)
     {
-        if(loadoutValue is WeaponDataSO weapon)
+
+        popup.Hide();
+
+        // Dont change anything if this weapon is already selected
+        if (alreadySelected)
+            return;
+
+        if (loadoutValue is WeaponDataSO weapon)
         {
             if (slotType == SlotTypes.PrimaryWeapon)
                 GameManager.PlayerData.SetStartingPrimaryWeapon(weapon);
@@ -98,7 +105,6 @@ public class LoadoutChooserUI : MonoBehaviour
                 GameManager.PlayerData.SetStartingSecondaryAttachment(attachment);
         }
         
-        popup.Hide();
         
         Refresh();
     }

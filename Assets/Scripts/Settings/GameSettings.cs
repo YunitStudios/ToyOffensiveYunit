@@ -13,6 +13,7 @@ public class GameSettings : ScriptableObject
     [JsonProperty] public bool toggleADS;
     [JsonProperty] public bool inverseLook;
     [JsonProperty] [Range(0,0.4f)] public float deadzone;
+    [JsonProperty] public bool autoClimb;
 
     [Header("Video")] 
     [JsonProperty] public int resolutionWidth = 1920;
@@ -20,12 +21,13 @@ public class GameSettings : ScriptableObject
     [JsonProperty] public bool fullScreen = true;
     [JsonProperty] [Range(40,90)] public float fov = 60;
     [JsonProperty] [Range(0,100)] public float brightness = 50;
-    [JsonProperty] public QualitySettings quality = QualitySettings.Balanced;
+    [JsonProperty] public QualitySettingValue quality = QualitySettingValue.Balanced;
     [JsonProperty] public bool motionBlur = false;
     
     [Header("Audio")]
     [JsonProperty] [Range(0, 100)] public float masterVolume;
-    [JsonProperty] [Range(0, 100)] public float musicVolume;
+    [JsonProperty] [Range(0, 100)] public float worldVolume;
+    [JsonProperty] [Range(0, 100)] public float nonWorldVolume;
     
     [Header("Accessibility")]
     [JsonProperty] public bool cameraShake = true;
@@ -49,7 +51,8 @@ public class GameSettings : ScriptableObject
         a.motionBlur = b.motionBlur;
         
         a.masterVolume = b.masterVolume;
-        a.musicVolume = b.musicVolume;
+        a.worldVolume = b.worldVolume;
+        a.nonWorldVolume = b.nonWorldVolume;
         
         a.cameraShake = b.cameraShake;
         a.colorBlindMode = b.colorBlindMode;
@@ -59,12 +62,11 @@ public class GameSettings : ScriptableObject
 
 }
 
-public enum QualitySettings
+public enum QualitySettingValue
 {
     High,
     Balanced,
-    Low,
-    Ugly
+    Low
 }
 
 public enum ColorBlindType

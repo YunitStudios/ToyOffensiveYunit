@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <WwiseDocument Type="WorkUnit" ID="{E3C1BD7F-110C-4AE0-93D3-0014B13151C1}" SchemaVersion="123">
 	<Switches>
-		<WorkUnit Name="Default Work Unit" ID="{E3C1BD7F-110C-4AE0-93D3-0014B13151C1}" PersistMode="Standalone"/>
+		<WorkUnit Name="Default Work Unit" ID="{E3C1BD7F-110C-4AE0-93D3-0014B13151C1}" PersistMode="Standalone">
+			<ChildrenList>
+				<SwitchGroup Name="Ground_Material" ID="{31BA19BB-6E97-4BCD-AC6F-C3F5EB0F3D2C}">
+					<ChildrenList>
+						<Switch Name="Ground_Material_Dirt" ID="{C7592B4B-019C-4140-95C5-636846D0486B}"/>
+						<Switch Name="Ground_Material_Fabric" ID="{9524014B-174B-4A52-8A98-40066306B90C}"/>
+						<Switch Name="Ground_Material_Metal" ID="{AFAC6419-BD55-4E0B-BC55-A59D08AC5934}"/>
+						<Switch Name="Ground_Material_Wood" ID="{9F753397-14C1-4C78-B37A-0CF5CA6C3D0D}"/>
+					</ChildrenList>
+				</SwitchGroup>
+				<SwitchGroup Name="Suppression" ID="{51885D9C-08D9-4C5B-8F99-ACB8E765FE1F}">
+					<ChildrenList>
+						<Switch Name="Suppressed" ID="{FCDE4C36-7DB9-4C1A-80D5-A2877B88F03D}"/>
+						<Switch Name="Not_Suppressed" ID="{D65C5EE1-D765-4527-BC5C-E34574A897E7}"/>
+					</ChildrenList>
+				</SwitchGroup>
+			</ChildrenList>
+		</WorkUnit>
 	</Switches>
 </WwiseDocument>

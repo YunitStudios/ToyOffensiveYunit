@@ -4,6 +4,7 @@ using EditorAttributes;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using PrimeTween;
+using SoundSystem;
 using TMPro;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -15,7 +16,6 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
     [SerializeField, ShowField(nameof(NeedsTransform))] private RectTransform selectableTransform;
     [SerializeField, ShowField(nameof(NeedsImage))] private Image selectableImage;
     [SerializeField, ShowField(nameof(NeedsText))] private TextMeshProUGUI selectableText;
-    //[SerializeField] private AudioEventSO confirmSound;
 
     [Title("\n<b><color=#ffd180>Attributes", 15, 5, false)] 
     [SerializeField] private SelectableAnimateType animateType;
@@ -87,9 +87,6 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
         buttonOffset = selectableTransform.localPosition;
         if (selectableText)
             defaultTextColor = selectableText.color;
-        
-        if(selectable is Button btn)
-            btn.onClick.AddListener(PlayConfirmSound);
     }
 
     void OnDestroy()
@@ -106,8 +103,6 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
     {
         if (!CanClick)
             return;
-        
-        //TryPlaySound(inSoundName);
         
         if(value)
             TriggerDown();
@@ -141,7 +136,7 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
     {
         if (!CanClick)
             return;
-
+        
         StartCoroutine(nameof(TriggerSequence));
     }
 
@@ -162,11 +157,6 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
     public void OnDeselect(BaseEventData eventData)
     {
         TryHover(false);
-    }
-    
-    private void PlayConfirmSound()
-    {
-        //confirmSound?.PlayOneShot();
     }
 
     private IEnumerator TriggerSequence()
@@ -237,11 +227,4 @@ public class AnimateSelectable : MonoBehaviour, IPointerDownHandler, IPointerUpH
             Tween.Color(selectableText, defaultTextColor, textColorOutLength, Ease.Default, 1, CycleMode.Restart, 0f, 0f, true);
         }
     }
-    
-    private void TryPlaySound(string soundName)
-    {
-        //if(playSound)
-        //    AudioManager.PlayOneShot(AudioManager.GetEvent(soundName));
-    }
-    
 }

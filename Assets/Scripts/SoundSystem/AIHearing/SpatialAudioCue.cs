@@ -7,20 +7,16 @@ namespace SoundSystem
         private static Collider[] _overlapBuffer = new Collider[32];
         private static LayerMask _hearingLayerMask;
 
-        public void PlayCue(WwisePlayer player, SoundDataSO SoundData, Vector3 position)
+        public void PlayCue(WwisePlayer player, float MaxHearingRadius, float BaseLoudness, Vector3 position)
         {
             _hearingLayerMask = LayerMask.GetMask("AI_Hearing");
             
-            // first play the sound using the wwise player as you normally would
-            player.PlaySound(SoundData);
-            
-            // get the loudness from the SounDataSO for the max radius
-            float radius = SoundData.MaxHearingRadius;
+            // get the loudness from the SoundDataSO for the max radius
             
             // do the sphere call
             int hitCount = Physics.OverlapSphereNonAlloc(
                 position,
-                radius,
+                MaxHearingRadius,
                 _overlapBuffer,
                 _hearingLayerMask
             );
@@ -35,12 +31,12 @@ namespace SoundSystem
                     reciever.OnHeardSound(new SoundStimulus
                     {
                         position = position,
-                        radius = radius,
-                        baseLoudness = SoundData.BaseLoudness,
+                        radius = MaxHearingRadius,
+                        baseLoudness = BaseLoudness,
+                        source = player.transform.root
                     });
                 }
             }
-            
         }
     }
 }

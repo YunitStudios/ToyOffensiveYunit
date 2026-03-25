@@ -20,7 +20,7 @@ public class AISoundTester : MonoBehaviour
         {
             Debug.Log(wwisePlayer);
             Debug.Log(soundData);
-            cue.PlayCue(wwisePlayer, soundData, transform.position);
+            cue.PlayCue(wwisePlayer, soundData.MaxHearingRadius, soundData.BaseLoudness, transform.position);
         }
     }
 }

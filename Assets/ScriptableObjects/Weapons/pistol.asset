@@ -16,16 +16,17 @@ MonoBehaviour:
   DisplayName: Pistol
   WeaponSprite: {fileID: 21300000, guid: 0453dd0e86a18db4c8c713b180f242c6, type: 3}
   WeaponSpriteWhite: {fileID: 21300000, guid: a6cfa5ee356079d4da6b387df2f95ee7, type: 3}
+  animationController: {fileID: 22100000, guid: 7780f169a0c554845aff92638ddd77c8, type: 2}
   FireRateRPM: 240
   Damage: 15
   SupportedFireModes: 01000000
   CurrentFireMode: 0
   MagSize: 15
-  SecondaryAmmo: 0
+  SecondaryAmmo: 1
   ReloadTime: 1.5
   BaseSpread: 0
-  HalfSpread: 4
-  MaxSpread: 6
+  HalfSpread: 1.3
+  MaxSpread: 3.2
   ShotQuantity: 1
   ShotSpread: 0
   IsPhysicsBased: 1
@@ -36,3 +37,5 @@ MonoBehaviour:
   WeaponPrefab: {fileID: 0}
   AimCameraType: 1
   AttachmentSOs: []
+  soundPack: {fileID: 11400000, guid: 59873c0fa9a06f442a7635bce6e97db9, type: 2}
+  SoundLoudnessMultiplier: 1

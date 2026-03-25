@@ -3,6 +3,7 @@ using EditorAttributes;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 public class Health : MonoBehaviour, IObjectiveTarget
 {
@@ -15,8 +16,9 @@ public class Health : MonoBehaviour, IObjectiveTarget
     [Tooltip("Delay before you can regenerate health after taking damage")]
     [SerializeField, ShowField(nameof(shouldRegen))] private float regenMaxWait;
 
+    [FormerlySerializedAs("onTakeDamage")]
     [Header("Input Events")] 
-    [SerializeField] private FloatEventChannelSO onTakeDamage;
+    [SerializeField] private FloatEventChannelSO onHealthAdjust;
     
     [Header("Output Events")] 
     [Tooltip("Invoked if the damage dealing is successful")]
@@ -54,14 +56,14 @@ public class Health : MonoBehaviour, IObjectiveTarget
 
     private void OnEnable()
     {
-        if(onTakeDamage)
-            onTakeDamage.OnEventRaised += TakeDamage;
+        if(onHealthAdjust)
+            onHealthAdjust.OnEventRaised += AdjustHealth;
     }
 
     private void OnDisable()
     {
-        if(onTakeDamage)
-            onTakeDamage.OnEventRaised -= TakeDamage;
+        if(onHealthAdjust)
+            onHealthAdjust.OnEventRaised -= AdjustHealth;
     }
 
     protected virtual void Awake()
@@ -90,24 +92,28 @@ public class Health : MonoBehaviour, IObjectiveTarget
     }
     public void DealDamage(float damage, out bool didDie)
     {
-        TakeDamage(damage);
+        AdjustHealth(damage);
 
         didDie = CurrentHealth <= 0;
     }
 
-    private void TakeDamage(float damage)
+    private void AdjustHealth(float damage)
     {
         if (IsInvulnerable)
             return;
         
-        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, maxHealth);
+        CurrentHealth = Mathf.Clamp(CurrentHealth - damage, -1, maxHealth);
         
-        onDamageTaken?.Invoke();
+        // If taken damage and not dealed
+        if(damage > 0)
+        {
+            onDamageTaken?.Invoke();
 
-        regenWait = regenMaxWait;
+            regenWait = regenMaxWait;
 
-        if (CurrentHealth <= 0)
-            Die();
+            if (CurrentHealth <= 0)
+                Die();
+        }
     }
 
     protected virtual void Die()
@@ -138,7 +144,7 @@ public class Health : MonoBehaviour, IObjectiveTarget
     [Button]
     private void DebugDealDamage()
     {
-        TakeDamage(debugDamage);
+        AdjustHealth(debugDamage);
     }
 
     public void Heal(float amount)

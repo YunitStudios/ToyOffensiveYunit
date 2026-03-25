@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerDataSO
   PlayerName: 
   maxHealth: 100
-  <StartingPrimaryWeapon>k__BackingField: {fileID: 11400000, guid: 051123a3c846672438a6bedfc06cf76a, type: 2}
+  <StartingPrimaryWeapon>k__BackingField: {fileID: 11400000, guid: 3b1a10df68d91a349a27277e150670ce, type: 2}
   <StartingSecondaryWeapon>k__BackingField: {fileID: 11400000, guid: 93c592b48545bb348929b784514e959a, type: 2}
   StartingPrimaryAttachment: {fileID: 0}
   StartingSecondaryAttachment: {fileID: 0}
@@ -22,24 +22,24 @@ MonoBehaviour:
   maxSecondaryAmmo: 100
   weaponSwapTime: 0.5
   startingThrowable: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
-  maxThrowableAmount: 1
+  maxThrowableAmount: 3
   <CurrentWeaponSlot>k__BackingField: 0
   <PrimaryWeapon>k__BackingField:
-    WeaponData: {fileID: 0}
-    currentAmmoInMag: 30
+    WeaponData: {fileID: 11400000, guid: 3b1a10df68d91a349a27277e150670ce, type: 2}
+    currentAmmoInMag: 1
     FirePoint: {fileID: 0}
     AttachmentSO: {fileID: 0}
   <SecondaryWeapon>k__BackingField:
-    WeaponData: {fileID: 0}
+    WeaponData: {fileID: 11400000, guid: 93c592b48545bb348929b784514e959a, type: 2}
     currentAmmoInMag: 15
     FirePoint: {fileID: 0}
     AttachmentSO: {fileID: 0}
   <StartingThrowable>k__BackingField: {fileID: 11400000, guid: 0ff97ad75db4ebb4ea62d48760d4f4b6, type: 2}
   <PrimaryAttachment>k__BackingField: {fileID: 0}
   <SecondaryAttachment>k__BackingField: {fileID: 0}
-  <NormalAmmoCount>k__BackingField: 290
+  <NormalAmmoCount>k__BackingField: 300
   <SecondaryAmmoCount>k__BackingField: 100
-  <ThrowableCount>k__BackingField: 1
+  <ThrowableCount>k__BackingField: 3
   <CurrentHealth>k__BackingField: 100
   OnCurrentWeaponChanged: {fileID: 11400000, guid: 5f5748b5433deab42807016fae083840, type: 2}
   OnWeaponChanged: {fileID: 11400000, guid: 3823571b0bca2b54a9a9261e91cf2d0c, type: 2}

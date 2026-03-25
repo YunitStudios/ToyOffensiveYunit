@@ -1,6 +1,7 @@
 using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GloryKill : MonoBehaviour, IDamageSource
 {
@@ -21,9 +22,10 @@ public class GloryKill : MonoBehaviour, IDamageSource
     private bool isGloryKilling = false;
     private Transform snapPoint;
     private AIController currentTargetController;
-    [SerializeField] private GameObject gunMesh;
+    [SerializeField] private GameObject gunRoot;
     [SerializeField] private GameObject gloryKillCamera; 
     [SerializeField] private CinemachineSplineCart cinemachineDollyCart;
+    [SerializeField] private LayerMask groundMask;
     private CanvasGroup hud;
     
     
@@ -109,7 +111,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
     {
         playerAnimator.SetBool("IsAiming", false);
         DisableTargetColliders(true);
-        gunMesh.SetActive(false);
+        gunRoot.SetActive(false);
         cinemachineDollyCart.SplinePosition = 0.8f;
         gloryKillCamera.SetActive(true);
         hud.alpha = 0.0f;
@@ -145,7 +147,7 @@ public class GloryKill : MonoBehaviour, IDamageSource
         currentTargetController.TakeDamage(this, 100f);
         currentTarget = null;
         isGloryKilling = false;
-        gunMesh.SetActive(true);
+        gunRoot.SetActive(true);
         cinemachineDollyCart.SplinePosition = 0.8f;
         gloryKillCamera.SetActive(false);
         hud.alpha = 1.0f;
@@ -176,6 +178,33 @@ public class GloryKill : MonoBehaviour, IDamageSource
         {
             col.enabled = !disable;
         }
+    }
+
+    void LateUpdate()
+    {
+        if (!isGloryKilling)
+        {
+            return;
+        }
+        
+        Vector3 position = transform.position;
+        Vector3 rayOrigin = position + Vector3.up * 0.5f;
+        Vector3 rayDirection = Vector3.down * 3f;
+        
+        if (Physics.Raycast(position + Vector3.up * 0.5f, Vector3.down, out RaycastHit hit, 3f, groundMask))
+        {
+            Debug.DrawRay(rayOrigin, rayDirection, Color.green);
+            float heightDifference = position.y - hit.point.y;
+            if (heightDifference <= 1f)
+            {
+                position.y = hit.point.y + 0.06f;
+            }
+        }
+        else
+        {
+            Debug.DrawRay(rayOrigin, rayDirection, Color.red);
+        }
+        transform.position = position;
     }
 
     public Vector3 damageSourcePos { get; set; }

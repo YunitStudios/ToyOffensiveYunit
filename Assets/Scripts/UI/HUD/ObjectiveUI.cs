@@ -10,17 +10,21 @@ public class ObjectiveUI : MonoBehaviour
     private CoreObjectiveSO objective;
     private RectTransform rectTransform;
 
+    private bool isMain;
+
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
     }
 
-    public void Setup(CoreObjectiveSO newObjective)
+    public void Setup(CoreObjectiveSO newObjective, bool isMain)
     {
         if (newObjective == null)
             return;
         objective = newObjective;
+
+        this.isMain = isMain;
         
         objective.OnObjectiveUpdated += UpdateText;
         objective.OnObjectiveCompleted += UpdateText;
@@ -37,7 +41,10 @@ public class ObjectiveUI : MonoBehaviour
 
     private void UpdateText()
     {
-        text.text = objective.GetObjectiveText();
+        string outputText = objective.GetObjectiveText();
+        string prefix = isMain ? "<b><line-height=125%><size=125%>" : "";
+        outputText = prefix + outputText;
+        text.text = outputText;
         text.color = GetColor();
         LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
     }

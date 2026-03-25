@@ -82,18 +82,32 @@ public class InputManager : MonoBehaviour
         settings.defaultDeadzoneMin = playerSettingsDeadzone;
     }
     
-    public void SetSensitivity(float playerSettingsSensitivity)
+    public float GetSensitivity(float playerSettingsSensitivity)
     {
         Vector2 sensRange = SettingsManager.Instance.SensitivityRange;
-        float value = Mathf.Lerp(sensRange.x, sensRange.y, playerSettingsSensitivity/100);
-        lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.x, value);
-        lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.y, value);
+        return Mathf.Lerp(sensRange.x, sensRange.y, playerSettingsSensitivity/100);
+        //lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.x, value);
+        //lookAction.action.ApplyParameterOverride((ScaleVector2Processor p) => p.y, value);
     }
 
     public void ToggleInverted(bool playerSettingsInverseLook)
     {
         lookAction.action.ApplyParameterOverride((InvertVector2Processor p) => p.invertX, playerSettingsInverseLook);
         lookAction.action.ApplyParameterOverride((InvertVector2Processor p) => p.invertY, playerSettingsInverseLook);
+    }
+    
+    public void ToggleInputs(bool value)
+    {
+        if (value)
+        {
+            inputActions.FindActionMap("Movement").Enable();
+            inputActions.FindActionMap("Combat").Enable();
+        }
+        else
+        {
+            inputActions.FindActionMap("Movement").Disable();
+            inputActions.FindActionMap("Combat").Disable();
+        }
     }
 
     #region PlayerInput
@@ -108,6 +122,8 @@ public class InputManager : MonoBehaviour
     public bool CrouchDown { get; private set; }
     public bool CrouchHeld { get; private set; }
     private bool previousCrouchHeld;
+    public bool IsParachuteDown { get; private set; }
+    public bool IsParachuteUp { get; private set; }
     public bool AimHeld { get; private set; }
     private bool previousAimHeld;
     private bool currentAimValue;
@@ -168,9 +184,19 @@ public class InputManager : MonoBehaviour
         CrouchHeld = isPressed;
     }
     
+    private void OnParachuteDown(InputValue inputValue)
+    {
+        IsParachuteDown = inputValue.isPressed;
+    }
+    private void OnParachuteUp(InputValue inputValue)
+    {
+        IsParachuteUp = inputValue.isPressed;
+    }
+    
     private void OnLook(InputValue inputValue)
     {
         FrameLook = inputValue.Get<Vector2>();
+        FrameLook *= GetSensitivity(playerSettings.sensitivity);
     }
     
     private void OnAim(InputValue inputValue)

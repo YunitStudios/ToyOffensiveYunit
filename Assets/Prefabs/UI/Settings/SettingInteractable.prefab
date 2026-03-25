@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3707445661353194877}
-  - component: {fileID: 2393038988563580739}
+  - component: {fileID: 2566105820648973836}
   m_Layer: 0
   m_Name: Interactable
   m_TagString: Untagged
@@ -36,7 +36,7 @@ RectTransform:
   m_AnchoredPosition: {x: 12.5, y: 0}
   m_SizeDelta: {x: -25, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2393038988563580739
+--- !u!114 &2566105820648973836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -51,7 +51,7 @@ MonoBehaviour:
   selectableTransform: {fileID: 0}
   selectableImage: {fileID: 0}
   selectableText: {fileID: 0}
-  animateType: 0
+  animateType: 1
   animateScale: 1
   scaleMax: 1.1
   scaleInLength: 0.1

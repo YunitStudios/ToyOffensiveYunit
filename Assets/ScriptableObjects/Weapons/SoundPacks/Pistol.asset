@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aea4aeb25f2d1564b9bebed1a05a565f, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponSoundPackSO
+  ADS: {fileID: 11400000, guid: 243828503fb2ef74191886479cc7b8e3, type: 2}
+  Equip: {fileID: 11400000, guid: fb8f729f52e9b5b44a8f79c8734897cc, type: 2}
+  Gunshot: {fileID: 11400000, guid: 28407cf1e6e356d46aff31d545d1039d, type: 2}
+  Reload_Empty: {fileID: 11400000, guid: a33ad96a91173464c9a888b8ed77d6ce, type: 2}
+  Reload_Half_Empty: {fileID: 11400000, guid: 4dec6dca7486f834ca8be06e9db3358e, type: 2}

@@ -53,8 +53,14 @@ MonoBehaviour:
   Shootable:
     serializedVersion: 2
     m_Bits: 0
+  HeadshotMultiplier: 1.5
   onBulletHitEnemy: {fileID: 11400000, guid: 9e05fc70d68649e4d8ce18bd50ce01cd, type: 2}
+  onBulletHeadshotEnemy: {fileID: 11400000, guid: 988cacc080b2aa145b9f862de74280a7, type: 2}
+  onBulletHitEnemyPosition: {fileID: 11400000, guid: 38ea0d9920262f14aab6a9df2fedc10f, type: 2}
+  onBulletHeadshotEnemyPosition: {fileID: 11400000, guid: 77e83292a980a6d4194619fa63591817, type: 2}
   onShowHitmarker: {fileID: 11400000, guid: 2bfcc4b2ae03dae43854f2d52d70e182, type: 2}
+  onBulletHitPlayer: {fileID: 11400000, guid: 8f9f19d6c4e74774295e6712f98a0617, type: 2}
+  onBulletHitPlayerPosition: {fileID: 11400000, guid: c309a650a58e4c541b2a5d876d73892b, type: 2}
 --- !u!1001 &3922609075223010228
 PrefabInstance:
   m_ObjectHideFlags: 0

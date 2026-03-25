@@ -31,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 772753468383143852}
   serializedVersion: 2
   m_LocalRotation: {x: 0.24701744, y: -0.6625575, z: 0.24701749, w: 0.6625575}
-  m_LocalPosition: {x: 33.4822, y: 13.226051, z: 20.7312}
+  m_LocalPosition: {x: 67.282196, y: 0.16604996, z: 6.7312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -110,7 +110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ShowDebugText: 0
   ShowCameraFrustum: 1
-  IgnoreTimeScale: 1
+  IgnoreTimeScale: 0
   WorldUpOverride: {fileID: 0}
   ChannelMask: -1
   UpdateMethod: 2
@@ -1105,7 +1105,7 @@ MonoBehaviour:
     Enabled: 1
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 1
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -1131,7 +1131,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-  BlendHint: 0
+  BlendHint: 8
 --- !u!114 &6533268236043277102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,7 +1148,7 @@ MonoBehaviour:
   ShoulderOffset: {x: 0.5, y: 0, z: 0}
   VerticalArmLength: 0
   CameraSide: 1
-  CameraDistance: 2.77
+  CameraDistance: 2.5
   AvoidObstacles:
     Enabled: 0
     CollisionFilter:
@@ -1286,7 +1286,7 @@ Transform:
   m_GameObject: {fileID: 8881046707128177759}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0.42, z: 0.7000005}
+  m_LocalPosition: {x: 0.028, y: 0.532, z: 0.295}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1308,7 +1308,7 @@ MonoBehaviour:
     Enabled: 1
     m_Value: 0
   OutputChannel: 1
-  StandbyUpdate: 2
+  StandbyUpdate: 1
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
@@ -1318,7 +1318,7 @@ MonoBehaviour:
   Lens:
     FieldOfView: 20
     OrthographicSize: 5
-    NearClipPlane: 0.3
+    NearClipPlane: 1
     FarClipPlane: 1000
     Dutch: 0
     ModeOverride: 0
@@ -1334,7 +1334,7 @@ MonoBehaviour:
       Curvature: {x: 2, y: 11}
       BarrelClipping: 0.25
       Anamorphism: 0
-  BlendHint: 0
+  BlendHint: 16
 --- !u!114 &8639915273497600986
 MonoBehaviour:
   m_ObjectHideFlags: 0

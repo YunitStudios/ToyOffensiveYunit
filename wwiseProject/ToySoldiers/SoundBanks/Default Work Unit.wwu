@@ -5,10 +5,16 @@
 			<ChildrenList>
 				<SoundBank Name="Main" ID="{63F8E281-6C68-4EC7-B33A-D4B9071621A5}">
 					<ObjectInclusionList>
-						<ObjectRef Name="Interactive Music Hierarchy" ID="{49FED366-B530-42A8-993B-924873AAB707}" WorkUnitID="{49FED366-B530-42A8-993B-924873AAB707}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Master-Mixer Hierarchy" ID="{2388DAEA-9775-46C6-A2ED-C5222A397756}" WorkUnitID="{2388DAEA-9775-46C6-A2ED-C5222A397756}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Events" ID="{A69BF0FC-D84A-487C-ABDD-56F71CB2A126}" WorkUnitID="{A69BF0FC-D84A-487C-ABDD-56F71CB2A126}" Origin="Manual" Filter="7"/>
-						<ObjectRef Name="Actor-Mixer Hierarchy" ID="{5EA7BBF8-64C0-4A50-8821-A07E8BE21D68}" WorkUnitID="{5EA7BBF8-64C0-4A50-8821-A07E8BE21D68}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="UI" ID="{C9D666BD-3A08-4088-B90F-27D8CE101F80}" WorkUnitID="{C9D666BD-3A08-4088-B90F-27D8CE101F80}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Enemies" ID="{A6960308-8CC6-4145-A90A-8E2AADEC88B1}" WorkUnitID="{A6960308-8CC6-4145-A90A-8E2AADEC88B1}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Non-World" ID="{49BCE9C6-A2F1-4198-A384-E31A0FCD04C2}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Non-World" ID="{6DEA96BC-EF4D-434F-A5E9-F38027E9131F}" WorkUnitID="{B11FE8BF-8DEF-4128-B498-F993B48887BA}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Sound_Effects" ID="{C03A7E61-214F-4354-AA56-9445373691C1}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Player" ID="{102E99B2-5ECC-44CB-9A17-CA1FAAC018B2}" WorkUnitID="{102E99B2-5ECC-44CB-9A17-CA1FAAC018B2}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Gunshots" ID="{F245A4A0-A512-453C-91E1-9ACC074CB7D3}" WorkUnitID="{DFD95A5F-29A5-4149-AD2B-187D0E4A5826}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="World" ID="{D2542BCC-4833-4782-8B5E-4CE744B6287D}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="World" ID="{FACC930A-146E-47B4-95C6-161A5B5CBC9F}" WorkUnitID="{B11FE8BF-8DEF-4128-B498-F993B48887BA}" Origin="Manual" Filter="7"/>
+						<ObjectRef Name="Environment" ID="{7102DC57-1458-4DBC-9882-969F72A96BF3}" WorkUnitID="{7102DC57-1458-4DBC-9882-969F72A96BF3}" Origin="Manual" Filter="7"/>
 					</ObjectInclusionList>
 					<ObjectExclusionList/>
 					<GameSyncExclusionList/>

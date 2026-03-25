@@ -21,7 +21,7 @@ public class NotificationUI : MonoBehaviour
 
     private Queue<NotificationData> currentQueue = new();
 
-    public struct NotificationData
+    public struct NotificationData 
     {
         public string title;
         public string contents;
@@ -60,7 +60,10 @@ public class NotificationUI : MonoBehaviour
     {
         if (canvasFader.IsFading)
             return;
-        
+
+        if (currentQueue.Count == 0)
+            return;
+            
         NotificationData currentData = currentQueue.Dequeue();
         
         notificationTitle.text = currentData.title;
