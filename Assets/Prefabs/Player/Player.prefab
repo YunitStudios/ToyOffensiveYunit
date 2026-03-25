@@ -137,7 +137,7 @@ MonoBehaviour:
       m_Bits: 64
     climbRange: 1.5
     startClimbRangeMultiplier: 0.5
-    climbingVerticalAngleLimits: {x: -40, y: 40}
+    climbingVerticalAngleLimits: {x: -60, y: 60}
     climbingHorizontalAngleLimits: {x: -40, y: 40}
     climbVerticalSpeed: 0
     climbHorizontalSpeed: 1
@@ -146,7 +146,6 @@ MonoBehaviour:
     climbDistanceFromWall: {x: -0.25, y: 1}
     climbDistanceFromWallRange: {x: -40, y: 40}
     climbWidth: 0.15
-    climbingMaxGapDistance: 0.5
     climbingWallLockSpeed: 5
     climbingStartWallLockTime: 0.25
     mainRayNormalizedHeight: 0.6
@@ -326,6 +325,7 @@ MonoBehaviour:
     fovMultiplierAtMaxSpeed: 1.5
     parachutingPlayerRadius: 0.66
     animBlendTime: 0.25
+    wallCheckWidth: 0.5
     aimRecenterSpeed: 3
     aimMaxYawAngle: 60
     parachuteModelTransform: {fileID: 4684514900363490352}
