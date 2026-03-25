@@ -314,7 +314,7 @@
 							<Custom>
 								<Attenuation Name="Ambience Attenuation" ID="{335936E6-6DB4-4471-8DD2-ACE12A84339E}" ShortID="665117029">
 									<PropertyList>
-										<Property Name="RadiusMax" Type="Real64" Value="50"/>
+										<Property Name="RadiusMax" Type="Real64" Value="30"/>
 									</PropertyList>
 									<CurveUsageInfoList>
 										<VolumeDryUsage>
@@ -328,10 +328,10 @@
 															<XPos>0</XPos>
 															<YPos>0</YPos>
 															<Flags>5</Flags>
-															<SegmentShape>Log1</SegmentShape>
+															<SegmentShape>Log3</SegmentShape>
 														</Point>
 														<Point>
-															<XPos>50</XPos>
+															<XPos>30</XPos>
 															<YPos>-200</YPos>
 															<Flags>37</Flags>
 														</Point>
@@ -408,7 +408,6 @@
 						<Sound Name="FridgeHum" ID="{5D250C3A-52BA-42BE-B969-67B898259FAB}" ShortID="128289988">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -437,7 +436,6 @@
 						<Sound Name="FryingPan_Sizzle" ID="{A53EE339-947F-46F4-BEBD-7AB03285F3A9}" ShortID="61467342">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -466,7 +464,6 @@
 						<Sound Name="GasStove" ID="{124599E4-0C3B-45F5-B0F9-DA8157EFA29F}" ShortID="730629248">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -520,7 +517,6 @@
 						<Sound Name="MicrowaveHum" ID="{044CC86B-A5D2-4042-B22E-0AEC58E57E5E}" ShortID="556350964">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -549,7 +545,6 @@
 						<Sound Name="OvenFan" ID="{68402B03-7F9A-4D7B-961C-337DAADB6D12}" ShortID="574714062">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -578,7 +573,6 @@
 						<Sound Name="RadioStatic" ID="{8B49AFDA-EE84-4C72-B0E6-C578EC1FD3B0}" ShortID="22960586">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -607,7 +601,6 @@
 						<Sound Name="TVStatic" ID="{2DD2EC7C-0B12-4FC8-A52D-3C5BF7695187}" ShortID="407676017">
 							<PropertyList>
 								<Property Name="IsLoopingEnabled" Type="bool" Value="True"/>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
 							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
@@ -634,9 +627,6 @@
 							</ActiveSourceList>
 						</Sound>
 						<Sound Name="Sink" ID="{CF2327EE-2EFF-4F62-98CA-3A16389B6376}" ShortID="830005183">
-							<PropertyList>
-								<Property Name="OverridePositioning" Type="bool" Value="True"/>
-							</PropertyList>
 							<ReferenceList>
 								<Reference Name="Attenuation">
 									<ObjectRef Name="Quick_Falloff_Attenuation" ID="{1173C28E-1145-45BE-AC64-CC3C016102A1}" WorkUnitID="{930A2C0E-3972-4FB3-9A87-635C8461A629}"/>
