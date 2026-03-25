@@ -122,7 +122,7 @@ public class SettingsManager : MonoBehaviour
         {
             case QualitySettingValue.Low:
                 QualitySettings.SetQualityLevel(2, true);
-                currentScale = 60f;
+                currentScale = 80f;
                 break;
             case QualitySettingValue.Balanced:
                 QualitySettings.SetQualityLevel(1, true);
