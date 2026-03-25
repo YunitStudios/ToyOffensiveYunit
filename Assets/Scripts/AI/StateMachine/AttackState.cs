@@ -31,6 +31,15 @@ public class AttackState : AIState
         {
             return;
         }
+
+        if (!controller.vision.canSeePlayer)
+        {
+            if (Time.time - controller.vision.lastSeenTime > controller.vision.SearchTimeout)
+            {
+                controller.ChangeState(new SearchState(controller, agent, controller.detection.LastKnownPosition, false));
+                return;
+            }
+        }
         
         coverCheckTime += Time.deltaTime;
         if(coverCheckTime >= controller.CoverCheckDelay)
