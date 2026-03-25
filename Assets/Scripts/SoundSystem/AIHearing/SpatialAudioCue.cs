@@ -11,10 +11,7 @@ namespace SoundSystem
         {
             _hearingLayerMask = LayerMask.GetMask("AI_Hearing");
             
-            // first play the sound using the wwise player as you normally would
-            player.PlaySound(SoundData);
-            
-            // get the loudness from the SounDataSO for the max radius
+            // get the loudness from the SoundDataSO for the max radius
             float radius = SoundData.MaxHearingRadius;
             
             // do the sphere call
@@ -37,10 +34,10 @@ namespace SoundSystem
                         position = position,
                         radius = radius,
                         baseLoudness = SoundData.BaseLoudness,
+                        source = player.transform.root
                     });
                 }
             }
-            
         }
     }
 }

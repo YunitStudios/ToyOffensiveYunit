@@ -10,6 +10,8 @@ namespace SoundSystem
         [SerializeField] private FootData[] feet;
         [SerializeField] private float footSoundThreshold = 0;
         [SerializeField] private SoundDataSO footstep;
+        
+        private SpatialAudioCue _spatialAudioCue = new SpatialAudioCue();
 
         [Serializable]
         private class FootData
@@ -24,6 +26,12 @@ namespace SoundSystem
             {
                 Debug.LogWarning("SoundData or WwiseName is not set.");
                 return;
+            }
+            
+            // check if we should use the spatial cue for AI hearing
+            if (SoundData.MaxHearingRadius > 0 && SoundData.BaseLoudness > 0)
+            {
+                _spatialAudioCue.PlayCue(this, SoundData, transform.position);
             }
             
             // use main listener if 2D, otherwise self-emitting
