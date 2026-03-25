@@ -4,7 +4,7 @@ public class ThreatDetector : MonoBehaviour
 {
     [SerializeField] private AIStateMachine stateMachine;
     
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (other.TryGetComponent(out ThrowableTemplate grenade))
         {
@@ -17,6 +17,28 @@ public class ThreatDetector : MonoBehaviour
             {
                 stateMachine.ThreatFound(grenade);
             }
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent(out ThrowableTemplate grenade))
+        {
+            if (grenade == null)
+            {
+                stateMachine.LostThreat();
+                return;
+            }
+            
+            if (grenade.Damage <= 0f)
+            {
+                return;
+            }
+        }
+
+        if (stateMachine.CurrentState is EvadeState)
+        {
+            stateMachine.LostThreat();
         }
     }
 }

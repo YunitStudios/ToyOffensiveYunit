@@ -27,6 +27,11 @@ public class AttackState : AIState
     // Moves towards player at them moment, will update with actual enemy logic eventually
     public override void Execute()
     {
+        if (controller.IsThreatFound)
+        {
+            return;
+        }
+        
         coverCheckTime += Time.deltaTime;
         if(coverCheckTime >= controller.CoverCheckDelay)
         {
@@ -54,7 +59,6 @@ public class AttackState : AIState
             
             agent.SetDestination(player.position);
             engaging = true;
-            //RotateTowardsPlayer();
         }
         
         if (engaging)
