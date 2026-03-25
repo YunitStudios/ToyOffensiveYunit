@@ -563,12 +563,15 @@ public class PlayerMovement : StateMachine
         gunRoot.gameObject.SetActive(ShouldDisplayGun);
 
     }
-    
-    public bool IsFacingWall(float distance = 1f)
+
+    public bool IsFacingWall(float distance = 1f, float size = 0f)
     {
         Vector3 origin = Position + Vector3.up * PlayerHeight/2;
         Vector3 direction = Forward;
-        return Physics.Raycast(origin, direction, distance, EnvironmentLayer);
+        if(size == 0)
+            return Physics.Raycast(origin, direction, distance, EnvironmentLayer);
+        else
+            return Physics.SphereCast(origin, size, direction, out _, distance, EnvironmentLayer);
     }
     
     public float GetGroundDistance()

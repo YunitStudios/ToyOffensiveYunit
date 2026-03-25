@@ -59,6 +59,8 @@ public class ParachutingSettings : StateSettings
     public float ParachutingPlayerRadius => parachutingPlayerRadius;
     [SerializeField] private float animBlendTime = 0.25f;
     public float AnimBlendTime => animBlendTime;
+    [SerializeField] private float wallCheckWidth = 0.5f;
+    public float WallCheckWidth => wallCheckWidth;
 
     [Header("Aiming")] 
     [Tooltip("Time to move the camera back to the center when you stop aiming")]
@@ -159,7 +161,7 @@ public class ParachuteState : MovementState
             SwitchState(stateMachine.FallingState);
         
         // If they hit a wall
-        if (stateMachine.IsFacingWall() && stateMachine.ClimbingState.CanClimb())
+        if (stateMachine.IsFacingWall(1, Settings.WallCheckWidth) && stateMachine.ClimbingState.CanClimb())
         {
             SwitchState(stateMachine.ClimbingState);
         }
@@ -297,7 +299,7 @@ public class ParachuteState : MovementState
         
         
         // Check if wall is in the wall
-        if (stateMachine.IsFacingWall(Settings.MinimumDeployDistanceFromWall))
+        if (stateMachine.IsFacingWall(Settings.MinimumDeployDistanceFromWall, Settings.WallCheckWidth))
             return false;
 
         return true;
