@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 9214446757522733775}
   - component: {fileID: 2011471356068254947}
   - component: {fileID: 8906909409100012884}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ColliderMesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,6 +192,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -5050549241949969288, guid: 6b71d8599b725a446a755da6eddaaca1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: -25573428035784853, guid: 6b71d8599b725a446a755da6eddaaca1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: -25573428035784853, guid: 6b71d8599b725a446a755da6eddaaca1, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -262,7 +270,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
