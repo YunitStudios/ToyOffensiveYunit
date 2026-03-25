@@ -281,6 +281,8 @@ public class ClimbingState : MovementState
         isVaulting = false;
         
         stateMachine.SetVisualOffset(Settings.ClimbingVisualOffset, 0.5f);
+        
+        ClimbingPromptUI.OnTogglePrompt?.Invoke(false);
     }
 
     public override void OnExit()

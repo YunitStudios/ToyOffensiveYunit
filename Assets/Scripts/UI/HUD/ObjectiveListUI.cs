@@ -30,16 +30,16 @@ public class ObjectiveListUI : MonoBehaviour
         if (mission == null)
             return;
         
-        CreateObjective(mission.MainObjective);
+        CreateObjective(mission.MainObjective, true);
         
         foreach(var bonus in mission.BonusObjectives)
-            CreateObjective(bonus);
+            CreateObjective(bonus, false);
     }
 
-    private void CreateObjective(CoreObjectiveSO objective)
+    private void CreateObjective(CoreObjectiveSO objective, bool isMain)
     {
         ObjectiveUI newUI = Instantiate(objectiveUIPrefab, objectiveUIRoot).GetComponent<ObjectiveUI>();
-        newUI.Setup(objective);
+        newUI.Setup(objective, isMain);
         objectiveUIs.Add(newUI);
     }
 }

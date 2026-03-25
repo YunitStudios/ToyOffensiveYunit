@@ -221,14 +221,14 @@ public class PlayerMovement : StateMachine
 
     private void OnEnable()
     {
-        onTeleportPlayer.OnEventRaised += SetPosition;
+        onTeleportPlayer.OnEventRaised += TeleportPlayer;
         onTeleportPlayer.OnEventRaised += (_) => GameManager.PlayerData?.StoreRotationRootTransform(rotationRoot);
         onTryUnstuck.OnEventRaised += OnTryUnstuck;
     }
 
     private void OnDisable()
     {
-        onTeleportPlayer.OnEventRaised -= SetPosition;
+        onTeleportPlayer.OnEventRaised -= TeleportPlayer;
         onTryUnstuck.OnEventRaised -= OnTryUnstuck;
     }
     private void SetupStates()
@@ -334,6 +334,15 @@ public class PlayerMovement : StateMachine
     {
         frameVelocity += addVelocity;
     }
+
+    public void TeleportPlayer(Vector3 location)
+    {
+        SetPosition(location);
+        
+        // Reset velocity
+        currentVelocity = Vector3.zero;
+    }
+    
     public void SetPosition(Vector3 newPosition)
     {
         if (newPosition == NULL_POSITION)
@@ -345,9 +354,6 @@ public class PlayerMovement : StateMachine
         cc.enabled = false;
         transform.position = newPosition;
         cc.enabled = true;
-        
-        // Reset velocity
-        currentVelocity = Vector3.zero;
     }
     public void SetRotation(Quaternion newRotation)
     {
@@ -557,12 +563,15 @@ public class PlayerMovement : StateMachine
         gunRoot.gameObject.SetActive(ShouldDisplayGun);
 
     }
-    
-    public bool IsFacingWall(float distance = 1f)
+
+    public bool IsFacingWall(float distance = 1f, float size = 0f)
     {
         Vector3 origin = Position + Vector3.up * PlayerHeight/2;
         Vector3 direction = Forward;
-        return Physics.Raycast(origin, direction, distance, EnvironmentLayer);
+        if(size == 0)
+            return Physics.Raycast(origin, direction, distance, EnvironmentLayer);
+        else
+            return Physics.SphereCast(origin, size, direction, out _, distance, EnvironmentLayer);
     }
     
     public float GetGroundDistance()
