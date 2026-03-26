@@ -92,8 +92,8 @@ MonoBehaviour:
   tracerSpeed: 200
   physicsProjectilePrefab: {fileID: 1779594140215910652, guid: 99236bb3e982031448498db290581e9f, type: 3}
   target: {fileID: 0}
-  shootCooldownRange: {x: 0.5, y: 1.5}
-  shootPeriodRange: {x: 1, y: 3}
+  shootCooldownRange: {x: 0.5, y: 1.25}
+  shootPeriodRange: {x: 1, y: 2}
   currentShootCooldown: 0
   currentShootPeriod: 0
   wwisePlayer: {fileID: 2071430421454257164}
@@ -458,8 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce69e67d439c7694cb73d54c05b752df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIVision
-  range: 20
-  engagedRange: 40
+  range: 15
+  engagedRange: 30
   FOV: 120
   canSeePlayer: 0
   player: {fileID: 0}
@@ -468,7 +468,7 @@ MonoBehaviour:
     m_Bits: 215
   lastSeenPosition: {x: 0, y: 0, z: 0}
   lastSeenTime: 0
-  searchTimeout: 10
+  searchTimeout: 3
 --- !u!1 &6090131015409632982
 GameObject:
   m_ObjectHideFlags: 0
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc81605fc1bcae9419113dc6784b0028, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AIDetection
-  visionMultiplier: 80
+  visionMultiplier: 70
   hearingMultiplier: 10
   detectionDropPerSecond: 10
   engageThreshold: 100
