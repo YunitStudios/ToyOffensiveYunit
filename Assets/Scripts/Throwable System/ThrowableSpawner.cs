@@ -28,6 +28,9 @@ public class ThrowableSpawner : MonoBehaviour
             rb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         }
 
+        // fixes grenade throw being affected by the player
+        Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Default"), LayerMask.NameToLayer("Throwable"));
+
         // throw the prefab
         Vector3 throwDirection = baseRotation.forward + Vector3.up * 0.2f; // slight arc
         rb.AddForce(throwDirection.normalized * throwForce, ForceMode.VelocityChange);
