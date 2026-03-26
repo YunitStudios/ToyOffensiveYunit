@@ -156,7 +156,7 @@ public class AIStateMachine : MonoBehaviour
         {
             ChangeState(new FleeState(this, agent, vision.player));
         }
-        if (detection.IsDetected && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && enemyType != EnemyType.Target)
+        if (detection.IsDetected && vision.canSeePlayer && !(currentState is AttackState) && !(currentState is MoveToCoverState) && !(currentState is BehindCoverState) && !(currentState is PeekShootState) && enemyType != EnemyType.Target)
         { 
             ChangeState(new AttackState(this, agent, vision.player, false));
         }
