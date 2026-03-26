@@ -35,6 +35,19 @@
 	<GameParameter Name="RTPC_Ducking" ID="{FD6EE0BE-32AA-4FC1-9B9B-4D0F8E9C49E5}"/>
 </PluginData>
 				</Effect>
+				<Effect Name="PistolSuppressedPitch" ID="{9A975370-D10B-4C70-94E3-03CF07F31AD0}" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+					<PropertyList>
+						<Property Name="FilterFrequency" Type="Real32" Value="6171"/>
+						<Property Name="Pitch" Type="Real32" Value="-100"/>
+					</PropertyList>
+				</Effect>
+				<Effect Name="SMGSuppressedPitch" ID="{29296CDB-FF54-45DE-B1A9-D28BDC6AF317}" PluginName="Wwise Pitch Shifter" CompanyID="0" PluginID="136" PluginType="3">
+					<PropertyList>
+						<Property Name="FilterFrequency" Type="Real32" Value="5688"/>
+						<Property Name="FilterType" Type="int32" Value="4"/>
+						<Property Name="Pitch" Type="Real32" Value="-500"/>
+					</PropertyList>
+				</Effect>
 			</ChildrenList>
 		</WorkUnit>
 	</Effects>

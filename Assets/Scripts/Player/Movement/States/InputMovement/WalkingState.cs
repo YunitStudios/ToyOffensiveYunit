@@ -27,7 +27,7 @@ public class WalkingState : InputMoveState
 
     private Tween aimTween;
 
-    public override bool CanAim => !aimTween.isAlive;
+    public override bool CanAim => true;
 
     public override void OnEnter()
     {

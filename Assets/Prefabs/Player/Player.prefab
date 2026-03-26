@@ -1550,11 +1550,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 172689896219428155, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
       propertyPath: m_Layer
-      value: 11
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 172689896219428155, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
       propertyPath: m_TagString
-      value: Torso
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 265689721113715004, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
       propertyPath: m_Layer
@@ -1839,9 +1839,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4594745908039084770, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7893240523664579598}
-    - targetCorrespondingSourceObject: {fileID: 172689896219428155, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2729790245115614982}
   m_SourcePrefab: {fileID: 100100000, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
 --- !u!4 &71222583954635544 stripped
 Transform:
@@ -2197,34 +2194,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 380482735253851482, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
   m_PrefabInstance: {fileID: 3900471036189616938}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3766352025596292625 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 172689896219428155, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}
-  m_PrefabInstance: {fileID: 3900471036189616938}
-  m_PrefabAsset: {fileID: 0}
---- !u!136 &2729790245115614982
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3766352025596292625}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.0006
-  m_Height: 0.0035
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!4 &3934719229329299835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 52829296772411985, guid: 74be30e6d9f46e242bbf742416a5b692, type: 3}

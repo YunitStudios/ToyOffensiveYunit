@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 923824243792988689}
   - component: {fileID: -7189065635646315704}
   - component: {fileID: 5891736485052616173}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: generic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -103,6 +103,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3548e66ca731485da398856e1bc1a9f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundSystem.WwisePlayer
+  playerMovement: {fileID: 0}
+  feet: []
+  footSoundThreshold: 0
+  footstep: {fileID: 0}
 --- !u!114 &5891736485052616173
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1907667334188817200}
   - component: {fileID: -7221980123757695487}
   - component: {fileID: -4059870371993091361}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: frag_grenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -137,6 +137,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Grenade1_prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 732935520500816926, guid: e8ab67e1c76b4e344a2d43d9bc55393b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1072816676875232733, guid: e8ab67e1c76b4e344a2d43d9bc55393b, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 6904359128305828285, guid: e8ab67e1c76b4e344a2d43d9bc55393b, type: 3}
       propertyPath: m_LocalScale.x
       value: 8.844495
@@ -188,6 +196,10 @@ PrefabInstance:
     - target: {fileID: 6904359128305828285, guid: e8ab67e1c76b4e344a2d43d9bc55393b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7911772368505411927, guid: e8ab67e1c76b4e344a2d43d9bc55393b, type: 3}
+      propertyPath: m_Layer
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

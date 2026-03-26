@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 923824243792988689}
   - component: {fileID: 8515347694884642712}
   - component: {fileID: 6315374424925383746}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: flash_grenade
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -128,3 +128,6 @@ MonoBehaviour:
   IsImpactFuse: 0
   Damage: 0
   Radius: 25
+  DetonateParticles: {fileID: 0}
+  wwisePlayer: {fileID: 0}
+  detonationSound: {fileID: 0}
