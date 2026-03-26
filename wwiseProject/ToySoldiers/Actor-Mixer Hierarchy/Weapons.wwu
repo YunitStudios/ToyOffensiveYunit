@@ -638,15 +638,28 @@
 												<ActiveSource Name="Pistol_Gunshot" ID="{6FEC3E21-A069-4BBB-9808-737018F6E51A}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
-										<Sound Name="Pistol_Gunshot_Suppressed" ID="{EF8C6DC0-3A76-4A02-BF7C-74E649F819CC}" ShortID="684648878">
+										<Sound Name="Sniper_Rifle_Gunshot_Suppressed" ID="{C09C535A-FE38-4BE9-A23A-B6C6F3756577}" ShortID="926669886">
+											<PropertyList>
+												<Property Name="3DSpatialization" Type="int16" Value="1"/>
+												<Property Name="Pitch" Type="int32">
+													<ValueList>
+														<Value>-200</Value>
+													</ValueList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-6</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
 													<Custom>
-														<Attenuation Name="Weapons Attenuation" ID="{686BB017-7EF4-48AE-9EB0-E3D9742B80A5}" ShortID="1004211660">
+														<Attenuation Name="GunshotExplosion attenuation" ID="{350E203B-F387-4FE1-B802-19FAE18623BC}" ShortID="67543347">
 															<CurveUsageInfoList>
 																<VolumeDryUsage>
 																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-																		<Curve Name="VolumeDry" ID="{E746BB61-7F02-4544-88DD-A846947DAA38}">
+																		<Curve Name="VolumeDry" ID="{75545F6D-2DB2-4BDD-885C-8310FF52EEE6}">
 																			<PropertyList>
 																				<Property Name="Flags" Type="int32" Value="3"/>
 																			</PropertyList>
@@ -655,6 +668,7 @@
 																					<XPos>0</XPos>
 																					<YPos>0</YPos>
 																					<Flags>5</Flags>
+																					<SegmentShape>Log3</SegmentShape>
 																				</Point>
 																				<Point>
 																					<XPos>100</XPos>
@@ -727,24 +741,26 @@
 													<ObjectRef Name="Default Conversion Settings" ID="{6D1B890C-9826-4384-BF07-C15223E9FB56}" WorkUnitID="{00A79E61-6BD7-4FE8-A649-1ADDB7716ACA}"/>
 												</Reference>
 												<Reference Name="OutputBus">
-													<ObjectRef Name="Weapons_Foley" ID="{F4B67CAD-23DF-4668-A532-857E29880799}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
+													<ObjectRef Name="Weapons_Gunshot" ID="{120BADCC-1FFB-4A3E-9562-D57F34C99DC8}" WorkUnitID="{CF5CA850-B609-45A2-B903-D0644E4C1D0C}"/>
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="Pistol_Gunshot_Suppressed" ID="{9B9C6FC8-BF7D-40F9-B11F-E4A9A62277D3}">
+												<AudioFileSource Name="Sniper_Rifle_Gunshot_Suppressed" ID="{87CEAFDC-CE14-408F-B41F-E9AB8B92B5C5}">
 													<PropertyList>
+														<Property Name="LoopBegin" Type="Real64" Value="0.0789209846356697"/>
 														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-														<Property Name="TrimEnd" Type="Real64" Value="0.252312427802751"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.0789209846356697"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.389617337875217"/>
 													</PropertyList>
 													<Language>SFX</Language>
-													<AudioFile>Pistol_Gunshot_Suppressed.wav</AudioFile>
+													<AudioFile>Sniper_Rifle_Gunshot_Suppressed.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="1003484301"/>
+														<MediaID ID="41427836"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
-												<ActiveSource Name="Pistol_Gunshot_Suppressed" ID="{9B9C6FC8-BF7D-40F9-B11F-E4A9A62277D3}" Platform="Linked"/>
+												<ActiveSource Name="Sniper_Rifle_Gunshot_Suppressed" ID="{87CEAFDC-CE14-408F-B41F-E9AB8B92B5C5}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
@@ -754,14 +770,14 @@
 												<ItemRef Name="Pistol_Gunshot" ID="{1D3B8248-701E-4543-B4CE-B6F97081078B}"/>
 											</GroupingBehavior>
 											<GroupingBehavior>
-												<ItemRef Name="Pistol_Gunshot_Suppressed" ID="{EF8C6DC0-3A76-4A02-BF7C-74E649F819CC}"/>
+												<ItemRef Name="Sniper_Rifle_Gunshot_Suppressed" ID="{C09C535A-FE38-4BE9-A23A-B6C6F3756577}"/>
 											</GroupingBehavior>
 										</GroupingBehaviorList>
 										<GroupingList>
 											<Grouping>
 												<SwitchRef Name="Suppressed" ID="{FCDE4C36-7DB9-4C1A-80D5-A2877B88F03D}"/>
 												<ItemList>
-													<ItemRef Name="Pistol_Gunshot_Suppressed" ID="{EF8C6DC0-3A76-4A02-BF7C-74E649F819CC}"/>
+													<ItemRef Name="Sniper_Rifle_Gunshot_Suppressed" ID="{C09C535A-FE38-4BE9-A23A-B6C6F3756577}"/>
 												</ItemList>
 											</Grouping>
 											<Grouping>
@@ -1162,15 +1178,27 @@
 												<ActiveSource Name="SubMachineGun_Gunshot" ID="{C3015860-8528-42FC-97F5-5C73AA7DE716}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
-										<Sound Name="SubMachineGun_Gunshot_Suppressed" ID="{A83769CD-66E0-4AD0-A4B8-628582320720}" ShortID="988959866">
+										<Sound Name="Sniper_Rifle_Gunshot_Suppressed" ID="{CD33ABAA-49D2-4F5B-8A55-97785282F9CB}" ShortID="552112866">
+											<PropertyList>
+												<Property Name="Pitch" Type="int32">
+													<ValueList>
+														<Value>-100</Value>
+													</ValueList>
+												</Property>
+												<Property Name="Volume" Type="Real64">
+													<ValueList>
+														<Value>-3</Value>
+													</ValueList>
+												</Property>
+											</PropertyList>
 											<ReferenceList>
 												<Reference Name="Attenuation">
 													<Custom>
-														<Attenuation Name="Weapons Attenuation" ID="{DED12B80-4C7A-4B14-BB0C-91881BA1B310}" ShortID="243548004">
+														<Attenuation Name="Weapons Attenuation" ID="{F278333D-1D24-4260-AD8F-1DC9188F82F9}" ShortID="732406005">
 															<CurveUsageInfoList>
 																<VolumeDryUsage>
 																	<CurveUsageInfo Platform="Linked" CurveToUse="Custom">
-																		<Curve Name="VolumeDry" ID="{EF7CDC62-C125-4461-A739-3FFE16492F0D}">
+																		<Curve Name="VolumeDry" ID="{7B714D85-15B6-4C6E-B276-4256A57C7A56}">
 																			<PropertyList>
 																				<Property Name="Flags" Type="int32" Value="3"/>
 																			</PropertyList>
@@ -1255,22 +1283,22 @@
 												</Reference>
 											</ReferenceList>
 											<ChildrenList>
-												<AudioFileSource Name="SubMachineGun_Gunshot_Suppressed" ID="{D30AA4C6-8054-43AC-BD56-C66613CF6E84}">
+												<AudioFileSource Name="Sniper_Rifle_Gunshot_Suppressed" ID="{99B1226B-FF3D-4C06-92CF-DB4F32DB7AD3}">
 													<PropertyList>
-														<Property Name="LoopBegin" Type="Real64" Value="0.0995792407128546"/>
+														<Property Name="LoopBegin" Type="Real64" Value="0.0789209846356697"/>
 														<Property Name="OverrideWavLoop" Type="bool" Value="True"/>
-														<Property Name="TrimBegin" Type="Real64" Value="0.0995792407128546"/>
-														<Property Name="TrimEnd" Type="Real64" Value="0.310439933627938"/>
+														<Property Name="TrimBegin" Type="Real64" Value="0.0789209846356697"/>
+														<Property Name="TrimEnd" Type="Real64" Value="0.389617337875217"/>
 													</PropertyList>
 													<Language>SFX</Language>
-													<AudioFile>SubMachineGun_Gunshot_Suppressed.wav</AudioFile>
+													<AudioFile>Sniper_Rifle_Gunshot_Suppressed.wav</AudioFile>
 													<MediaIDList>
-														<MediaID ID="301926215"/>
+														<MediaID ID="41427836"/>
 													</MediaIDList>
 												</AudioFileSource>
 											</ChildrenList>
 											<ActiveSourceList>
-												<ActiveSource Name="SubMachineGun_Gunshot_Suppressed" ID="{D30AA4C6-8054-43AC-BD56-C66613CF6E84}" Platform="Linked"/>
+												<ActiveSource Name="Sniper_Rifle_Gunshot_Suppressed" ID="{99B1226B-FF3D-4C06-92CF-DB4F32DB7AD3}" Platform="Linked"/>
 											</ActiveSourceList>
 										</Sound>
 									</ChildrenList>
@@ -1280,14 +1308,14 @@
 												<ItemRef Name="SubMachineGun_Gunshot" ID="{8CE2155D-052B-4A76-B20C-57A8BB544AFE}"/>
 											</GroupingBehavior>
 											<GroupingBehavior>
-												<ItemRef Name="SubMachineGun_Gunshot_Suppressed" ID="{A83769CD-66E0-4AD0-A4B8-628582320720}"/>
+												<ItemRef Name="Sniper_Rifle_Gunshot_Suppressed" ID="{CD33ABAA-49D2-4F5B-8A55-97785282F9CB}"/>
 											</GroupingBehavior>
 										</GroupingBehaviorList>
 										<GroupingList>
 											<Grouping>
 												<SwitchRef Name="Suppressed" ID="{FCDE4C36-7DB9-4C1A-80D5-A2877B88F03D}"/>
 												<ItemList>
-													<ItemRef Name="SubMachineGun_Gunshot_Suppressed" ID="{A83769CD-66E0-4AD0-A4B8-628582320720}"/>
+													<ItemRef Name="Sniper_Rifle_Gunshot_Suppressed" ID="{CD33ABAA-49D2-4F5B-8A55-97785282F9CB}"/>
 												</ItemList>
 											</Grouping>
 											<Grouping>
