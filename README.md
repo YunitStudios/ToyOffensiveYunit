@@ -13,6 +13,10 @@
 
 ## Contributing
 
+> [!IMPORTANT]
+> As of the 27/03/2026, this project is no longer in active development.
+> Changes may still occur and are contributions are welcomed, but may not immediately be reviewed and pulled in.
+
 For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## High level Project Structure example
@@ -35,3 +39,52 @@ For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md)
 `SFX/` - Audio assets
     - Music
     - Sound effects (environment, weapons, characters)
+
+## Credits
+
+### Production
+Tayler Parsons
+Irvingas Sinkevicius
+
+### Design
+James Millar (Lead)
+Rhys Appleby
+Lucas Newman
+
+### Programming
+Katie Richards (Lead)
+Jasper Levin
+Oliver Lawrence
+
+### Art
+Kaan Meral (Lead)
+Louise Phillips
+Robbie Whaley
+Frankie Chan
+Thiago Bensted
+Joshua Taylor
+Valerie Andrews
+
+### Audio
+Scott Rowen
+Katie Richards
+
+### Animation
+Valerie Andrews (Lead)
+Louise Phillips
+Kaan Meral
+
+### Motion Capture
+Katie Richards - Technician
+Valerie Andrews - Director
+Kaan Meral - Actor
+Tayler Parsons - Actor
+Samuel Birmingham -Advisor
+Matthew Johnson - Advisor
+Louise Phillips - Assistant
+
+### Special Thanks
+Danny Boylan
+Richard May
+Matthew Stevens
+Samuel Birmingham
