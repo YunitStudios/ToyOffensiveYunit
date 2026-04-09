@@ -15,7 +15,8 @@
 
 > [!IMPORTANT]
 > As of the 27/03/2026, this project is no longer in active development.
-> Changes may still occur and are contributions are welcomed, but may not immediately be reviewed and pulled in.
+> 
+> Changes may still occur and contributions are welcomed, but may not be considered or immediately reviewed or pulled in.
 
 For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
