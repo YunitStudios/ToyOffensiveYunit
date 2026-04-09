@@ -1,5 +1,4 @@
-# Toy Soldiers
-
+# T\*O\*Y (formerly 'TOY SOLDIERS' / 'TOY SNIPER')
 ## Getting started
 
 ### Prerequisites
