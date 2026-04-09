@@ -44,47 +44,70 @@ For detailed contribution guidelines, see [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ### Production
 Tayler Parsons
+
 Irvingas Sinkevicius
 
 ### Design
 James Millar (Lead)
+
 Rhys Appleby
+
 Lucas Newman
 
 ### Programming
 Katie Richards (Lead)
+
 Jasper Levin
+
 Oliver Lawrence
 
 ### Art
 Kaan Meral (Lead)
+
 Louise Phillips
+
 Robbie Whaley
+
 Frankie Chan
+
 Thiago Bensted
+
 Joshua Taylor
+
 Valerie Andrews
 
 ### Audio
 Scott Rowen
+
 Katie Richards
 
 ### Animation
 Valerie Andrews (Lead)
+
 Louise Phillips
+
 Kaan Meral
 
 ### Motion Capture
 Katie Richards - Technician
+
 Valerie Andrews - Director
+
 Kaan Meral - Actor
+
 Tayler Parsons - Actor
+
 Samuel Birmingham -Advisor
+
 Matthew Johnson - Advisor
+
 Louise Phillips - Assistant
 
 ### Special Thanks
 Danny Boylan
+
 Richard May
+
 Matthew Stevens
+
 Samuel Birmingham
