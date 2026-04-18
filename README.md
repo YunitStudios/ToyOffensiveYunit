@@ -1,4 +1,7 @@
 # T\*O\*Y (formerly 'TOY SOLDIERS' / 'TOY SNIPER')
+
+![Demo Reel](GitAssets/ts-showreel.gif)
+
 ## Getting started
 
 ### Prerequisites
